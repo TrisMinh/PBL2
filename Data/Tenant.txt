@@ -1,0 +1,5 @@
+tenant_ID, room_ID, name, CCCD, age, address, phone_Number
+T.001, P01, Ahaha, 01220101, 19, 01 DaNang, 0914***001
+T.002, P02, Ahahi, 01220101, 19, 01 DaNang, 0914***002
+T.003, P03, Ahahe, 01220101, 19, 01 DaNang, 0914***003
+T.004, P04, Ahahu, 01220101, 19, 01 DaNang, 0914***004
