@@ -1,2 +1,0 @@
-payment_ID, contract_ID, amount,payment_Date, payment_Status
-P.01, ..., 10000, 20/10/2024, 1

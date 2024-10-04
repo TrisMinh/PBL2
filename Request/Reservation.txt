@@ -1,2 +1,0 @@
-reservation_Id, tenant_ID, room_ID, reservation_Date, status
-R.01, T.001, P01, 20/9/2024, 1

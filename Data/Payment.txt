@@ -1,0 +1,5 @@
+payment_ID,reservation_ID,payment_month,payment_day,rent_amount,service_amount,total_amount,status
+P.001,RS.001,10,2023-10-05,120,20,140,1
+P.002,RS.002,11,2023-11-06,80,10,90,1
+P.003,RS.003,10,2023-10-13,200,30,230,1
+P.004,RS.004,9,2023-09-20,60,15,75,1

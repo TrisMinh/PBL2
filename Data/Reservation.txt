@@ -1,0 +1,5 @@
+reservation_ID,room_ID,tenant_ID,start_day,rent_price,deposit_amount,status
+RS.001,R.001,T.001,2023-10-01,100,50,1
+RS.002,R.002,T.002,2023-11-05,200,30,1
+RS.003,R.003,T.003,2023-10-12,300,100,0
+RS.004,R.004,T.004,2023-09-18,100,20,1
