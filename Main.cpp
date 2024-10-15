@@ -7,7 +7,10 @@
 #include "LIB/Service.h"
 #include "LIB/ServiceUsage.h"
 #include "LIB/Payment.h"
+#include "Menu.h"
+
 int main() {
+    int totalroom = Room::get_total_room(); // need fix
     LinkedList<RoomType> roomtypeList;          roomtypeList.load("Data/RoomType.txt");
     LinkedList<Room> roomList;                  roomList.load("Data/Room.txt");
     LinkedList<Tenant> tenantList;              tenantList.load("Data/Tenant.txt");
@@ -15,12 +18,22 @@ int main() {
     LinkedList<ServiceUsage> serviceusageList;  serviceusageList.load("Data/ServiceUsage.txt");
     LinkedList<Reservation> reservationList;    reservationList.load("Data/Reservation.txt");
     LinkedList<Payment> paymentList;            paymentList.load("Data/Payment.txt");
+    displayMenu(roomList, tenantList);
+
+
+
+
+
+
+
+
+
     // cout << "Danh sach roomtype" << endl;
     // roomtypeList.show();
-    cout << "Danh sach cac phong" << endl;
-    roomList.show();
-    roomList.deleteNode("R.008");
-    roomList.show();
+    // cout << "Danh sach cac phong" << endl;
+    // roomList.show();
+    // roomList.deleteNode("R.008");
+    // roomList.show();
     // cout << "Danh sach nguoi thue" << endl;
     // tenantList.show();
     // cout << "Danh sach Reservation" << endl;

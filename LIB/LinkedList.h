@@ -86,6 +86,17 @@ public:
         }
         cout << "Khong Tim Thay trong danh sach " << value << ".\n";
     }
+    void edit(const string& ID) {
+        Node* current = head;
+        while (current) {
+            if (current->data.getId() == ID) {
+                current->data.updateRoom();
+                return;
+            }
+            current = current->next;
+        }
+        cout << "Khong tim thay phong voi ma so nay." << endl;
+    }
 
     T* search(const string& ID) {
         Node* current = head;
@@ -106,6 +117,28 @@ public:
         }
         cout << endl;
     }
-};
 
+    void sortByID(bool ascending = true) {
+        if (head == nullptr) return;
+
+        bool swapped;
+        do {
+            swapped = false;
+            Node* current = head;
+
+            while (current->next) {
+                // Lấy ID của hai nút hiện tại và kế tiếp
+                std::string id1 = current->data.getID();
+                std::string id2 = current->next->data.getID();
+
+                // So sánh và sắp xếp
+                if (ascending ? (id1 > id2) : (id1 < id2)) {
+                    std::swap(current->data, current->next->data);
+                    swapped = true;
+                }
+                current = current->next;
+            }
+        } while (swapped);
+    }
+};
 #endif
