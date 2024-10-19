@@ -1,14 +1,11 @@
 #ifndef ROOMTYPE_H
 #define ROOMTYPE_H
-
 #include <iostream>
 #include <string>
-#include <fstream>
 #include <sstream>
-#include "LinkedList.h"
 using namespace std;
-
 class RoomType {
+protected:
     string type_ID;
     string name;
     int price;
@@ -17,6 +14,11 @@ public:
     RoomType() {}
     RoomType(const string& id, const string& n, int p, const string& desc)
         : type_ID(id), name(n), price(p), description(desc) {}
+    // Getters
+    string getTypeID() const { return type_ID; }
+    string getName() const { return name; }
+    int getPrice() const { return price; }
+    string getDescription() const { return description; }
     void fromString(const string& line) {
         stringstream ss(line);
         getline(ss, type_ID, ',');
@@ -31,5 +33,4 @@ public:
         return os;
     }
 };
-
 #endif
