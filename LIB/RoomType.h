@@ -30,6 +30,7 @@ public:
     friend ostream& operator<<(ostream& os, const RoomType& rt) {
         os << "RoomType [ID: " << rt.type_ID << ", Name: " << rt.name
            << ", Price: " << rt.price << ", Description: " << rt.description << "]\n";
+           
         return os;
     }
 };
