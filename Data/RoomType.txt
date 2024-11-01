@@ -1,4 +1,6 @@
-type_ID,name,price,description
-RT.01,Small,100000,Phong nho danh cho 1 nguoi
-RT.02,Medium,200000,Phong vua danh cho 2 nguoi
-RT.03,Large,300000,Phong lon danh cho 3 nguoi
+type_ID,description,price,
+5
+RT.01,Phong nho danh cho 1 nguoi,100000.000000
+RT.02,Phong vua danh cho 2 nguoi,200000.000000
+RT.03,Phong lon danh cho 3 nguoi,300000.000000
+RT.05,Phong sieu nho,50000.000000

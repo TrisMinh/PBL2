@@ -1,4 +1,5 @@
 service_ID,name,unit_price,description
+8
 S.001,Laundry,10000,10k / 1kg
 S.002,Room Cleaning,20000,20k /1 time
 S.003,Internet,150000,150k / 1 month
