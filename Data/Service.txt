@@ -3,7 +3,7 @@ service_ID,name,unit_price,description
 S.001,Laundry,10000,10k / 1kg
 S.002,Room Cleaning,20000,20k /1 time
 S.003,Internet,150000,150k / 1 month
-S.004,Parking,5000,5k / 1 day
+S.004,Parking,0,free
 S.005,Breakfast,12000, Omelet with bread
 S.006,Electric,3000,3k / 1kW
 S.007,Water,5000, 5k / 1m^3

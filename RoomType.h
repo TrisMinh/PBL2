@@ -50,6 +50,7 @@ public:
     static void updateFile(const string& filename);
     static void showAllRoomTypes();
     static void searchByID();
+    static void searchAll();
 
     // Overloaded output operator
     friend ostream& operator<<(ostream& os, const RoomType& rt);

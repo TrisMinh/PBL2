@@ -1,21 +1,32 @@
 #include "Reservation.h"
+
+// Static Element
 int Reservation::total = 0;
 int Reservation::currentNumber = 0;
 LinkedList<Reservation> Reservation::reservationList;
 
+// Constructor
 Reservation::Reservation() {}
-
 Reservation::Reservation(const string& roomId, const string& tenantId, const DATE& start, int time, int stat)
     : room_ID(roomId), tenant_ID(tenantId), startDate(start), staytime(time), status(stat) {
-    total++;
     currentNumber++;
     reservation_ID = generateID(currentNumber);
     endDate = startDate + staytime; // Tính ngày kết thúc dựa trên `staytime`
 }
-
 Reservation::~Reservation() {}
 
-// Getter methods
+// ID Generate
+string Reservation::generateID(int number) {
+    stringstream ss;
+    ss << "RS." << setw(3) << setfill('0') << number;
+    return ss.str();
+}
+
+// Load function
+void Reservation::load(const string& filename) { reservationList.load(filename); }
+void Reservation::updateFile(const string& filename) { reservationList.updateFile(filename); }
+
+// Get function
 int Reservation::getprice() const {
     Room* room = Room::roomList.searchID(room_ID);
     return room->getPrice();
@@ -23,15 +34,11 @@ int Reservation::getprice() const {
 string Reservation::getID() const { return reservation_ID; }
 string Reservation::getRoomID() const { return room_ID; }
 string Reservation::getTenantID() const { return tenant_ID; }
-DATE Reservation::getStartDay() const { 
-    return startDate;
-}
-DATE Reservation::getEndDate() const { 
-    return endDate;
-}
+DATE Reservation::getStartDay() const { return startDate; }
+DATE Reservation::getEndDate() const {  return endDate; }
 int Reservation::getStatus() const { return status; }
 
-// Setter methods
+// Set function
 void Reservation::setRoomID(const string& id) { room_ID = id; }
 void Reservation::setTenantID(const string& id) { tenant_ID = id; }
 void Reservation::setStartDay(const string& day) {
@@ -40,32 +47,30 @@ void Reservation::setStartDay(const string& day) {
     char delimiter;
     ss >> d >> delimiter >> m >> delimiter >> y;
     startDate = DATE(d, m, y);
-    endDate = startDate + staytime; // Cập nhật lại endDate
+    endDate = startDate + staytime; 
 }
 void Reservation::setStatus(int stat) { status = stat; }
+
+// Ham bien doi nham doc du lieu tu file (moi du lieu se co 1 fromstring khac nhau)
 void Reservation::fromString(const string& line) {
     stringstream ss(line);
     getline(ss, reservation_ID, ',');
     getline(ss, room_ID, ',');
-    getline(ss, tenant_ID, ',');
-    
+    getline(ss, tenant_ID, ',');    
     string start_day;
     int staytime, status;
     getline(ss, start_day, ',');
     ss >> staytime;
     ss.ignore(1); // bỏ qua dấu phẩy
     ss >> status;
-
     this->startDate = DATE(stoi(start_day.substr(8, 2)), stoi(start_day.substr(5, 2)), stoi(start_day.substr(0, 4)));
     this->staytime = staytime;
     this->status = status;
-
-    // Tính endDate
     this->endDate = this->startDate + staytime;
-
     total++;
 }
 
+// Ham chuyen thanh chuoi de ghi du lieu vao file
 string Reservation::toString() const {
     stringstream ss;
     ss << reservation_ID << "," << room_ID << "," << tenant_ID << "," 
@@ -73,36 +78,28 @@ string Reservation::toString() const {
     return ss.str();
 }
 
-string Reservation::generateID(int number) {
-    stringstream ss;
-    ss << "RS." << setw(3) << setfill('0') << number;
-    return ss.str();
-}
+// Chuc nang co ban (Basic Function)
 void Reservation::addReservation() {
-    string room_ID, tenantID;
+    string room_ID, tenantID, startDatestr;;
     int staytime;
-    string startDatestr;
     DATE startDate;
-
     cout << "Danh sach phong con trong: " << endl;
     Room::roomList.searchStatus(0);
-
     cout << "Nhap Tenant ID: "; cin >> tenantID;
     cout << "Nhap Room ID: "; cin >> room_ID;
     cout << "Nhap Start Date (dd/mm/yyyy): "; cin >> startDatestr;
     startDate.fromString(startDatestr);
     cout << "Nhap Stay Time (so ngay): "; cin >> staytime;
-
     Room* room = Room::roomList.searchID(room_ID);
     if (room && room->getStatus() == 0) {
         Reservation newReservation(room_ID, tenantID, startDate, staytime);
         reservationList.add(newReservation);
         cout << "Them dat phong thanh cong!" << endl;
+        total++;
     } else {
         cout << "Khong the dat phong, phong da co nguoi hoac khong ton tai." << endl;
     }
 }
-
 
 void Reservation::updateReservation() {
     string id;
@@ -110,23 +107,17 @@ void Reservation::updateReservation() {
     Reservation* reservation = reservationList.searchID(id);
     if (reservation) {
         string newRoomID;
-        // Update Room ID
         cout << "Nhap Room ID moi: "; cin >> newRoomID;
         reservation->setRoomID(newRoomID);
 
-        // Update Start Date
         int day, month, year;
         cout << "Nhap ngay bat dau (dd mm yyyy): "; cin >> day >> month >> year;
         reservation->startDate = DATE(day, month, year);
 
-        // Update Stay Time
         int newStaytime;
         cout << "Nhap so ngay thue moi: ";cin >> newStaytime;
         reservation->staytime = newStaytime;
-
-        // Update End Date based on new start date and stay time
         reservation->endDate = reservation->startDate + newStaytime;
-
         cout << "Cap nhat dat phong thanh cong!" << endl;
     } else {
         cout << "Khong tim thay dat phong voi ID: " << id << endl;
@@ -135,12 +126,63 @@ void Reservation::updateReservation() {
 
 void Reservation::deleteReservation() {
     string reservationID;
-    cout << "Nhap Reservation ID de xoa: ";
-    cin >> reservationID;
+    cout << "Nhap Reservation ID de xoa: "; cin >> reservationID;
     reservationList.deleteNode(reservationID);
-    cout << "Reservation deleted successfully!" << endl;
     total--;
 }
+
+// Search Function
+void Reservation::searchByID() {
+    string reservationID;
+    cout << "Nhap Reservation ID de tim kiem: "; cin >> reservationID;
+    Reservation* reservation = reservationList.searchID(reservationID);
+    if (reservation) { cout << "Da tim thay: " << *reservation << endl; } 
+    else { cout << "Khong tim thay dat phong voi ID: " << reservationID << endl; }
+}
+
+void Reservation::searchByName() {
+    string name;
+    cout << "Nhap ten chu phong can tim kiem: "; cin >> name;
+    bool found = false;
+    LinkedList<Tenant>::Node* current1 = Tenant::tenantList.getHead();
+    while (current1 != nullptr) {
+        if (current1->data.getName() == name) {
+            break;
+        }
+        current1 = current1->next;
+    }
+    LinkedList<Reservation>::Node* current2 = Reservation::reservationList.getHead();
+    while (current2 != nullptr) {
+        if (current2->data.getTenantID() == current1->data.getID()) {
+            cout << current2->data;
+            found = true;
+        }
+        current2 = current2->next;
+    }
+    if (!found) {
+        cout << "Khong tim thay lenh dat phong nao voi ten: " << name << endl;
+    }
+}
+
+void Reservation::searchAll() {
+    int choice;
+    do {
+        cout << "Room Searching Function: " << endl
+             << "   1. Search by ID" << endl
+             << "   2. Search by Name" << endl
+             << "   0. Exit" << endl
+             << "Please enter your choice: ";
+        cin >> choice;
+        switch (choice) {
+        case 1: Reservation::searchByID(); break;
+        case 2: Reservation::searchByName(); break;
+        case 0: cout << "Exiting search menu." << endl; break;
+        default: cout << "Invalid choice. Please try again." << endl; break;
+        }
+    } while (choice != 0);
+}
+
+// Show Function
 void Reservation::showAllReservations() {
     cout << "Danh sach tat ca cac dich vu:" << endl;
     reservationList.show();
@@ -157,41 +199,7 @@ void Reservation::showAllReservations() {
     }
 }
 
-void Reservation::searchByID() {
-    string reservationID;
-    cout << "Nhap Reservation ID de tim kiem: "; cin >> reservationID;
-    Reservation* reservation = reservationList.searchID(reservationID);
-    if (reservation) {
-        cout << "Da tim thay: " << *reservation << endl;
-    } else {
-        cout << "Khong tim thay dat phong voi ID: " << reservationID << endl;
-    }
-}
-void Reservation::searchAll() {
-    int choice;
-    do {
-        cout << "   1. Search by ID" << endl
-             << "   2. Search by Name" << endl
-             << "   0. Exit" << endl;
-        cout << "Please enter your choice: ";
-        cin >> choice;
-        switch (choice) {
-        case 1:
-            Reservation::searchByID();
-            break;
-        case 2:
-            // Reservation::searchByName(reservationList);
-            break;
-        case 0:
-            cout << "Exiting search menu." << endl;
-            break;
-        default:
-            cout << "Invalid choice. Please try again." << endl;
-            break;
-        }
-    } while (choice != 0);
-}
-
+// Da nang hoa ham xuat
 ostream& operator<<(ostream& os, const Reservation& r) {
     os << left
        << setw(15) << ("Reservation ID: " + r.reservation_ID) << " | "
@@ -218,6 +226,3 @@ ostream& operator<<(ostream& os, const Reservation& r) {
     return os;
 }
 
-void Reservation::load(const string& filename) {
-    reservationList.load(filename);
-}

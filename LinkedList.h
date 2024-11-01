@@ -27,7 +27,7 @@ public:
     void load(const string& filename);
     void updateFile(const string& filename) const;
     void add(const T& data);
-    void deleteNode(const string& value);
+    Node* deleteNode(const string& value);
     void edit(const string& ID);
     Node* getHead();
     T* searchID(const string& ID) const;

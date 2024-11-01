@@ -4,6 +4,7 @@
 #include <string>
 #include <sstream>
 #include <iomanip>
+#include "Service.h"
 #include "LinkedList.h"
 using namespace std;
 class ServiceUsage {
@@ -19,6 +20,7 @@ public:
 
     ServiceUsage();
     ServiceUsage(const string& resId, const string& servId, int qty, int month);
+    ~ServiceUsage();
 
     static string generateID(int number);
     void setUsageID(const string& id);

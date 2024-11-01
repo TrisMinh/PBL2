@@ -1,12 +1,14 @@
 #ifndef ROOM_H
 #define ROOM_H
 
-#include <iostream>
-#include <string>
-#include <sstream>
-#include <iomanip>
-#include "LinkedList.h"
 #include "RoomType.h"
+#include "Tenant.h"
+#include "LinkedList.h"
+#include <fstream>
+#include <sstream>
+#include <iostream>
+#include <iomanip>
+
 
 using namespace std;
 
@@ -29,6 +31,7 @@ public:
     ~Room();
 
     // Getters
+    double getPrice() const;
     string getID() const;
     int getStatus() const;
     string getTenantID() const;
@@ -49,6 +52,7 @@ public:
     static void addRoom();
     static void searchByID();
     static void searchByStatus();
+    static void searchByName();
     static void searchAll();
     static void updateRoom();
     static void updateFile(const string& filename);

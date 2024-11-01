@@ -55,6 +55,7 @@ public:
 
     // Load reservations from file
     static void load(const string& filename);
+    static void updateFile(const string& filename);
 
     // Friend function to output reservation
     friend ostream& operator<<(ostream& os, const Reservation& r);
@@ -67,6 +68,7 @@ public:
 
     // Search and confirm reservation
     static void searchByID();
+    static void searchByName();
     static void searchAll();
 };
 

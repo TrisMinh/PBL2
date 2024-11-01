@@ -20,6 +20,7 @@ public:
 
     Service();
     Service(const string& n, int price, const string& desc);
+    ~Service();
 
     static string generateID(int number);
 

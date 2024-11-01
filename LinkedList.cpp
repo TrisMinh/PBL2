@@ -97,13 +97,13 @@ void LinkedList<T>::add(const T& data) {
     count++;
 }
 template <typename T>
-void LinkedList<T>::deleteNode(const string& value) {
+typename LinkedList<T>::Node* LinkedList<T>::deleteNode(const string& value) {
     Node* current = head;
     while (current != nullptr) {
         if (current->data.getID() == value) {
             if (head == nullptr) {
                 cout << "List is empty!!" << endl;
-                return;
+                return NULL;
             }
             if (head == current)
                 head = current->next;
@@ -113,10 +113,11 @@ void LinkedList<T>::deleteNode(const string& value) {
                 current->prev->next = current->next;
             if (tail == current)
                 tail = current->prev;
+            Node* temp = current;
             delete current;
             count--;
             cout << "Delete succesfully!" << endl;
-            return;
+            return temp;
         }
         current = current->next;
     }
@@ -139,6 +140,7 @@ template <typename T>
 void LinkedList<T>::show() const {
     cout << "Total: " << T::total << endl;
     Node* current = head;
+    if (current == NULL) { cout << "List is empty! " << endl;}
     while (current) {
         cout << current->data;
         current = current->next;

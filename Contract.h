@@ -51,8 +51,6 @@ public:
 
     // Load contracts from file
     static void load(const string& filename);
-
-    // Update contract information in file
     static void updateFile(const string& filename);
 
     // Overloaded output operator

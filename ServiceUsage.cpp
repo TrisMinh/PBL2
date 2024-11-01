@@ -1,33 +1,34 @@
 #include "ServiceUsage.h"
-using namespace std;
 
+// Static Element
 int ServiceUsage::total = 0;
 int ServiceUsage::currentNumber = 0;
 LinkedList<ServiceUsage> ServiceUsage::usageList;
 
-// Khởi tạo
+// Constructor
 ServiceUsage::ServiceUsage() {}
-
 ServiceUsage::ServiceUsage(const string& roomId, const string& servId, int qty, int month)
     : room_ID(roomId), service_ID(servId), quantity(qty), usage_month(month) {
-    total++;
     currentNumber++;
     usage_ID = generateID(currentNumber);
 }
+ServiceUsage::~ServiceUsage() {}
 
-// Lấy ID sử dụng
-string ServiceUsage::getID() const {
-    return usage_ID;
-}
-
-// Generate
+// ID Generate
 string ServiceUsage::generateID(int number) {
     stringstream ss;
     ss << "SU." << setw(3) << setfill('0') << number;
     return ss.str();
 }
 
-// Chuyển từ chuỗi
+// Load function
+void ServiceUsage::load(const string& filename) { usageList.load(filename); }
+void ServiceUsage::updateFile(const string& filename) { usageList.updateFile(filename); }
+
+// Get function
+string ServiceUsage::getID() const { return usage_ID; }
+
+// Ham bien doi nham doc du lieu tu file (moi du lieu se co 1 fromstring khac nhau)
 void ServiceUsage::fromString(const string& line) {
     stringstream ss(line);
     getline(ss, usage_ID, ',');
@@ -38,6 +39,8 @@ void ServiceUsage::fromString(const string& line) {
     ss >> usage_month;
     total++;
 }
+
+// Ham chuyen thanh chuoi de ghi du lieu vao file
 string ServiceUsage::toString() const {
     stringstream ss;
     ss << usage_ID << ',' << room_ID << ',' << service_ID << ',' 
@@ -45,37 +48,39 @@ string ServiceUsage::toString() const {
     return ss.str();
 }
 
-// Định nghĩa toán tử <<
-ostream& operator<<(ostream& os, const ServiceUsage& su) {
-    os << left
-       << setw(15) << ("Usage ID: " + su.usage_ID) << " | "
-       << setw(15) << ("Room ID: " + su.room_ID) << " | "
-       << setw(15) << ("Service ID: " + su.service_ID) << " | "
-       << setw(10) << ("Quantity: " + to_string(su.quantity)) << " | "
-       << setw(10) << ("Usage Month: " + to_string(su.usage_month)) << "\n";
-    return os;
-}
-
-// Thêm dịch vụ sử dụng
+// Chuc nang co ban (Basic Function)
 void ServiceUsage::addServiceUsage() {
     string room_ID, service_ID;
     int quantity, usage_month;
-    cout << "Room ID: "; cin >> room_ID;
-    cout << "Service ID: "; cin >> service_ID;
+    if (Service::serviceList.getHead() == NULL) { 
+        cout << "None of Service! " << endl;
+        return;
+    }
+    bool found1 = false;
+    bool found2 = false;
+    do{
+        cout << "Room ID: "; cin >> room_ID;
+        Room* room = Room::roomList.searchID(room_ID);
+        if (room != NULL && room->getStatus() == 1) { found1 = true; } 
+        else { cout << "Room ID not found or no owner. Please enter again! "<< endl; }
+    } while(!found1);
+    do{
+        cout << "Service ID: "; cin >> service_ID;
+        Service* service = Service::serviceList.searchID(service_ID);
+        if (service != NULL) { found2 = true;} 
+        else { cout << "Service ID not found. Please enter again! "<< endl; }
+    } while(!found2);
     cout << "Quantity: "; cin >> quantity;
     cout << "Usage Month: "; cin >> usage_month;
-
     ServiceUsage newUsage(room_ID, service_ID, quantity, usage_month);
     usageList.add(newUsage);
     cout << "Service usage added successfully!" << endl;
+    total++;
 }
 
-// Cập nhật dịch vụ sử dụng
 void ServiceUsage::updateServiceUsage() {
     string usageID;
-    cout << "Nhap Usage ID de cap nhat: ";
-    cin >> usageID;
-
+    cout << "Nhap Usage ID de cap nhat: "; cin >> usageID;
     ServiceUsage* usage = usageList.searchID(usageID);
     if (usage) {
         cout << "Cap nhat Usage ID: " << usage->usage_ID << endl;
@@ -83,67 +88,33 @@ void ServiceUsage::updateServiceUsage() {
         cout << "Service ID (nhap moi neu muon thay doi): "; cin >> usage->service_ID;
         cout << "Quantity: "; cin >> usage->quantity;
         cout << "Usage Month: "; cin >> usage->usage_month;
-
         cout << "Service usage updated successfully!" << endl;
     } else {
         cout << "Khong tim thay su dung dich vu voi ID: " << usageID << endl;
     }
 }
 
-// Xoá dịch vụ sử dụng
 void ServiceUsage::deleteServiceUsage() {
     string usageID;
-    cout << "Nhap Usage ID de xoa: ";
-    cin >> usageID;
+    cout << "Nhap Usage ID de xoa: "; cin >> usageID;
     usageList.deleteNode(usageID);
-    cout << "Service usage deleted successfully!" << endl;
     total--;
 }
 
-// Hiển thị toàn bộ dịch vụ sử dụng
-void ServiceUsage::showAllServiceUsages() {
-    cout << "Danh sach tat ca cac su dung dich vu:" << endl;
-    usageList.show();
-
-    cout << "1. Sap xep tang ID" << endl
-         << "2. Sap xep giam ID" << endl
-         << "0. Thoat!" << endl;
-
-    int choice;
-    cout << "Vui long chon mot lua chon: ";
-    cin >> choice;
-
-    switch (choice) {
-        case 1: usageList.sortByID(true); break;
-        case 2: usageList.sortByID(false); break;
-        default: return;
-    }
-    showAllServiceUsages(); // Gọi lại để hiển thị sau khi sắp xếp
-}
-
-// Tìm kiếm dịch vụ sử dụng theo ID
+// Search Function
 void ServiceUsage::searchByID() {
     string usageID;
-    cout << "Nhap Usage ID de tim kiem: ";
-    cin >> usageID;
-
+    cout << "Nhap Usage ID de tim kiem: "; cin >> usageID;
     ServiceUsage* usage = usageList.searchID(usageID);
-    if (usage) {
-        cout << "Da tim thay: " << *usage;
-    } else {
-        cout << "Khong tim thay su dung dich vu voi ID: " << usageID << endl;
-    }
+    if (usage) { cout << "Da tim thay: " << *usage; } 
+    else { cout << "Khong tim thay su dung dich vu voi ID: " << usageID << endl; }
 }
 
-// Tìm kiếm dịch vụ sử dụng theo RoomID
 void ServiceUsage::searchByRoomID() {
     string roomID;
-    cout << "Nhap RoomID de tim kiem dich vu da su dung: ";
-    cin >> roomID;
-
-    typename LinkedList<ServiceUsage>::Node* current = usageList.head;
+    cout << "Nhap RoomID de tim kiem dich vu da su dung: "; cin >> roomID;
+    LinkedList<ServiceUsage>::Node* current = usageList.head;
     bool found = false;
-
     while (current) {
         if (current->data.room_ID == roomID) {
             cout << "Da tim thay: " << current->data;
@@ -156,16 +127,13 @@ void ServiceUsage::searchByRoomID() {
     }
 }
 
-// Tìm kiếm dịch vụ sử dụng
 void ServiceUsage::searchAll() {
     int choice;
     do {
         cout << "   1. Search by RoomID" << endl
              << "   2. Search by ServiceUsageID" << endl
              << "   0. Exit" << endl;
-        cout << "Please enter your choice: ";
-        cin >> choice;
-
+        cout << "Please enter your option: "; cin >> choice;
         switch (choice) {
             case 1: searchByRoomID(); break;
             case 2: searchByID(); break;
@@ -175,9 +143,30 @@ void ServiceUsage::searchAll() {
     } while (choice != 0);
 }
 
-void ServiceUsage::load(const string& filename) {
-    usageList.load(filename);
+// Show Function
+void ServiceUsage::showAllServiceUsages() {
+    cout << "Danh sach tat ca cac su dung dich vu:" << endl;
+    usageList.show();
+    cout << "1. Sap xep tang ID" << endl
+         << "2. Sap xep giam ID" << endl
+         << "0. Thoat!" << endl;
+    int choice;
+    cout << "Lua chon cua ban: "; cin >> choice;
+    switch (choice) {
+        case 1: usageList.sortByID(true); showAllServiceUsages(); break;
+        case 2: usageList.sortByID(false); showAllServiceUsages();  break;
+        default: break;
+    }
 }
-void ServiceUsage::updateFile(const string& filename) {
-    usageList.updateFile(filename);
+
+// Da nang hoa ham xuat
+ostream& operator<<(ostream& os, const ServiceUsage& su) {
+    os << left
+       << setw(15) << ("Usage ID: " + su.usage_ID) << " | "
+       << setw(15) << ("Room ID: " + su.room_ID) << " | "
+       << setw(15) << ("Service ID: " + su.service_ID) << " | "
+       << setw(10) << ("Quantity: " + to_string(su.quantity)) << " | "
+       << setw(10) << ("Usage Month: " + to_string(su.usage_month)) << "\n";
+    return os;
 }
+

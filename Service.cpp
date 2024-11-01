@@ -2,41 +2,38 @@
 #include <iostream>
 #include <iomanip>
 #include <sstream>
-
 using namespace std;
 
+// Static Element
 int Service::total = 0;
 int Service::currentNumber = 0;
 LinkedList<Service> Service::serviceList;
 
-// Constructor mặc định và có tham số
+// Constructor
 Service::Service() {}
 Service::Service(const string& n, int price, const string& desc)
     : name(n), unit_price(price), description(desc) {
-    total++;
     currentNumber++;
     service_ID = generateID(currentNumber);
 }
+Service::~Service() {}
 
-// Hàm tạo ID tự động cho Service
+// ID Generate
 string Service::generateID(int number) {
     stringstream ss;
     ss << "S." << setw(3) << setfill('0') << number;
     return ss.str();
 }
+// Load function
+void Service::load(const string& filename) { serviceList.load(filename); }
+void Service::updateFile(const string& filename) { serviceList.updateFile(filename); }
 
-// Các hàm getter
+
+// Get Function
 string Service::getID() const { return service_ID; }
 string Service::getName() const { return name; }
 
-// Phương thức chuyển đổi `Service` thành chuỗi CSV
-string Service::toString() const {
-    stringstream ss;
-    ss << service_ID << "," << name << "," << unit_price << "," << description;
-    return ss.str();
-}
-
-// Phương thức đọc thông tin `Service` từ chuỗi CSV
+// Ham bien doi nham doc du lieu tu file (moi du lieu se co 1 fromstring khac nhau)
 void Service::fromString(const string& line) {
     stringstream ss(line);
     getline(ss, service_ID, ',');
@@ -47,46 +44,38 @@ void Service::fromString(const string& line) {
     total++;
 }
 
-// Thêm dịch vụ mới
+// Ham chuyen thanh chuoi de ghi du lieu vao file
+string Service::toString() const {
+    stringstream ss;
+    ss << service_ID << "," << name << "," << unit_price << "," << description;
+    return ss.str();
+}
+
+// Chuc nang co ban (Basic Function)
 void Service::addService() {
     string name, description;
     int unit_price;
-
-    cout << "Nhap ten dich vu: ";
-    cin.ignore();
-    getline(cin, name);
-    cout << "Nhap gia dich vu: ";
-    cin >> unit_price;
-    cout << "Nhap mo ta dich vu: ";
-    cin.ignore();
-    getline(cin, description);
-
+    cout << "Nhap ten dich vu: "; cin >> name;
+    cout << "Nhap gia dich vu: "; cin >> unit_price;
+    cout << "Nhap mo ta dich vu: "; cin >> description;
     Service service(name, unit_price, description);
     serviceList.add(service);
     cout << "Dich vu da duoc them voi ID: " << service.getID() << endl;
+    total++;
 }
 
-// Cập nhật dịch vụ
 void Service::updateService() {
     string serviceID;
-    cout << "Nhap Service ID de cap nhat: ";
-    cin >> serviceID;
-
+    cout << "Nhap Service ID de cap nhat: "; cin >> serviceID;
     Service* service = serviceList.searchID(serviceID);
     if (service) {
         string newName, newDescription;
         int newUnitPrice;
 
         cout << "Cap nhat Service ID: " << service->getID() << endl;
-        cout << "Ten (nhap moi neu muon thay doi): ";
-        cin.ignore();
-        getline(cin, newName);
-        cout << "Gia (nhap moi neu muon thay doi): ";
-        cin >> newUnitPrice;
-        cout << "Mo ta (nhap moi neu muon thay doi): ";
-        cin.ignore();
-        getline(cin, newDescription);
-
+        cout << "Ten (nhap moi neu muon thay doi): "; cin >> newName;
+        cout << "Gia (nhap moi neu muon thay doi): "; cin >> newUnitPrice;
+        cout << "Mo ta (nhap moi neu muon thay doi): "; cin >> newDescription;
         service->name = newName;
         service->unit_price = newUnitPrice;
         service->description = newDescription;
@@ -96,58 +85,27 @@ void Service::updateService() {
     }
 }
 
-// Xóa dịch vụ
 void Service::deleteService() {
     string serviceID;
-    cout << "Nhap Service ID de xoa: ";
-    cin >> serviceID;
+    cout << "Nhap Service ID de xoa: "; cin >> serviceID;
     serviceList.deleteNode(serviceID);
     total--;
 }
 
-// Hiển thị danh sách tất cả dịch vụ
-void Service::showAllServices() {
-    cout << "Danh sach tat ca cac dich vu:" << endl;
-    serviceList.show();
-    
-    int choice;
-    cout << "1. Sap xep tang ID" << endl
-         << "2. Sap xep giam ID" << endl
-         << "0. Thoat!" << endl;
-    cout << "Vui long chon mot lua chon: ";
-    cin >> choice;
-
-    switch (choice) {
-        case 1: serviceList.sortByID(true); showAllServices(); break;
-        case 2: serviceList.sortByID(false); showAllServices(); break;
-        default: break;
-    }
-}
-
-// Tìm kiếm dịch vụ theo ID
+// Search Function
 void Service::searchByID() {
     string serviceId;
-    cout << "Nhap service ID de tim kiem: ";
-    cin >> serviceId;
-
+    cout << "Nhap service ID de tim kiem: "; cin >> serviceId;
     Service* service = serviceList.searchID(serviceId);
-    if (service) {
-        cout << "Da tim thay: " << *service;
-    } else {
-        cout << "Khong tim thay dich vu voi ID: " << serviceId << endl;
-    }
+    if (service) { cout << "Da tim thay: " << *service; } 
+    else { cout << "Khong tim thay dich vu voi ID: " << serviceId << endl; }
 }
 
-// Tìm kiếm dịch vụ theo tên
 void Service::searchByName() {
     string name;
-    cout << "Nhap ten dich vu can tim kiem: ";
-    cin.ignore();
-    getline(cin, name);
-
+    cout << "Nhap ten dich vu can tim kiem: "; cin >> name;
     bool found = false;
-    typename LinkedList<Service>::Node* current = serviceList.getHead();
-
+    LinkedList<Service>::Node* current = serviceList.getHead();
     while (current != nullptr) {
         if (current->data.getName() == name) {
             cout << current->data;
@@ -155,32 +113,44 @@ void Service::searchByName() {
         }
         current = current->next;
     }
-
     if (!found) {
         cout << "Khong tim thay dich vu voi ten: " << name << endl;
     }
 }
 
-// Tìm kiếm tổng hợp
 void Service::searchAll() {
     int choice;
     do {
-        cout << "   1. Tim kiem theo ID" << endl
-             << "   2. Tim kiem theo ten" << endl
+        cout << "Service Searching Function: " << endl;
+        cout << "   1. Search By ServiceID" << endl
+             << "   2. Search By Service Name" << endl
              << "   0. Thoat" << endl;
-        cout << "Vui long chon mot lua chon: ";
-        cin >> choice;
-
+        cout << "Please enter your option: "; cin >> choice;
         switch (choice) {
             case 1: searchByID(); break;
             case 2: searchByName(); break;
-            case 0: cout << "Thoat menu tim kiem." << endl; break;
-            default: cout << "Lua chon khong hop le. Thu lai." << endl; break;
+            case 0: cout << "Exit Search Function." << endl; break;
+            default: cout << "Invalid selection. Please try again." << endl; break;
         }
     } while (choice != 0);
 }
+// Show Function
+void Service::showAllServices() {
+    cout << "Danh sach tat ca cac dich vu:" << endl;
+    serviceList.show();
+    cout << "1. Sap xep ID tang dan" << endl
+         << "2. Sap xep ID giam dan" << endl
+         << "0. Thoat" << endl;
+    int choice;
+    cout << "Lua chon cua ban: "; cin >> choice;
+    switch (choice) {
+        case 1: serviceList.sortByID(true); showAllServices(); break;
+        case 2: serviceList.sortByID(false); showAllServices(); break;
+        default: break;
+    }
+}
 
-// Hàm xuất dịch vụ
+// Da nang hoa ham xuat
 ostream& operator<<(ostream& os, const Service& s) {
     os << left
        << setw(15) << ("Service ID: " + s.service_ID) << " | "
@@ -190,10 +160,4 @@ ostream& operator<<(ostream& os, const Service& s) {
     return os;
 }
 
-void Service::load(const string& filename) {
-    serviceList.load(filename);
-}
-void Service::updateFile(const string& filename) {
-    serviceList.updateFile(filename);
-}
 
