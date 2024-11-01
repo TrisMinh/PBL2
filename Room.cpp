@@ -57,14 +57,11 @@ void Room::fromString(const string& line) {
 }
 
 // Convert Room object to string
-string Room::toString() const {
-    return room_ID + "," + roomType.getID() + "," + to_string(status) + "," + (tenant_ID.empty() ? "N/A" : tenant_ID);
-}
+string Room::toString() const { return room_ID + "," + roomType.getID() + "," + to_string(status) + "," + (tenant_ID.empty() ? "N/A" : tenant_ID); }
 
 // Load room data from a file
-void Room::load(const string& filename) {
-    roomList.load(filename);
-}
+void Room::load(const string& filename) { roomList.load(filename); }
+void Room::updateFile(const string& filename) { roomList.updateFile(filename); }
 
 // Adding a room
 void Room::addRoom() {
@@ -92,9 +89,8 @@ void Room::searchByID() {
     string roomID;
     cout << "Nhap ma phong (Room ID) de tim kiem: ";
     cin >> roomID;
-
     Room* room = roomList.searchID(roomID);
-    if (room) {
+    if (room != NULL) {
         cout << "Da tim thay phong: " << *room;
     } else {
         cout << "Khong tim thay phong voi ma ID: " << roomID << endl;
@@ -106,13 +102,11 @@ void Room::searchByStatus() {
     int status;
     cout << "Nhap trang thai phong can tim kiem (0: Trong, 1: Co nguoi): ";
     cin >> status;
-    roomList.searchStatus(status); // Assume LinkedList supports this method
+    roomList.searchStatus(status); 
 }
 
 // Display all rooms
-void Room::searchAll() {
-    roomList.show(); // Assume LinkedList supports show method
-}
+void Room::searchAll() { roomList.searchAll(roomList); }
 
 // Update a room's details
 void Room::updateRoom() {
@@ -145,15 +139,7 @@ void Room::deleteRoom() {
     string roomID;
     cout << "Nhap ma phong (Room ID) de xoa: ";
     cin >> roomID;
-
     roomList.deleteNode(roomID);
-    Room* room = roomList.searchID(roomID);
-    if (room == nullptr) {
-        cout << "Phong da duoc xoa thanh cong!" << endl;
-        total--;
-    } else {
-        cout << "Khong tim thay phong voi ma ID: " << roomID << endl;
-    }
 }
 
 // Show and sort all rooms
@@ -168,16 +154,9 @@ void Room::showAllRooms() {
     cout << "Lua chon cua ban: ";
     cin >> choice;
     switch (choice) {
-        case 1:
-            roomList.sortByID(true); 
-            showAllRooms();
-            break;
-        case 2:
-            roomList.sortByID(false); 
-            showAllRooms();
-            break;
-        default:
-            break;
+        case 1: roomList.sortByID(true); showAllRooms(); break;
+        case 2: roomList.sortByID(false); showAllRooms(); break;
+        default: break;
     }
 }
 
@@ -190,8 +169,4 @@ ostream& operator<<(ostream& os, const Room& r) {
        << setw(20) << ("Ma khach thue: " + (r.tenant_ID.empty() ? "N/A" : r.tenant_ID)) << " | "
        << "Gia: " << fixed << setprecision(2) << setw(10) << r.roomType.getPrice() << "\n";
     return os;
-}
-
-void Room::updateFile(const string& filename) {
-    roomList.updateFile(filename);
 }

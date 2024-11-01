@@ -105,20 +105,7 @@ void Tenant::searchByName() {
 }
 
 void Tenant::searchAll() {
-    int choice;
-    do {
-        cout << "   1. Search by ID" << endl
-             << "   2. Search by Name" << endl
-             << "   0. Exit" << endl;
-        cout << "Please enter your choice: "; cin >> choice;
-        
-        switch (choice) {
-            case 1: searchByID(); break;
-            case 2: searchByName(); break;
-            case 0: cout << "Exiting search menu." << endl; break;
-            default: cout << "Invalid choice. Please try again." << endl; break;
-        }
-    } while (choice != 0);
+    tenantList.searchAll(tenantList);
 }
 
 void Tenant::updateTenant() {
@@ -150,9 +137,7 @@ void Tenant::updateTenant() {
 void Tenant::deleteTenant() {
     string tenantId;
     cout << "Nhap Tenant ID de xoa: "; cin >> tenantId;
-
     tenantList.deleteNode(tenantId);
-    cout << "Xoa nguoi thue thanh cong!" << endl;
     total--;
 }
 

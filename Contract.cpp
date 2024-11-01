@@ -100,8 +100,25 @@ void Contract::confirmReservationandcreatContract() {
     string tempRE;
     do {
         Reservation::reservationList.searchStatus(1);
-        cout << "Enter ReservationID to manage (or type '0' to quit): "; 
-        cin >> tempRE;
+        do {
+            cout << "Enter ReservationID to manage (or type '0' to quit): "; 
+            cin >> tempRE;
+            
+            // Kiểm tra nếu nhập '0' để thoát
+            if (tempRE == "0") {
+                cout << "Exiting Reservation Confirm." << endl;
+                break;
+            }
+            
+            // Kiểm tra nếu không bắt đầu bằng "RS"
+            if (tempRE.substr(0, 2) != "RS") {
+                cout << "Invalid ReservationID. It must start with 'RS'. Please try again." << endl;
+                continue;
+            }
+            if (Reservation::reservationList.searchID(tempRE) == NULL) { 
+            cout << "ReservationID does not exist. Please try again." << endl;
+            }
+        } while (Reservation::reservationList.searchID(tempRE) == NULL);
         if (tempRE == "0") {
             cout << "Exiting Reservation Confirm." << endl;
             break;  

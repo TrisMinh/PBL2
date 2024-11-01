@@ -81,6 +81,7 @@ string Reservation::generateID(int number) {
 void Reservation::addReservation() {
     string room_ID, tenantID;
     int staytime;
+    string startDatestr;
     DATE startDate;
 
     cout << "Danh sach phong con trong: " << endl;
@@ -88,7 +89,8 @@ void Reservation::addReservation() {
 
     cout << "Nhap Tenant ID: "; cin >> tenantID;
     cout << "Nhap Room ID: "; cin >> room_ID;
-    cout << "Nhap Start Date (dd/mm/yyyy): "; cin >> startDate;
+    cout << "Nhap Start Date (dd/mm/yyyy): "; cin >> startDatestr;
+    startDate.fromString(startDatestr);
     cout << "Nhap Stay Time (so ngay): "; cin >> staytime;
 
     Room* room = Room::roomList.searchID(room_ID);

@@ -22,9 +22,9 @@ void displayAdminMenu() {
     cout << "  3. Service Management" << endl;
     cout << "  4. Service Usage Management" << endl;
     cout << "  5. Reservation Management" << endl;
-    cout << "  6. Payment Management" << endl;
-    cout << "  7. Maintenance Management" << endl;
-    cout << "  8. Reports and Statistics" << endl;
+    cout << "  6. Payment Management (Not)" << endl;
+    cout << "  7. Maintenance Management (Not)" << endl;
+    cout << "  8. Reports and Statistics (Not)" << endl;
     cout << "  9. RoomType Management" << endl;
     cout << "  10. Contract Management" << endl;
     cout << "  0. Exit" << endl;

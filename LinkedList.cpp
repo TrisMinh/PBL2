@@ -115,6 +115,7 @@ void LinkedList<T>::deleteNode(const string& value) {
                 tail = current->prev;
             delete current;
             count--;
+            cout << "Delete succesfully!" << endl;
             return;
         }
         current = current->next;
