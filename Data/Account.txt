@@ -1,5 +1,6 @@
-username,password,tenantID,roll,AdminCode:222
-3
-minhtridn99,minhtridn99,T.021
-minhtri,minhtridn9,T.021
-minhtri3,minhtri,T.021
+accountID,username,password,tenantID,roll,AdminCode:111
+4
+Account.001,tenant1,123,T.025,1
+Account.002,admin,123,Admin,1
+Account.003,tenant12,123,T.026,1
+Account.004,tenant11,123,T.027,1

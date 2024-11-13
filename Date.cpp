@@ -5,9 +5,9 @@ DATE::DATE(int d, int m, int y) :day(d), month(m), year(y) {}
 
 void DATE::fromString(const string& dateStr) {
     stringstream ss(dateStr);
-    char delimiter; // Dùng để đọc dấu phân cách '/'
+    char delimiter; 
     ss >> day >> delimiter >> month >> delimiter >> year; // Đọc ngày, tháng, năm
-    adjust(); // Có thể gọi hàm điều chỉnh nếu cần
+    adjust(); 
 }
 
 bool DATE::is_nam_nhuan(int year) {
@@ -49,9 +49,7 @@ void DATE::adjust() {
 }
 
 istream &operator >>(istream &is, DATE &date) {
-    cout << "Enter day: "; is >> date.day;
-    cout << "Enter month: "; is >> date.month;
-    cout << "Enter year: "; is >> date.year;
+    cout << "\nEnter day, month, year: "; is >> date.day >> date.month >> date.year;
     return is;
 } 
 

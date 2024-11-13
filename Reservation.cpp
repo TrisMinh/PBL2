@@ -81,20 +81,19 @@ string Reservation::toString() const {
 
 // Chuc nang co ban (Basic Function)
 void Reservation::addReservation() {
-    string room_ID, tenantID, startDatestr;;
+    string room_ID, tenantID;
     int staytime;
     DATE startDate;
     cout << "Danh sach phong con trong: " << endl;
     Room::roomList.searchStatus(0);
-    cout << "Nhap Tenant ID: "; cin >> tenantID;
     cout << "Nhap Room ID: "; cin >> room_ID;
-    cout << "Nhap Start Date (dd/mm/yyyy): "; cin >> startDatestr;
-    startDate.fromString(startDatestr);
+    cout << "Nhap Start Date: "; cin >> startDate;
     cout << "Nhap Stay Time (so ngay): "; cin >> staytime;
     Room* room = Room::roomList.searchID(room_ID);
     if (room && room->getStatus() == 0) {
-        Reservation newReservation(room_ID, tenantID, startDate, staytime);
+        Reservation newReservation(room_ID, Account::currentTenantID, startDate, staytime);
         reservationList.add(newReservation);
+        room->setStatus(2);
         cout << "Them dat phong thanh cong!" << endl;
         total++;
     } else {
@@ -202,13 +201,50 @@ void Reservation::showAllReservations() {
 
 // Da nang hoa ham xuat
 ostream& operator<<(ostream& os, const Reservation& r) {
+    // Định nghĩa độ rộng cho từng cột
+    const int width_reservation_id = 15;
+    const int width_room_id = 15;
+    const int width_tenant_id = 15;
+    const int width_start_date = 10;
+    const int width_end_date = 10;
+    const int width_status = 10;
+
+    static bool is_header_printed = false; // Biến tĩnh đảm bảo tiêu đề chỉ in một lần
+
+    // In tiêu đề bảng một lần duy nhất
+    if (!is_header_printed) {
+        os << left
+           << setw(width_reservation_id) << "Reservation ID" << " | "
+           << setw(width_room_id) << "Room ID" << " | "
+           << setw(width_tenant_id) << "Tenant ID" << " | "
+           << setw(width_start_date) << "Start Date" << " | "
+           << setw(width_end_date) << "End Date" << " | "
+           << setw(width_status) << "Status"
+           << endl;
+
+        // In dòng kẻ ngang phân cách tiêu đề và dữ liệu
+        os << setfill('-')
+           << setw(width_reservation_id + 20) << ""
+           << setw(width_room_id) << ""
+           << setw(width_tenant_id) << ""
+           << setw(width_start_date) << ""
+           << setw(width_end_date) << ""
+           << setw(width_status) << ""
+           << setfill(' ') << endl;
+
+        is_header_printed = true; // Đánh dấu đã in tiêu đề
+    }
+
+    // In dữ liệu Reservation
     os << left
-       << setw(15) << ("Reservation ID: " + r.reservation_ID) << " | "
-       << setw(15) << ("Room ID: " + r.room_ID) << " | "
-       << setw(15) << ("Tenant ID: " + r.tenant_ID) << " | "
-       << "Start Date: " << r.startDate << " | "
-       << "End Date: " << r.endDate << " | "
-       << setw(10) << "Status: ";
+       << setw(width_reservation_id) << r.reservation_ID << " | "
+       << setw(width_room_id) << r.room_ID << " | "
+       << setw(width_tenant_id) << r.tenant_ID << " | "
+       << setw(width_start_date) << r.startDate.toString() << " | "
+       << setw(width_end_date) << r.endDate.toString() << " | "
+       << setw(width_status);
+    
+    // In trạng thái
     switch (r.getStatus()) {
         case 0:
             os << "Complete";
@@ -223,7 +259,9 @@ ostream& operator<<(ostream& os, const Reservation& r) {
             os << "Unknown";
             break;
     }
+
     os << "\n";
     return os;
 }
+
 

@@ -138,7 +138,7 @@ void Contract::confirmReservationandcreatContract() {
     int choice;
     string tempRE;
     do {
-        Reservation::reservationList.searchStatus(1);
+        Reservation::reservationList.searchStatus(2);
         do {
             cout << "Enter ReservationID to manage (or type '0' to quit): "; cin >> tempRE;
             if (tempRE == "0") {
@@ -178,8 +178,10 @@ void Contract::confirmReservationandcreatContract() {
             }   
             case 2: {
                 Reservation* re = reservationList.searchID(tempRE);
+                Room* ro = Room::roomList.searchID(re->getRoomID());
                 if (re) {
                     re->setStatus(2); 
+                    ro->setStatus(0);
                     cout << "Reservation rejected." << endl;
                 } else {
                     cout << "Invalid Reservation ID." << endl;
@@ -201,19 +203,61 @@ void Contract::confirmReservationandcreatContract() {
 ostream& operator<<(ostream& os, const Contract& c) {
     Tenant* t = Tenant::tenantList.searchID(c.tenant_ID);
     Room* r = Room::roomList.searchID(c.room_ID);
-    os << "     --------------------------------\n"
-       << "     Contract ID: " << c.contractID << endl
-       << "     Room ID: " << c.room_ID << endl
-       << "     RoomType: " << r->getroomtype().getDescription() << endl
-       << "     Tenant ID: " << c.tenant_ID << endl 
-       << "     Name: " << t->getName() << endl
-       << "     Age: " << t->getAge() << endl
-       << "     CCCD: " << t->getCCCD() << endl
-       << "     Phone: " << t->getCCCD() << endl
-       << "     Start Date: " << c.startDate.toString() << endl 
-       << "     End Date: " << c.endDate.toString() << endl 
-       << "     Price: " << fixed << setprecision(2) << c.price << " VND/ 1 month\n" 
-       << "     --------------------------------\n";
+
+    // Định nghĩa độ rộng cho từng cột
+    const int width_id = 12;
+    const int width_room_id = 8;
+    const int width_room_type = 30;
+    const int width_tenant_id = 12;
+    const int width_name = 15;
+    const int width_age = 7;
+    const int width_cccd = 12;
+    const int width_phone = 12;
+    const int width_start_date = 15;
+    const int width_end_date = 15;
+    const int width_price = 10; // Giữ độ rộng lớn hơn cho giá để hiển thị chính xác
+
+    static bool is_header_printed = false; // Biến tĩnh đảm bảo tiêu đề chỉ in một lần
+
+    // In tiêu đề bảng một lần duy nhất
+    if (!is_header_printed) {
+        os << left
+           << setw(width_id) << "Contract ID" << " | "
+           << setw(width_room_id) << "Room ID" << " | "
+           << setw(width_room_type) << "Room Type" << " | "
+           << setw(width_tenant_id) << "Tenant ID" << " | "
+           << setw(width_name) << "Name" << " | "
+           << setw(width_age) << "Age" << " | "
+           << setw(width_cccd) << "CCCD" << " | "
+           << setw(width_phone) << "Phone" << " | "
+           << setw(width_start_date) << "Start Date" << " | "
+           << setw(width_end_date) << "End Date" << " | "
+           << setw(width_price) << "Price" << endl;
+
+        // In dòng kẻ ngang phân cách tiêu đề và dữ liệu
+        os << setfill('-')
+           << setw(width_id + width_room_id + width_room_type + width_tenant_id + width_name + width_age + width_cccd + width_phone + width_start_date + width_end_date + width_price + 45) << ""
+           << setfill(' ') << endl;
+
+        is_header_printed = true; // Đánh dấu đã in tiêu đề
+    }
+
+    // In thông tin hợp đồng
+    os << left
+       << setw(width_id) << c.contractID << " | "
+       << setw(width_room_id) << c.room_ID << " | "
+       << setw(width_room_type) << r->getroomtype().getDescription() << " | "
+       << setw(width_tenant_id) << c.tenant_ID << " | "
+       << setw(width_name) << t->getName() << " | "
+       << setw(width_age) << t->getAge() << " | "
+       << setw(width_cccd) << t->getCCCD() << " | "
+       << setw(width_phone) << t->getPhone() << " | "
+       << setw(width_start_date) << c.startDate.toString() << " | "
+       << setw(width_end_date) << c.endDate.toString() << " | "
+       << setw(width_price) << fixed << setprecision(2) << c.price << " VND/1 month" << endl;
+
     return os;
 }
+
+
 

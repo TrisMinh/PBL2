@@ -161,12 +161,45 @@ void ServiceUsage::showAllServiceUsages() {
 
 // Da nang hoa ham xuat
 ostream& operator<<(ostream& os, const ServiceUsage& su) {
+    // Định nghĩa độ rộng cho từng cột
+    const int width_usage_id = 15;
+    const int width_room_id = 15;
+    const int width_service_id = 15;
+    const int width_quantity = 10;
+    const int width_usage_month = 10;
+
+    static bool is_header_printed = false; // Biến tĩnh đảm bảo tiêu đề chỉ in một lần
+
+    // In tiêu đề bảng một lần duy nhất
+    if (!is_header_printed) {
+        os << left
+           << setw(width_usage_id) << "Usage ID" << " | "
+           << setw(width_room_id) << "Room ID" << " | "
+           << setw(width_service_id) << "Service ID" << " | "
+           << setw(width_quantity) << "Quantity" << " | "
+           << setw(width_usage_month) << "Usage Month"
+           << endl;
+
+        // In dòng kẻ ngang phân cách tiêu đề và dữ liệu
+        os << setfill('-')
+           << setw(width_usage_id + 2) << ""
+           << setw(width_room_id + 2) << ""
+           << setw(width_service_id + 2) << ""
+           << setw(width_quantity + 2) << ""
+           << setw(width_usage_month + 2) << ""
+           << setfill(' ') << endl;
+
+        is_header_printed = true; // Đánh dấu đã in tiêu đề
+    }
+
+    // In dữ liệu ServiceUsage
     os << left
-       << setw(15) << ("Usage ID: " + su.usage_ID) << " | "
-       << setw(15) << ("Room ID: " + su.room_ID) << " | "
-       << setw(15) << ("Service ID: " + su.service_ID) << " | "
-       << setw(10) << ("Quantity: " + to_string(su.quantity)) << " | "
-       << setw(10) << ("Usage Month: " + to_string(su.usage_month)) << "\n";
+       << setw(width_usage_id) << su.usage_ID << " | "
+       << setw(width_room_id) << su.room_ID << " | "
+       << setw(width_service_id) << su.service_ID << " | "
+       << setw(width_quantity) << su.quantity << " | "
+       << setw(width_usage_month) << su.usage_month
+       << endl;
+
     return os;
 }
-

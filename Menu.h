@@ -18,7 +18,7 @@ using namespace std;
 
 void displayAdminMenu() {
     cout << "\n========= ROOM MANAGEMENT SYSTEM MENU =========" << endl;
-    cout << "             Current TenantID: " << Account::currentTenantID << endl;
+    cout << "             Current UserID: " << Account::currentTenantID << endl;
     cout << "  1. Room Management " << endl;
     cout << "  2. Tenant Management" << endl;
     cout << "  3. Service Management" << endl;
@@ -31,6 +31,7 @@ void displayAdminMenu() {
     cout << "  10. Contract Management" << endl;
     cout << "  11. Update All File" << endl;
     cout << "  12. Set AdminCode" << endl;
+    cout << "  13. Account Management" << endl;
     cout << "  0. Exit" << endl;
     cout << "===============================================" << endl;
 }
@@ -74,22 +75,18 @@ void controlAdminMenu() {
                 int select;
                 do {
                     cout << "\n-- Tenant Management --" << endl
-                         << "   1. Add New Tenant" << endl
-                         << "   2. Edit Tenant Information" << endl
-                         << "   3. Delete Tenant" << endl
-                         << "   4. Display Tenant List" << endl
-                         << "   5. Search Tenant" << endl
-                         << "   6. Update File" << endl
+                         << "   1. Edit Tenant Information" << endl
+                         << "   2. Display Tenant List" << endl
+                         << "   3. Search Tenant" << endl
+                         << "   4. Update File" << endl
                          << "   0. Back to Main Menu" << endl;
                     cout << "Please select an option: ";
                     cin >> select;
                     switch (select) {
-                        case 1: Tenant::addTenant(); break;
-                        case 2: Tenant::updateTenant(); break;
-                        case 3: Tenant::deleteTenant(); break;
-                        case 4: Tenant::showAllTenants(); break;
-                        case 5: Tenant::searchAll(); break;
-                        case 6: Tenant::updateFile("Data/Tenant.txt"); break;
+                        case 1: Tenant::updateTenant(); break;
+                        case 2: Tenant::showAllTenants(); break;
+                        case 3: Tenant::searchAll(); break;
+                        case 4: Tenant::updateFile("Data/Tenant.txt"); break;
                         case 0: cout << "Exiting Tenant Management." << endl; break;
                         default: cout << "Invalid selection. Please try again." << endl; break;
                     }
@@ -278,8 +275,13 @@ void controlAdminMenu() {
                 Reservation::updateFile("Data/Reservation.txt"); 
                 Contract::updateFile("Data/Contract.txt");
                 break;
-            case 12:
+            case 12: 
+                cout << "-- AdminCode Changing --" << endl;
                 Account::setAdminCode();
+                break;
+            case 13:
+                cout << "-- Account Management -- (need search by roll tenant or admin)" << endl;
+                Account::showAllAccount();
                 break;
             case 0: cout << "Exiting program. Thank you!" << endl; break;
             default: cout << "Invalid selection. Please try again." << endl; break;
@@ -338,18 +340,6 @@ void controlTenantMenu() {
                 break; 
         } 
     } while (choice != 0);
-}
-
-void displayMenu() {
-    bool rollcheck;
-    cout << "Who are you? (0:Admin | 1:Tenant)" << endl;
-    cin >> rollcheck;
-    if (rollcheck == 0) {
-        controlAdminMenu();
-    }
-    else {
-        controlTenantMenu(); 
-    }
 }
 
 void displayLoginMenu() {

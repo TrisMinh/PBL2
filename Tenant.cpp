@@ -170,12 +170,47 @@ void Tenant::showAllTenants() {
 
 // Da nang hoa ham xuat
 ostream& operator<<(ostream& os, const Tenant& t) {
+    // Định nghĩa độ rộng cho từng cột
+    const int width_tenant_id = 15;
+    const int width_name = 20;
+    const int width_phone = 20;
+    const int width_age = 10;
+    const int width_cccd = 15;
+
+    static bool is_header_printed = false; // Biến tĩnh đảm bảo tiêu đề chỉ in một lần
+
+    // In tiêu đề bảng một lần duy nhất
+    if (!is_header_printed) {
+        os << left
+           << setw(width_tenant_id) << "Tenant ID" << " | "
+           << setw(width_name) << "Name" << " | "
+           << setw(width_phone) << "Phone" << " | "
+           << setw(width_age) << "Age" << " | "
+           << setw(width_cccd) << "CCCD"
+           << endl;
+
+        // In dòng kẻ ngang phân cách tiêu đề và dữ liệu
+        os << setfill('-')
+           << setw(width_tenant_id + 2) << ""
+           << setw(width_name + 3) << ""
+           << setw(width_phone + 3) << ""
+           << setw(width_age + 3) << ""
+           << setw(width_cccd + 1) << ""
+           << setfill(' ') << endl;
+
+        is_header_printed = true; // Đánh dấu đã in tiêu đề
+    }
+
+    // In dữ liệu Tenant
     os << left
-       << setw(15) << ("Tenant ID: " + t.tenant_ID) << " | "
-       << setw(15) << ("Ten: " + t.name) << " | "
-       << setw(20) << ("So dien thoai: " + t.phone) << " | "
-       << setw(10) << ("Tuoi: " + to_string(t.age)) << " | "
-       << setw(15) << ("CCCD: " + t.cccd) << "\n";
+       << setw(width_tenant_id) << t.tenant_ID << " | "
+       << setw(width_name) << t.name << " | "
+       << setw(width_phone) << t.phone << " | "
+       << setw(width_age) << to_string(t.age) << " | "
+       << setw(width_cccd) << t.cccd
+       << endl;
+
     return os;
 }
+
 

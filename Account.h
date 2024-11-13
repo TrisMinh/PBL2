@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <ctime>
 #include "LinkedList.h"
 #include "Tenant.h"
 using namespace std;

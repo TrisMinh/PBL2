@@ -120,9 +120,39 @@ void RoomType::showAllRoomTypes() {
 
 // Da nang hoa ham xuat
 ostream& operator<<(ostream& os, const RoomType& rt) {
-    os << "Type ID: " << rt.getID() << ", "
-       << "Description: " << rt.getDescription() << ", "
-       << "Price: " << rt.getPrice() << "\n";
+    // Định nghĩa độ rộng cho từng cột
+    const int width_type_id = 15;
+    const int width_description = 30;
+    const int width_price = 10;
+
+    static bool is_header_printed = false; // Biến tĩnh đảm bảo tiêu đề chỉ in một lần
+
+    // In tiêu đề bảng một lần duy nhất
+    if (!is_header_printed) {
+        os << left
+           << setw(width_type_id) << "Type ID" << " | "
+           << setw(width_description) << "Description" << " | "
+           << setw(width_price) << "Price"
+           << endl;
+
+        // In dòng kẻ ngang phân cách tiêu đề và dữ liệu
+        os << setfill('-')
+           << setw(width_type_id + 2) << ""
+           << setw(width_description + 3) << ""
+           << setw(width_price + 1) << ""
+           << setfill(' ') << endl;
+
+        is_header_printed = true; // Đánh dấu đã in tiêu đề
+    }
+
+    // In dữ liệu RoomType
+    os << left
+       << setw(width_type_id) << rt.getID() << " | "
+       << setw(width_description) << rt.getDescription() << " | "
+       << setw(width_price) << fixed << setprecision(2) << rt.getPrice()
+       << endl;
+
     return os;
 }
+
 

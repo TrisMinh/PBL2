@@ -186,11 +186,44 @@ void Room::showAllRooms() {
 
 // Da nang hoa ham xuat
 ostream& operator<<(ostream& os, const Room& r) {
-    os << left
-       << setw(15) << ("Ma phong: " + r.room_ID) << " | "
-       << setw(15) << ("Loai phong: " + r.roomType.getID()) << " | "
-       << setw(10) << ("Trang thai: " + to_string(r.status)) << " | "
-       << setw(20) << ("Ma khach thue: " + (r.tenant_ID.empty() ? "N/A" : r.tenant_ID)) << " | "
-       << "Gia: " << fixed << setprecision(2) << setw(10) << r.roomType.getPrice() << "\n";
+    // Định nghĩa độ rộng cho từng cột
+    const int width_room_id = 15;
+    const int width_room_type = 15;
+    const int width_status = 15;
+    const int width_tenant_id = 20;
+    const int width_price = 10;
+
+    static bool is_header_printed = false; // Biến tĩnh đảm bảo tiêu đề chỉ in một lần
+
+    // In tiêu đề bảng một lần duy nhất
+    if (!is_header_printed) {
+        os << left
+           << setw(width_room_id) << "Ma phong" << " | "
+           << setw(width_room_type) << "Loai phong" << " | "
+           << setw(width_status) << "Trang thai" << " | "
+           << setw(width_tenant_id) << "Ma khach thue" << " | "
+           << setw(width_price) << "Gia" 
+           << endl;
+
+        // In dòng kẻ ngang phân cách tiêu đề và dữ liệu
+        os << setfill('-')
+           << setw(width_room_id + 2) << ""
+           << setw(width_room_type + 3) << ""
+           << setw(width_status + 3) << ""
+           << setw(width_tenant_id + 3) << ""
+           << setw(width_price + 1) << ""
+           << setfill(' ') << endl;
+
+        is_header_printed = true; // Đánh dấu đã in tiêu đề
+    }
+
+    // In dữ liệu phòng
+    os << left 
+       << setw(width_room_id) << r.room_ID << " | "
+       << setw(width_room_type) << r.roomType.getID() << " | "
+       << setw(width_status) << (r.status == 0 ? "Trong" : (r.status == 1 ? "Dang thue" : "Da dat")) << " | "
+       << setw(width_tenant_id) << (r.tenant_ID.empty() ? "N/A" : r.tenant_ID) << " | "
+       << fixed << setprecision(2) << setw(width_price) << r.roomType.getPrice() << endl;
+
     return os;
 }

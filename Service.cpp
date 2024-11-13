@@ -152,12 +152,42 @@ void Service::showAllServices() {
 
 // Da nang hoa ham xuat
 ostream& operator<<(ostream& os, const Service& s) {
+    // Định nghĩa độ rộng cho từng cột
+    const int width_service_id = 15;
+    const int width_name = 20;
+    const int width_price = 10;
+    const int width_description = 30;
+
+    static bool is_header_printed = false; // Biến tĩnh đảm bảo tiêu đề chỉ in một lần
+
+    // In tiêu đề bảng một lần duy nhất
+    if (!is_header_printed) {
+        os << left
+           << setw(width_service_id) << "Service ID" << " | "
+           << setw(width_name) << "Service Name" << " | "
+           << setw(width_price) << "Price" << " | "
+           << setw(width_description) << "Description"
+           << endl;
+
+        // In dòng kẻ ngang phân cách tiêu đề và dữ liệu
+        os << setfill('-')
+           << setw(width_service_id + 2) << ""
+           << setw(width_name + 3) << ""
+           << setw(width_price + 3) << ""
+           << setw(width_description + 3) << ""
+           << setfill(' ') << endl;
+
+        is_header_printed = true; // Đánh dấu đã in tiêu đề
+    }
+
+    // In dữ liệu Service
     os << left
-       << setw(15) << ("Service ID: " + s.service_ID) << " | "
-       << setw(15) << ("Ten dich vu: " + s.name) << " | "
-       << setw(10) << ("Gia: " + to_string(s.unit_price)) << " | "
-       << setw(30) << ("Mo ta: " + s.description) << "\n";
+       << setw(width_service_id) << s.service_ID << " | "
+       << setw(width_name) << s.name << " | "
+       << setw(width_price) << fixed << setprecision(2) << s.unit_price << " | "
+       << setw(width_description) << s.description
+       << endl;
+
     return os;
 }
-
 
