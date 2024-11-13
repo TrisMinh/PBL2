@@ -24,6 +24,10 @@ int LinkedList<T>::size() const {
     return count;
 }
 template <typename T>
+typename LinkedList<T>::Node* LinkedList<T>::begin() { return head; }
+template <typename T>
+typename LinkedList<T>::Node* LinkedList<T>::end() { return nullptr; }
+template <typename T>
 typename LinkedList<T>::Node* LinkedList<T>::getHead() {
     return head;
 }
@@ -67,21 +71,13 @@ void LinkedList<T>::updateFile(const string& filename) const {
         return;
     }
     ofstream file(filename);
-    if (!file.is_open()) {
-        cerr << "Cannot open file " << filename << endl;
-        return;
-    }
     file << firstline << endl;
-    // Ghi currentNumber ra dòng đầu tiên
     file << T::currentNumber << endl;
-    
-    // Ghi các đối tượng trong danh sách ra file
     Node* current = head;
     while (current != nullptr) {
         file << current->data.toString() << endl;
         current = current->next;
     }
-    cout << "Updated!" << endl;
     file.close();
 }
 template <typename T>
@@ -174,7 +170,6 @@ void LinkedList<T>::sortByAlphabet(bool ascending) {
         while (current->next) {
             string name1 = current->data.getName();
             string name2 = current->next->data.getName();
-            // Compare names directly
             bool shouldSwap = ascending ? (name1 > name2) : (name1 < name2);
             if (shouldSwap) {
                 swap(current->data, current->next->data);
@@ -235,7 +230,7 @@ void LinkedList<T>::searchAll(LinkedList<T>& list) {
             cout << "Invalid choice. Please try again." << endl;
             break;
         }
-    } while (choice != 0);  // Vòng lặp sẽ tiếp tục cho đến khi người dùng chọn 0 để thoát
+    } while (choice != 0);  
 }
 template <typename T>
 const T& LinkedList<T>::operator[](int index) const {

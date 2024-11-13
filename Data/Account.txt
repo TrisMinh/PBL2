@@ -1,0 +1,5 @@
+username,password,tenantID,roll,AdminCode:222
+3
+minhtridn99,minhtridn99,T.021
+minhtri,minhtridn9,T.021
+minhtri3,minhtri,T.021

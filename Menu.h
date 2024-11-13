@@ -10,6 +10,7 @@
 #include "ServiceUsage.h"
 #include "Reservation.h"
 #include "Contract.h"
+#include "Account.h"
 
 
 // #include "Payment.cpp"
@@ -17,6 +18,7 @@ using namespace std;
 
 void displayAdminMenu() {
     cout << "\n========= ROOM MANAGEMENT SYSTEM MENU =========" << endl;
+    cout << "             Current TenantID: " << Account::currentTenantID << endl;
     cout << "  1. Room Management " << endl;
     cout << "  2. Tenant Management" << endl;
     cout << "  3. Service Management" << endl;
@@ -27,6 +29,8 @@ void displayAdminMenu() {
     cout << "  8. Reports and Statistics (Not)" << endl;
     cout << "  9. RoomType Management" << endl;
     cout << "  10. Contract Management" << endl;
+    cout << "  11. Update All File" << endl;
+    cout << "  12. Set AdminCode" << endl;
     cout << "  0. Exit" << endl;
     cout << "===============================================" << endl;
 }
@@ -164,8 +168,8 @@ void controlAdminMenu() {
                         case 3: Reservation::deleteReservation(); break;
                         case 4: Reservation::showAllReservations(); break;
                         case 5: Reservation::searchAll(); break;
-                        case 7: Contract::confirmReservationandcreatContract();
-                        // case 6: reservationList.updateFile("Data/Reservation.txt"); break;
+                        case 6: Reservation::updateFile("Data/Reservation.txt"); break;
+                        case 7: Contract::confirmReservationandcreatContract(); break;
                         case 0: cout << "Exiting Reservation Management." << endl; break;
                         default: cout << "Invalid selection. Please try again." << endl; break;
                     }
@@ -265,6 +269,18 @@ void controlAdminMenu() {
                 } while (select != 0);
                 break;
             }
+            case 11: 
+                RoomType::updateFile("Data/RoomType.txt");
+                Room::updateFile("Data/Room.txt");
+                Tenant::updateFile("Data/Tenant.txt");
+                Service::updateFile("Data/Service.txt");
+                ServiceUsage::updateFile("Data/ServiceUsage.txt");
+                Reservation::updateFile("Data/Reservation.txt"); 
+                Contract::updateFile("Data/Contract.txt");
+                break;
+            case 12:
+                Account::setAdminCode();
+                break;
             case 0: cout << "Exiting program. Thank you!" << endl; break;
             default: cout << "Invalid selection. Please try again." << endl; break;
         }
@@ -336,6 +352,38 @@ void displayMenu() {
     }
 }
 
-   
+void displayLoginMenu() {
+    int choice;
+    do {
+        cout << "\n========= LOGIN MENU =========" << endl;
+        cout << "  1. Sign in" << endl;
+        cout << "  2. Sign up" << endl;
+        cout << "  0. Exit" << endl;
+        cout << "==============================" << endl;
+        cout << "Please select an option: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1: // Sign in
+                if (Account::signin()) {
+                    choice  = 0;
+                    controlAdminMenu();
+                } 
+                break;
+            case 2: // Sign up
+                Account::signup();
+                break;
+            case 0:
+                cout << "Exiting program. Thank you!" << endl;
+                break;
+            default:
+                cout << "Invalid selection. Please try again." << endl;
+                break;
+        }
+    } while (choice != 0);
+}   
+
+
+
 
 #endif

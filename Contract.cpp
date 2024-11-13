@@ -50,7 +50,6 @@ void Contract::fromString(const string& line) {
     getline(ss, contractID, ',');          // Đọc mã hợp đồng
     getline(ss, room_ID, ',');             // Đọc mã phòng
     getline(ss, tenant_ID, ',');           // Đọc mã khách thuê
-    getline(ss, reservation_ID, ',');      // Đọc ID của đặt phòng
     getline(ss, startDateStr, ',');        // Đọc ngày bắt đầu dưới dạng chuỗi
     getline(ss, endDateStr, ',');          // Đọc ngày kết thúc dưới dạng chuỗi
     ss >> staytime;                        // Đọc thời gian lưu trú
@@ -71,7 +70,6 @@ string Contract::toString() const {
     ss << contractID << ',' 
        << room_ID << ','           // Mã phòng
        << tenant_ID << ','         // Mã khách thuê
-       << reservation_ID << ','    // ID của đặt phòng
        << startDate.toString() << ',' // Chuyển đổi ngày bắt đầu sang chuỗi
        << endDate.toString() << ','   // Chuyển đổi ngày kết thúc sang chuỗi
        << staytime << ','          // Thời gian lưu trú

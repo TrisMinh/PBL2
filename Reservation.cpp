@@ -70,11 +70,12 @@ void Reservation::fromString(const string& line) {
     total++;
 }
 
+
 // Ham chuyen thanh chuoi de ghi du lieu vao file
 string Reservation::toString() const {
     stringstream ss;
     ss << reservation_ID << "," << room_ID << "," << tenant_ID << "," 
-       << startDate << "," << staytime << "," << status;
+       << startDate.toString() << "," << staytime << "," << status;
     return ss.str();
 }
 
