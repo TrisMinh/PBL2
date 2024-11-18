@@ -52,24 +52,29 @@ string RoomType::toString() const {
 void RoomType::addRoomType() {
     string desc;
     double price;
-    cout << "Enter description: "; cin >> desc;
+    cin.ignore(); // vì 1 thứ gì đó ở phía trước nên cần cái này để nhập đc desc
+    cout << "Enter description: "; getline(cin,desc);
     cout << "Enter price: "; cin >> price;
     roomTypeList.add(RoomType(desc, price));total++;
     cout << "RoomType added successfully!\n";
 }
 
 void RoomType::updateRoomType() {
-    string id;
-    cout << "Enter RoomType ID to update: "; cin >> id;
+    string id, des;
+    double p;
+    cout << "Enter RoomType ID to update: ";
+    cin >> id;
+    cin.ignore();
     RoomType* roomType = roomTypeList.searchID(id);
     if (roomType) {
-        cout << "Enter new description: "; cin >> roomType->description;
-        cout << "Enter new price: "; cin >> roomType->price;
+        cout << "Enter new description: "; getline(cin, des); roomType->setDescription(des);
+        cout << "Enter new price () : "; cin >> p; roomType->setPrice(p);
         cout << "RoomType updated successfully!\n";
     } else {
         cout << "RoomType ID not found!\n";
     }
 }
+
 
 void RoomType::deleteRoomType() {
     string id;

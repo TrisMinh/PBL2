@@ -14,19 +14,18 @@ using namespace std;
 
 class Room : public RoomType {
 protected:
-    string room_ID;       // ID của phòng
-    RoomType roomType;    // Loại phòng
-    int status;           // Trạng thái phòng (ví dụ: trống, đã thuê)
-    string tenant_ID;     // ID của người thuê phòng
+    string room_ID;       
+    RoomType roomType;   
+    int status;          
+    string tenant_ID;    
 public:
-    static int total;          // Tổng số phòng
-    static int currentNumber;  // Số lượng phòng hiện tại
+    static int total;          
+    static int currentNumber; 
     static LinkedList<Room> roomList; 
 
     // Constructors
     Room();
     Room(const RoomType& type, int s, const string& tenantId = "");
-
     // Destructor
     ~Room();
 
@@ -35,7 +34,7 @@ public:
     string getID() const;
     int getStatus() const;
     string getTenantID() const;
-    RoomType getroomtype();
+    RoomType getroomtype() const;
 
     // Setters
     void setStatus(int status);
@@ -53,11 +52,13 @@ public:
     static void searchByID();
     static void searchByStatus();
     static void searchByName();
+    static void searchRoomByTenantID(const string& id);
     static void searchAll();
     static void updateRoom();
     static void updateFile(const string& filename);
     static void deleteRoom();
     static void showAllRooms();
+    void resetRoom();
 
     // Overloaded output operator
     friend ostream& operator<<(ostream& os, const Room& r);

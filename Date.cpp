@@ -3,11 +3,14 @@ using namespace std;
 
 DATE::DATE(int d, int m, int y) :day(d), month(m), year(y) {}
 
+int DATE::get_year() const { return year; };
+int DATE::get_month() const { return month; };
+int DATE::get_day() const { return day; };
+
 void DATE::fromString(const string& dateStr) {
     stringstream ss(dateStr);
     char delimiter; 
     ss >> day >> delimiter >> month >> delimiter >> year; // Đọc ngày, tháng, năm
-    adjust(); 
 }
 
 bool DATE::is_nam_nhuan(int year) {
@@ -95,3 +98,38 @@ DATE DATE::operator-(int days) const {
     temp.adjust();
     return temp;
 }
+
+DATE DATE::addMonths(int months) const {
+    DATE temp = *this;
+    temp.month += months;
+    
+    // Điều chỉnh năm nếu tháng > 12
+    while (temp.month > 12) {
+        temp.month -= 12;
+        temp.year++;
+    }
+    
+    // Điều chỉnh ngày nếu vượt quá số ngày trong tháng mới
+    int max_days = temp.day_in_month(temp.month, temp.year);
+    if (temp.day > max_days) {
+        temp.day = max_days;
+    }
+    
+    return temp;
+}
+
+int DATE::toDays() {
+    int totalDays = day;
+    for (int i = 1; i < year; ++i) {
+        totalDays += (is_nam_nhuan(i) ? 366 : 365);
+    }
+    for (int i = 1; i < month; ++i) {
+        totalDays += day_in_month(i, year);
+    }
+    return totalDays;
+}
+
+int DATE::operator-(DATE& other)  {
+    return this->toDays() - other.toDays();
+}
+

@@ -93,13 +93,13 @@ void LinkedList<T>::add(const T& data) {
     count++;
 }
 template <typename T>
-typename LinkedList<T>::Node* LinkedList<T>::deleteNode(const string& value) {
+void LinkedList<T>::deleteNode(const string& value) {
     Node* current = head;
     while (current != nullptr) {
         if (current->data.getID() == value) {
             if (head == nullptr) {
                 cout << "List is empty!!" << endl;
-                return NULL;
+                return;
             }
             if (head == current)
                 head = current->next;
@@ -109,16 +109,15 @@ typename LinkedList<T>::Node* LinkedList<T>::deleteNode(const string& value) {
                 current->prev->next = current->next;
             if (tail == current)
                 tail = current->prev;
-            Node* temp = current;
-            delete current;
+            delete current;  // Xóa nút hiện tại
             count--;
-            cout << "Delete succesfully!" << endl;
-            return temp;
+            return;
         }
         current = current->next;
     }
-    cout << "Not found in the list " << value << ".\n";
+    cout << "Not found in the list: " << value << ".\n";
 }
+
 template <typename T>
 void LinkedList<T>::edit(const string& ID) {
     Node* current = head;
@@ -208,45 +207,7 @@ void LinkedList<T>::searchStatus(const int& status) {
     }
 }
 template <typename T>
-void LinkedList<T>::searchAll(LinkedList<T>& list) {
-    int choice;
-    do {
-        cout << "   1. Search by ID" << endl
-             << "   2. Search by Name" << endl
-             << "   0. Exit" << endl;
-        cout << "Please enter your choice: ";
-        cin >> choice;
-        switch (choice) {
-        case 1:
-            T::searchByID();
-            break;
-        case 2:
-            // T::searchByName(list);
-            break;
-        case 0:
-            cout << "Exiting search menu." << endl;
-            break;
-        default:
-            cout << "Invalid choice. Please try again." << endl;
-            break;
-        }
-    } while (choice != 0);  
-}
-template <typename T>
 const T& LinkedList<T>::operator[](int index) const {
-    Node* current = head; // Assuming LinkedList has a head pointer
-    int currentIndex = 0;
-    while (current != nullptr) {
-        if (currentIndex == index) {
-            return current->data;
-        }
-        current = current->next;
-        currentIndex++;
-    }
-    return T();
-}
-template <typename T>
-T& LinkedList<T>::operator[](int index) {
     Node* current = head; // Assuming LinkedList has a head pointer
     int currentIndex = 0;
     while (current != nullptr) {

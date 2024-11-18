@@ -6,9 +6,9 @@ int Contract::total = 0;
 LinkedList<Contract> Contract::contractList;
 
 // Constructors
-Contract::Contract() : Reservation(), contractID(""), price(0.0) {}
+Contract::Contract() : Reservation() {this->reservation_ID = "Empty"; this->contractID = "Empty";}
 Contract::Contract(const string& roomID, const string& tenantID,
-                   const DATE& start, const DATE& end, int status, double price)
+                   const DATE& start, const DATE& end, int status)
     : Reservation() {
     this->contractID = generateID(++currentNumber);
     this->room_ID = roomID;
@@ -16,7 +16,7 @@ Contract::Contract(const string& roomID, const string& tenantID,
     this->startDate = start;
     this->endDate = end;
     this->status = status;
-    this->price = price;
+    this->rentprice = Reservation::getPrice();
 }
 Contract::~Contract() {}
 
@@ -36,12 +36,14 @@ string Contract::getID() const { return contractID; }
 string Contract::getReservationID() const { return reservation_ID; } 
 DATE Contract::getStartDate() const { return startDate; }
 DATE Contract::getEndDate() const { return endDate; }
-double Contract::getPrice() const { return price; } 
+double Contract::getPrice() const { return Reservation::getPrice(); } 
+bool Contract::getStatus() const { return status; }
 
 // Set function
 void Contract::setStartDate(const DATE& startDate) { this->startDate = startDate; }
 void Contract::setEndDate(const DATE& endDate) { this->endDate = endDate; }
-void Contract::setPrice(double price) { this->price = price; }
+void Contract::setPrice(double rprice) { this->rentprice = rprice; }
+void Contract::setStatus(bool status) { this->status = status; }
 
 // Ham bien doi nham doc du lieu tu file (moi du lieu se co 1 fromstring khac nhau)
 void Contract::fromString(const string& line) {
@@ -56,8 +58,7 @@ void Contract::fromString(const string& line) {
     ss.ignore(1, ',');                     // Bỏ qua dấu phẩy
     ss >> status;                          // Đọc trạng thái
     ss.ignore(1, ',');                     // Bỏ qua dấu phẩy
-    ss >> price;                           // Đọc giá tiền
-
+    ss >> rentprice;     
     startDate.fromString(startDateStr);    // Chuyển chuỗi ngày bắt đầu thành đối tượng DATE
     endDate.fromString(endDateStr);        // Chuyển chuỗi ngày kết thúc thành đối tượng DATE
 
@@ -72,49 +73,65 @@ string Contract::toString() const {
        << tenant_ID << ','         // Mã khách thuê
        << startDate.toString() << ',' // Chuyển đổi ngày bắt đầu sang chuỗi
        << endDate.toString() << ','   // Chuyển đổi ngày kết thúc sang chuỗi
-       << staytime << ','          // Thời gian lưu trú
+       << staytime << ','        
        << status << ','            // Trạng thái của hợp đồng
-       << fixed << setprecision(2) << price; // Giá tiền
+       << fixed << setprecision(2) << rentprice; // Giá tiền
     return ss.str();
 }
 
 // Chuc nang co ban (Basic Function)
-void Contract::addContract(const string& roomID, const string& tenantID,
-                            const DATE& start, const DATE& end, int status, double price) {
-    Contract newContract(roomID, tenantID, start, end, status, price);
-    contractList.add(newContract);
-    cout << "Contract added: " << newContract.getID() << endl;
-    total++;
-}
-
-// void Contract::editContract() {
-//     string id;
-//     cout << "Nhap Contract ID de chinh sua: "; cin >> id;
-//     Contract* contract = contractList.searchID(id);
-//     if (contract) {
-//         cout << "Editing contract: " << id << endl;
-//         // Cập nhật thông tin (như startDate, endDate, price, ...)
-//         // Cụ thể tùy thuộc vào thông tin bạn muốn sửa
-//         string newStartDate, newEndDate;
-//         cout << "Enter new start date: ";
-//         cin >> newStartDate;
-//         cout << "Enter new end date: ";
-//         cin >> newEndDate;
-
-//         contract->setStartDate(newStartDate);
-//         contract->setEndDate(newEndDate);
-//         // Cập nhật giá nếu cần
-//         cout << "Contract updated." << endl;
-//     } else {
-//         cout << "Contract ID not found." << endl;
-//     }
-// }
 
 void Contract::deleteContract() {
-    string contractID;
-    cout << "Nhap Contract ID de xoa: "; cin >> contractID;
-    contractList.deleteNode(contractID);
-    total--;
+    Room::searchRoomByTenantID(Account::currentTenantID);
+    string roomIDtodelete;
+    cout << "Nhap RoomID ban muon huy thue hoac nhap '0' de thoat: "; cin >> roomIDtodelete;
+    if (roomIDtodelete == "0") { return; }
+    
+    Contract* ct = Contract::searchByRidAndTid(roomIDtodelete, Account::currentTenantID);
+    if (ct == nullptr ) {
+        cout << "Khong tim thay hop dong!\n";
+        return;
+    }
+    
+    if (Room::roomList.searchID(roomIDtodelete)->getTenantID() == Account::currentTenantID) {
+        cout << "Ban muon huy thue phong " << roomIDtodelete << "?" << endl
+             << "1. Yes" << endl
+             << "2. No" << endl;
+        int choice;
+        cout << "Lua chon cua ban: "; cin >> choice;
+        if (choice == 1) {
+            Room::roomList.searchID(roomIDtodelete)->resetRoom();
+            ct->setStatus(0);  // Đổi thành 0 thay vì false để đảm bảo nhất quán
+            total--;
+            cout << "Da huy thue phong thanh cong!\n";
+        }
+    } else {
+        cout << "Phong voi ID: " << roomIDtodelete << " khong duoc thue hoac khong phai cua ban." << endl;
+    }
+}
+
+void Contract::extensionContract() {
+    Contract::searchByTenantID(Account::currentTenantID);
+    int extenmonth;
+    string roomIDtoextend;
+    DATE extendate;
+    cout << "Nhap RoomID ban muon gia han thue hoac nhap '0' de thoat: "; cin >> roomIDtoextend;
+    Contract* ct = Contract::searchByRidAndTid(roomIDtoextend, Account::currentTenantID);
+    if (roomIDtoextend == "0") { return; }
+    else if ( ct != nullptr && ct->getStatus() ==1 ) {
+        cout << "So thang ban muon gia han them thue hoac nhap '0' de thoat: "; cin >> extenmonth;
+        while (extenmonth < 0) { cout << "So thang khong hop le, vui long nhap lai: "; cin >> extenmonth; }
+        if (extenmonth == 0) { return; }
+        extendate = ct->getEndDate();
+        extendate = extendate.addMonths(extenmonth);
+        ct->setStaytime(extendate.toDays() - ct->getStartDate().toDays());
+        ct->setEndDate(extendate);
+        cout << "Gia han thanh cong phong " << ct->getRoomID() << " den ngay " << ct->getEndDate() << endl;
+    }
+    else {
+        cout << "Hop dong nay da bi huy, khong the gia han." << endl;
+    }
+
 }
 
 // Show all contracts
@@ -133,12 +150,43 @@ void Contract::showAllContracts() {
     }
 }
 
-// Special Function
+void Contract::addContract(const string& roomID, const string& tenantID,
+                            const DATE& start, const DATE& end, int status) {
+    Contract newContract(roomID, tenantID, start, end, status);
+    contractList.add(newContract);
+    cout << "Contract added: " << newContract.getID() << endl;
+    total++;
+}
+
+Contract* Contract::searchByRidAndTid(const string& rid, const string& tid) {
+    LinkedList<Contract>::Node* current = contractList.begin();
+    while (current!= nullptr) { 
+        if (current->data.getRoomID() == rid && current->data.getTenantID() == tid) {
+            return &(current->data);
+        }
+        current = current->next;    
+    }
+    return nullptr;
+}
+
+void Contract::searchByTenantID(const string& id) {
+    int count = 0;
+    LinkedList<Contract>::Node* current = contractList.begin();
+    if (current == nullptr) { cout << "Khong tim thay hop dong nao" << endl; return; }
+    while (current!= nullptr) {
+        if (current->data.getTenantID() == id && current->data.status == 1) {
+            cout << current->data; count++;
+        }
+        current = current->next;
+    }
+    if (count == 0) { cout << "Khong tim thay hop dong nao! "<< endl; }
+}
+
 void Contract::confirmReservationandcreatContract() {
     int choice;
     string tempRE;
     do {
-        Reservation::reservationList.searchStatus(2);
+        Reservation::reservationList.searchStatus(0);
         do {
             cout << "Enter ReservationID to manage (or type '0' to quit): "; cin >> tempRE;
             if (tempRE == "0") {
@@ -166,11 +214,11 @@ void Contract::confirmReservationandcreatContract() {
                         cout << "Room was rented!" << endl;
                         break;
                     }
-                    re->setStatus(0);
+                    re->setStatus(1);
                     ro->setStatus(1); 
                     ro->setTenantID(re->getTenantID());
                     cout << "Reservation confirmed." << endl;
-                    addContract(re->getRoomID(),re->getTenantID(),re->getStartDay(),re->getEndDate(),1,ro->getroomtype().getPrice());
+                    addContract(re->getRoomID(),re->getTenantID(),re->getStartDate(),re->getEndDate(),1);
                 } else {
                     cout << "Invalid Reservation ID or Room ID." << endl;
                 }
@@ -198,7 +246,6 @@ void Contract::confirmReservationandcreatContract() {
     } while (choice != 0);
 }
 
-
 // Da nang hoa ham xuat
 ostream& operator<<(ostream& os, const Contract& c) {
     Tenant* t = Tenant::tenantList.searchID(c.tenant_ID);
@@ -215,7 +262,9 @@ ostream& operator<<(ostream& os, const Contract& c) {
     const int width_phone = 12;
     const int width_start_date = 15;
     const int width_end_date = 15;
-    const int width_price = 10; // Giữ độ rộng lớn hơn cho giá để hiển thị chính xác
+    const int width_price = 10;
+    const int width_status = 15;
+
 
     static bool is_header_printed = false; // Biến tĩnh đảm bảo tiêu đề chỉ in một lần
 
@@ -232,11 +281,12 @@ ostream& operator<<(ostream& os, const Contract& c) {
            << setw(width_phone) << "Phone" << " | "
            << setw(width_start_date) << "Start Date" << " | "
            << setw(width_end_date) << "End Date" << " | "
-           << setw(width_price) << "Price" << endl;
+           << setw(width_price + 12) << "Price" << " | "
+           << setw(width_status) << "Status" << endl;
 
         // In dòng kẻ ngang phân cách tiêu đề và dữ liệu
         os << setfill('-')
-           << setw(width_id + width_room_id + width_room_type + width_tenant_id + width_name + width_age + width_cccd + width_phone + width_start_date + width_end_date + width_price + 45) << ""
+           << setw(width_id + width_room_id + width_room_type + width_tenant_id + width_name + width_age + width_cccd + width_phone + width_start_date + width_end_date + width_price + width_status + 45) << ""
            << setfill(' ') << endl;
 
         is_header_printed = true; // Đánh dấu đã in tiêu đề
@@ -254,8 +304,8 @@ ostream& operator<<(ostream& os, const Contract& c) {
        << setw(width_phone) << t->getPhone() << " | "
        << setw(width_start_date) << c.startDate.toString() << " | "
        << setw(width_end_date) << c.endDate.toString() << " | "
-       << setw(width_price) << fixed << setprecision(2) << c.price << " VND/1 month" << endl;
-
+       << setw(width_price) << fixed << setprecision(2) << c.rentprice << " VND/1 month" << " | "
+       << setw(width_status) << (c.status == 1 ? "Active" : "Expired") << endl;
     return os;
 }
 

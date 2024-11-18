@@ -6,14 +6,17 @@ using namespace std;
 
 class DATE {
 private:
-    bool is_nam_nhuan(int year);
-    int day_in_month(int month, int year);
 protected:
     int day, month, year;
     void adjust(); // ham xu ly
 public:
     void fromString(const string& dateStr);
-    DATE(int d = 12, int m = 06, int year = 2005);
+    DATE(int d = 0, int m = 0, int year = 0);
+    int get_year() const;
+    int get_month() const;
+    int get_day() const;
+    bool is_nam_nhuan(int year);
+    int day_in_month(int month, int year);
     friend ostream &operator <<(ostream &os,const DATE &date);
     friend istream &operator >>(istream &is, DATE &date); // const :chi in ra khong thay doi
     string toString() const {
@@ -31,7 +34,11 @@ public:
 
     DATE operator +(int days) const; //const de khong thay doi d1 truoc dau +
     DATE operator -(int days) const; // tuong tu cai tren
+    int operator -(DATE& other);
+
+    int toDays();
      
+    DATE addMonths(int months) const;
 };
 #include "Date.cpp"
 #endif

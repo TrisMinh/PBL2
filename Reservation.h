@@ -27,7 +27,7 @@ public:
 
     // Constructors
     Reservation();
-    Reservation(const string& roomId, const string& tenantId, const DATE& start, int staytime, int stat = 1);
+    Reservation(const string& roomId, const string& tenantId, DATE& start, int staytime, int stat = 0);
 
     // Destructor
     ~Reservation();
@@ -36,11 +36,11 @@ public:
     static string generateID(int number);
 
     // Getter methods
-    int getprice() const;
+    int getPrice() const;
     string getID() const;
     string getRoomID() const;
     string getTenantID() const;
-    DATE getStartDay() const;
+    DATE getStartDate() const;
     DATE getEndDate() const;
     int getStatus() const;
 
@@ -49,6 +49,7 @@ public:
     void setTenantID(const string& id);
     void setStartDay(const string& day);
     void setStatus(int stat);
+    void setStaytime(int staytime);
 
     // Convert reservation to and from string
     void fromString(const string& line);

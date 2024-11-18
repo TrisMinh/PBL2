@@ -9,7 +9,7 @@ LinkedList<Account> Account::accountList;
 
 // Constructor
 Account::Account() {}
-Account::Account(const string& u, const string& p, const string& id, int roll) : username(u), password(p), tenant_ID(id) {
+Account::Account(const string& u, const string& p, const string& id, int roll) : username(u), password(p), tenant_ID(id), roll(roll) {
     currentNumber++;
     account_ID = generateID(currentNumber);
 }

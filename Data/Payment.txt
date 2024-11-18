@@ -1,5 +1,5 @@
-payment_ID,reservation_ID,payment_month,payment_day,rent_amount,service_amount,total_amount,status
-P.001,RS.001,10,2023-10-05,120,20,140,1
-P.002,RS.002,11,2023-11-06,80,10,90,1
-P.003,RS.003,10,2023-10-13,200,30,230,1
-P.004,RS.004,9,2023-09-20,60,15,75,1
+paymentID,roomID,tenantID,rentAmount,serviceAmount,totalAmount,payMonth,payYear,payDate,status
+3
+P.001,R.001,T.002,100000,300000,400000,11,2024,00/00/0,0
+P.002,R.002,T.002,200000,1500000,1700000,11,2024,00/00/0,0
+P.003,R.003,T.003,300000,0,300000,11,2024,00/00/0,0

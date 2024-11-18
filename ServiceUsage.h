@@ -4,22 +4,23 @@
 #include <string>
 #include <sstream>
 #include <iomanip>
+#include "Room.h"
 #include "Service.h"
 #include "LinkedList.h"
+#include "Account.h"
+#include "Date.h"
 using namespace std;
 class ServiceUsage {
-    string usage_ID;
-    string room_ID;
-    string service_ID;
+    string usage_ID, room_ID, service_ID, tenantID;
     int quantity;
-    int usage_month;
+    DATE usageDate;
 public:
     static int total;
     static int currentNumber;
     static LinkedList<ServiceUsage> usageList;
 
     ServiceUsage();
-    ServiceUsage(const string& resId, const string& servId, int qty, int month);
+    ServiceUsage(const string& roomId, const string& servId, const string& tenantId, int qty, DATE date);
     ~ServiceUsage();
 
     static string generateID(int number);
@@ -31,9 +32,11 @@ public:
     // Getters
     string getID() const;
     string getRoomID() const;
+    string getTenantID() const;
     string getServiceID() const;
     int getQuantity() const;
     int getUsageMonth() const;
+    int getUsageYear() const;
 
     void fromString(const string& line);
     string toString() const;

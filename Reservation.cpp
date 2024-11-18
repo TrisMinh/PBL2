@@ -7,7 +7,7 @@ LinkedList<Reservation> Reservation::reservationList;
 
 // Constructor
 Reservation::Reservation() {}
-Reservation::Reservation(const string& roomId, const string& tenantId, const DATE& start, int time, int stat)
+Reservation::Reservation(const string& roomId, const string& tenantId, DATE& start, int time, int stat)
     : room_ID(roomId), tenant_ID(tenantId), startDate(start), staytime(time), status(stat) {
     currentNumber++;
     reservation_ID = generateID(currentNumber);
@@ -27,14 +27,14 @@ void Reservation::load(const string& filename) { reservationList.load(filename);
 void Reservation::updateFile(const string& filename) { reservationList.updateFile(filename); }
 
 // Get function
-int Reservation::getprice() const {
+int Reservation::getPrice() const {
     Room* room = Room::roomList.searchID(room_ID);
     return room->getPrice();
 }
 string Reservation::getID() const { return reservation_ID; }
 string Reservation::getRoomID() const { return room_ID; }
 string Reservation::getTenantID() const { return tenant_ID; }
-DATE Reservation::getStartDay() const { return startDate; }
+DATE Reservation::getStartDate() const { return startDate; }
 DATE Reservation::getEndDate() const {  return endDate; }
 int Reservation::getStatus() const { return status; }
 
@@ -50,6 +50,8 @@ void Reservation::setStartDay(const string& day) {
     endDate = startDate + staytime; 
 }
 void Reservation::setStatus(int stat) { status = stat; }
+void Reservation::setStaytime(int stime) { staytime = stime; }
+
 
 // Ham bien doi nham doc du lieu tu file (moi du lieu se co 1 fromstring khac nhau)
 void Reservation::fromString(const string& line) {
@@ -63,7 +65,7 @@ void Reservation::fromString(const string& line) {
     ss >> staytime;
     ss.ignore(1); // bỏ qua dấu phẩy
     ss >> status;
-    this->startDate = DATE(stoi(start_day.substr(8, 2)), stoi(start_day.substr(5, 2)), stoi(start_day.substr(0, 4)));
+    this->startDate.fromString(start_day);
     this->staytime = staytime;
     this->status = status;
     this->endDate = this->startDate + staytime;
@@ -81,26 +83,39 @@ string Reservation::toString() const {
 
 // Chuc nang co ban (Basic Function)
 void Reservation::addReservation() {
-    string room_ID, tenantID;
-    int staytime;
-    DATE startDate;
+    string room_ID;
+    Room* room = nullptr;
+    // Hiển thị và kiểm tra room_ID trước
     cout << "Danh sach phong con trong: " << endl;
     Room::roomList.searchStatus(0);
-    cout << "Nhap Room ID: "; cin >> room_ID;
+    
+    do {
+        cout << "Nhap Room ID: "; 
+        cin >> room_ID;
+        room = Room::roomList.searchID(room_ID);
+        
+        if (!room || room->getStatus() != 0) {
+            cout << "Phong khong ton tai hoac da co nguoi o. Vui long nhap lai Room ID hoac nhap '0' de thoat: " << endl;
+        }
+        
+        if (room_ID == "0") return; // Thoát nếu người dùng nhập 0
+        
+    } while (!room || room->getStatus() != 0);
+    
+    // Chỉ nhập các thông tin còn lại khi đã có phòng hợp lệ
+    DATE startDate;
+    int staytime;
     cout << "Nhap Start Date: "; cin >> startDate;
     cout << "Nhap Stay Time (so ngay): "; cin >> staytime;
-    Room* room = Room::roomList.searchID(room_ID);
-    if (room && room->getStatus() == 0) {
-        Reservation newReservation(room_ID, Account::currentTenantID, startDate, staytime);
-        reservationList.add(newReservation);
-        room->setStatus(2);
-        cout << "Them dat phong thanh cong!" << endl;
-        total++;
-    } else {
-        cout << "Khong the dat phong, phong da co nguoi hoac khong ton tai." << endl;
-    }
+    
+    Reservation newReservation(room_ID, Account::currentTenantID, startDate, staytime, 0);
+    reservationList.add(newReservation);
+    room->setStatus(2);
+    cout << "Dat phong thanh cong!" << endl;
+    total++;
 }
 
+//Gia hạn ( chỉnh lại )
 void Reservation::updateReservation() {
     string id;
     cout << "Nhap ID dat phong can cap nhat: "; cin >> id;
@@ -247,10 +262,10 @@ ostream& operator<<(ostream& os, const Reservation& r) {
     // In trạng thái
     switch (r.getStatus()) {
         case 0:
-            os << "Complete";
+            os << "Waiting";
             break;
         case 1:
-            os << "Waiting";
+            os << "Accepted";
             break;
         case 2:
             os << "Rejected";

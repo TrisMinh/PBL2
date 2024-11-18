@@ -7,8 +7,8 @@ LinkedList<ServiceUsage> ServiceUsage::usageList;
 
 // Constructor
 ServiceUsage::ServiceUsage() {}
-ServiceUsage::ServiceUsage(const string& roomId, const string& servId, int qty, int month)
-    : room_ID(roomId), service_ID(servId), quantity(qty), usage_month(month) {
+ServiceUsage::ServiceUsage(const string& roomId, const string& servId, const string& tenantId, int qty, DATE date)
+    : room_ID(roomId), service_ID(servId), quantity(qty), tenantID(tenantId), usageDate(date) {
     currentNumber++;
     usage_ID = generateID(currentNumber);
 }
@@ -27,31 +27,41 @@ void ServiceUsage::updateFile(const string& filename) { usageList.updateFile(fil
 
 // Get function
 string ServiceUsage::getID() const { return usage_ID; }
+string ServiceUsage::getRoomID() const { return room_ID; }
+string ServiceUsage::getTenantID() const { return tenantID; }
+string ServiceUsage::getServiceID() const { return service_ID; }
+int ServiceUsage::getUsageMonth() const { return usageDate.get_month(); }
+int ServiceUsage::getUsageYear() const { return usageDate.get_year(); }
+int ServiceUsage::getQuantity() const { return quantity; }
+
 
 // Ham bien doi nham doc du lieu tu file (moi du lieu se co 1 fromstring khac nhau)
 void ServiceUsage::fromString(const string& line) {
+    string usageDatestr;
     stringstream ss(line);
     getline(ss, usage_ID, ',');
     getline(ss, room_ID, ',');
     getline(ss, service_ID, ',');
+    getline(ss, tenantID, ',');
     ss >> quantity;
     ss.ignore(1);
-    ss >> usage_month;
+    getline(ss, usageDatestr);
+    usageDate.fromString(usageDatestr);
     total++;
 }
 
-// Ham chuyen thanh chuoi de ghi du lieu vao file
 string ServiceUsage::toString() const {
     stringstream ss;
     ss << usage_ID << ',' << room_ID << ',' << service_ID << ',' 
-       << quantity << ',' << usage_month;
+       << tenantID << ',' << quantity << ',' << usageDate.toString();
     return ss.str();
 }
 
 // Chuc nang co ban (Basic Function)
 void ServiceUsage::addServiceUsage() {
     string room_ID, service_ID;
-    int quantity, usage_month;
+    int quantity;
+    DATE usageDate;
     if (Service::serviceList.getHead() == NULL) { 
         cout << "None of Service! " << endl;
         return;
@@ -71,8 +81,8 @@ void ServiceUsage::addServiceUsage() {
         else { cout << "Service ID not found. Please enter again! "<< endl; }
     } while(!found2);
     cout << "Quantity: "; cin >> quantity;
-    cout << "Usage Month: "; cin >> usage_month;
-    ServiceUsage newUsage(room_ID, service_ID, quantity, usage_month);
+    cout << "Usage Date: "; cin >> usageDate;
+    ServiceUsage newUsage(room_ID, service_ID, Account::currentTenantID ,quantity, usageDate);
     usageList.add(newUsage);
     cout << "Service usage added successfully!" << endl;
     total++;
@@ -87,7 +97,7 @@ void ServiceUsage::updateServiceUsage() {
         cout << "Room ID (nhap moi neu muon thay doi): "; cin >> usage->room_ID;
         cout << "Service ID (nhap moi neu muon thay doi): "; cin >> usage->service_ID;
         cout << "Quantity: "; cin >> usage->quantity;
-        cout << "Usage Month: "; cin >> usage->usage_month;
+        cout << "Usage Date: "; cin >> usage->usageDate;
         cout << "Service usage updated successfully!" << endl;
     } else {
         cout << "Khong tim thay su dung dich vu voi ID: " << usageID << endl;
@@ -117,7 +127,7 @@ void ServiceUsage::searchByRoomID() {
     bool found = false;
     while (current) {
         if (current->data.room_ID == roomID) {
-            cout << "Da tim thay: " << current->data;
+            cout << current->data;
             found = true;
         }
         current = current->next;
@@ -165,6 +175,7 @@ ostream& operator<<(ostream& os, const ServiceUsage& su) {
     const int width_usage_id = 15;
     const int width_room_id = 15;
     const int width_service_id = 15;
+    const int width_tenant_id = 15;
     const int width_quantity = 10;
     const int width_usage_month = 10;
 
@@ -176,6 +187,7 @@ ostream& operator<<(ostream& os, const ServiceUsage& su) {
            << setw(width_usage_id) << "Usage ID" << " | "
            << setw(width_room_id) << "Room ID" << " | "
            << setw(width_service_id) << "Service ID" << " | "
+           << setw(width_tenant_id) << "Tenant ID" << " | "
            << setw(width_quantity) << "Quantity" << " | "
            << setw(width_usage_month) << "Usage Month"
            << endl;
@@ -185,6 +197,7 @@ ostream& operator<<(ostream& os, const ServiceUsage& su) {
            << setw(width_usage_id + 2) << ""
            << setw(width_room_id + 2) << ""
            << setw(width_service_id + 2) << ""
+           << setw(width_tenant_id + 2) << ""
            << setw(width_quantity + 2) << ""
            << setw(width_usage_month + 2) << ""
            << setfill(' ') << endl;
@@ -197,9 +210,8 @@ ostream& operator<<(ostream& os, const ServiceUsage& su) {
        << setw(width_usage_id) << su.usage_ID << " | "
        << setw(width_room_id) << su.room_ID << " | "
        << setw(width_service_id) << su.service_ID << " | "
+       << setw(width_tenant_id) << su.tenantID << " | "
        << setw(width_quantity) << su.quantity << " | "
-       << setw(width_usage_month) << su.usage_month
-       << endl;
-
+       << setw(width_usage_month) << su.usageDate.toString() << endl;
     return os;
 }

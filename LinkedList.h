@@ -29,18 +29,16 @@ public:
     void load(const string& filename);
     void updateFile(const string& filename) const;
     void add(const T& data);
-    Node* deleteNode(const string& value);
+    void deleteNode(const string& value);
     void edit(const string& ID);
     Node* getHead();
     T* searchID(const string& ID) const;
     void searchStatus(const int& status);
-    void searchAll(LinkedList<T>& list);
     void show() const;
     void sortByID(bool ascending = true);
     void sortByAlphabet(bool ascending = true);
 
     const T& operator[](int index) const;
-    T& operator[](int index);
 };
 
 #include "LinkedList.cpp" // Bao gồm file cpp ở cuối header

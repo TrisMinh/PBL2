@@ -26,7 +26,7 @@ public:
 
     string getID() const;
     string getName() const;
-    int getUnitPrice() const;
+    double getUnitPrice() const;
     string getDescription() const;
 
     void setName(const string& n);

@@ -26,7 +26,7 @@ void Room::updateFile(const string& filename) { roomList.updateFile(filename); }
 
 
 // Get function
-RoomType Room::getroomtype() {return roomType;}
+RoomType Room::getroomtype() const {return roomType;}
 string Room::getID() const { return room_ID; }
 int Room::getStatus() const { return status; }
 double Room::getPrice() const { return roomType.getPrice();}
@@ -93,21 +93,10 @@ void Room::updateRoom() { // Updating...
 
 void Room::deleteRoom() {
     string roomID;
-    do {
         roomList.show();
         cout << "Nhap ma phong (Room ID) de xoa (Nhap 0 de thoat): ";
         cin >> roomID;
-        if (roomID == "0") {
-            cout << "Thoat khoi che do xoa." << endl;
-            break;
-        }
-        if (roomList.deleteNode(roomID)) { 
-            cout << "Da xoa phong voi ID: " << roomID << endl;
-            total--;
-        } else {
-            cout << "Khong tim thay phong voi ma ID: " << roomID << endl;
-        }
-    } while (true);
+        roomList.deleteNode(roomID);
 }
 // Search Funcion
 void Room::searchByID() {
@@ -149,6 +138,22 @@ void Room::searchByName() {
     }
 }
 
+void Room::searchRoomByTenantID(const string& id) {
+    bool found = false;
+    LinkedList<Room>::Node* current = roomList.begin();
+    while (current != nullptr) {
+        if (current->data.getTenantID() == id) {
+            cout << current->data;
+            found = true;
+        }
+        current = current->next;
+    }
+    if (!found) {
+        cout << "Khong tim thay phong nao!" << endl;
+    }
+}
+
+
 void Room::searchAll() {
     int choice;
     do {
@@ -182,6 +187,11 @@ void Room::showAllRooms() {
         case 2: roomList.sortByID(false); showAllRooms(); break;
         default: break;
     }
+}
+
+void Room::resetRoom() {
+    status = 0;
+    tenant_ID = "N/A";
 }
 
 // Da nang hoa ham xuat

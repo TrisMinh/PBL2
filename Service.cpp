@@ -32,6 +32,7 @@ void Service::updateFile(const string& filename) { serviceList.updateFile(filena
 // Get Function
 string Service::getID() const { return service_ID; }
 string Service::getName() const { return name; }
+double Service::getUnitPrice() const { return unit_price; }
 
 // Ham bien doi nham doc du lieu tu file (moi du lieu se co 1 fromstring khac nhau)
 void Service::fromString(const string& line) {
