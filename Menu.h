@@ -180,12 +180,15 @@ void controlAdminMenu() {
                     cout << "-- Payment Management --" << endl
                          << "   1. Auto Create Payment" << endl
                          << "   2. Display Payment List" << endl
+                         << "   3. Pay Bill" << endl
+                         << "   4. Statistics" << endl
                          << "   0. Back to Main Menu" << endl;
                     cout << "Please select an option: "; cin >> select;
                     switch (select) {
                         case 1: Payment::autocreatePayment(); break;
                         case 2: Payment::showAllPayments(); break;
-                        case 3: Contract::updateFile("Data/Contract.txt"); break;
+                        case 3: Payment::managePayments(); break;
+                        case 4: Payment::showRevenueStatistics(); break;
                         case 0: cout << "Exiting Contract Management." << endl; break;
                         default: cout << "Invalid selection. Please try again." << endl; break;
                     }

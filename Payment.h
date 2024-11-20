@@ -18,6 +18,7 @@ class Payment {
         DATE payDate;
         int payMonth, payYear;
         bool status; // 0: pending, 1: paid
+        double depositAmount;
     public:
         static int total;
         static int currentNumber;
@@ -53,6 +54,21 @@ class Payment {
 
         static void searchByMonth();
 
+        void makePayment();
+        double getRemainingAmount() const { return totalAmount - depositAmount; }
+        static void managePayments();
+// Statistics
+
+        // Thống kê doanh thu
+        static void showRevenueStatistics();
+        
+        // Tính toán doanh thu
+        static double calculateTotalBilled(int month, int year);
+        static double calculateTotalCollected(int month, int year);
+        
+        // Hiển thị so sánh
+        static void showMonthlyComparison(int year);
+        static void showYearlyComparison(int startYear, int endYear);
 };
 
 

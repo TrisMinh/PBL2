@@ -187,29 +187,39 @@ bool Account::signin() {
     int attempts = 0;  
     do {
         if (attempts) { 
-            cout << "Username hoac password khong dung. Nhap 0 de thoat hoac Enter de thu lai." << endl;
-            string choice;
+            cout << "Username hoac password khong dung.\n";
+            cout << "1. Thu lai\n";
+            cout << "2. Quen mat khau\n";
+            cout << "0. Thoat\n";
             cout << "Lua chon: ";
-            cin.ignore();
-            getline(cin,choice);
-            if (choice == "0") {
+            
+            int choice;
+            cin >> choice;
+            
+            if (choice == 0) {
                 cout << "Dang nhap da bi huy." << endl;
-                return 0;
+                return false;
+            } else if (choice == 2) {
+                if (forgotPassword()) {
+                    // Sau khi hiện mật khẩu, quay lại màn hình đăng nhập
+                    attempts = 0;
+                    continue;
+                }
             }
         }
         cout << "Nhap username: "; cin >> u;
         cout << "Nhap password: "; cin >> p;
         account = searchByUsername(u, 0);       
-        // Kiểm tra nếu tên đăng nhập và mật khẩu khớp
+        
         if (account != NULL && account->data.password == p) {
             currentTenantID = account->data.gettenantID();
             cout << "Dang nhap thanh cong!" << endl;
-            return 1;
+            return true;
         }      
         account = NULL; 
         attempts++;
 
-    } while (account == NULL);
+    } while (true);
 }
 
 // Search function
@@ -284,4 +294,47 @@ ostream& operator<<(ostream& os, const Account& a) {
        << endl;
 
     return os;
+}
+
+bool Account::forgotPassword() {
+    string phone, cccd;
+    cout << "\n=== KHOI PHUC MAT KHAU ===\n";
+    cout << "Nhap so dien thoai: ";
+    cin >> phone;
+    cout << "Nhap CCCD: ";
+    cin >> cccd;
+
+    // Tìm và xác minh thông tin tenant
+    LinkedList<Account>::Node* account = verifyTenantInfo(phone, cccd);
+    
+    if (account != nullptr) {
+        cout << "\nXac minh thanh cong!\n";
+        cout << "Mat khau cua ban la: " << account->data.getpassword() << endl;
+        return true;
+    } else {
+        cout << "\nThong tin xac minh khong chinh xac!\n";
+        return false;
+    }
+}
+
+LinkedList<Account>::Node* Account::verifyTenantInfo(const string& phone, const string& cccd) {
+    // Duyệt qua danh sách tenant để tìm thông tin khớp
+    LinkedList<Tenant>::Node* currentTenant = Tenant::tenantList.getHead();
+    while (currentTenant != nullptr) {
+        if (currentTenant->data.getPhone() == phone && 
+            currentTenant->data.getCCCD() == cccd) {
+            // Nếu tìm thấy tenant, tìm account tương ứng
+            string tenantID = currentTenant->data.getID();
+            LinkedList<Account>::Node* currentAccount = accountList.getHead();
+            
+            while (currentAccount != nullptr) {
+                if (currentAccount->data.gettenantID() == tenantID) {
+                    return currentAccount;
+                }
+                currentAccount = currentAccount->next;
+            }
+        }
+        currentTenant = currentTenant->next;
+    }
+    return nullptr;
 }

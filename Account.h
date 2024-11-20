@@ -61,6 +61,9 @@ public:
 
     friend ostream& operator<<(ostream& os, const Account&);
 
+    static bool forgotPassword();
+    static LinkedList<Account>::Node* verifyTenantInfo(const string& phone, const string& cccd);
+
 };
 #include "Account.cpp"
 #endif
