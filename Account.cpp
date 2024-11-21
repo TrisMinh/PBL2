@@ -4,6 +4,7 @@
 int Account::total = 0;
 int Account::currentNumber = 0;
 string Account::currentTenantID = "None";
+int Account::currentRoll = 0;
 string Account::AdminCode = "000";
 LinkedList<Account> Account::accountList;
 
@@ -53,13 +54,13 @@ void Account::updateFile(const string& filename) {
 string Account::getusername() { return username; }
 string Account::getpassword() { return password; }
 string Account::gettenantID() { return tenant_ID; }
+int Account::getRoll() { return roll; };
 
 // Set function
 void Account::setusername(string u) { this->username = u; }
 void Account::setpassword(string p) { this->password = p; }
 void Account::setAdminCode() {
     string temp;
-    cout << AdminCode << endl;
     cout << "Nhap AdminCode cu: "; cin >> temp;
     if (temp == AdminCode) {
         cout << "Nhap AdminCode moi: "; cin >> AdminCode;
@@ -148,21 +149,25 @@ bool Account::signup() {
     if (role == 1) {
         cout << "Nhap thong tin ca nhan: " << endl;
         string name, phone, cccd;
-        int age;
+        int birthyear;
+        bool genderInput;
+        cin.ignore();
         cout << "Nhap ten: ";
-        cin >> name;
+        getline(cin, name);
         cout << "Nhap so dien thoai: ";
         cin >> phone;
         cout << "Nhap CCCD: ";
         cin >> cccd;
         cout << "Nhap nam sinh: ";
-        cin >> age;
+        cin >> birthyear;
+        cout << "Nhap gioi tinh (0: Nam, 1: Nu): ";
+        cin >> genderInput;
         time_t t = time(0); 
         tm* now = localtime(&t); 
         int yearNow = now->tm_year + 1900; 
 
         // Tạo tenant và thêm vào danh sách
-        Tenant tenant(name, phone, cccd, yearNow -  age);
+        Tenant tenant(name, phone, cccd, birthyear, genderInput);
         Tenant::tenantList.add(tenant);
 
         // Tạo tài khoản tenant với tenant ID
@@ -213,6 +218,7 @@ bool Account::signin() {
         
         if (account != NULL && account->data.password == p) {
             currentTenantID = account->data.gettenantID();
+            currentRoll = account->data.getRoll();
             cout << "Dang nhap thanh cong!" << endl;
             return true;
         }      
@@ -227,19 +233,9 @@ LinkedList<Account>::Node* Account::searchByUsername(string u, int check) {
     if (check == 1) {
         cout << "Nhap username can tim kiem: "; cin >> u;
     }
-    LinkedList<Account>::Node* current = accountList.getHead(); 
+    LinkedList<Account>::Node* current = accountList.begin(); 
     while (current != nullptr) {
         if (current->data.getusername() == u) {
-            return current; 
-        }
-        current = current->next; 
-    }
-    return nullptr; 
-}
-LinkedList<Account>::Node* Account::searchByPassword(string p) {
-    LinkedList<Account>::Node* current = accountList.getHead(); 
-    while (current != nullptr) {
-        if (current->data.getpassword() == p) {
             return current; 
         }
         current = current->next; 
@@ -319,13 +315,13 @@ bool Account::forgotPassword() {
 
 LinkedList<Account>::Node* Account::verifyTenantInfo(const string& phone, const string& cccd) {
     // Duyệt qua danh sách tenant để tìm thông tin khớp
-    LinkedList<Tenant>::Node* currentTenant = Tenant::tenantList.getHead();
+    LinkedList<Tenant>::Node* currentTenant = Tenant::tenantList.begin();
     while (currentTenant != nullptr) {
         if (currentTenant->data.getPhone() == phone && 
             currentTenant->data.getCCCD() == cccd) {
             // Nếu tìm thấy tenant, tìm account tương ứng
             string tenantID = currentTenant->data.getID();
-            LinkedList<Account>::Node* currentAccount = accountList.getHead();
+            LinkedList<Account>::Node* currentAccount = accountList.begin();
             
             while (currentAccount != nullptr) {
                 if (currentAccount->data.gettenantID() == tenantID) {

@@ -112,8 +112,9 @@ void Payment::autocreatePayment() {
     if (isPaymentExist) continue;
     for (LinkedList<ServiceUsage>::Node* current = ServiceUsage::usageList.begin(); current != nullptr; current = current->next) {
             ServiceUsage& usage = current->data;
-        if (roomID == usage.getRoomID() && tenantID == usage.getTenantID() && usage.getUsageMonth() == payMonth && usage.getUsageYear() == payYear) {
-            serviceAmount += usage.getQuantity() * Service::serviceList.searchID(usage.getServiceID())->getUnitPrice(); // * unit price nếu cần
+        if (roomID == usage.getRoomID() && tenantID == usage.getTenantID() && usage.getStatus() == true) {
+            serviceAmount += usage.getQuantity() * 
+                            Service::serviceList.searchID(usage.getServiceID())->getUnitPrice();
         }
     }
     Payment p(roomID, tenantID, rentAmount, serviceAmount, rentAmount + serviceAmount, payMonth, payYear);
@@ -444,3 +445,16 @@ void Payment::showYearlyComparison(int startYear, int endYear) {
     }
 }
 
+void Payment::searchByTenantID(string tenantID) {
+    cout << "\nDanh sach bills cua ban: " << endl;
+    bool found = false;
+    for (LinkedList<Payment>::Node* current = paymentList.begin(); current != nullptr; current = current->next) {
+        if (current->data.getTenantID() == tenantID) {
+            cout << current->data;
+            found = true;
+        }
+    }
+    if (!found) {
+        cout << "Khong tim thay bills nao!" << endl;
+    }
+}

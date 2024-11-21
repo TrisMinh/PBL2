@@ -116,28 +116,28 @@ void Reservation::addReservation() {
 }
 
 //Gia hạn ( chỉnh lại )
-void Reservation::updateReservation() {
-    string id;
-    cout << "Nhap ID dat phong can cap nhat: "; cin >> id;
-    Reservation* reservation = reservationList.searchID(id);
-    if (reservation) {
-        string newRoomID;
-        cout << "Nhap Room ID moi: "; cin >> newRoomID;
-        reservation->setRoomID(newRoomID);
+// void Reservation::updateReservation() {
+//     string id;
+//     cout << "Nhap ID dat phong can cap nhat: "; cin >> id;
+//     Reservation* reservation = reservationList.searchID(id);
+//     if (reservation) {
+//         string newRoomID;
+//         cout << "Nhap Room ID moi: "; cin >> newRoomID;
+//         reservation->setRoomID(newRoomID);
 
-        int day, month, year;
-        cout << "Nhap ngay bat dau (dd mm yyyy): "; cin >> day >> month >> year;
-        reservation->startDate = DATE(day, month, year);
+//         int day, month, year;
+//         cout << "Nhap ngay bat dau (dd mm yyyy): "; cin >> day >> month >> year;
+//         reservation->startDate = DATE(day, month, year);
 
-        int newStaytime;
-        cout << "Nhap so ngay thue moi: ";cin >> newStaytime;
-        reservation->staytime = newStaytime;
-        reservation->endDate = reservation->startDate + newStaytime;
-        cout << "Cap nhat dat phong thanh cong!" << endl;
-    } else {
-        cout << "Khong tim thay dat phong voi ID: " << id << endl;
-    }
-}
+//         int newStaytime;
+//         cout << "Nhap so ngay thue moi: ";cin >> newStaytime;
+//         reservation->staytime = newStaytime;
+//         reservation->endDate = reservation->startDate + newStaytime;
+//         cout << "Cap nhat dat phong thanh cong!" << endl;
+//     } else {
+//         cout << "Khong tim thay dat phong voi ID: " << id << endl;
+//     }
+// }
 
 void Reservation::deleteReservation() {
     string reservationID;
@@ -159,14 +159,14 @@ void Reservation::searchByName() {
     string name;
     cout << "Nhap ten chu phong can tim kiem: "; cin >> name;
     bool found = false;
-    LinkedList<Tenant>::Node* current1 = Tenant::tenantList.getHead();
+    LinkedList<Tenant>::Node* current1 = Tenant::tenantList.begin();
     while (current1 != nullptr) {
         if (current1->data.getName() == name) {
             break;
         }
         current1 = current1->next;
     }
-    LinkedList<Reservation>::Node* current2 = Reservation::reservationList.getHead();
+    LinkedList<Reservation>::Node* current2 = Reservation::reservationList.begin();
     while (current2 != nullptr) {
         if (current2->data.getTenantID() == current1->data.getID()) {
             cout << current2->data;

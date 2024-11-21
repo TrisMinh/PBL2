@@ -7,10 +7,9 @@ LinkedList<ServiceUsage> ServiceUsage::usageList;
 
 // Constructor
 ServiceUsage::ServiceUsage() {}
-ServiceUsage::ServiceUsage(const string& roomId, const string& servId, const string& tenantId, int qty, DATE date)
-    : room_ID(roomId), service_ID(servId), quantity(qty), tenantID(tenantId), usageDate(date) {
-    currentNumber++;
-    usage_ID = generateID(currentNumber);
+ServiceUsage::ServiceUsage(const string& roomId, const string& servId, const string& tenantId, int qty, DATE date, bool status)
+    : room_ID(roomId), service_ID(servId), quantity(qty), tenantID(tenantId), usageDate(date), status(status) {
+    usage_ID = generateID(++currentNumber);
 }
 ServiceUsage::~ServiceUsage() {}
 
@@ -33,7 +32,8 @@ string ServiceUsage::getServiceID() const { return service_ID; }
 int ServiceUsage::getUsageMonth() const { return usageDate.get_month(); }
 int ServiceUsage::getUsageYear() const { return usageDate.get_year(); }
 int ServiceUsage::getQuantity() const { return quantity; }
-
+bool ServiceUsage::getStatus() const { return status; }
+void ServiceUsage::setStatus(bool newStatus) { status = newStatus; }
 
 // Ham bien doi nham doc du lieu tu file (moi du lieu se co 1 fromstring khac nhau)
 void ServiceUsage::fromString(const string& line) {
@@ -45,7 +45,8 @@ void ServiceUsage::fromString(const string& line) {
     getline(ss, tenantID, ',');
     ss >> quantity;
     ss.ignore(1);
-    getline(ss, usageDatestr);
+    getline(ss, usageDatestr, ',');
+    ss >> status;
     usageDate.fromString(usageDatestr);
     total++;
 }
@@ -53,7 +54,7 @@ void ServiceUsage::fromString(const string& line) {
 string ServiceUsage::toString() const {
     stringstream ss;
     ss << usage_ID << ',' << room_ID << ',' << service_ID << ',' 
-       << tenantID << ',' << quantity << ',' << usageDate.toString();
+       << tenantID << ',' << quantity << ',' << usageDate.toString() << ',' << status;
     return ss.str();
 }
 
@@ -62,7 +63,7 @@ void ServiceUsage::addServiceUsage() {
     string room_ID, service_ID;
     int quantity;
     DATE usageDate;
-    if (Service::serviceList.getHead() == NULL) { 
+    if (Service::serviceList.begin() == NULL) { 
         cout << "None of Service! " << endl;
         return;
     }
@@ -88,21 +89,22 @@ void ServiceUsage::addServiceUsage() {
     total++;
 }
 
-void ServiceUsage::updateServiceUsage() {
-    string usageID;
-    cout << "Nhap Usage ID de cap nhat: "; cin >> usageID;
-    ServiceUsage* usage = usageList.searchID(usageID);
-    if (usage) {
-        cout << "Cap nhat Usage ID: " << usage->usage_ID << endl;
-        cout << "Room ID (nhap moi neu muon thay doi): "; cin >> usage->room_ID;
-        cout << "Service ID (nhap moi neu muon thay doi): "; cin >> usage->service_ID;
-        cout << "Quantity: "; cin >> usage->quantity;
-        cout << "Usage Date: "; cin >> usage->usageDate;
-        cout << "Service usage updated successfully!" << endl;
-    } else {
-        cout << "Khong tim thay su dung dich vu voi ID: " << usageID << endl;
-    }
-}
+// có thể xung đột dữ liệu
+// void ServiceUsage::updateServiceUsage() {
+//     string usageID;
+//     cout << "Nhap Usage ID de cap nhat: "; cin >> usageID;
+//     ServiceUsage* usage = usageList.searchID(usageID);
+//     if (usage) {
+//         cout << "Cap nhat Usage ID: " << usage->usage_ID << endl;
+//         cout << "Room ID (nhap moi neu muon thay doi): "; cin >> usage->room_ID;
+//         cout << "Service ID (nhap moi neu muon thay doi): "; cin >> usage->service_ID;
+//         cout << "Quantity: "; cin >> usage->quantity;
+//         cout << "Usage Date: "; cin >> usage->usageDate;
+//         cout << "Service usage updated successfully!" << endl;
+//     } else {
+//         cout << "Khong tim thay su dung dich vu voi ID: " << usageID << endl;
+//     }
+// }
 
 void ServiceUsage::deleteServiceUsage() {
     string usageID;
@@ -123,7 +125,7 @@ void ServiceUsage::searchByID() {
 void ServiceUsage::searchByRoomID() {
     string roomID;
     cout << "Nhap RoomID de tim kiem dich vu da su dung: "; cin >> roomID;
-    LinkedList<ServiceUsage>::Node* current = usageList.head;
+    LinkedList<ServiceUsage>::Node* current = usageList.begin();
     bool found = false;
     while (current) {
         if (current->data.room_ID == roomID) {
@@ -214,4 +216,37 @@ ostream& operator<<(ostream& os, const ServiceUsage& su) {
        << setw(width_quantity) << su.quantity << " | "
        << setw(width_usage_month) << su.usageDate.toString() << endl;
     return os;
+}
+
+void ServiceUsage::stopService() {
+    string serviceID;
+    cout << "Nhap Service ID muon dung su dung: "; cin >> serviceID;
+    
+    LinkedList<ServiceUsage>::Node* current = usageList.begin();
+    while (current) {
+        if (current->data.getServiceID() == serviceID && 
+            current->data.getTenantID() == Account::currentTenantID &&
+            current->data.getStatus() == true) {
+            current->data.setStatus(false);
+            cout << "Da dung su dung dich vu thanh cong!" << endl;
+            return;
+        }
+        current = current->next;
+    }
+    cout << "Khong tim thay dich vu dang su dung!" << endl;
+}
+
+void ServiceUsage::searchByTenantID(string tenantID) {
+    bool found = false;
+    cout << "\n\t\t\t\t\t==========SEARCH RESULT==========\n";
+    for (int i = 0; i < usageList.size(); i++) {
+        if (usageList[i].getTenantID() == tenantID && usageList[i].getStatus()) {
+            cout << usageList[i];
+            found = true;
+        }
+    }
+    if (!found) {
+        cout << "\t\t\t\t\tNo service usage found!\n";
+    }
+    cout << "\t\t\t\t\t==============================\n";
 }

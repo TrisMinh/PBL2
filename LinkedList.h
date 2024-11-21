@@ -31,7 +31,6 @@ public:
     void add(const T& data);
     void deleteNode(const string& value);
     void edit(const string& ID);
-    Node* getHead();
     T* searchID(const string& ID) const;
     void searchStatus(const int& status);
     void show() const;

@@ -14,6 +14,63 @@
 #include "Payment.h"
 using namespace std;
 
+void displayLoginMenu();  // Function declaration (prototype)
+
+void displayTenantMenu() {
+    cout << "\n========= TENANT MENU =========" << endl;
+    cout << "             Current UserID: " << Account::currentTenantID << endl;
+    cout << "  1. View Personal Information" << endl;
+    cout << "  2. Update Personal Information" << endl;
+    cout << "  3. View Room Information" << endl;
+    cout << "  4. Make Room Reservation" << endl;
+    cout << "  5. View Contract" << endl;
+    cout << "  6. View Service Usage" << endl;
+    cout << "  7. View Payment Status" << endl;
+    cout << "  0. LogOut" << endl;
+    cout << "===============================" << endl;
+}
+
+void controlTenantMenu() {
+    int choice;
+    do {
+        displayTenantMenu();
+        cout << "Please select an option: ";
+        cin >> choice;
+        switch(choice) {
+            case 1: 
+                Tenant::tenantList.searchID(Account::currentTenantID);
+                break;
+            case 2:
+                Tenant::updateTenant();
+                break;
+            case 3:
+                Room::searchAll();
+                break;
+            case 4:
+                Reservation::addReservation();
+                break;
+            case 5:
+                Contract::searchByTenantID(Account::currentTenantID);
+                break;
+            case 6:
+                ServiceUsage::searchByTenantID(Account::currentTenantID);
+                break;
+            case 7:
+                Payment::searchByTenantID(Account::currentTenantID);
+                break;
+            case 0:
+                cout << "Logging out..." << endl;
+                Account::currentTenantID = ""; 
+                displayLoginMenu();
+                return;
+            default: 
+                cout << "Invalid selection. Please try again." << endl;
+                break;
+        }
+    } while (choice != 0);
+}
+
+
 void displayAdminMenu() {
     cout << "\n========= ROOM MANAGEMENT SYSTEM MENU =========" << endl;
     cout << "             Current UserID: " << Account::currentTenantID << endl;
@@ -23,12 +80,11 @@ void displayAdminMenu() {
     cout << "  4. Service Usage Management" << endl;
     cout << "  5. Reservation Management" << endl;
     cout << "  6. Payment Management " << endl;
-    cout << "  7. Maintenance Management (Not)" << endl;
-    cout << "  8. Reports and Statistics (Not)" << endl;
-    cout << "  10. Contract Management" << endl;
-    cout << "  11. Set AdminCode" << endl;
-    cout << "  12. Account Management" << endl;
-    cout << "  0. Exit" << endl;
+    cout << "  7. Reports and Statistics " << endl;
+    cout << "  8. Contract Management" << endl;
+    cout << "  9. Set AdminCode" << endl;
+    cout << "  10. Account Management" << endl;
+    cout << "  0. LogOut" << endl;
     cout << "===============================================" << endl;
 }
 
@@ -131,7 +187,6 @@ void controlAdminMenu() {
                 do {
                     cout << "\n-- Service Usage Management --" << endl
                          << "   1. Add New Service Usage" << endl
-                         << "   2. Edit Service Usage Information" << endl
                          << "   3. Delete Service Usage" << endl
                          << "   4. Display Service Usage List" << endl
                          << "   5. Search Service Usage" << endl
@@ -139,7 +194,6 @@ void controlAdminMenu() {
                     cout << "Please select an option: "; cin >> select;
                     switch (select) {
                         case 1: ServiceUsage::addServiceUsage(); break;
-                        case 2: ServiceUsage::updateServiceUsage(); break;
                         case 3: ServiceUsage::deleteServiceUsage(); break;
                         case 4: ServiceUsage::showAllServiceUsages(); break;
                         case 5: ServiceUsage::searchAll(); break;
@@ -154,7 +208,6 @@ void controlAdminMenu() {
                 do {
                     cout << "\n-- Reservation Management --" << endl
                          << "   1. Create New Reservation" << endl
-                         << "   2. Edit Reservation Information" << endl
                          << "   3. Delete Reservation" << endl
                          << "   4. Display Reservation List" << endl
                          << "   5. Search Reservation" << endl
@@ -163,7 +216,6 @@ void controlAdminMenu() {
                     cout << "Please select an option: "; cin >> select;
                     switch (select) {
                         case 1: Reservation::addReservation(); break;
-                        case 2: Reservation::updateReservation(); break;
                         case 3: Reservation::deleteReservation(); break;
                         case 4: Reservation::showAllReservations(); break;
                         case 5: Reservation::searchAll(); break;
@@ -181,47 +233,34 @@ void controlAdminMenu() {
                          << "   1. Auto Create Payment" << endl
                          << "   2. Display Payment List" << endl
                          << "   3. Pay Bill" << endl
-                         << "   4. Statistics" << endl
                          << "   0. Back to Main Menu" << endl;
                     cout << "Please select an option: "; cin >> select;
                     switch (select) {
                         case 1: Payment::autocreatePayment(); break;
                         case 2: Payment::showAllPayments(); break;
                         case 3: Payment::managePayments(); break;
-                        case 4: Payment::showRevenueStatistics(); break;
                         case 0: cout << "Exiting Contract Management." << endl; break;
                         default: cout << "Invalid selection. Please try again." << endl; break;
                     }
                 } while (select != 0);
                 break;
             }
-            case 7: { // Maintenance Management
+            case 7: { // Reports and Statistics
                 int select;
                 do {
-                    cout << "\n-- Maintenance Management --" << endl
-                         << "   1. Schedule Maintenance" << endl
-                         << "   2. Display Maintenance Status" << endl
+                    cout << "\n-- Reports and Statistics --" << endl
+                         << "   1. Revenue Statistics" << endl
                          << "   0. Back to Main Menu" << endl;
                     cout << "Please select an option: "; cin >> select;
                     switch (select) {
-                        case 1:
-                            // Maintenance::scheduleMaintenance();
-                            break;
-                        case 2:
-                            // Maintenance::showAllMaintenance();
-                            break;
-                        case 0: cout << "Exiting Maintenance Management." << endl; break;
+                        case 1: Payment::showRevenueStatistics(); break;
+                        case 0: cout << "Exiting Reports and Statistics." << endl; break;
                         default: cout << "Invalid selection. Please try again." << endl; break;
                     }
                 } while (select != 0);
                 break;
             }
-            case 8: { // Reports and Statistics
-                cout << "\n-- Reports and Statistics --" << endl;
-                // Implement your report functionality here
-                break;
-            }
-            case 10: { // Contract Management
+            case 8: { // Contract Management
                 int select;
                 do {
                     cout << "\n-- Contract Management --" << endl
@@ -240,83 +279,25 @@ void controlAdminMenu() {
                 } while (select != 0);
                 break;
             }
-            case 11: 
+            case 9: // Set AdminCode
                 cout << "-- AdminCode Changing --" << endl;
                 Account::setAdminCode();
                 break;
-            case 12:
+            case 10: // Account Management
                 cout << "-- Account Management -- (need search by roll tenant or admin)" << endl;
                 Account::showAllAccount();
                 break;
-            
-                break;
-            case 0: cout << "Exiting program. Thank you!" << endl;
-                    RoomType::updateFile("Data/RoomType.txt");
-                    Room::updateFile("Data/Room.txt");
-                    Tenant::updateFile("Data/Tenant.txt");
-                    Service::updateFile("Data/Service.txt");
-                    ServiceUsage::updateFile("Data/ServiceUsage.txt");
-                    Reservation::updateFile("Data/Reservation.txt"); 
-                    Contract::updateFile("Data/Contract.txt");
-                    Payment::updateFile("Data/Payment.txt");
-                    break;
+            case 0: 
+                cout << "Logging out..." << endl;
+                Account::currentTenantID = ""; // Reset current user
+                displayLoginMenu(); // Return to login menu
+                return; // Exit the admin menu
+                
             default: cout << "Invalid selection. Please try again." << endl; break;
         }
     } while (choice != 0);
 }
 
-
-
-
-void displayTenantMenu() {
-    cout << "========= GUEST MENU =========" << endl
-         << "1. View Room Information" << endl
-         << "2. View Rental Contract" << endl
-         << "3. View Payment Status" << endl 
-         << "4. Request Maintenance" << endl
-         << "5. View Personal Information" << endl
-         << "6. Update Personal Information" << endl
-         << "7. Search" << endl
-         << "0. Exit" << endl
-        << "===============================" << endl;
-}
-
-void controlTenantMenu() {
-    int choice;
-    do {
-        displayTenantMenu();
-        cout << "Please select an option: ";
-        cin >> choice;
-        switch(choice) {
-            case 7:{
-                int h1choice;
-                do {
-                    cout << "   1. Room" << endl
-                         << "   2. Reservation" << endl
-                         << "   3. Payment" << endl
-                         << "   0. Exit" << endl;
-                     cin >> h1choice;
-                    switch (h1choice) {
-                        case 1:
-                            Room::searchAll();
-                            break;
-                        case 2:
-                            //reservationList.searchAll(reservationList);
-                            break;
-                        case 3:
-                            //paymentList.searchAll(paymentList);
-                            break;
-                    } 
-                } while (h1choice!=0);
-                break;
-            }
-                
-            case 0:
-                cout << "Exit" << endl;
-                break; 
-        } 
-    } while (choice != 0);
-}
 
 void displayLoginMenu() {
     int choice;
@@ -324,7 +305,7 @@ void displayLoginMenu() {
         cout << "\n========= LOGIN MENU =========" << endl;
         cout << "  1. Sign in" << endl;
         cout << "  2. Sign up" << endl;
-        cout << "  0. Exit" << endl;
+        cout << "  0. Exit Program" << endl; // Added new exit option
         cout << "==============================" << endl;
         cout << "Please select an option: ";
         cin >> choice;
@@ -332,23 +313,35 @@ void displayLoginMenu() {
         switch (choice) {
             case 1: // Sign in
                 if (Account::signin()) {
-                    choice  = 0;
-                    controlAdminMenu();
+                    cout << "Login as: " << ( Account::currentRoll == 1 ? "Admin" : "Tenant") << endl;
+                    if (Account::currentRoll == 1) {
+                        controlAdminMenu();
+                    } else {
+                        controlTenantMenu();
+                    }
                 } 
                 break;
             case 2: // Sign up
                 Account::signup();
                 break;
-            case 0:
+            case 0: // Exit program
                 cout << "Exiting program. Thank you!" << endl;
+                RoomType::updateFile("Data/RoomType.txt");
+                Room::updateFile("Data/Room.txt");
+                Tenant::updateFile("Data/Tenant.txt");
+                Service::updateFile("Data/Service.txt");
+                ServiceUsage::updateFile("Data/ServiceUsage.txt");
+                Reservation::updateFile("Data/Reservation.txt"); 
+                Contract::updateFile("Data/Contract.txt");
+                Payment::updateFile("Data/Payment.txt");
+                exit(0);
                 break;
             default:
                 cout << "Invalid selection. Please try again." << endl;
                 break;
         }
-    } while (choice != 0);
+    } while (choice != 3); 
 }   
-
 
 
 

@@ -5,7 +5,7 @@ huy phong thi xoa contract
 13/11 Done Account
 Contimue -> Payment
 * auto create payment cho tất cả các phòng trong tháng // Done
-* thống kê và báo cáo thu chi, lợi nhuận,
+* thống kê và báo cáo thu chi, lợi nhuận, // progress
 tiền nhà ví dụ khi chuyển vào trong tháng thì tiền nhà sẽ tính bằng số ngày còn lại ( tổng tiền 1 tháng / số ngày trong tháng)* số ngày còn lại
 tim kiem theo ten ( chứa kí tự hoặc đúng)
 gia hạn thuê nhà // Done

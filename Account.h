@@ -19,6 +19,7 @@ private:
     int roll; // 0: Khach, 1: Admin
 public:
     static string currentTenantID;
+    static int currentRoll;
     static int total;          // Tổng số phòng
     static int currentNumber;  // Số lượng phòng hiện tại
     static LinkedList<Account> accountList; 
@@ -29,14 +30,17 @@ public:
     ~Account();
 
     // Ham Get
+    string getID() const { return account_ID; }
     string getusername();
     string getpassword();
     string gettenantID();
+    int getRoll();
 
     // Ham Set
     void setusername(string u);
     void setpassword(string p);
     static void setAdminCode();
+
 
     void fromString(const string& line);
     string toString() const;
@@ -55,7 +59,6 @@ public:
 
     // Search function
     static LinkedList<Account>::Node* searchByUsername(string u, int check);
-    static LinkedList<Account>::Node* searchByPassword(string p);
 
     static void showAllAccount();
 

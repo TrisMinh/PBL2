@@ -13,8 +13,7 @@ LinkedList<Service> Service::serviceList;
 Service::Service() {}
 Service::Service(const string& n, int price, const string& desc)
     : name(n), unit_price(price), description(desc) {
-    currentNumber++;
-    service_ID = generateID(currentNumber);
+    service_ID = generateID(++currentNumber);
 }
 Service::~Service() {}
 
@@ -106,7 +105,7 @@ void Service::searchByName() {
     string name;
     cout << "Nhap ten dich vu can tim kiem: "; cin >> name;
     bool found = false;
-    LinkedList<Service>::Node* current = serviceList.getHead();
+    LinkedList<Service>::Node* current = serviceList.begin();
     while (current != nullptr) {
         if (current->data.getName() == name) {
             cout << current->data;

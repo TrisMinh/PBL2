@@ -11,28 +11,33 @@ class Tenant {
     string tenant_ID;
     string name;
     string phone;
-    int age;
+    int birthyear;
     string cccd;
+    bool gender;
 
 public:
     static int total;
     static int currentNumber;  
     static LinkedList<Tenant> tenantList;
     Tenant();
-    Tenant(const string& name, const string& phone, const string& cccd, int age);
+    Tenant(const string& name, const string& phone, const string& cccd, int birthyear, bool gender);
     ~Tenant();
     static int get_currentNumber();
     static string generateID(int number);
     string getID() const;
     string getName() const;
     string getPhone() const;
+    int getBirthyear() const;
     int getAge() const;
     string getCCCD() const;
+    bool getGender() const;
+    
 
     void setName(const string& name);
     void setPhone(const string& phone);
-    void setAge(int age);
+    void setBirthyear(int birthyear);
     void setCCCD(const string& cccd);
+    void setGender(bool gender);
 
     void fromString(const string& line);
     string toString() const;

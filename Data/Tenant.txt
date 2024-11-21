@@ -1,5 +1,5 @@
-tenant_ID,CCCD,name,phone,age
+tenant_ID,CCCD,name,phone,birthyear,gender
 3
-T.001,0111,khach1,0111,34
-T.002,0111,khach1,0111,24
-T.003,0112,khach2,0112,19
+T.001,0911111111,Nguyen Van An,0911111111,1997,0
+T.002,0911111112,Hoang Minh Tri,0911111112,2005,0
+T.003,0911111113,Tran Van Ly,0911111113,1990,1

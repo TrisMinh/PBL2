@@ -33,7 +33,6 @@ void Contract::updateFile(const string& filename) { contractList.updateFile(file
 
 // Get function
 string Contract::getID() const { return contractID; }
-string Contract::getReservationID() const { return reservation_ID; } 
 DATE Contract::getStartDate() const { return startDate; }
 DATE Contract::getEndDate() const { return endDate; }
 double Contract::getPrice() const { return Reservation::getPrice(); } 
@@ -296,7 +295,7 @@ ostream& operator<<(ostream& os, const Contract& c) {
     os << left
        << setw(width_id) << c.contractID << " | "
        << setw(width_room_id) << c.room_ID << " | "
-       << setw(width_room_type) << r->getroomtype().getDescription() << " | "
+       << setw(width_room_type) << r->getRoomType()->getDescription() << " | "
        << setw(width_tenant_id) << c.tenant_ID << " | "
        << setw(width_name) << t->getName() << " | "
        << setw(width_age) << t->getAge() << " | "

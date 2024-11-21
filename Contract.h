@@ -36,7 +36,6 @@ public:
     // Getters
     string getID() const;
     bool getStatus() const;
-    string getReservationID() const; // Getter cho reservationID
     DATE getStartDate() const ;
     DATE getEndDate() const ;
     double getPrice() const; // Getter cho giá tiền

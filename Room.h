@@ -12,10 +12,10 @@
 
 using namespace std;
 
-class Room : public RoomType {
-protected:
+class Room {
+private:
     string room_ID;       
-    RoomType roomType;   
+    RoomType* roomType;   
     int status;          
     string tenant_ID;    
 public:
@@ -25,20 +25,22 @@ public:
 
     // Constructors
     Room();
-    Room(const RoomType& type, int s, const string& tenantId = "");
+    Room(RoomType* type, int s = 0, const string& tenantId = "N/A");
     // Destructor
     ~Room();
 
     // Getters
-    double getPrice() const;
     string getID() const;
+    RoomType* getRoomType() const;
+    string getRoomTypeID() const;
     int getStatus() const;
+    double getPrice() const;
     string getTenantID() const;
-    RoomType getroomtype() const;
 
     // Setters
     void setStatus(int status);
     void setTenantID(string tenantid);
+    void setRoomType(RoomType* type);
 
     // Room management methods
     static string generateID(int number);

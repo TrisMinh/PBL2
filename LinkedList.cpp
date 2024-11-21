@@ -28,11 +28,6 @@ typename LinkedList<T>::Node* LinkedList<T>::begin() { return head; }
 template <typename T>
 typename LinkedList<T>::Node* LinkedList<T>::end() { return nullptr; }
 template <typename T>
-typename LinkedList<T>::Node* LinkedList<T>::getHead() {
-    return head;
-}
-
-template <typename T>
 void LinkedList<T>::load(const string& filename) {
     ifstream file(filename);
     if (!file.is_open()) {
@@ -208,8 +203,13 @@ void LinkedList<T>::searchStatus(const int& status) {
 }
 template <typename T>
 const T& LinkedList<T>::operator[](int index) const {
-    Node* current = head; // Assuming LinkedList has a head pointer
+    if (index < 0) {
+        throw out_of_range("Index out of bounds");
+    }
+    
+    Node* current = head;
     int currentIndex = 0;
+    
     while (current != nullptr) {
         if (currentIndex == index) {
             return current->data;
@@ -217,7 +217,7 @@ const T& LinkedList<T>::operator[](int index) const {
         current = current->next;
         currentIndex++;
     }
-    return T();
+    
+    throw out_of_range("Index out of bounds");
 }
-
 

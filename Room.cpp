@@ -7,7 +7,7 @@ LinkedList<Room> Room::roomList;
 
 // Constructor
 Room::Room() {}
-Room::Room(const RoomType& type, int s, const string& tenantId)
+Room::Room(RoomType* type, int s, const string& tenantId)
     : roomType(type), status(s), tenant_ID(tenantId) {
     room_ID = generateID(++currentNumber);
 }
@@ -26,11 +26,15 @@ void Room::updateFile(const string& filename) { roomList.updateFile(filename); }
 
 
 // Get function
-RoomType Room::getroomtype() const {return roomType;}
 string Room::getID() const { return room_ID; }
 int Room::getStatus() const { return status; }
-double Room::getPrice() const { return roomType.getPrice();}
+double Room::getPrice() const {
+    return roomType ? roomType->getPrice() : 0.0;
+}
 string Room::getTenantID() const { return tenant_ID; }
+string Room::getRoomTypeID() const {
+    return roomType ? roomType->getID() : "N/A";
+}
 
 // Set function
 void Room::setStatus(int status) { this->status = status; }
@@ -46,13 +50,13 @@ void Room::fromString(const string& line) {
     ss >> status;
     ss.ignore(1);
     getline(ss, tenant_ID);
-    roomType = *RoomType::roomTypeList.searchID(type_id);
+    roomType = RoomType::roomTypeList.searchID(type_id);
     total++;
 }
 
 // Ham chuyen thanh chuoi de ghi du lieu vao file
 string Room::toString() const { 
-    return room_ID + "," + roomType.getID() + "," + to_string(status) + "," + (tenant_ID.empty() ? "N/A" : tenant_ID); 
+    return room_ID + "," + getRoomTypeID() + "," + to_string(status) + "," + (tenant_ID.empty() ? "N/A" : tenant_ID); 
 }
 
 // Chuc nang co ban (Basic Function)
@@ -67,23 +71,30 @@ void Room::addRoom() {
         if (matchedRoomType == nullptr) {
             cout << "Loai phong khong hop le!" << endl;
         }
-    } while (matchedRoomType == NULL);  
-    int status = 0;            
-    string tenant_id = "N/A";   
-    Room newRoom(*matchedRoomType, status, tenant_id);
+    } while (matchedRoomType == nullptr);            
+    Room newRoom(matchedRoomType);
     roomList.add(newRoom);
     cout << "Da them phong voi ID: " << newRoom.getID() << " voi trang thai mac dinh Trong va khong co khach thue." << endl;
     total++;
 }
 
-void Room::updateRoom() { // Updating...
+void Room::updateRoom() {
     string roomID;
     cout << "Nhap ma phong (Room ID) de cap nhat: "; cin >> roomID;
     Room* room = roomList.searchID(roomID);
     if (room != NULL) {
+        if (room->getStatus() != 0) {
+            cout << "Khong the cap nhat trang thai phong vi phong dang co nguoi thue!" << endl;
+            return;
+        }
         int newStatus;               
         cout << "Cap nhat phong voi ma ID: " << room->getID() << endl;
-        cout << "Trang thai moi (0: Trong, 2: Dang bao tri): "; cin >> newStatus;
+        cout << "Trang thai moi (0: Trong, 3: Dang bao tri): "; cin >> newStatus;
+        if (newStatus != 0 && newStatus != 3) {
+            cout << "Trang thai khong hop le! Chi co the cap nhat sang trang thai Trong (0) hoac Dang bao tri (2)" << endl;
+            return;
+        }
+
         room->setStatus(newStatus);
         cout << "Phong da duoc cap nhat thanh cong!" << endl;
     } else {
@@ -113,28 +124,41 @@ void Room::searchByStatus() {
     roomList.searchStatus(status); 
 }
 
-void Room::searchByName() {
-    string name;
-    cout << "Nhap ten chu phong can tim kiem: "; cin >> name;
-    bool found = false;
-    LinkedList<Tenant>::Node* current1 = Tenant::tenantList.getHead();
-    while (current1 != nullptr) {
-        if (current1->data.getName() == name) {
-            break;
-        }
-        current1 = current1->next;
+// Hàm chuyển đổi chuỗi thành chữ thường
+string toLower(string str) {
+    for(char& c : str) { // duyệt chuỗi 
+        if(c >= 'A' && c <= 'Z') c += 32;  
     }
-    LinkedList<Room>::Node* current2 = Room::roomList.getHead();
-    while (current2 != nullptr) {
-        if (current2->data.getTenantID() == current1->data.getID()) {
-            cout << current2->data;
-            found = true;
+    return str;
+}
+
+void Room::searchByName() {
+    string searchName;
+    cout << "Nhap ten chu phong can tim kiem: "; 
+    cin.ignore();
+    getline(cin, searchName);
+    
+    bool found = false;
+    LinkedList<Room>::Node* current = roomList.begin();
+    
+    while (current != nullptr) {
+        // Chỉ kiểm tra các phòng có người thuê
+        if (current->data.getTenantID() != "N/A") {
+            // Tìm thông tin người thuê từ tenant_ID
+            Tenant* tenant = Tenant::tenantList.searchID(current->data.getTenantID());
+            if (tenant != nullptr) {
+                // So sánh tên (không phân biệt hoa thường)
+                if (toLower(tenant->getName()).find(toLower(searchName)) != string::npos) {
+                    cout << current->data;
+                    found = true;
+                }
+            }
         }
-        current2 = current2->next;
+        current = current->next;
     }
 
     if (!found) {
-        cout << "Khong tim thay nguoi thue voi ten: " << name << endl;
+        cout << "Khong tim thay phong voi ten chu phong: " << searchName << endl;
     }
 }
 
@@ -201,39 +225,59 @@ ostream& operator<<(ostream& os, const Room& r) {
     const int width_room_type = 15;
     const int width_status = 15;
     const int width_tenant_id = 20;
+    const int width_tenant_name = 25;
     const int width_price = 10;
 
-    static bool is_header_printed = false; // Biến tĩnh đảm bảo tiêu đề chỉ in một lần
+    static bool is_header_printed = false;
 
-    // In tiêu đề bảng một lần duy nhất
     if (!is_header_printed) {
         os << left
            << setw(width_room_id) << "Ma phong" << " | "
            << setw(width_room_type) << "Loai phong" << " | "
            << setw(width_status) << "Trang thai" << " | "
            << setw(width_tenant_id) << "Ma khach thue" << " | "
+           << setw(width_tenant_name) << "Ten khach thue" << " | "
            << setw(width_price) << "Gia" 
            << endl;
 
-        // In dòng kẻ ngang phân cách tiêu đề và dữ liệu
         os << setfill('-')
            << setw(width_room_id + 2) << ""
            << setw(width_room_type + 3) << ""
            << setw(width_status + 3) << ""
            << setw(width_tenant_id + 3) << ""
+           << setw(width_tenant_name + 3) << ""
            << setw(width_price + 1) << ""
            << setfill(' ') << endl;
 
-        is_header_printed = true; // Đánh dấu đã in tiêu đề
+        is_header_printed = true;
     }
 
-    // In dữ liệu phòng
+    // Lấy tên khách thuê từ ID
+    string tenantName = "N/A";
+    if (r.tenant_ID != "N/A") {
+        Tenant* tenant = Tenant::tenantList.searchID(r.tenant_ID);
+        if (tenant != nullptr) {
+            tenantName = tenant->getName();
+        }
+    }
+
     os << left 
        << setw(width_room_id) << r.room_ID << " | "
-       << setw(width_room_type) << r.roomType.getID() << " | "
-       << setw(width_status) << (r.status == 0 ? "Trong" : (r.status == 1 ? "Dang thue" : "Da dat")) << " | "
+       << setw(width_room_type) << r.getRoomTypeID() << " | "
+       << setw(width_status) << (r.status == 0 ? "Trong" : 
+                                (r.status == 1 ? "Dang thue" : 
+                                (r.status == 3 ? "Dang bao tri" : "Da dat"))) << " | "
        << setw(width_tenant_id) << (r.tenant_ID.empty() ? "N/A" : r.tenant_ID) << " | "
-       << fixed << setprecision(2) << setw(width_price) << r.roomType.getPrice() << endl;
+       << setw(width_tenant_name) << tenantName << " | "
+       << fixed << setprecision(2) << setw(width_price) << r.getPrice() << endl;
 
     return os;
+}
+
+RoomType* Room::getRoomType() const {
+    return roomType;
+}
+
+void Room::setRoomType(RoomType* type) {
+    roomType = type;
 }

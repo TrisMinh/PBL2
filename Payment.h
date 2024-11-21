@@ -69,6 +69,8 @@ class Payment {
         // Hiển thị so sánh
         static void showMonthlyComparison(int year);
         static void showYearlyComparison(int startYear, int endYear);
+
+        static void searchByTenantID(string tenantID);
 };
 
 
