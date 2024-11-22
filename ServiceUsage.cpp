@@ -4,11 +4,13 @@
 int ServiceUsage::total = 0;
 int ServiceUsage::currentNumber = 0;
 LinkedList<ServiceUsage> ServiceUsage::usageList;
+bool ServiceUsage::is_header_printed = false;
+void ServiceUsage::resetHeader() { is_header_printed = false; }
 
 // Constructor
 ServiceUsage::ServiceUsage() {}
-ServiceUsage::ServiceUsage(const string& roomId, const string& servId, const string& tenantId, int qty, DATE date, bool status)
-    : room_ID(roomId), service_ID(servId), quantity(qty), tenantID(tenantId), usageDate(date), status(status) {
+ServiceUsage::ServiceUsage(const string& roomId, const string& servId, const string& tenantId, DATE date, bool status)
+    : room_ID(roomId), service_ID(servId), tenantID(tenantId), usageDate(date), status(status) {
     usage_ID = generateID(++currentNumber);
 }
 ServiceUsage::~ServiceUsage() {}
@@ -31,7 +33,6 @@ string ServiceUsage::getTenantID() const { return tenantID; }
 string ServiceUsage::getServiceID() const { return service_ID; }
 int ServiceUsage::getUsageMonth() const { return usageDate.get_month(); }
 int ServiceUsage::getUsageYear() const { return usageDate.get_year(); }
-int ServiceUsage::getQuantity() const { return quantity; }
 bool ServiceUsage::getStatus() const { return status; }
 void ServiceUsage::setStatus(bool newStatus) { status = newStatus; }
 
@@ -43,8 +44,6 @@ void ServiceUsage::fromString(const string& line) {
     getline(ss, room_ID, ',');
     getline(ss, service_ID, ',');
     getline(ss, tenantID, ',');
-    ss >> quantity;
-    ss.ignore(1);
     getline(ss, usageDatestr, ',');
     ss >> status;
     usageDate.fromString(usageDatestr);
@@ -54,7 +53,7 @@ void ServiceUsage::fromString(const string& line) {
 string ServiceUsage::toString() const {
     stringstream ss;
     ss << usage_ID << ',' << room_ID << ',' << service_ID << ',' 
-       << tenantID << ',' << quantity << ',' << usageDate.toString() << ',' << status;
+       << tenantID << ',' << usageDate.toString() << ',' << status;
     return ss.str();
 }
 
@@ -62,50 +61,53 @@ string ServiceUsage::toString() const {
 void ServiceUsage::addServiceUsage() {
     Room::searchRoomByTenantID(Account::currentTenantID);
     string room_ID, service_ID;
-    int quantity;
     DATE usageDate;
     if (Service::serviceList.begin() == NULL) { 
         cout << "None of Service! " << endl;
         return;
     }
+
     bool found1 = false;
     bool found2 = false;
     do{
+        resetHeader();
         cout << "Room ID: "; cin >> room_ID;
         Room* room = Room::roomList.searchID(room_ID);
         if (room != NULL && room->getStatus() == 1) { found1 = true; } 
         else { cout << "Room ID not found or no owner. Please enter again! "<< endl; }
     } while(!found1);
+    
     do{
+        resetHeader();
+        Service::serviceList.show();
         cout << "Service ID: "; cin >> service_ID;
+        
+        // Kiểm tra xem dịch vụ này đã được đăng ký chưa
+        LinkedList<ServiceUsage>::Node* current = usageList.begin();
+        bool serviceAlreadyActive = false;
+        while (current) {
+            if (current->data.getTenantID() == Account::currentTenantID && 
+                current->data.getServiceID() == service_ID &&
+                current->data.getStatus() == true) {
+                cout << "This service is already active for your account!" << endl;
+                serviceAlreadyActive = true;
+                break;
+            }
+            current = current->next;
+        }
+        if (serviceAlreadyActive) continue;
+
         Service* service = Service::serviceList.searchID(service_ID);
         if (service != NULL) { found2 = true;} 
         else { cout << "Service ID not found. Please enter again! "<< endl; }
     } while(!found2);
-    cout << "Quantity: "; cin >> quantity;
+
     cout << "Usage Date: "; cin >> usageDate;
-    ServiceUsage newUsage(room_ID, service_ID, Account::currentTenantID ,quantity, usageDate);
+    ServiceUsage newUsage(room_ID, service_ID, Account::currentTenantID, usageDate, true);
     usageList.add(newUsage);
     cout << "Service usage added successfully!" << endl;
     total++;
 }
-
-// có thể xung đột dữ liệu
-// void ServiceUsage::updateServiceUsage() {
-//     string usageID;
-//     cout << "Nhap Usage ID de cap nhat: "; cin >> usageID;
-//     ServiceUsage* usage = usageList.searchID(usageID);
-//     if (usage) {
-//         cout << "Cap nhat Usage ID: " << usage->usage_ID << endl;
-//         cout << "Room ID (nhap moi neu muon thay doi): "; cin >> usage->room_ID;
-//         cout << "Service ID (nhap moi neu muon thay doi): "; cin >> usage->service_ID;
-//         cout << "Quantity: "; cin >> usage->quantity;
-//         cout << "Usage Date: "; cin >> usage->usageDate;
-//         cout << "Service usage updated successfully!" << endl;
-//     } else {
-//         cout << "Khong tim thay su dung dich vu voi ID: " << usageID << endl;
-//     }
-// }
 
 void ServiceUsage::deleteServiceUsage() {
     string usageID;
@@ -116,6 +118,7 @@ void ServiceUsage::deleteServiceUsage() {
 
 // Search Function
 void ServiceUsage::searchByID() {
+    resetHeader();
     string usageID;
     cout << "Nhap Usage ID de tim kiem: "; cin >> usageID;
     ServiceUsage* usage = usageList.searchID(usageID);
@@ -124,6 +127,7 @@ void ServiceUsage::searchByID() {
 }
 
 void ServiceUsage::searchByRoomID() {
+    resetHeader();
     string roomID;
     cout << "Nhap RoomID de tim kiem dich vu da su dung: "; cin >> roomID;
     LinkedList<ServiceUsage>::Node* current = usageList.begin();
@@ -141,6 +145,7 @@ void ServiceUsage::searchByRoomID() {
 }
 
 void ServiceUsage::searchAll() {
+    resetHeader();
     int choice;
     do {
         cout << "   1. Search by RoomID" << endl
@@ -158,64 +163,61 @@ void ServiceUsage::searchAll() {
 
 // Show Function
 void ServiceUsage::showAllServiceUsages() {
+    resetHeader();
     cout << "Danh sach tat ca cac su dung dich vu:" << endl;
     usageList.show();
     cout << "1. Sap xep tang ID" << endl
          << "2. Sap xep giam ID" << endl
+         << "3. Tim kiem lich su su dung dich vu" << endl
          << "0. Thoat!" << endl;
     int choice;
     cout << "Lua chon cua ban: "; cin >> choice;
     switch (choice) {
         case 1: usageList.sortByID(true); showAllServiceUsages(); break;
         case 2: usageList.sortByID(false); showAllServiceUsages();  break;
+        case 3: searchAll(); break;
         default: break;
     }
 }
 
 // Da nang hoa ham xuat
 ostream& operator<<(ostream& os, const ServiceUsage& su) {
-    // Định nghĩa độ rộng cho từng cột
     const int width_usage_id = 15;
     const int width_room_id = 15;
     const int width_service_id = 15;
     const int width_tenant_id = 15;
-    const int width_quantity = 10;
-    const int width_usage_month = 10;
+    const int width_usage_month = 15;
+    const int width_status = 10;
 
-    static bool is_header_printed = false; // Biến tĩnh đảm bảo tiêu đề chỉ in một lần
-
-    // In tiêu đề bảng một lần duy nhất
-    if (!is_header_printed) {
+    if (!ServiceUsage::is_header_printed) {
         os << left
            << setw(width_usage_id) << "Usage ID" << " | "
            << setw(width_room_id) << "Room ID" << " | "
            << setw(width_service_id) << "Service ID" << " | "
            << setw(width_tenant_id) << "Tenant ID" << " | "
-           << setw(width_quantity) << "Quantity" << " | "
-           << setw(width_usage_month) << "Usage Month"
+           << setw(width_usage_month) << "Usage Month" << " | "
+           << setw(width_status) << "Status"
            << endl;
 
-        // In dòng kẻ ngang phân cách tiêu đề và dữ liệu
         os << setfill('-')
            << setw(width_usage_id + 2) << ""
            << setw(width_room_id + 2) << ""
            << setw(width_service_id + 2) << ""
            << setw(width_tenant_id + 2) << ""
-           << setw(width_quantity + 2) << ""
            << setw(width_usage_month + 2) << ""
+           << setw(width_status + 2) << ""
            << setfill(' ') << endl;
 
-        is_header_printed = true; // Đánh dấu đã in tiêu đề
+        ServiceUsage::is_header_printed = true;
     }
 
-    // In dữ liệu ServiceUsage
     os << left
        << setw(width_usage_id) << su.usage_ID << " | "
        << setw(width_room_id) << su.room_ID << " | "
        << setw(width_service_id) << su.service_ID << " | "
        << setw(width_tenant_id) << su.tenantID << " | "
-       << setw(width_quantity) << su.quantity << " | "
-       << setw(width_usage_month) << su.usageDate.toString() << endl;
+       << setw(width_usage_month) << su.usageDate.toString() << " | "
+       << setw(width_status) << (su.status ? "Active" : "Inactive") << endl;
     return os;
 }
 
@@ -238,6 +240,7 @@ void ServiceUsage::stopService() {
 }
 
 void ServiceUsage::searchByTenantID(string tenantID) {
+    resetHeader();
     bool found = false;
     cout << "\n\t\t\t\t\t==========SEARCH RESULT==========\n";
     for (int i = 0; i < usageList.size(); i++) {

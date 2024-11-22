@@ -162,3 +162,29 @@ int DATE::operator-(DATE& other)  {
     return this->toDays() - other.toDays();
 }
 
+bool DATE::operator<(const DATE& other) const {
+    if (year != other.year) return year < other.year;
+    if (month != other.month) return month < other.month;
+    return day < other.day;
+}
+
+bool DATE::operator>(const DATE& other) const {
+    return other < *this;
+}
+
+bool DATE::operator<=(const DATE& other) const {
+    return !(other < *this);
+}
+
+bool DATE::operator>=(const DATE& other) const {
+    return !(*this < other);
+}
+
+bool DATE::operator==(const DATE& other) const {
+    return (day == other.day && month == other.month && year == other.year);
+}
+
+bool DATE::operator!=(const DATE& other) const {
+    return !(*this == other);
+}
+

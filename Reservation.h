@@ -72,7 +72,6 @@ public:
 
     // Search and confirm reservation
     static void searchByID();
-    static void searchByName();
     static void searchAll();
 
 

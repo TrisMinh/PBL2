@@ -1,4 +1,5 @@
 #include "Service.h"
+#include "ServiceUsage.h"
 #include <iostream>
 #include <iomanip>
 #include <sstream>
@@ -70,6 +71,11 @@ void Service::addService() {
 
 void Service::updateService() {
     string serviceID;
+    
+    cout << "Danh sach dich vu hien tai:" << endl;
+    resetHeader();
+    serviceList.show();
+    
     cout << "Nhap Service ID de cap nhat: "; cin >> serviceID;
     Service* service = serviceList.searchID(serviceID);
     if (service) {
@@ -78,10 +84,10 @@ void Service::updateService() {
 
         cout << "Cap nhat Service ID: " << service->getID() << endl;
         cin.ignore();
-        cout << "Ten (nhap moi neu muon thay doi): "; getline(cin, newName);
-        cout << "Gia (nhap moi neu muon thay doi): "; cin >> newUnitPrice;
+        cout << "Ten dich vu: "; getline(cin, newName);
+        cout << "Gia dich vu: "; cin >> newUnitPrice;
         cin.ignore();
-        cout << "Mo ta (nhap moi neu muon thay doi): "; getline(cin, newDescription);
+        cout << "Mo ta dich vu: "; getline(cin, newDescription);
         service->name = newName;
         service->unit_price = newUnitPrice;
         service->description = newDescription;
@@ -94,7 +100,19 @@ void Service::updateService() {
 void Service::deleteService() {
     string serviceID;
     cout << "Nhap Service ID de xoa: "; cin >> serviceID;
+    
+    // Check if service is being used by checking ServiceUsage list
+    LinkedList<ServiceUsage>::Node* current = ServiceUsage::usageList.begin();
+    while (current) {
+        if (current->data.getServiceID() == serviceID && current->data.getStatus() == true) {
+            cout << "Khong the xoa dich vu nay vi dang duoc su dung!" << endl;
+            return;
+        }
+        current = current->next;
+    }
+    
     serviceList.deleteNode(serviceID);
+    cout << "Xoa dich vu thanh cong!" << endl;
     total--;
 }
 
@@ -129,6 +147,7 @@ void Service::searchByName() {
 }
 
 void Service::searchAll() {
+    resetHeader();
     int choice;
     do {
         cout << "Service Searching Function: " << endl;
@@ -151,36 +170,31 @@ void Service::showAllServices() {
     serviceList.show();
     cout << "1. Sap xep ID tang dan" << endl
          << "2. Sap xep ID giam dan" << endl
+         << "3. Tim kiem " << endl
          << "0. Thoat" << endl;
     int choice;
     cout << "Lua chon cua ban: "; cin >> choice;
     switch (choice) {
         case 1: serviceList.sortByID(true); showAllServices(); break;
         case 2: serviceList.sortByID(false); showAllServices(); break;
+        case 3: searchAll(); break;
         default: break;
     }
 }
 
 // Da nang hoa ham xuat
 ostream& operator<<(ostream& os, const Service& s) {
-    // Định nghĩa độ rộng cho từng cột
     const int width_service_id = 15;
     const int width_name = 20;
     const int width_price = 10;
     const int width_description = 30;
 
-    static bool is_header_printed = false; // Biến tĩnh đảm bảo tiêu đề chỉ in một lần
-
-    // In tiêu đề bảng một lần duy nhất
-    if (!is_header_printed) {
+    if (!Service::is_header_printed) {
         os << left
            << setw(width_service_id) << "Service ID" << " | "
            << setw(width_name) << "Service Name" << " | "
            << setw(width_price) << "Price" << " | "
-           << setw(width_description) << "Description"
-           << endl;
-
-        // In dòng kẻ ngang phân cách tiêu đề và dữ liệu
+           << setw(width_description) << "Description" << endl;
         os << setfill('-')
            << setw(width_service_id + 2) << ""
            << setw(width_name + 3) << ""
@@ -188,10 +202,9 @@ ostream& operator<<(ostream& os, const Service& s) {
            << setw(width_description + 3) << ""
            << setfill(' ') << endl;
 
-        is_header_printed = true; // Đánh dấu đã in tiêu đề
+        Service::is_header_printed = true;
     }
 
-    // In dữ liệu Service
     os << left
        << setw(width_service_id) << s.service_ID << " | "
        << setw(width_name) << s.name << " | "

@@ -70,6 +70,8 @@ public:
 
     static void resetHeader();
 
+    static void changePassword();
+
 };
 #include "Account.cpp"
 #endif

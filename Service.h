@@ -45,10 +45,10 @@ public:
 
     static void load(const string& filename);
     static void updateFile(const string& filename);
+
     static void addService();
     static void updateService();
     static void deleteService();
-    static void showServiceDetails();
     static void showAllServices();
 
     static void searchByID();

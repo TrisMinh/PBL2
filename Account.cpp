@@ -13,8 +13,7 @@ void Account::resetHeader() { is_header_printed = false; }
 // Constructor
 Account::Account() {}
 Account::Account(const string& u, const string& p, const string& id, int roll) : username(u), password(p), tenant_ID(id), roll(roll) {
-    currentNumber++;
-    account_ID = generateID(currentNumber);
+    account_ID = generateID(++currentNumber);
 }
 Account::~Account() {}
 
@@ -66,6 +65,7 @@ void Account::setAdminCode() {
     cout << "Nhap AdminCode cu: "; cin >> temp;
     if (temp == AdminCode) {
         cout << "Nhap AdminCode moi: "; cin >> AdminCode;
+        cout << "AdminCode da thay doi thanh cong!" << endl;
         Account::updateFile("Data/Account.txt");
     }
     else {
@@ -73,7 +73,7 @@ void Account::setAdminCode() {
     }
 }
 
-// // Ham bien doi nham doc du lieu tu file (moi du lieu se co 1 fromstring khac nhau)
+// Convert function
 void Account::fromString(const string& line) {
     string rollstr;
     stringstream ss(line);
@@ -93,85 +93,66 @@ string Account::toString() const {
 // Basic function
 bool Account::signup() {
     string u, p;
-    int repeat = 0;
-    int role;
-    
-    // Chọn loại tài khoản
-    cout << "Lua chon loai tai khoan (1 = Tenant, 2 = Admin): ";
-    cin >> role;
+    int repeat = 0, role;
+    do {
+        cout << "Lua chon loai tai khoan (1 = Tenant, 2 = Admin): "; cin >> role;
+        if (role != 1 && role != 2) {
+            cout << "Lua chon khong hop le. Vui long chon 1 hoac 2.\n";
+        }
+    } while (role != 1 && role != 2);
 
-    // Nếu chọn tài khoản admin, yêu cầu nhập AdminCode
-    if (role == 2) {
+    if (role == 2) { // admin thì nhập admin code
         string adminCodeInput;
         int attempts = 0;
-        
         do {
             if (attempts > 0) {
                 cout << "AdminCode khong dung, vui long bam enter de nhap lai hoac nhap 0 de thoat." << endl;
                 cout << "Lua chon: ";
                 cin.ignore();
                 getline(cin, adminCodeInput);
-                
-                // Kiểm tra nếu người dùng muốn thoát
-                if (adminCodeInput == "0") {
+                if (adminCodeInput == "0") { // nhập 0 thì thoát
                     cout << "Dang ky da bi huy." << endl;
                     return 0;
                 }
             }
-            cout << "Nhap AdminCode: ";
-            cin >> adminCodeInput;
+            cout << "Nhap day so AdminCode: "; cin >> adminCodeInput;
             attempts++;
-        } while (adminCodeInput != Account::AdminCode);  // Yêu cầu nhập lại nếu mã không đúng
-
+        } while (adminCodeInput != Account::AdminCode); 
         cout << "AdminCode hop le. Dang ky tai khoan admin." << endl;
     }
 
-    // Thực hiện phần đăng ký tài khoản thông thường
-    do { 
+    do { // đăng kí tài khoản
         if (repeat) { 
             cout << "Username nay da duoc su dung, vui long nhap lai hoac nhap 0 de thoat." << endl;
             string choice;
             cout << "Lua chon: ";
-            cin.ignore();
-            getline(cin, choice);
+            cin.ignore(); getline(cin, choice);
             if (choice == "0") {
                 cout << "Dang ky da bi huy." << endl;
                 return 0;
             }
         }
-        cout << "Nhap username: ";
-        cin >> u;
+        cout << "Nhap username: "; cin >> u;
         repeat = 1;
     } while (searchByUsername(u, 0) != NULL);
-    
-    cout << "Nhap password: ";
-    cin >> p;
+    cout << "Nhap password: "; cin >> p;
 
-    // Đăng ký tài khoản tenant bình thường
-    if (role == 1) {
+    if (role == 1) { // tenant
         cout << "Nhap thong tin ca nhan: " << endl;
         string lastName, firstName, phone, cccd;
         int birthyear;
         bool genderInput;
-        cin.ignore();
         cout << "Nhap ho va ten dem: ";
-        getline(cin, lastName);
-        cout << "Nhap ten: ";
-        getline(cin, firstName);
-        cout << "Nhap so dien thoai: ";
-        cin >> phone;
-        cout << "Nhap CCCD: ";
-        cin >> cccd;
-        cout << "Nhap nam sinh: ";
-        cin >> birthyear;
-        cout << "Nhap gioi tinh (0: Nam, 1: Nu): ";
-        cin >> genderInput;
+        cin.ignore(); getline(cin, lastName);
+        cout << "Nhap ten: "; getline(cin, firstName);
+        cout << "Nhap so dien thoai: "; cin >> phone;
+        cout << "Nhap CCCD: "; cin >> cccd;
+        cout << "Nhap nam sinh: "; cin >> birthyear;
+        cout << "Nhap gioi tinh (0: Nam, 1: Nu): "; cin >> genderInput;
 
-        // Tạo tenant và thêm vào danh sách
         Tenant tenant(lastName, firstName, phone, cccd, birthyear, genderInput);
         Tenant::tenantList.add(tenant);
 
-        // Tạo tài khoản tenant với tenant ID
         Account acc(u, p, tenant.getID(),0);
         accountList.add(acc);
         Tenant::updateFile("Data/Tenant.txt");
@@ -206,8 +187,7 @@ bool Account::signin() {
                 cout << "Dang nhap da bi huy." << endl;
                 return false;
             } else if (choice == 2) {
-                if (forgotPassword()) {
-                    // Sau khi hiện mật khẩu, quay lại màn hình đăng nhập
+                if (forgotPassword()) { // quay lại đăng nhập
                     attempts = 0;
                     continue;
                 }
@@ -231,10 +211,8 @@ bool Account::signin() {
 
 // Search function
 LinkedList<Account>::Node* Account::searchByUsername(string u, int check) {
-    if (check == 1) {
-        cout << "Nhap username can tim kiem: "; cin >> u;
-    }
-    resetHeader();  // Reset header trước khi hiển thị kết quả
+    resetHeader();  
+    if (check == 1) { cout << "Nhap username can tim kiem: "; cin >> u; }
     LinkedList<Account>::Node* current = accountList.begin(); 
     while (current != nullptr) {
         if (current->data.getusername() == u) {
@@ -246,7 +224,7 @@ LinkedList<Account>::Node* Account::searchByUsername(string u, int check) {
 }
 
 void Account::showAllAccount() {
-    resetHeader();  // Reset header trước khi hiển thị
+    resetHeader();  
     cout << "Danh sach Account:" << endl;
     accountList.show();
 }
@@ -292,12 +270,9 @@ ostream& operator<<(ostream& os, const Account& a) {
 bool Account::forgotPassword() {
     string phone, cccd;
     cout << "\n=== KHOI PHUC MAT KHAU ===\n";
-    cout << "Nhap so dien thoai: ";
-    cin >> phone;
-    cout << "Nhap CCCD: ";
-    cin >> cccd;
+    cout << "Nhap so dien thoai: "; cin >> phone;
+    cout << "Nhap CCCD: "; cin >> cccd;
 
-    // Tìm và xác minh thông tin tenant
     LinkedList<Account>::Node* account = verifyTenantInfo(phone, cccd);
     
     if (account != nullptr) {
@@ -311,12 +286,10 @@ bool Account::forgotPassword() {
 }
 
 LinkedList<Account>::Node* Account::verifyTenantInfo(const string& phone, const string& cccd) {
-    // Duyệt qua danh sách tenant để tìm thông tin khớp
     LinkedList<Tenant>::Node* currentTenant = Tenant::tenantList.begin();
     while (currentTenant != nullptr) {
         if (currentTenant->data.getPhone() == phone && 
             currentTenant->data.getCCCD() == cccd) {
-            // Nếu tìm thấy tenant, tìm account tương ứng
             string tenantID = currentTenant->data.getID();
             LinkedList<Account>::Node* currentAccount = accountList.begin();
             
@@ -330,6 +303,22 @@ LinkedList<Account>::Node* Account::verifyTenantInfo(const string& phone, const 
         currentTenant = currentTenant->next;
     }
     return nullptr;
+}
+
+void Account::changePassword() {
+    string oldPassword, newPassword;
+    cout << "Enter old password: "; cin >> oldPassword;
+    cout << "Enter new password: "; cin >> newPassword;
+    LinkedList<Account>::Node* current = accountList.begin();
+    while (current != nullptr) {
+        if (current->data.gettenantID() == currentTenantID && current->data.getpassword() == oldPassword) {
+            current->data.setpassword(newPassword);
+            cout << "Password changed successfully!" << endl;
+            return;
+        }
+        current = current->next;
+    }
+    cout << "Invalid old password!" << endl;
 }
 
 

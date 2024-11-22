@@ -1,2 +1,6 @@
-usage_ID,room_ID,service_ID,tenantID,quantity,usageDate,status
-0
+usage_ID,room_ID,service_ID,tenantID,usageDate,status
+4
+SU.001,R.002,S.001,T.001,22/11/2024,1
+SU.002,R.002,S.002,T.001,22/11/2024,1
+SU.003,R.002,S.003,T.001,22/11/2024,0
+SU.004,R.002,S.003,T.001,22/11/2024,1

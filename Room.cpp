@@ -120,6 +120,7 @@ void Room::deleteRoom() {
             return;
         }
         roomList.deleteNode(roomID);
+        cout << "Phong da duoc xoa thanh cong!" << endl;
     } else {
         cout << "Khong tim thay phong voi ma ID: " << roomID << endl;
     }
@@ -137,7 +138,7 @@ void Room::searchByID() {
 void Room::searchByStatus() {
     resetHeader();
     int status;
-    cout << "Nhap trang thai phong can tim kiem (0: Trong, 1: Co nguoi): "; cin >> status;
+    cout << "Nhap trang thai phong can tim kiem (0: Trong, 1: Co nguoi, 2: Da dat, 3: Dang bao tri): "; cin >> status;
     roomList.searchStatus(status); 
 }
 
@@ -198,18 +199,18 @@ void Room::searchAll() {
     resetHeader();
     int choice;
     do {
-        cout << "Room Searching Function: " << endl
-             << "   1. Search by RoomID" << endl
-             << "   2. Search by RoomStatus" << endl
-             << "   3. Search by Owner Name" << endl
-             << "   0. Exit" << endl
-             << "Please enter your option: "; cin >> choice;
+        cout << "Chuc nang tim kiem phong:" << endl
+             << "   1. Tim kiem theo ma phong" << endl 
+             << "   2. Tim kiem theo trang thai phong" << endl
+             << "   3. Tim kiem theo ten chu phong" << endl
+             << "   0. Thoat" << endl
+             << "Vui long nhap lua chon cua ban: "; cin >> choice;
         switch (choice) {
             case 1: searchByID(); break;
             case 2: searchByStatus(); break;
             case 3: searchByName(); break;
-            case 0: cout << "Exit Search Function." << endl; break;
-            default: cout << "Invalid selection. Please try again." << endl; break;
+            case 0: cout << "Thoat chuc nang tim kiem." << endl; break;
+            default: cout << "Lua chon khong hop le. Vui long thu lai." << endl; break;
         }
     } while (choice != 0);
 }

@@ -81,11 +81,16 @@ void RoomType::showAllRoomTypes() {
     resetHeader();
     cout << "Room Type List:" << endl;
     roomTypeList.show();
-    cout << "1. Sort by ID ascending\n2. Sort by ID descending\n0. Exit\nYour choice: ";
+    cout << "1. Sort by ID ascending" << endl
+         << "2. Sort by ID descending" << endl
+         << "3. Search" << endl
+         << "0. Exit" << endl
+         << "Your choice: ";
     int choice; cin >> choice;
     switch (choice) {
         case 1: roomTypeList.sortByID(true); showAllRoomTypes(); break;
         case 2: roomTypeList.sortByID(false); showAllRoomTypes(); break;
+        case 3: searchAll(); break;
         default: break;
     }
 }
@@ -103,13 +108,77 @@ void RoomType::searchAll() {
     resetHeader();
     int choice;
     do {
-        cout << "RoomType Search Menu:\n1. Search by ID\n0. Exit\nYour choice: "; cin >> choice;
+        cout << "RoomType Search Menu:\n"
+             << "1. Search by ID\n"
+             << "2. Search by Price\n"
+             << "0. Exit\n"
+             << "Your choice: ";
+        cin >> choice;
+        cin.ignore();
         switch (choice) {
             case 1: searchByID(); break;
+            case 2: searchByPrice(); break; 
             case 0: cout << "Exiting search.\n"; break;
             default: cout << "Invalid choice.\n";
         }
     } while (choice != 0);
+}
+
+void RoomType::searchByPrice() {
+    if (roomTypeList.begin() == nullptr) {
+        cout << "Danh sách loại phòng trống!\n";
+        return;
+    }
+
+    string input;
+    cout << "Nhap dieu kien tim kiem (Vi du: >20000, <50000, =30000): ";
+    getline(cin, input);
+
+    if (input.empty()) {
+        cout << "Điều kiện không hợp lệ!\n";
+        return;
+    }
+
+    char operation = input[0];
+    double searchPrice;
+    try {
+        searchPrice = stod(input.substr(1));
+    } catch (...) {
+        cout << "Giá tiền không hợp lệ!\n";
+        return;
+    }
+
+    bool found = false;
+    resetHeader();
+
+    for (int i = 0; i < roomTypeList.size(); i++) {
+        RoomType rt = roomTypeList[i];
+        bool matches = false;
+
+        switch (operation) {
+            case '>':
+                matches = rt.getPrice() > searchPrice;
+                break;
+            case '<':
+                matches = rt.getPrice() < searchPrice;
+                break;
+            case '=':
+                matches = rt.getPrice() == searchPrice;
+                break;
+            default:
+                cout << "Toán tử không hợp lệ! Sử dụng >, < hoặc =\n";
+                return;
+        }
+
+        if (matches) {
+            cout << rt;
+            found = true;
+        }
+    }
+
+    if (!found) {
+        cout << "Không tìm thấy loại phòng nào phù hợp với điều kiện!\n";
+    }
 }
 
 // Output operator overload

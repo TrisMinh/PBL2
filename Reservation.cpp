@@ -140,47 +140,18 @@ void Reservation::searchByID() {
     else { cout << "Khong tim thay dat phong voi ID: " << reservationID << endl; }
 }
 
-void Reservation::searchByName() {
-    Reservation::resetHeader();
-    string searchName;
-    cout << "Nhap ten chu phong can tim kiem: ";
-    cin.ignore();
-    getline(cin, searchName);
-    
-    bool found = false;
-    LinkedList<Reservation>::Node* current = reservationList.begin();
-    
-    while (current != nullptr) {
-        // Tìm thông tin người thuê từ tenant_ID
-        Tenant* tenant = Tenant::tenantList.searchID(current->data.getTenantID());
-        if (tenant != nullptr) {
-            // So sánh tên (không phân biệt hoa thường)
-            if (toLower(tenant->getFirstName()).find(toLower(searchName)) != string::npos || toLower(tenant->getLastName()).find(toLower(searchName)) != string::npos || toLower(tenant->getFullName()).find(toLower(searchName)) != string::npos) {
-                cout << current->data;
-                found = true;
-            }
-        }
-        current = current->next;
-    }
-    
-    if (!found) {
-        cout << "Khong tim thay lenh dat phong nao voi ten: " << searchName << endl;
-    }
-}
 
 void Reservation::searchAll() {
-    Reservation::resetHeader();
+    resetHeader();
     int choice;
     do {
-        cout << "Room Searching Function: " << endl
+        cout << "Room Searching Function: " << endl 
              << "   1. Search by ID" << endl
-             << "   2. Search by Name" << endl
              << "   0. Exit" << endl
              << "Please enter your choice: ";
         cin >> choice;
         switch (choice) {
-            case 1: Reservation::searchByID(); break;
-            case 2: Reservation::searchByName(); break;
+            case 1: searchByID(); break;
             case 0: 
                 return;  // Chỉ cần return, không cần thông báo
             default: 
@@ -192,11 +163,12 @@ void Reservation::searchAll() {
 
 // Show Function
 void Reservation::showAllReservations() {
-    Reservation::resetHeader();
+    resetHeader();
     cout << "Danh sach tat ca cac dich vu:" << endl;
     reservationList.show();
     cout << "1. Sap xep tang ID" << endl
          << "2. Sap xep giam ID" << endl
+         << "3. Tim kiem" << endl
          << "0. Thoat!" << endl;
     int choice;
     cout << "Vui long chon mot lua chon: ";
@@ -210,9 +182,9 @@ void Reservation::showAllReservations() {
             reservationList.sortByID(false); 
             showAllReservations(); 
             break;
-        case 0:
-            return;  // Chỉ cần return, không cần thông báo
-        default: 
+        case 3: searchAll(); break;
+        case 0: return;
+        default: cout << "Invalid choice. Please try again." << endl; break;
             break;
     }
 }

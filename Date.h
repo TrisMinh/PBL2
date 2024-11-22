@@ -39,6 +39,14 @@ public:
     int toDays();
      
     DATE addMonths(int months) const;
+
+    // Khai báo nguyên mẫu các toán tử so sánh
+    bool operator<(const DATE& other) const;
+    bool operator>(const DATE& other) const;
+    bool operator<=(const DATE& other) const;
+    bool operator>=(const DATE& other) const;
+    bool operator==(const DATE& other) const;
+    bool operator!=(const DATE& other) const;
 };
 #include "Date.cpp"
 #endif

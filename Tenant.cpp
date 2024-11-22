@@ -91,7 +91,15 @@ void Tenant::addTenant() {
     cout << "Nhap so dien thoai: "; cin >> phone;
     cout << "Nhap CCCD: "; cin >> cccd;
     cout << "Nhap nam sinh: "; cin >> birthyear;
-    cout << "Nhap gioi tinh (0: Nam, 1: Nu): "; cin >> genderInput;
+    
+    do {
+        cout << "Nhap gioi tinh (0: Nam, 1: Nu): "; 
+        cin >> genderInput;
+        if (genderInput != 0 && genderInput != 1) {
+            cout << "Gioi tinh khong hop le. Vui long nhap lai (0: Nam, 1: Nu).\n";
+        }
+    } while (genderInput != 0 && genderInput != 1);
+    
     Tenant tenant(lastName, firstName, phone, cccd, birthyear, genderInput);
     tenant.setGender(genderInput == 1);
     tenantList.add(tenant);
@@ -125,8 +133,15 @@ void Tenant::updateTenant() {
         getline(cin, cccd);
         cout << "Nam sinh: ";
         cin >> birthyear;
-        cout << "Nhap gioi tinh (0: Nam, 1: Nu): ";
-        cin >> genderInput;
+        
+        do {
+            cout << "Nhap gioi tinh (0: Nam, 1: Nu): ";
+            cin >> genderInput;
+            if (genderInput != 0 && genderInput != 1) {
+                cout << "Gioi tinh khong hop le. Vui long nhap lai (0: Nam, 1: Nu).\n";
+            }
+        } while (genderInput != 0 && genderInput != 1);
+        
         tenant->setLastName(lastName);
         tenant->setFirstName(firstName);
         tenant->setPhone(phone);
@@ -207,6 +222,7 @@ void Tenant::showAllTenants() {
     cout << "1. Sap xep ID tang dan" << endl
          << "2. Sap xep ID giam dan" << endl
          << "3. Sap xep theo ten" << endl
+         << "4. Tim kiem nguoi thue" << endl
          << "0. Thoat!" << endl;
     int choice;
     cout << "Lua chon cua ban: "; cin >> choice;
@@ -214,13 +230,13 @@ void Tenant::showAllTenants() {
         case 1: tenantList.sortByID(true); showAllTenants(); break;
         case 2: tenantList.sortByID(false); showAllTenants(); break;
         case 3: tenantList.sortByAlphabet(true); showAllTenants(); break;
+        case 4: searchAll(); break;
         default: break;
     }
 }
 
 // Da nang hoa ham xuat
 ostream& operator<<(ostream& os, const Tenant& t) {
-    // Định nghĩa độ rộng cho từng cột
     const int width_tenant_id = 15;
     const int width_name = 20;
     const int width_phone = 20;
@@ -228,10 +244,7 @@ ostream& operator<<(ostream& os, const Tenant& t) {
     const int width_cccd = 15;
     const int width_gender = 10;
 
-    static bool is_header_printed = false; // Biến tĩnh đảm bảo tiêu đề chỉ in một lần
-
-    // In tiêu đề bảng một lần duy nhất
-    if (!is_header_printed) {
+    if (!Tenant::is_header_printed) {
         os << left
            << setw(width_tenant_id) << "Tenant ID" << " | "
            << setw(width_name) << "Name" << " | "
@@ -241,7 +254,6 @@ ostream& operator<<(ostream& os, const Tenant& t) {
            << setw(width_gender) << "Gender"
            << endl;
 
-        // In dòng kẻ ngang phân cách tiêu đề và dữ liệu
         os << setfill('-')
            << setw(width_tenant_id + 2) << ""
            << setw(width_name + 3) << ""
@@ -251,10 +263,9 @@ ostream& operator<<(ostream& os, const Tenant& t) {
            << setw(width_gender + 1) << ""
            << setfill(' ') << endl;
 
-        is_header_printed = true; // Đánh dấu đã in tiêu đề
+        Tenant::is_header_printed = true;
     }
 
-    // In dữ liệu Tenant
     os << left
        << setw(width_tenant_id) << t.tenant_ID << " | "
        << setw(width_name) << t.getFullName() << " | "

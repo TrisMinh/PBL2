@@ -49,8 +49,13 @@ public:
     static void updateRoomType();
     static void deleteRoomType();
     static void showAllRoomTypes();
+
+    // Search functions
     static void searchByID();
+    static void searchByPrice();
     static void searchAll();
+
+    // Title control
     static void resetHeader();
 
     friend ostream& operator<<(ostream& os, const RoomType& rt);

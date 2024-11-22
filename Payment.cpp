@@ -91,41 +91,99 @@ void Payment::showAllPayments() {
 
 void Payment::autocreatePayment() {
     int payMonth, payYear;
-    cout << "Nhap thang va nam ban muon tao bills: \n";
-    cout << "Nhap thang: "; cin >> payMonth;
-    cout << "Nhap nam: "; cin >> payYear;
+    do {
+        cout << "Nhap thang va nam ban muon tao bills: \n";
+        cout << "Nhap thang: "; cin >> payMonth;
+        cout << "Nhap nam: "; cin >> payYear;
+
+        // Validate month and year
+        if (payMonth < 1 || payMonth > 12) {
+            cout << "Thang khong hop le! Thang phai tu 1-12" << endl;
+            continue;
+        }
+        if (payYear < 2000) {
+            cout << "Nam khong hop le! Nam phai tu 2000 tro len" << endl;
+            continue;
+        }
+        break;
+    } while (true);
+
+    bool hasCreated = false;
+
     for (LinkedList<Contract>::Node* current = Contract::contractList.begin(); current != nullptr; current = current->next) {
-    Contract& contract = current->data;
-    string roomID, tenantID;
-    double rentAmount = 0, serviceAmount = 0;
+        Contract& contract = current->data;
+        string roomID, tenantID;
+        double rentAmount = 0, serviceAmount = 0;
 
-    if (contract.getStatus() == 0) continue; // Bỏ qua nếu hợp đồng chưa được kích hoạt
-    roomID = contract.getRoomID();
-    tenantID = contract.getTenantID();
-    rentAmount = contract.getPrice();
-    bool isPaymentExist = false;
-    for (LinkedList<Payment>::Node* paymentCurrent = paymentList.begin(); paymentCurrent != nullptr; paymentCurrent = paymentCurrent->next) {
-        Payment& payment = paymentCurrent->data;
-        if (payment.getRoomID() == roomID && payment.getTenantID() == tenantID && 
-            payment.getPayMonth() == payMonth && payment.getPayYear() == payYear) {
-            isPaymentExist = true;
-            break;  
+        if (contract.getStatus() == 0) continue;
+
+        // Kiểm tra ngày thanh toán có nằm trong thời hạn hợp đồng
+        DATE paymentDate(1, payMonth, payYear);
+        if (paymentDate > contract.getEndDate() || 
+            (paymentDate.get_year() < contract.getStartDate().get_year()) ||
+            (paymentDate.get_year() == contract.getStartDate().get_year() && 
+             paymentDate.get_month() < contract.getStartDate().get_month())) {
+            continue;
         }
-    }
-    if (isPaymentExist) continue;
-    for (LinkedList<ServiceUsage>::Node* current = ServiceUsage::usageList.begin(); current != nullptr; current = current->next) {
+
+        roomID = contract.getRoomID();
+        tenantID = contract.getTenantID();
+        rentAmount = contract.getPrice();
+
+        // Tính toán tiền nhà cho tháng đầu tiên nếu ngày bắt đầu hợp đồng không phải ngày 1
+        if (payMonth == contract.getStartDate().get_month() && 
+            payYear == contract.getStartDate().get_year()) {
+            int daysInMonth = 31; // Mặc định là 31 ngày
+            // Xác định chính xác số ngày trong tháng
+            if (payMonth == 4 || payMonth == 6 || payMonth == 9 || payMonth == 11) {
+                daysInMonth = 30;
+            } else if (payMonth == 2) {
+                // Kiểm tra năm nhuận cho tháng 2
+                daysInMonth = (payYear % 4 == 0 && (payYear % 100 != 0 || payYear % 400 == 0)) ? 29 : 28;
+            }
+            
+            // Tính số ngày ở thực tế trong tháng đầu
+            int startDay = contract.getStartDate().get_day();
+            int remainingDays = daysInMonth - startDay + 1;
+            // Tính tiền nhà theo số ngày thực ở
+            rentAmount = (rentAmount / daysInMonth) * remainingDays;
+        }
+
+        // Check if payment already exists
+        bool isPaymentExist = false;
+        for (LinkedList<Payment>::Node* paymentCurrent = paymentList.begin(); paymentCurrent != nullptr; paymentCurrent = paymentCurrent->next) {
+            Payment& payment = paymentCurrent->data;
+            if (payment.getRoomID() == roomID && payment.getTenantID() == tenantID && 
+                payment.getPayMonth() == payMonth && payment.getPayYear() == payYear) {
+                isPaymentExist = true;
+                break;  
+            }
+        }
+        if (isPaymentExist) continue;
+
+        // Calculate service amount
+        for (LinkedList<ServiceUsage>::Node* current = ServiceUsage::usageList.begin(); current != nullptr; current = current->next) {
             ServiceUsage& usage = current->data;
-        if (roomID == usage.getRoomID() && tenantID == usage.getTenantID() && usage.getStatus() == true) {
-            serviceAmount += usage.getQuantity() * 
-                            Service::serviceList.searchID(usage.getServiceID())->getUnitPrice();
+            if (usage.getStatus() && 
+                roomID == usage.getRoomID() && 
+                tenantID == usage.getTenantID()) {
+                Service* service = Service::serviceList.searchID(usage.getServiceID());
+                if (service != nullptr) {
+                    serviceAmount += service->getUnitPrice();
+                }
+            }
         }
-    }
-    Payment p(roomID, tenantID, rentAmount, serviceAmount, rentAmount + serviceAmount, payMonth, payYear);
-    paymentList.add(p);
 
+        Payment p(roomID, tenantID, rentAmount, serviceAmount, rentAmount + serviceAmount, payMonth, payYear);
+        paymentList.add(p);
+        hasCreated = true;
     }
-    if (paymentList.begin() == NULL) { cout << "Danh sach Bill trong" << endl; return;}
-    cout << "Tao bills thanh cong!" << endl;
+
+    if (!hasCreated) {
+        cout << "Khong co bills nao duoc tao! Khong tim thay hop dong phu hop voi thoi gian nay hoac da tao roi." << endl;
+    } else {
+        cout << "Tao bills thanh cong!" << endl;
+    }
 }
 
 ostream& operator<<(ostream& os, const Payment& p) {
@@ -191,9 +249,7 @@ ostream& operator<<(ostream& os, const Payment& p) {
        << setw(width_pay_date) << p.payDate.toString() << " | "
        << setw(width_status) << (p.status ? "Paid" : "Pending") << " | "
        << setw(width_deposit) << p.depositAmount << " | "
-       << setw(width_remaining) << p.getRemainingAmount() << " | "
-       << endl;
-
+       << setw(width_remaining) << p.getRemainingAmount() << endl;
     return os;
 }
 
@@ -228,42 +284,28 @@ void Payment::searchByMonth() {
 }
 
 void Payment::makePayment() {
-    if (status) {
-        cout << "Bill nay da duoc thanh toan day du!\n";
-        return;
-    }
+    resetHeader();
+    if (status) { cout << "Bill nay da duoc thanh toan day du!\n"; return; }
 
-    cout << "\nThong tin bill:\n";
-    cout << *this;  // In thông tin bill hiện tại
-    
+    cout << "\nThong tin bill:\n"; cout << *this;  // In thông tin bill hiện tại
     double remaining = getRemainingAmount();
     cout << "\nSo tien da thanh toan: " << depositAmount << endl;
     cout << "So tien con lai can thanh toan: " << remaining << endl;
     
-    double amount;
-    cout << "\nNhap so tien muon thanh toan (nhap 0 de huy): ";
-    cin >> amount;
-    
-    if (amount == 0) {
-        cout << "Da huy thanh toan.\n";
-        return;
-    }
-    
-    if (amount < 0) {
-        cout << "So tien khong hop le!\n";
-        return;
-    }
-    
-    if (amount > remaining) {
-        cout << "So tien vuot qua so tien can thanh toan!\n";
-        return;
-    }
+    double amount; cout << "\nNhap so tien muon thanh toan (nhap 0 de huy): "; cin >> amount;
+    if (amount == 0) { cout << "Da huy thanh toan.\n"; return; }
+    if (amount < 0) { cout << "So tien khong hop le!\n"; return; }
+    if (amount > remaining) { cout << "So tien vuot qua so tien can thanh toan!\n"; return; }
     
     depositAmount += amount;
-    if (depositAmount >= totalAmount) {
-        status = true;
-        cout << "Bill da duoc thanh toan day du!\n";
-    } else {
+    if (depositAmount >= totalAmount) { 
+        status = true; 
+        time_t now = time(0);
+        tm* ltm = localtime(&now);
+        payDate = DATE(ltm->tm_mday, 1 + ltm->tm_mon, 1900 + ltm->tm_year);
+        cout << "Bill da duoc thanh toan day du!\n"; 
+    }
+    else {
         cout << "Da thanh toan " << amount << endl;
         cout << "So tien con lai can thanh toan: " << getRemainingAmount() << endl;
     }
@@ -305,7 +347,7 @@ void Payment::managePayments() {
 
 void Payment::showRevenueStatistics() {
     resetHeader();
-    // Kiểm tra xem có dữ liệu payment nào không
+    // Kiểm tra xem c dữ liệu payment nào không
     if (paymentList.begin() == nullptr) {
         cout << "\nKhong co du lieu payment nao trong he thong!" << endl;
         return;
@@ -404,16 +446,10 @@ double Payment::calculateTotalCollected(int month, int year) {
 
 void Payment::showMonthlyComparison(int year) {
     resetHeader();
-    // Kiểm tra năm hợp lệ (từ 2000 đến năm hiện tại)
-    time_t now = time(0);
-    tm* ltm = localtime(&now);
-    int currentYear = 1900 + ltm->tm_year;
-    
-    if (year < 2000 || year > currentYear) {
-        cout << "Nam khong hop le! Nam phai tu 2000 den " << currentYear << endl;
+    if (year < 2000) {
+        cout << "Nam khong hop le! Nam phai tu 2000 tro len" << endl;
         return;
     }
-
     cout << "\nSo sanh doanh thu cac thang trong nam " << year << ":\n";
     cout << setw(10) << "Thang" 
          << setw(20) << "Tong hoa don" 
@@ -453,6 +489,7 @@ void Payment::showYearlyComparison(int startYear, int endYear) {
          << setw(20) << "Chua thu" << endl;
     cout << string(70, '-') << endl;
 
+    // Tìm giá trị lớn nhất để scale biểu đồ
     double maxYearlyBilled = 0;
     for (int year = startYear; year <= endYear; year++) {
         double yearlyBilled = 0;
@@ -460,6 +497,12 @@ void Payment::showYearlyComparison(int startYear, int endYear) {
             yearlyBilled += calculateTotalBilled(month, year);
         }
         if (yearlyBilled > maxYearlyBilled) maxYearlyBilled = yearlyBilled;
+    }
+
+    // Kiểm tra nếu không có dữ liệu
+    if (maxYearlyBilled == 0) {
+        cout << "Khong co du lieu doanh thu trong khoang thoi gian nay!" << endl;
+        return;
     }
 
     for (int year = startYear; year <= endYear; year++) {
@@ -476,9 +519,9 @@ void Payment::showYearlyComparison(int startYear, int endYear) {
              << setw(20) << yearlyCollected
              << setw(20) << (yearlyBilled - yearlyCollected);
 
-        // Vẽ biểu đồ đơn giản
+        // Vẽ bi��u đồ đơn giản lấy chia cho cái lớn nhất
         cout << "  ";
-        int barLength = (yearlyBilled/maxYearlyBilled) * 30;
+        int barLength = static_cast<int>((yearlyBilled/maxYearlyBilled) * 30);
         cout << string(barLength, '*');
         cout << endl;
     }

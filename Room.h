@@ -61,6 +61,7 @@ public:
     static void addRoom();
     static void deleteRoom();
     static void updateRoom();
+    static void showAllRooms();
     
     // Search Operations
     static void searchByID();
@@ -68,7 +69,6 @@ public:
     static void searchByName();
     static void searchRoomByTenantID(const string& id);
     static void searchAll();
-    static void showAllRooms();
 
     friend ostream& operator<<(ostream& os, const Room& r);
 };

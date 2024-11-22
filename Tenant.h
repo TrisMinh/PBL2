@@ -54,14 +54,15 @@ public:
 
     static void load(const string& filename);
     static void updateFile(const string& filename);
+
     static void addTenant();
+    static void updateTenant();
+    static void deleteTenant();
+    static void showAllTenants();
+
     static void searchByID();
     static void searchByName();
     static void searchAll();
-    static void updateTenant();
-    static void deleteTenant();
-    static void showTenantDetails();
-    static void showAllTenants();
 
     friend ostream& operator<<(ostream& os, const Tenant& t);
 };
