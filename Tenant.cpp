@@ -99,7 +99,16 @@ void Tenant::addTenant() {
 }
 
 void Tenant::updateTenant() {
-    Tenant* tenant = tenantList.searchID(Account::currentTenantID);
+    string id;
+    if (Account::currentTenantID == "Admin") {
+        tenantList.show();
+        cout << "Nhap tenant ID can cap nhat: "; 
+        cin >> id;
+    } else {
+        id = Account::currentTenantID;
+    }
+
+    Tenant* tenant = tenantList.searchID(id);
     if (tenant) {
         string lastName, firstName, phone, cccd;
         int birthyear;
@@ -126,7 +135,7 @@ void Tenant::updateTenant() {
         tenant->setGender(genderInput);
         cout << "Cap nhat thong tin nguoi thue thanh cong!" << endl;
     } else {
-        cout << "Khong tim thay nguoi thue voi ID: " << Account::currentTenantID << endl;
+        cout << "Khong tim thay nguoi thue voi ID: " << id << endl;
     }
 }
 

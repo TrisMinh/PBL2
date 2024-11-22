@@ -10,29 +10,22 @@
 using namespace std;
 
 class RoomType {
-protected:
+private:
     string type_ID;         // ID của loại phòng
     string description;     // Mô tả loại phòng
-    double price;           // Giá phòng
+    double price;          // Giá phòng
+    string generateID(int number);
 public:
-    static int total;       // Tổng số loại phòng
-    static int currentNumber; // Số lượng loại phòng hiện tại
+    // Static members
+    static int total;      
+    static int currentNumber; 
     static LinkedList<RoomType> roomTypeList;
     static bool is_header_printed;
 
-    // Constructors
     RoomType(); 
     RoomType(const string& desc, double price);
-    RoomType(const string id, const string& desc, double price);
-    
-    // Destructor
     ~RoomType();
 
-    // Methods for data handling
-    void fromString(const string& line);
-    string toString() const;
-    string generateID(int number);
-    
     // Getters
     string getID() const;
     string getDescription() const;
@@ -43,18 +36,23 @@ public:
     void setDescription(const string& desc);
     void setPrice(double price);
 
-    // Static methods for RoomType management
+    // Convert functions
+    void fromString(const string& line);
+    string toString() const;
+
+    // IO functions
     static void load(const string& filename);
+    static void updateFile(const string& filename);
+    
+    // Basic functions
     static void addRoomType();
     static void updateRoomType();
     static void deleteRoomType();
-    static void updateFile(const string& filename);
     static void showAllRoomTypes();
     static void searchByID();
     static void searchAll();
     static void resetHeader();
 
-    // Overloaded output operator
     friend ostream& operator<<(ostream& os, const RoomType& rt);
 };
 

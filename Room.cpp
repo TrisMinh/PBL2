@@ -7,7 +7,6 @@ LinkedList<Room> Room::roomList;
 bool Room::is_header_printed = false;
 void Room::resetHeader() { is_header_printed = false; }
 
-// Constructor
 Room::Room() {}
 Room::Room(RoomType* type, int s, const string& tenantId)
     : roomType(type), status(s), tenant_ID(tenantId) {
@@ -22,28 +21,28 @@ string Room::generateID(int number) {
     return ss.str();
 }
 
-// Load function
+// IO functions
 void Room::load(const string& filename) { roomList.load(filename); }
 void Room::updateFile(const string& filename) { roomList.updateFile(filename); }
 
-
-// Get function
+// Core Getters
 string Room::getID() const { return room_ID; }
 int Room::getStatus() const { return status; }
-double Room::getPrice() const {
-    return roomType ? roomType->getPrice() : 0.0;
-}
+double Room::getPrice() const { return roomType ? roomType->getPrice() : 0.0; }
 string Room::getTenantID() const { return tenant_ID; }
-string Room::getRoomTypeID() const {
-    return roomType ? roomType->getID() : "N/A";
-}
+string Room::getRoomTypeID() const { return roomType ? roomType->getID() : "N/A"; }
+RoomType* Room::getRoomType() const { return roomType; }
 
-// Set function
+// Core Setters
 void Room::setStatus(int status) { this->status = status; }
 void Room::setTenantID(string tenantid) { this->tenant_ID = tenantid; }
+void Room::setRoomType(RoomType* type) { roomType = type; }
+void Room::resetRoom() {
+    status = 0;
+    tenant_ID = "N/A";
+}
 
-
-// Ham bien doi nham doc du lieu tu file (moi du lieu se co 1 fromstring khac nhau)
+// Convert functions
 void Room::fromString(const string& line) { 
     stringstream ss(line);
     string type_id;
@@ -56,12 +55,11 @@ void Room::fromString(const string& line) {
     total++;
 }
 
-// Ham chuyen thanh chuoi de ghi du lieu vao file
 string Room::toString() const { 
     return room_ID + "," + getRoomTypeID() + "," + to_string(status) + "," + (tenant_ID.empty() ? "N/A" : tenant_ID); 
 }
 
-// Chuc nang co ban (Basic Function)
+// Basic functions
 void Room::addRoom() {
     Room::resetHeader();
     string type_id;
@@ -162,12 +160,9 @@ void Room::searchByName() {
     LinkedList<Room>::Node* current = roomList.begin();
     
     while (current != nullptr) {
-        // Chỉ kiểm tra các phòng có người thuê
         if (current->data.getTenantID() != "N/A") {
-            // Tìm thông tin người thuê từ tenant_ID
             Tenant* tenant = Tenant::tenantList.searchID(current->data.getTenantID());
             if (tenant != nullptr) {
-                // So sánh tên (không phân biệt hoa thường)
                 if (toLower(tenant->getFirstName()).find(toLower(searchName)) != string::npos || toLower(tenant->getLastName()).find(toLower(searchName)) != string::npos || toLower(tenant->getFullName()).find(toLower(searchName)) != string::npos) {
                     cout << current->data;
                     found = true;
@@ -226,19 +221,16 @@ void Room::showAllRooms() {
     roomList.show();
     cout << "1. Sap xep ID tang dan" << endl
          << "2. Sap xep ID giam dan" << endl
+         << "3. Tim kiem phong" << endl
          << "0. Thoat" << endl;
     int choice;
     cout << "Lua chon cua ban: "; cin >> choice;
     switch (choice) {
         case 1: roomList.sortByID(true); showAllRooms(); break;
         case 2: roomList.sortByID(false); showAllRooms(); break;
+        case 3: searchAll(); break;
         default: break;
     }
-}
-
-void Room::resetRoom() {
-    status = 0;
-    tenant_ID = "N/A";
 }
 
 // Da nang hoa ham xuat
@@ -272,7 +264,6 @@ ostream& operator<<(ostream& os, const Room& r) {
         Room::is_header_printed = true;
     }
 
-    // Lấy tên khách thuê từ ID
     string tenantName = "N/A";
     if (r.tenant_ID != "N/A") {
         Tenant* tenant = Tenant::tenantList.searchID(r.tenant_ID);
@@ -292,14 +283,6 @@ ostream& operator<<(ostream& os, const Room& r) {
        << fixed << setprecision(2) << setw(width_price) << r.getPrice() << endl;
 
     return os;
-}
-
-RoomType* Room::getRoomType() const {
-    return roomType;
-}
-
-void Room::setRoomType(RoomType* type) {
-    roomType = type;
 }
 
 

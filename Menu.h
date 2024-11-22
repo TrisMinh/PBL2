@@ -34,7 +34,7 @@ void displayLoginMenu();  // Function declaration (prototype)
 
 void displayTenantMenu() {
     cout << "\n========= TENANT MENU =========" << endl;
-    cout << "             Current UserID: " << Account::currentTenantID << endl;
+    cout << "        Current UserID: " << Account::currentTenantID << endl;
     cout << "  1. View Personal Information" << endl;
     cout << "  2. Update Personal Information" << endl;
     cout << "  3. View Room Information" << endl;
@@ -121,7 +121,6 @@ void controlAdminMenu() {
                          << "   2. Edit Room Information" << endl
                          << "   3. Delete Room" << endl
                          << "   4. Display Room List" << endl
-                         << "   5. Search Room" << endl
                          << "   6. RoomType Management" << endl
                          << "   0. Back to Main Menu" << endl;
                     cout << "Please select an option: "; cin >> select;
@@ -130,7 +129,6 @@ void controlAdminMenu() {
                         case 2: Room::updateRoom(); break;
                         case 3: Room::deleteRoom(); break;
                         case 4: Room::showAllRooms(); break;
-                        case 5: Room::searchAll(); break;
                         case 6: { // RoomType Management
                             int select;
                             do {
