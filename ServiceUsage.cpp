@@ -60,6 +60,7 @@ string ServiceUsage::toString() const {
 
 // Chuc nang co ban (Basic Function)
 void ServiceUsage::addServiceUsage() {
+    Room::searchRoomByTenantID(Account::currentTenantID);
     string room_ID, service_ID;
     int quantity;
     DATE usageDate;

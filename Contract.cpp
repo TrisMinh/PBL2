@@ -131,7 +131,7 @@ void Contract::extensionContract() {
         cout << "Gia han thanh cong phong " << ct->getRoomID() << " den ngay " << ct->getEndDate() << endl;
     }
     else {
-        cout << "Hop dong nay da bi huy, khong the gia han." << endl;
+        cout << "Hop khong the gia han." << endl;
     }
 
 }
@@ -262,7 +262,7 @@ ostream& operator<<(ostream& os, const Contract& c) {
     const int width_room_id = 8;
     const int width_room_type = 30;
     const int width_tenant_id = 12;
-    const int width_name = 15;
+    const int width_name = 20;
     const int width_age = 7;
     const int width_cccd = 12;
     const int width_phone = 12;
@@ -301,7 +301,7 @@ ostream& operator<<(ostream& os, const Contract& c) {
        << setw(width_room_id) << c.room_ID << " | "
        << setw(width_room_type) << r->getRoomType()->getDescription() << " | "
        << setw(width_tenant_id) << c.tenant_ID << " | "
-       << setw(width_name) << t->getFirstName() << " " << t->getLastName() << " | "
+       << setw(width_name) << t->getFullName() << " | "
        << setw(width_age) << t->getAge() << " | "
        << setw(width_cccd) << t->getCCCD() << " | "
        << setw(width_phone) << t->getPhone() << " | "

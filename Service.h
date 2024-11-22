@@ -17,6 +17,8 @@ public:
     static int total;
     static int currentNumber;
     static LinkedList<Service> serviceList;
+    static bool is_header_printed; 
+
 
     Service();
     Service(const string& n, int price, const string& desc);
@@ -28,6 +30,9 @@ public:
     string getName() const;
     double getUnitPrice() const;
     string getDescription() const;
+
+     // Title control
+    static void resetHeader();
 
     void setName(const string& n);
     void setUnitPrice(int price);

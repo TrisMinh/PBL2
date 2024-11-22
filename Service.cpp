@@ -8,6 +8,8 @@ using namespace std;
 int Service::total = 0;
 int Service::currentNumber = 0;
 LinkedList<Service> Service::serviceList;
+bool Service::is_header_printed = false;
+void Service::resetHeader() { is_header_printed = false; }
 
 // Constructor
 Service::Service() {}
@@ -55,9 +57,11 @@ string Service::toString() const {
 void Service::addService() {
     string name, description;
     int unit_price;
-    cout << "Nhap ten dich vu: "; cin >> name;
+    cin.ignore();
+    cout << "Nhap ten dich vu: "; getline(cin, name);
     cout << "Nhap gia dich vu: "; cin >> unit_price;
-    cout << "Nhap mo ta dich vu: "; cin >> description;
+    cin.ignore();
+    cout << "Nhap mo ta dich vu: "; getline(cin, description);
     Service service(name, unit_price, description);
     serviceList.add(service);
     cout << "Dich vu da duoc them voi ID: " << service.getID() << endl;
@@ -73,9 +77,11 @@ void Service::updateService() {
         int newUnitPrice;
 
         cout << "Cap nhat Service ID: " << service->getID() << endl;
-        cout << "Ten (nhap moi neu muon thay doi): "; cin >> newName;
+        cin.ignore();
+        cout << "Ten (nhap moi neu muon thay doi): "; getline(cin, newName);
         cout << "Gia (nhap moi neu muon thay doi): "; cin >> newUnitPrice;
-        cout << "Mo ta (nhap moi neu muon thay doi): "; cin >> newDescription;
+        cin.ignore();
+        cout << "Mo ta (nhap moi neu muon thay doi): "; getline(cin, newDescription);
         service->name = newName;
         service->unit_price = newUnitPrice;
         service->description = newDescription;
@@ -94,6 +100,7 @@ void Service::deleteService() {
 
 // Search Function
 void Service::searchByID() {
+    resetHeader();
     string serviceId;
     cout << "Nhap service ID de tim kiem: "; cin >> serviceId;
     Service* service = serviceList.searchID(serviceId);
@@ -102,19 +109,22 @@ void Service::searchByID() {
 }
 
 void Service::searchByName() {
-    string name;
-    cout << "Nhap ten dich vu can tim kiem: "; cin >> name;
+    resetHeader();
+    string searchName;
+    cout << "Nhap ten dich vu can tim kiem: ";
+    cin.ignore();
+    getline(cin, searchName);
     bool found = false;
     LinkedList<Service>::Node* current = serviceList.begin();
     while (current != nullptr) {
-        if (current->data.getName() == name) {
+        if (current->data.getName().find(searchName) != string::npos) {
             cout << current->data;
             found = true;
         }
         current = current->next;
     }
     if (!found) {
-        cout << "Khong tim thay dich vu voi ten: " << name << endl;
+        cout << "Khong tim thay dich vu voi ten: " << searchName << endl;
     }
 }
 
@@ -136,6 +146,7 @@ void Service::searchAll() {
 }
 // Show Function
 void Service::showAllServices() {
+    resetHeader();
     cout << "Danh sach tat ca cac dich vu:" << endl;
     serviceList.show();
     cout << "1. Sap xep ID tang dan" << endl

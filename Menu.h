@@ -42,7 +42,10 @@ void displayTenantMenu() {
     cout << "  5. View Contract" << endl;
     cout << "  6. View Service Usage" << endl;
     cout << "  7. View Payment Status" << endl;
-    cout << "  0. LogOut" << endl;
+    cout << "  8. Pay Bill" << endl;
+    cout << "  9. Extension Contract" << endl;
+    cout << "  10. Use Service" << endl;
+    cout << "  0. Sign Out" << endl;
     cout << "===============================" << endl;
 }
 
@@ -74,6 +77,15 @@ void controlTenantMenu() {
             case 7:
                 Payment::searchByTenantID(Account::currentTenantID);
                 break;
+            case 8:
+                Payment::managePayments();
+                break;
+            case 9:
+                Contract::extensionContract();
+                break;
+            case 10:
+                ServiceUsage::addServiceUsage();
+                break;
             case 0:
                 cout << "Logging out..." << endl;
                 updateAllFile();
@@ -102,7 +114,7 @@ void displayAdminMenu() {
     cout << "  8. Contract Management" << endl;
     cout << "  9. Set AdminCode" << endl;
     cout << "  10. Account Management" << endl;
-    cout << "  0. LogOut" << endl;
+    cout << "  0. Sign Out" << endl;
     cout << "===============================================" << endl;
 }
 
@@ -223,14 +235,12 @@ void controlAdminMenu() {
                 int select;
                 do {
                     cout << "\n-- Reservation Management --" << endl
-                         << "   1. Create New Reservation" << endl
                          << "   4. Display Reservation List" << endl
                          << "   5. Search Reservation" << endl
                          << "   6. Confirm Reservation" << endl
                          << "   0. Back to Main Menu" << endl;
                     cout << "Please select an option: "; cin >> select;
                     switch (select) {
-                        case 1: Reservation::addReservation(); break;
                         case 3: Reservation::deleteReservation(); break;
                         case 4: Reservation::showAllReservations(); break;
                         case 5: Reservation::searchAll(); break;
@@ -281,13 +291,11 @@ void controlAdminMenu() {
                     cout << "\n-- Contract Management --" << endl
                          << "   1. Delete Contract" << endl
                          << "   2. Display Contract List" << endl
-                         << "   3. Contract Extension" << endl
                          << "   0. Back to Main Menu" << endl;
                     cout << "Please select an option: "; cin >> select;
                     switch (select) {
                         case 1: Contract::deleteContract(); break;
                         case 2: Contract::showAllContracts(); break;
-                        case 3: Contract::extensionContract(); break;
                         case 0: cout << "Exiting Contract Management." << endl; break;
                         default: cout << "Invalid selection. Please try again." << endl; break;
                     }
