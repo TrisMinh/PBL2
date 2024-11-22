@@ -162,8 +162,8 @@ void LinkedList<T>::sortByAlphabet(bool ascending) {
         swapped = false;
         Node* current = head;
         while (current->next) {
-            string name1 = current->data.getName();
-            string name2 = current->next->data.getName();
+            string name1 = current->data.getFirstName();
+            string name2 = current->next->data.getFirstName();
             bool shouldSwap = ascending ? (name1 > name2) : (name1 < name2);
             if (shouldSwap) {
                 swap(current->data, current->next->data);

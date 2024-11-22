@@ -14,7 +14,23 @@
 #include "Payment.h"
 using namespace std;
 
+// update all file
+
+void updateAllFile() {
+    RoomType::updateFile("Data/RoomType.txt");
+    Room::updateFile("Data/Room.txt");
+    Tenant::updateFile("Data/Tenant.txt");
+    Service::updateFile("Data/Service.txt");
+    ServiceUsage::updateFile("Data/ServiceUsage.txt");
+    Reservation::updateFile("Data/Reservation.txt"); 
+    Contract::updateFile("Data/Contract.txt");
+    Payment::updateFile("Data/Payment.txt");
+}
+
+
 void displayLoginMenu();  // Function declaration (prototype)
+
+//Tenant Menu
 
 void displayTenantMenu() {
     cout << "\n========= TENANT MENU =========" << endl;
@@ -60,6 +76,7 @@ void controlTenantMenu() {
                 break;
             case 0:
                 cout << "Logging out..." << endl;
+                updateAllFile();
                 Account::currentTenantID = ""; 
                 displayLoginMenu();
                 return;
@@ -70,6 +87,7 @@ void controlTenantMenu() {
     } while (choice != 0);
 }
 
+//Admin Menu
 
 void displayAdminMenu() {
     cout << "\n========= ROOM MANAGEMENT SYSTEM MENU =========" << endl;
@@ -208,7 +226,6 @@ void controlAdminMenu() {
                 do {
                     cout << "\n-- Reservation Management --" << endl
                          << "   1. Create New Reservation" << endl
-                         << "   3. Delete Reservation" << endl
                          << "   4. Display Reservation List" << endl
                          << "   5. Search Reservation" << endl
                          << "   6. Confirm Reservation" << endl
@@ -289,6 +306,7 @@ void controlAdminMenu() {
                 break;
             case 0: 
                 cout << "Logging out..." << endl;
+                updateAllFile();
                 Account::currentTenantID = ""; // Reset current user
                 displayLoginMenu(); // Return to login menu
                 return; // Exit the admin menu
@@ -298,6 +316,7 @@ void controlAdminMenu() {
     } while (choice != 0);
 }
 
+//Login Menu
 
 void displayLoginMenu() {
     int choice;
@@ -322,27 +341,15 @@ void displayLoginMenu() {
                 } 
                 break;
             case 2: // Sign up
-                Account::signup();
-                break;
+                Account::signup(); break;
             case 0: // Exit program
                 cout << "Exiting program. Thank you!" << endl;
-                RoomType::updateFile("Data/RoomType.txt");
-                Room::updateFile("Data/Room.txt");
-                Tenant::updateFile("Data/Tenant.txt");
-                Service::updateFile("Data/Service.txt");
-                ServiceUsage::updateFile("Data/ServiceUsage.txt");
-                Reservation::updateFile("Data/Reservation.txt"); 
-                Contract::updateFile("Data/Contract.txt");
-                Payment::updateFile("Data/Payment.txt");
                 exit(0);
-                break;
             default:
                 cout << "Invalid selection. Please try again." << endl;
                 break;
         }
     } while (choice != 3); 
 }   
-
-
 
 #endif

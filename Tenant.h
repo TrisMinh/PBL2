@@ -7,9 +7,12 @@
 #include "LinkedList.h"
 using namespace std;
 
+class Account; // Forward declaration
+
 class Tenant {
     string tenant_ID;
-    string name;
+    string lastName;
+    string firstName;
     string phone;
     int birthyear;
     string cccd;
@@ -19,13 +22,19 @@ public:
     static int total;
     static int currentNumber;  
     static LinkedList<Tenant> tenantList;
+    static bool is_header_printed; 
+    static void resetHeader();
+
+
     Tenant();
-    Tenant(const string& name, const string& phone, const string& cccd, int birthyear, bool gender);
+    Tenant(const string& lastName, const string& firstName, const string& phone, const string& cccd, int birthyear, bool gender);
     ~Tenant();
     static int get_currentNumber();
     static string generateID(int number);
     string getID() const;
-    string getName() const;
+    string getLastName() const;
+    string getFirstName() const;
+    string getFullName() const;
     string getPhone() const;
     int getBirthyear() const;
     int getAge() const;
@@ -33,7 +42,8 @@ public:
     bool getGender() const;
     
 
-    void setName(const string& name);
+    void setLastName(const string& lastName);
+    void setFirstName(const string& firstName);
     void setPhone(const string& phone);
     void setBirthyear(int birthyear);
     void setCCCD(const string& cccd);

@@ -5,6 +5,7 @@ int Contract::currentNumber = 0;
 int Contract::total = 0;
 LinkedList<Contract> Contract::contractList;
 bool Contract::is_header_printed = false;
+void Contract::resetHeader() { is_header_printed = false; }
 
 // Constructors
 Contract::Contract() : Reservation() {this->reservation_ID = "Empty"; this->contractID = "Empty";}
@@ -111,6 +112,7 @@ void Contract::deleteContract() {
 }
 
 void Contract::extensionContract() {
+    resetHeader();
     Contract::searchByTenantID(Account::currentTenantID);
     int extenmonth;
     string roomIDtoextend;
@@ -160,6 +162,7 @@ void Contract::addContract(const string& roomID, const string& tenantID,
 }
 
 Contract* Contract::searchByRidAndTid(const string& rid, const string& tid) {
+    resetHeader();
     LinkedList<Contract>::Node* current = contractList.begin();
     while (current!= nullptr) { 
         if (current->data.getRoomID() == rid && current->data.getTenantID() == tid) {
@@ -171,6 +174,7 @@ Contract* Contract::searchByRidAndTid(const string& rid, const string& tid) {
 }
 
 void Contract::searchByTenantID(const string& id) {
+    resetHeader();
     int count = 0;
     LinkedList<Contract>::Node* current = contractList.begin();
     if (current == nullptr) { cout << "Khong tim thay hop dong nao" << endl; return; }
@@ -184,6 +188,7 @@ void Contract::searchByTenantID(const string& id) {
 }
 
 void Contract::confirmReservationandcreatContract() {
+    resetHeader();
     int choice;
     string tempRE;
     do {
@@ -296,7 +301,7 @@ ostream& operator<<(ostream& os, const Contract& c) {
        << setw(width_room_id) << c.room_ID << " | "
        << setw(width_room_type) << r->getRoomType()->getDescription() << " | "
        << setw(width_tenant_id) << c.tenant_ID << " | "
-       << setw(width_name) << t->getName() << " | "
+       << setw(width_name) << t->getFirstName() << " " << t->getLastName() << " | "
        << setw(width_age) << t->getAge() << " | "
        << setw(width_cccd) << t->getCCCD() << " | "
        << setw(width_phone) << t->getPhone() << " | "

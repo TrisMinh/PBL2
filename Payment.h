@@ -24,6 +24,7 @@ class Payment {
         static int currentNumber;
         static LinkedList<Payment> paymentList;
         static bool is_header_printed;
+        static void resetHeader();
 
         Payment();
         Payment(const string& roomID, const string& tenantID, double rentAmount, double serviceAmount,
@@ -73,7 +74,6 @@ class Payment {
 
         static void searchByTenantID(string tenantID);
 
-        static void resetHeader();
 };
 
 

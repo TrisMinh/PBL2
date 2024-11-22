@@ -5,6 +5,7 @@ int Payment::total = 0;
 int Payment::currentNumber = 0;
 LinkedList<Payment> Payment::paymentList;
 bool Payment::is_header_printed = false;
+void Payment::resetHeader() { Payment::is_header_printed = false; }
 
 Payment::Payment() : depositAmount(0) {}
 Payment::Payment(const string& roomID, const string& tenantID, double rentAmount, double serviceAmount,
@@ -197,19 +198,17 @@ ostream& operator<<(ostream& os, const Payment& p) {
 }
 
 void Payment::searchByMonth() {
-    int month, year;
-    
+    resetHeader();
+    int month, year; 
     do {
-        cout << "Nhap thang (1-12): ";
-        cin >> month;
+        cout << "Nhap thang (1-12): "; cin >> month;
         if (month < 1 || month > 12) {
             cout << "Thang khong hop le. Vui long nhap lai!\n";
         }
     } while (month < 1 || month > 12);
     
     do {
-        cout << "Nhap nam (>= 2000): ";
-        cin >> year;
+        cout << "Nhap nam (>= 2000): "; cin >> year;
         if (year < 2000) {
             cout << "Nam khong hop le. Vui long nhap lai!\n";
         }
@@ -225,10 +224,7 @@ void Payment::searchByMonth() {
             found = true;
         }
     }
-    
-    if (!found) {
-        cout << "   Khong tim thay bills nao trong thang " << month << "/" << year << endl;
-    }
+    if (!found) { cout << "   Khong tim thay bills nao trong thang " << month << "/" << year << endl; }
 }
 
 void Payment::makePayment() {
@@ -274,6 +270,7 @@ void Payment::makePayment() {
 }
 
 void Payment::managePayments() {
+    resetHeader();
     cout << "\nDanh sach cac bills chua thanh toan cua ban:\n";
     bool found = false;
     for (LinkedList<Payment>::Node* current = paymentList.begin(); 
@@ -307,6 +304,7 @@ void Payment::managePayments() {
 }
 
 void Payment::showRevenueStatistics() {
+    resetHeader();
     // Kiểm tra xem có dữ liệu payment nào không
     if (paymentList.begin() == nullptr) {
         cout << "\nKhong co du lieu payment nao trong he thong!" << endl;
@@ -405,6 +403,7 @@ double Payment::calculateTotalCollected(int month, int year) {
 }
 
 void Payment::showMonthlyComparison(int year) {
+    resetHeader();
     // Kiểm tra năm hợp lệ (từ 2000 đến năm hiện tại)
     time_t now = time(0);
     tm* ltm = localtime(&now);
@@ -446,6 +445,7 @@ void Payment::showMonthlyComparison(int year) {
 }
 
 void Payment::showYearlyComparison(int startYear, int endYear) {
+    resetHeader();
     cout << "\nSo sanh doanh thu qua cac nam:\n";
     cout << setw(10) << "Nam" 
          << setw(20) << "Tong hoa don" 
@@ -485,6 +485,7 @@ void Payment::showYearlyComparison(int startYear, int endYear) {
 }
 
 void Payment::searchByTenantID(string tenantID) {
+    resetHeader();
     cout << "\nDanh sach bills cua ban: " << endl;
     bool found = false;
     for (LinkedList<Payment>::Node* current = paymentList.begin(); current != nullptr; current = current->next) {
@@ -498,6 +499,3 @@ void Payment::searchByTenantID(string tenantID) {
     }
 }
 
-void Payment::resetHeader() {
-    Payment::is_header_printed = false;
-}

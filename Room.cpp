@@ -5,6 +5,7 @@ int Room::total = 0;
 int Room::currentNumber = 0;
 LinkedList<Room> Room::roomList;
 bool Room::is_header_printed = false;
+void Room::resetHeader() { is_header_printed = false; }
 
 // Constructor
 Room::Room() {}
@@ -87,14 +88,14 @@ void Room::updateRoom() {
     Room* room = roomList.searchID(roomID);
     if (room != NULL) {
         if (room->getStatus() != 0) {
-            cout << "Khong the cap nhat trang thai phong vi phong dang co nguoi thue!" << endl;
+            cout << "Khong the cap nhat trang thai phong vi phong dang co nguoi thue hoac dang bao tri!" << endl;
             return;
         }
         int newStatus;               
         cout << "Cap nhat phong voi ma ID: " << room->getID() << endl;
         cout << "Trang thai moi (0: Trong, 3: Dang bao tri): "; cin >> newStatus;
         if (newStatus != 0 && newStatus != 3) {
-            cout << "Trang thai khong hop le! Chi co the cap nhat sang trang thai Trong (0) hoac Dang bao tri (2)" << endl;
+            cout << "Trang thai khong hop le! Chi co the cap nhat sang trang thai Trong (0) hoac Dang bao tri (3)" << endl;
             return;
         }
 
@@ -167,7 +168,7 @@ void Room::searchByName() {
             Tenant* tenant = Tenant::tenantList.searchID(current->data.getTenantID());
             if (tenant != nullptr) {
                 // So sánh tên (không phân biệt hoa thường)
-                if (toLower(tenant->getName()).find(toLower(searchName)) != string::npos) {
+                if (toLower(tenant->getFirstName()).find(toLower(searchName)) != string::npos || toLower(tenant->getLastName()).find(toLower(searchName)) != string::npos || toLower(tenant->getFullName()).find(toLower(searchName)) != string::npos) {
                     cout << current->data;
                     found = true;
                 }
@@ -276,7 +277,7 @@ ostream& operator<<(ostream& os, const Room& r) {
     if (r.tenant_ID != "N/A") {
         Tenant* tenant = Tenant::tenantList.searchID(r.tenant_ID);
         if (tenant != nullptr) {
-            tenantName = tenant->getName();
+            tenantName = tenant->getFullName();
         }
     }
 
@@ -301,6 +302,4 @@ void Room::setRoomType(RoomType* type) {
     roomType = type;
 }
 
-void Room::resetHeader() {
-    is_header_printed = false;
-}
+

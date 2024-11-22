@@ -5,6 +5,7 @@ int Reservation::total = 0;
 int Reservation::currentNumber = 0;
 LinkedList<Reservation> Reservation::reservationList;
 bool Reservation::is_header_printed = false;
+void Reservation::resetHeader() { is_header_printed = false;}
 
 // Constructor
 Reservation::Reservation() {}
@@ -107,7 +108,12 @@ void Reservation::addReservation() {
     DATE startDate;
     int staytime;
     cout << "Nhap Start Date: "; cin >> startDate;
-    cout << "Nhap Stay Time (so ngay): "; cin >> staytime;
+    do {
+        cout << "Nhap Stay Time (so ngay): "; cin >> staytime;
+        if (staytime <= 0) {
+            cout << "So ngay thue phong phai lon hon 0. Vui long nhap lai!" << endl;
+        }
+    } while (staytime <= 0);
     
     Reservation newReservation(room_ID, Account::currentTenantID, startDate, staytime, 0);
     reservationList.add(newReservation);
@@ -116,29 +122,6 @@ void Reservation::addReservation() {
     total++;
 }
 
-//Gia hạn ( chỉnh lại )
-// void Reservation::updateReservation() {
-//     string id;
-//     cout << "Nhap ID dat phong can cap nhat: "; cin >> id;
-//     Reservation* reservation = reservationList.searchID(id);
-//     if (reservation) {
-//         string newRoomID;
-//         cout << "Nhap Room ID moi: "; cin >> newRoomID;
-//         reservation->setRoomID(newRoomID);
-
-//         int day, month, year;
-//         cout << "Nhap ngay bat dau (dd mm yyyy): "; cin >> day >> month >> year;
-//         reservation->startDate = DATE(day, month, year);
-
-//         int newStaytime;
-//         cout << "Nhap so ngay thue moi: ";cin >> newStaytime;
-//         reservation->staytime = newStaytime;
-//         reservation->endDate = reservation->startDate + newStaytime;
-//         cout << "Cap nhat dat phong thanh cong!" << endl;
-//     } else {
-//         cout << "Khong tim thay dat phong voi ID: " << id << endl;
-//     }
-// }
 
 void Reservation::deleteReservation() {
     string reservationID;
@@ -159,26 +142,29 @@ void Reservation::searchByID() {
 
 void Reservation::searchByName() {
     Reservation::resetHeader();
-    string name;
-    cout << "Nhap ten chu phong can tim kiem: "; cin >> name;
+    string searchName;
+    cout << "Nhap ten chu phong can tim kiem: ";
+    cin.ignore();
+    getline(cin, searchName);
+    
     bool found = false;
-    LinkedList<Tenant>::Node* current1 = Tenant::tenantList.begin();
-    while (current1 != nullptr) {
-        if (current1->data.getName() == name) {
-            break;
+    LinkedList<Reservation>::Node* current = reservationList.begin();
+    
+    while (current != nullptr) {
+        // Tìm thông tin người thuê từ tenant_ID
+        Tenant* tenant = Tenant::tenantList.searchID(current->data.getTenantID());
+        if (tenant != nullptr) {
+            // So sánh tên (không phân biệt hoa thường)
+            if (toLower(tenant->getFirstName()).find(toLower(searchName)) != string::npos || toLower(tenant->getLastName()).find(toLower(searchName)) != string::npos || toLower(tenant->getFullName()).find(toLower(searchName)) != string::npos) {
+                cout << current->data;
+                found = true;
+            }
         }
-        current1 = current1->next;
+        current = current->next;
     }
-    LinkedList<Reservation>::Node* current2 = Reservation::reservationList.begin();
-    while (current2 != nullptr) {
-        if (current2->data.getTenantID() == current1->data.getID()) {
-            cout << current2->data;
-            found = true;
-        }
-        current2 = current2->next;
-    }
+    
     if (!found) {
-        cout << "Khong tim thay lenh dat phong nao voi ten: " << name << endl;
+        cout << "Khong tim thay lenh dat phong nao voi ten: " << searchName << endl;
     }
 }
 
@@ -293,8 +279,5 @@ ostream& operator<<(ostream& os, const Reservation& r) {
     return os;
 }
 
-void Reservation::resetHeader() {
-    is_header_printed = false;
-}
 
 

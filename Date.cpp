@@ -52,9 +52,38 @@ void DATE::adjust() {
 }
 
 istream &operator >>(istream &is, DATE &date) {
-    cout << "\nEnter day, month, year: "; is >> date.day >> date.month >> date.year;
+    int haserror = 0;
+    do {
+        haserror = 0;
+        cout << "\nEnter day, month, year: ";
+        is >> date.day >> date.month >> date.year;
+        
+        // Kiểm tra tháng hợp lệ
+        if (date.month < 1 || date.month > 12) {
+            cout << "Error: Month must be between 1 and 12. Please try again.\n";
+            haserror++;
+        }
+        
+        // Kiểm tra năm hợp lệ (giả sử năm phải > 0)
+        if (date.year <= 0) {
+            cout << "Error: Year must be positive. Please try again.\n";
+            haserror++;
+        }
+        
+        // Lấy số ngày tối đa của tháng
+        int maxDays = date.day_in_month(date.month, date.year);
+        
+        // Kiểm tra ngày hợp lệ
+        if (date.day < 1 || date.day > maxDays) {
+            cout << "Error: Day must be between 1 and " << maxDays 
+                 << " for month " << date.month << ". Please try again.\n";
+            haserror++;
+        }
+        if (haserror == 0) break;
+    } while (haserror > 0);
+    
     return is;
-} 
+}
 
 ostream &operator <<(ostream &os,const DATE &date) {
     os << (date.day <10 ? "0" : "") << date.day << "/"

@@ -8,6 +8,7 @@ int Account::currentRoll = 0;
 string Account::AdminCode = "000";
 LinkedList<Account> Account::accountList;
 bool Account::is_header_printed = false;
+void Account::resetHeader() { is_header_printed = false; }
 
 // Constructor
 Account::Account() {}
@@ -149,12 +150,14 @@ bool Account::signup() {
     // Đăng ký tài khoản tenant bình thường
     if (role == 1) {
         cout << "Nhap thong tin ca nhan: " << endl;
-        string name, phone, cccd;
+        string lastName, firstName, phone, cccd;
         int birthyear;
         bool genderInput;
         cin.ignore();
+        cout << "Nhap ho va ten dem: ";
+        getline(cin, lastName);
         cout << "Nhap ten: ";
-        getline(cin, name);
+        getline(cin, firstName);
         cout << "Nhap so dien thoai: ";
         cin >> phone;
         cout << "Nhap CCCD: ";
@@ -163,12 +166,9 @@ bool Account::signup() {
         cin >> birthyear;
         cout << "Nhap gioi tinh (0: Nam, 1: Nu): ";
         cin >> genderInput;
-        time_t t = time(0); 
-        tm* now = localtime(&t); 
-        int yearNow = now->tm_year + 1900; 
 
         // Tạo tenant và thêm vào danh sách
-        Tenant tenant(name, phone, cccd, birthyear, genderInput);
+        Tenant tenant(lastName, firstName, phone, cccd, birthyear, genderInput);
         Tenant::tenantList.add(tenant);
 
         // Tạo tài khoản tenant với tenant ID
@@ -246,8 +246,8 @@ LinkedList<Account>::Node* Account::searchByUsername(string u, int check) {
 }
 
 void Account::showAllAccount() {
-    cout << "Danh sach Account:" << endl;
     resetHeader();  // Reset header trước khi hiển thị
+    cout << "Danh sach Account:" << endl;
     accountList.show();
 }
 
@@ -332,4 +332,4 @@ LinkedList<Account>::Node* Account::verifyTenantInfo(const string& phone, const 
     return nullptr;
 }
 
-void Account::resetHeader() { is_header_printed = false; }
+
