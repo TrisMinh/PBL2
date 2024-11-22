@@ -22,6 +22,7 @@ public:
     static int currentNumber; // Số lượng hợp đồng hiện tại
     static int total;         // Tổng số hợp đồng
     static LinkedList<Contract> contractList; // Danh sách hợp đồng
+    static bool is_header_printed;
 
     Contract();
     Contract(const string& roomID,const string& tenantID,
@@ -72,6 +73,8 @@ public:
     static Contract* searchByRidAndTid(const string& rid, const string& tid);
     static void searchByTenantID(const string& id);
     static void confirmReservationandcreatContract();
+
+    static void resetHeader() { is_header_printed = false; }
 };
 
 #include "Contract.cpp"

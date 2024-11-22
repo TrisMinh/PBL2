@@ -4,6 +4,7 @@
 int Room::total = 0;
 int Room::currentNumber = 0;
 LinkedList<Room> Room::roomList;
+bool Room::is_header_printed = false;
 
 // Constructor
 Room::Room() {}
@@ -61,6 +62,7 @@ string Room::toString() const {
 
 // Chuc nang co ban (Basic Function)
 void Room::addRoom() {
+    Room::resetHeader();
     string type_id;
     RoomType* matchedRoomType;
     cout << "Nhap thong tin phong:" << endl;
@@ -79,6 +81,7 @@ void Room::addRoom() {
 }
 
 void Room::updateRoom() {
+    Room::resetHeader();
     string roomID;
     cout << "Nhap ma phong (Room ID) de cap nhat: "; cin >> roomID;
     Room* room = roomList.searchID(roomID);
@@ -103,22 +106,37 @@ void Room::updateRoom() {
 }
 
 void Room::deleteRoom() {
+    Room::resetHeader();
     string roomID;
-        roomList.show();
-        cout << "Nhap ma phong (Room ID) de xoa (Nhap 0 de thoat): ";
-        cin >> roomID;
+    roomList.show();
+    cout << "Nhap ma phong (Room ID) de xoa (Nhap 0 de thoat): ";
+    cin >> roomID;
+    
+    if (roomID == "0") return;
+    
+    Room* room = roomList.searchID(roomID);
+    if (room != nullptr) {
+        if (room->getStatus() == 1) {
+            cout << "Khong the xoa phong dang co nguoi thue!" << endl;
+            return;
+        }
         roomList.deleteNode(roomID);
+    } else {
+        cout << "Khong tim thay phong voi ma ID: " << roomID << endl;
+    }
 }
 // Search Funcion
 void Room::searchByID() {
+    resetHeader();
     string roomID;
     cout << "Nhap ma phong (Room ID) de tim kiem: "; cin >> roomID;
     Room* room = roomList.searchID(roomID);
-    if (room) { cout << "Da tim thay phong: " << *room; }
+    if (room) { cout << "Da tim thay phong: \n" << *room; }
     else { cout << "Khong tim thay phong voi ma ID: " << roomID << endl; }
 }
 
 void Room::searchByStatus() {
+    resetHeader();
     int status;
     cout << "Nhap trang thai phong can tim kiem (0: Trong, 1: Co nguoi): "; cin >> status;
     roomList.searchStatus(status); 
@@ -133,6 +151,7 @@ string toLower(string str) {
 }
 
 void Room::searchByName() {
+    resetHeader();
     string searchName;
     cout << "Nhap ten chu phong can tim kiem: "; 
     cin.ignore();
@@ -163,6 +182,7 @@ void Room::searchByName() {
 }
 
 void Room::searchRoomByTenantID(const string& id) {
+    resetHeader();
     bool found = false;
     LinkedList<Room>::Node* current = roomList.begin();
     while (current != nullptr) {
@@ -179,6 +199,7 @@ void Room::searchRoomByTenantID(const string& id) {
 
 
 void Room::searchAll() {
+    resetHeader();
     int choice;
     do {
         cout << "Room Searching Function: " << endl
@@ -199,6 +220,7 @@ void Room::searchAll() {
 
 // Show Function
 void Room::showAllRooms() {
+    resetHeader();
     cout << "Danh sach tat ca cac phong:" << endl;
     roomList.show();
     cout << "1. Sap xep ID tang dan" << endl
@@ -220,7 +242,6 @@ void Room::resetRoom() {
 
 // Da nang hoa ham xuat
 ostream& operator<<(ostream& os, const Room& r) {
-    // Định nghĩa độ rộng cho từng cột
     const int width_room_id = 15;
     const int width_room_type = 15;
     const int width_status = 15;
@@ -228,9 +249,7 @@ ostream& operator<<(ostream& os, const Room& r) {
     const int width_tenant_name = 25;
     const int width_price = 10;
 
-    static bool is_header_printed = false;
-
-    if (!is_header_printed) {
+    if (!Room::is_header_printed) {
         os << left
            << setw(width_room_id) << "Ma phong" << " | "
            << setw(width_room_type) << "Loai phong" << " | "
@@ -249,7 +268,7 @@ ostream& operator<<(ostream& os, const Room& r) {
            << setw(width_price + 1) << ""
            << setfill(' ') << endl;
 
-        is_header_printed = true;
+        Room::is_header_printed = true;
     }
 
     // Lấy tên khách thuê từ ID
@@ -280,4 +299,8 @@ RoomType* Room::getRoomType() const {
 
 void Room::setRoomType(RoomType* type) {
     roomType = type;
+}
+
+void Room::resetHeader() {
+    is_header_printed = false;
 }

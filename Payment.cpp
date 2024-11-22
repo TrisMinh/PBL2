@@ -4,6 +4,7 @@
 int Payment::total = 0;
 int Payment::currentNumber = 0;
 LinkedList<Payment> Payment::paymentList;
+bool Payment::is_header_printed = false;
 
 Payment::Payment() : depositAmount(0) {}
 Payment::Payment(const string& roomID, const string& tenantID, double rentAmount, double serviceAmount,
@@ -63,6 +64,7 @@ string Payment::toString() const {
 }
 
 void Payment::showAllPayments() {
+    resetHeader();
     cout << "\nDanh sach tat ca cac bills:" << endl;
     paymentList.show();
     
@@ -140,10 +142,7 @@ ostream& operator<<(ostream& os, const Payment& p) {
     const int width_deposit = 15;
     const int width_remaining = 15;
 
-    static bool is_header_printed = false;
-
-    // In tiêu đề bảng một lần duy nhất
-    if (!is_header_printed) {
+    if (!Payment::is_header_printed) {
         os << left
            << setw(width_payment_id) << "Payment ID" << " | "
            << setw(width_room_id) << "Room ID" << " | "
@@ -175,7 +174,7 @@ ostream& operator<<(ostream& os, const Payment& p) {
            << setw(width_remaining + 3) << ""
            << setfill(' ') << endl;
 
-        is_header_printed = true;
+        Payment::is_header_printed = true;
     }
 
     // In dữ liệu Payment
@@ -308,6 +307,12 @@ void Payment::managePayments() {
 }
 
 void Payment::showRevenueStatistics() {
+    // Kiểm tra xem có dữ liệu payment nào không
+    if (paymentList.begin() == nullptr) {
+        cout << "\nKhong co du lieu payment nao trong he thong!" << endl;
+        return;
+    }
+
     int choice;
     do {
         cout << "\n=== THONG KE DOANH THU ===\n";
@@ -318,33 +323,57 @@ void Payment::showRevenueStatistics() {
         cout << "Nhap lua chon: ";
         cin >> choice;
 
-        switch (choice) {
-            case 1: {
-                int month, year;
-                cout << "Nhap thang (1-12): "; cin >> month;
-                cout << "Nhap nam: "; cin >> year;
-                double totalBilled = calculateTotalBilled(month, year);
-                double totalCollected = calculateTotalCollected(month, year);
-                cout << "\nThong ke thang " << month << "/" << year << ":\n";
-                cout << "Tong so tien hoa don: " << fixed << setprecision(2) << totalBilled << endl;
-                cout << "Tong so tien da thu: " << fixed << setprecision(2) << totalCollected << endl;
-                cout << "So tien chua thu: " << fixed << setprecision(2) << (totalBilled - totalCollected) << endl;
-                break;
+        try {
+            switch (choice) {
+                case 1: {
+                    int month, year;
+                    cout << "Nhap thang (1-12): "; 
+                    cin >> month;
+                    if (month < 1 || month > 12) {
+                        cout << "Thang khong hop le!" << endl;
+                        continue;
+                    }
+                    cout << "Nhap nam: "; 
+                    cin >> year;
+                    if (year < 2000) {
+                        cout << "Nam khong hop le!" << endl;
+                        continue;
+                    }
+                    double totalBilled = calculateTotalBilled(month, year);
+                    double totalCollected = calculateTotalCollected(month, year);
+                    cout << "\nThong ke thang " << month << "/" << year << ":\n";
+                    cout << "Tong so tien hoa don: " << fixed << setprecision(2) << totalBilled << endl;
+                    cout << "Tong so tien da thu: " << fixed << setprecision(2) << totalCollected << endl;
+                    cout << "So tien chua thu: " << fixed << setprecision(2) << (totalBilled - totalCollected) << endl;
+                    break;
+                }
+                case 2: {
+                    int year;
+                    cout << "Nhap nam can thong ke: ";
+                    cin >> year;
+                    if (year < 2000) {
+                        cout << "Nam khong hop le!" << endl;
+                        continue;
+                    }
+                    showMonthlyComparison(year);
+                    break;
+                }
+                case 3: {
+                    int startYear, endYear;
+                    cout << "Nhap nam bat dau: "; 
+                    cin >> startYear;
+                    cout << "Nhap nam ket thuc: "; 
+                    cin >> endYear;
+                    if (startYear > endYear || startYear < 2000) {
+                        cout << "Nam khong hop le!" << endl;
+                        continue;
+                    }
+                    showYearlyComparison(startYear, endYear);
+                    break;
+                }
             }
-            case 2: {
-                int year;
-                cout << "Nhap nam can thong ke: ";
-                cin >> year;
-                showMonthlyComparison(year);
-                break;
-            }
-            case 3: {
-                int startYear, endYear;
-                cout << "Nhap nam bat dau: "; cin >> startYear;
-                cout << "Nhap nam ket thuc: "; cin >> endYear;
-                showYearlyComparison(startYear, endYear);
-                break;
-            }
+        } catch (...) {
+            cout << "Co loi xay ra! Vui long thu lai." << endl;
         }
     } while (choice != 0);
 }
@@ -376,6 +405,16 @@ double Payment::calculateTotalCollected(int month, int year) {
 }
 
 void Payment::showMonthlyComparison(int year) {
+    // Kiểm tra năm hợp lệ (từ 2000 đến năm hiện tại)
+    time_t now = time(0);
+    tm* ltm = localtime(&now);
+    int currentYear = 1900 + ltm->tm_year;
+    
+    if (year < 2000 || year > currentYear) {
+        cout << "Nam khong hop le! Nam phai tu 2000 den " << currentYear << endl;
+        return;
+    }
+
     cout << "\nSo sanh doanh thu cac thang trong nam " << year << ":\n";
     cout << setw(10) << "Thang" 
          << setw(20) << "Tong hoa don" 
@@ -400,7 +439,7 @@ void Payment::showMonthlyComparison(int year) {
         
         // Vẽ biểu đồ đơn giản
         cout << "  ";
-        int barLength = (totalBilled/maxBilled) * 30;
+        int barLength = maxBilled > 0 ? (totalBilled/maxBilled) * 30 : 0;
         cout << string(barLength, '*');
         cout << endl;
     }
@@ -457,4 +496,8 @@ void Payment::searchByTenantID(string tenantID) {
     if (!found) {
         cout << "Khong tim thay bills nao!" << endl;
     }
+}
+
+void Payment::resetHeader() {
+    Payment::is_header_printed = false;
 }

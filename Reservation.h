@@ -24,6 +24,7 @@ public:
     static int total;
     static int currentNumber;
     static LinkedList<Reservation> reservationList;
+    static bool is_header_printed;
 
     // Constructors
     Reservation();
@@ -72,6 +73,8 @@ public:
     static void searchByID();
     static void searchByName();
     static void searchAll();
+
+    static void resetHeader();
 };
 
 #include "Reservation.cpp"

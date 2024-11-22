@@ -23,6 +23,7 @@ class Payment {
         static int total;
         static int currentNumber;
         static LinkedList<Payment> paymentList;
+        static bool is_header_printed;
 
         Payment();
         Payment(const string& roomID, const string& tenantID, double rentAmount, double serviceAmount,
@@ -71,6 +72,8 @@ class Payment {
         static void showYearlyComparison(int startYear, int endYear);
 
         static void searchByTenantID(string tenantID);
+
+        static void resetHeader();
 };
 
 

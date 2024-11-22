@@ -4,6 +4,7 @@
 int Reservation::total = 0;
 int Reservation::currentNumber = 0;
 LinkedList<Reservation> Reservation::reservationList;
+bool Reservation::is_header_printed = false;
 
 // Constructor
 Reservation::Reservation() {}
@@ -148,6 +149,7 @@ void Reservation::deleteReservation() {
 
 // Search Function
 void Reservation::searchByID() {
+    Reservation::resetHeader();
     string reservationID;
     cout << "Nhap Reservation ID de tim kiem: "; cin >> reservationID;
     Reservation* reservation = reservationList.searchID(reservationID);
@@ -156,6 +158,7 @@ void Reservation::searchByID() {
 }
 
 void Reservation::searchByName() {
+    Reservation::resetHeader();
     string name;
     cout << "Nhap ten chu phong can tim kiem: "; cin >> name;
     bool found = false;
@@ -180,6 +183,7 @@ void Reservation::searchByName() {
 }
 
 void Reservation::searchAll() {
+    Reservation::resetHeader();
     int choice;
     do {
         cout << "Room Searching Function: " << endl
@@ -189,16 +193,20 @@ void Reservation::searchAll() {
              << "Please enter your choice: ";
         cin >> choice;
         switch (choice) {
-        case 1: Reservation::searchByID(); break;
-        case 2: Reservation::searchByName(); break;
-        case 0: cout << "Exiting search menu." << endl; break;
-        default: cout << "Invalid choice. Please try again." << endl; break;
+            case 1: Reservation::searchByID(); break;
+            case 2: Reservation::searchByName(); break;
+            case 0: 
+                return;  // Chỉ cần return, không cần thông báo
+            default: 
+                cout << "Invalid choice. Please try again." << endl; 
+                break;
         }
     } while (choice != 0);
 }
 
 // Show Function
 void Reservation::showAllReservations() {
+    Reservation::resetHeader();
     cout << "Danh sach tat ca cac dich vu:" << endl;
     reservationList.show();
     cout << "1. Sap xep tang ID" << endl
@@ -208,9 +216,18 @@ void Reservation::showAllReservations() {
     cout << "Vui long chon mot lua chon: ";
     cin >> choice;
     switch (choice) {
-        case 1: reservationList.sortByID(true); showAllReservations(); break;
-        case 2: reservationList.sortByID(false); showAllReservations(); break;
-        default: break;
+        case 1: 
+            reservationList.sortByID(true); 
+            showAllReservations(); 
+            break;
+        case 2: 
+            reservationList.sortByID(false); 
+            showAllReservations(); 
+            break;
+        case 0:
+            return;  // Chỉ cần return, không cần thông báo
+        default: 
+            break;
     }
 }
 
@@ -224,10 +241,7 @@ ostream& operator<<(ostream& os, const Reservation& r) {
     const int width_end_date = 10;
     const int width_status = 10;
 
-    static bool is_header_printed = false; // Biến tĩnh đảm bảo tiêu đề chỉ in một lần
-
-    // In tiêu đề bảng một lần duy nhất
-    if (!is_header_printed) {
+    if (!Reservation::is_header_printed) {
         os << left
            << setw(width_reservation_id) << "Reservation ID" << " | "
            << setw(width_room_id) << "Room ID" << " | "
@@ -247,7 +261,7 @@ ostream& operator<<(ostream& os, const Reservation& r) {
            << setw(width_status) << ""
            << setfill(' ') << endl;
 
-        is_header_printed = true; // Đánh dấu đã in tiêu đề
+        Reservation::is_header_printed = true;
     }
 
     // In dữ liệu Reservation
@@ -277,6 +291,10 @@ ostream& operator<<(ostream& os, const Reservation& r) {
 
     os << "\n";
     return os;
+}
+
+void Reservation::resetHeader() {
+    is_header_printed = false;
 }
 
 

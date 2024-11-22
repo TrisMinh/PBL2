@@ -7,6 +7,7 @@ string Account::currentTenantID = "None";
 int Account::currentRoll = 0;
 string Account::AdminCode = "000";
 LinkedList<Account> Account::accountList;
+bool Account::is_header_printed = false;
 
 // Constructor
 Account::Account() {}
@@ -233,6 +234,7 @@ LinkedList<Account>::Node* Account::searchByUsername(string u, int check) {
     if (check == 1) {
         cout << "Nhap username can tim kiem: "; cin >> u;
     }
+    resetHeader();  // Reset header trước khi hiển thị kết quả
     LinkedList<Account>::Node* current = accountList.begin(); 
     while (current != nullptr) {
         if (current->data.getusername() == u) {
@@ -245,21 +247,18 @@ LinkedList<Account>::Node* Account::searchByUsername(string u, int check) {
 
 void Account::showAllAccount() {
     cout << "Danh sach Account:" << endl;
+    resetHeader();  // Reset header trước khi hiển thị
     accountList.show();
 }
 
 ostream& operator<<(ostream& os, const Account& a) {
-    // Định nghĩa độ rộng cho từng cột
     const int width_id = 15;
     const int width_username = 15;
     const int width_password = 15;
     const int width_tenant_id = 15;
     const int width_role = 10;
 
-    static bool is_header_printed = false; // Biến tĩnh đảm bảo tiêu đề chỉ in một lần
-
-    // In tiêu đề bảng một lần duy nhất
-    if (!is_header_printed) {
+    if (!Account::is_header_printed) {
         os << left
            << setw(width_id) << "AccountID" << " | "
            << setw(width_username) << "Username" << " | "
@@ -268,7 +267,6 @@ ostream& operator<<(ostream& os, const Account& a) {
            << setw(width_role) << "Role" 
            << endl;
 
-        // In dòng kẻ ngang phân cách tiêu đề và dữ liệu
         os << setfill('-')
            << setw(width_id + 2) << ""
            << setw(width_username + 3) << ""
@@ -277,10 +275,9 @@ ostream& operator<<(ostream& os, const Account& a) {
            << setw(width_role + 1) << ""
            << setfill(' ') << endl;
 
-        is_header_printed = true; // Đánh dấu đã in tiêu đề
+        Account::is_header_printed = true;
     }
 
-    // In dữ liệu tài khoản
     os << left 
        << setw(width_id) << a.account_ID << " | "
        << setw(width_username) << a.username << " | "
@@ -334,3 +331,5 @@ LinkedList<Account>::Node* Account::verifyTenantInfo(const string& phone, const 
     }
     return nullptr;
 }
+
+void Account::resetHeader() { is_header_printed = false; }

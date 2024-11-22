@@ -4,6 +4,7 @@
 int Contract::currentNumber = 0;
 int Contract::total = 0;
 LinkedList<Contract> Contract::contractList;
+bool Contract::is_header_printed = false;
 
 // Constructors
 Contract::Contract() : Reservation() {this->reservation_ID = "Empty"; this->contractID = "Empty";}
@@ -135,6 +136,7 @@ void Contract::extensionContract() {
 
 // Show all contracts
 void Contract::showAllContracts() {
+    resetHeader();
     cout << "Danh sach tat ca cac phong:" << endl;
     contractList.show();
     cout << "1. Sap xep ID tang dan" << endl
@@ -265,10 +267,7 @@ ostream& operator<<(ostream& os, const Contract& c) {
     const int width_status = 15;
 
 
-    static bool is_header_printed = false; // Biến tĩnh đảm bảo tiêu đề chỉ in một lần
-
-    // In tiêu đề bảng một lần duy nhất
-    if (!is_header_printed) {
+    if (!Contract::is_header_printed) {
         os << left
            << setw(width_id) << "Contract ID" << " | "
            << setw(width_room_id) << "Room ID" << " | "
@@ -288,7 +287,7 @@ ostream& operator<<(ostream& os, const Contract& c) {
            << setw(width_id + width_room_id + width_room_type + width_tenant_id + width_name + width_age + width_cccd + width_phone + width_start_date + width_end_date + width_price + width_status + 45) << ""
            << setfill(' ') << endl;
 
-        is_header_printed = true; // Đánh dấu đã in tiêu đề
+        Contract::is_header_printed = true; // Đánh dấu đã in tiêu đề
     }
 
     // In thông tin hợp đồng

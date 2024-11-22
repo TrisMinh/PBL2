@@ -5,6 +5,7 @@ using namespace std;
 int RoomType::total = 0;
 int RoomType::currentNumber = 0;
 LinkedList<RoomType> RoomType::roomTypeList;
+bool RoomType::is_header_printed = false;
 
 // Constructors
 RoomType::RoomType() {}
@@ -109,6 +110,7 @@ void RoomType::searchAll() {
 
 // Show Function
 void RoomType::showAllRoomTypes() {
+    resetHeader();
     cout << "Danh sach tat ca cac phong:" << endl;
     roomTypeList.show();
     cout << "1. Sap xep ID tang dan" << endl
@@ -130,10 +132,7 @@ ostream& operator<<(ostream& os, const RoomType& rt) {
     const int width_description = 30;
     const int width_price = 10;
 
-    static bool is_header_printed = false; // Biến tĩnh đảm bảo tiêu đề chỉ in một lần
-
-    // In tiêu đề bảng một lần duy nhất
-    if (!is_header_printed) {
+    if (!RoomType::is_header_printed) {
         os << left
            << setw(width_type_id) << "Type ID" << " | "
            << setw(width_description) << "Description" << " | "
@@ -147,7 +146,7 @@ ostream& operator<<(ostream& os, const RoomType& rt) {
            << setw(width_price + 1) << ""
            << setfill(' ') << endl;
 
-        is_header_printed = true; // Đánh dấu đã in tiêu đề
+        RoomType::is_header_printed = true; // Đánh dấu đã in tiêu đề
     }
 
     // In dữ liệu RoomType
@@ -158,6 +157,10 @@ ostream& operator<<(ostream& os, const RoomType& rt) {
        << endl;
 
     return os;
+}
+
+void RoomType::resetHeader() {
+    RoomType::is_header_printed = false;
 }
 
 

@@ -18,6 +18,7 @@ public:
     static int total;       // Tổng số loại phòng
     static int currentNumber; // Số lượng loại phòng hiện tại
     static LinkedList<RoomType> roomTypeList;
+    static bool is_header_printed;
 
     // Constructors
     RoomType(); 
@@ -51,6 +52,7 @@ public:
     static void showAllRoomTypes();
     static void searchByID();
     static void searchAll();
+    static void resetHeader();
 
     // Overloaded output operator
     friend ostream& operator<<(ostream& os, const RoomType& rt);

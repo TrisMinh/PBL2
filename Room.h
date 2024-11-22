@@ -22,6 +22,7 @@ public:
     static int total;          
     static int currentNumber; 
     static LinkedList<Room> roomList; 
+    static bool is_header_printed; 
 
     // Constructors
     Room();
@@ -64,6 +65,9 @@ public:
 
     // Overloaded output operator
     friend ostream& operator<<(ostream& os, const Room& r);
+
+    // Static method to reset header
+    static void resetHeader();
 };
 
 #include "Room.cpp"

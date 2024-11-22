@@ -15,14 +15,15 @@ private:
     string username;
     string password;
     string tenant_ID;
-    static string AdminCode;
     int roll; // 0: Khach, 1: Admin
 public:
+    static int total;          
+    static int currentNumber;
     static string currentTenantID;
     static int currentRoll;
-    static int total;          // Tổng số phòng
-    static int currentNumber;  // Số lượng phòng hiện tại
-    static LinkedList<Account> accountList; 
+    static string AdminCode;
+    static LinkedList<Account> accountList;
+    static bool is_header_printed;
 
     // Constructor, Destructor
     Account();
@@ -66,6 +67,8 @@ public:
 
     static bool forgotPassword();
     static LinkedList<Account>::Node* verifyTenantInfo(const string& phone, const string& cccd);
+
+    static void resetHeader();
 
 };
 #include "Account.cpp"
