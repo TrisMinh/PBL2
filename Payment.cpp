@@ -519,7 +519,7 @@ void Payment::showYearlyComparison(int startYear, int endYear) {
              << setw(20) << yearlyCollected
              << setw(20) << (yearlyBilled - yearlyCollected);
 
-        // Vẽ bi��u đồ đơn giản lấy chia cho cái lớn nhất
+        // Vẽ biểu đồ đơn giản lấy chia cho cái lớn nhất
         cout << "  ";
         int barLength = static_cast<int>((yearlyBilled/maxYearlyBilled) * 30);
         cout << string(barLength, '*');
@@ -539,6 +539,30 @@ void Payment::searchByTenantID(string tenantID) {
     }
     if (!found) {
         cout << "Khong tim thay bills nao!" << endl;
+    }
+}
+
+void Payment::checkUnpaidPayments(const string& tenantID) {
+    bool hasUnpaid = false;
+    double totalUnpaid = 0;
+    int count = 0;
+    
+    for (LinkedList<Payment>::Node* current = paymentList.begin(); 
+         current != nullptr; current = current->next) {
+        Payment& payment = current->data;
+        if (payment.getTenantID() == tenantID && !payment.status) {
+            hasUnpaid = true;
+            totalUnpaid += payment.getRemainingAmount();
+            count++;
+        }
+    }
+    
+    if (hasUnpaid) {
+        cout << "\n=== THONG BAO THANH TOAN ===\n";
+        cout << "Ban co " << count << " hoa don chua thanh toan!\n";
+        cout << "Tong so tien can thanh toan: " << fixed << setprecision(2) 
+             << totalUnpaid << " VND\n";
+        cout << "Vui long thanh toan dung han!\n\n";
     }
 }
 

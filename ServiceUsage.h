@@ -12,7 +12,6 @@
 using namespace std;
 class ServiceUsage {
     string usage_ID, room_ID, service_ID, tenantID;
-    DATE usageDate;
     bool status;
 public:
     static int total;
@@ -21,21 +20,18 @@ public:
     static bool is_header_printed; 
 
     ServiceUsage();
-    ServiceUsage(const string& roomId, const string& servId, const string& tenantId, DATE date, bool status = true);
+    ServiceUsage(const string& roomId, const string& servId, const string& tenantId, bool status = true);
     ~ServiceUsage();
 
     static string generateID(int number);
     void setUsageID(const string& id);
     void setRoomID(const string& id);
     void setServiceID(const string& id);
-    void setUsageMonth(int month);
     // Getters
     string getID() const;
     string getRoomID() const;
     string getTenantID() const;
     string getServiceID() const;
-    int getUsageMonth() const;
-    int getUsageYear() const;
     bool getStatus() const;
     void setStatus(bool newStatus);
 

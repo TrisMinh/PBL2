@@ -74,6 +74,8 @@ class Payment {
 
         static void searchByTenantID(string tenantID);
 
+        static void checkUnpaidPayments(const string& tenantID);
+
 };
 
 

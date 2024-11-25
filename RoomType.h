@@ -26,6 +26,8 @@ public:
     RoomType(const string& desc, double price);
     ~RoomType();
 
+    static bool isActive(string& id);
+
     // Getters
     string getID() const;
     string getDescription() const;

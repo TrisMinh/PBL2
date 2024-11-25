@@ -1,4 +1,5 @@
-paymentID,roomID,tenantID,rentAmount,serviceAmount,totalAmount,payMonth,payYear,payDate,status
-2
-P.001,R.002,T.001,60000,370000,430000,11,2024,23/11/2024,1,430000
-P.002,R.002,T.001,200000,370000,570000,12,2024,00/00/0,0,0
+paymentID,roomID,tenantID,rentAmount,serviceAmount,totalAmount,payMonth,payYear,payDate,status,depositeAmount
+3
+P.001,R.002,T.001,60000,370000,430000,11,2024,00/00/0,0,0
+P.002,R.003,T.002,80000,0,80000,11,2024,00/00/0,0,0
+P.003,R.004,T.004,26666,220000,246666,11,2024,00/00/0,0,200000

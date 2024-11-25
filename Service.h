@@ -8,6 +8,8 @@
 
 using namespace std;
 
+class ServiceUsage;
+
 class Service {
     string service_ID;
     string name;
@@ -19,10 +21,11 @@ public:
     static LinkedList<Service> serviceList;
     static bool is_header_printed; 
 
-
     Service();
     Service(const string& n, int price, const string& desc);
     ~Service();
+
+    static bool isActive(string& id);
 
     static string generateID(int number);
 

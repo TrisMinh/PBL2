@@ -1,4 +1,5 @@
 #include "RoomType.h"
+#include "Room.h"
 using namespace std;
 
 // Static members initialization
@@ -16,6 +17,18 @@ RoomType::RoomType(const string& desc, double price) : description(desc), price(
     type_ID = generateID(++currentNumber);
 }
 RoomType::~RoomType() {}
+
+bool RoomType::isActive(string& id) {
+    for (int i = 0; i < Room::roomList.size(); i++) {
+        Room room = Room::roomList[i];
+        if (room.getRoomTypeID() == id) {
+            cout << "Khong the xoa, kieu phong nay dang duoc su dung boi phong " << room.getID() << "!" << endl;
+            return true;
+        }
+    }
+    return false;
+}
+
 
 // Private helper
 string RoomType::generateID(int number) {
@@ -73,7 +86,11 @@ void RoomType::updateRoomType() {
 void RoomType::deleteRoomType() {
     string id;
     cout << "Enter RoomType ID to delete: "; cin >> id;
+    if (isActive(id)) {
+        return;
+    }
     roomTypeList.deleteNode(id);
+    cout << "Xoa kieu phong thanh cong!" << endl;
     total--;
 }
 
@@ -198,5 +215,6 @@ ostream& operator<<(ostream& os, const RoomType& rt) {
        << setw(w_price) << fixed << setprecision(2) << rt.getPrice() << endl;
     return os;
 }
+
 
 

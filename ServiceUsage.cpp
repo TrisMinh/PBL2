@@ -9,8 +9,8 @@ void ServiceUsage::resetHeader() { is_header_printed = false; }
 
 // Constructor
 ServiceUsage::ServiceUsage() {}
-ServiceUsage::ServiceUsage(const string& roomId, const string& servId, const string& tenantId, DATE date, bool status)
-    : room_ID(roomId), service_ID(servId), tenantID(tenantId), usageDate(date), status(status) {
+ServiceUsage::ServiceUsage(const string& roomId, const string& servId, const string& tenantId, bool status)
+    : room_ID(roomId), service_ID(servId), tenantID(tenantId), status(status) {
     usage_ID = generateID(++currentNumber);
 }
 ServiceUsage::~ServiceUsage() {}
@@ -31,8 +31,6 @@ string ServiceUsage::getID() const { return usage_ID; }
 string ServiceUsage::getRoomID() const { return room_ID; }
 string ServiceUsage::getTenantID() const { return tenantID; }
 string ServiceUsage::getServiceID() const { return service_ID; }
-int ServiceUsage::getUsageMonth() const { return usageDate.get_month(); }
-int ServiceUsage::getUsageYear() const { return usageDate.get_year(); }
 bool ServiceUsage::getStatus() const { return status; }
 void ServiceUsage::setStatus(bool newStatus) { status = newStatus; }
 
@@ -44,16 +42,14 @@ void ServiceUsage::fromString(const string& line) {
     getline(ss, room_ID, ',');
     getline(ss, service_ID, ',');
     getline(ss, tenantID, ',');
-    getline(ss, usageDatestr, ',');
     ss >> status;
-    usageDate.fromString(usageDatestr);
     total++;
 }
 
 string ServiceUsage::toString() const {
     stringstream ss;
     ss << usage_ID << ',' << room_ID << ',' << service_ID << ',' 
-       << tenantID << ',' << usageDate.toString() << ',' << status;
+       << tenantID << ',' << status;
     return ss.str();
 }
 
@@ -61,7 +57,6 @@ string ServiceUsage::toString() const {
 void ServiceUsage::addServiceUsage() {
     Room::searchRoomByTenantID(Account::currentTenantID);
     string room_ID, service_ID;
-    DATE usageDate;
     if (Service::serviceList.begin() == NULL) { 
         cout << "None of Service! " << endl;
         return;
@@ -102,8 +97,7 @@ void ServiceUsage::addServiceUsage() {
         else { cout << "Service ID not found. Please enter again! "<< endl; }
     } while(!found2);
 
-    cout << "Usage Date: "; cin >> usageDate;
-    ServiceUsage newUsage(room_ID, service_ID, Account::currentTenantID, usageDate, true);
+    ServiceUsage newUsage(room_ID, service_ID, Account::currentTenantID, true);
     usageList.add(newUsage);
     cout << "Service usage added successfully!" << endl;
     total++;
@@ -195,7 +189,6 @@ ostream& operator<<(ostream& os, const ServiceUsage& su) {
            << setw(width_room_id) << "Room ID" << " | "
            << setw(width_service_id) << "Service ID" << " | "
            << setw(width_tenant_id) << "Tenant ID" << " | "
-           << setw(width_usage_month) << "Usage Month" << " | "
            << setw(width_status) << "Status"
            << endl;
 
@@ -216,7 +209,6 @@ ostream& operator<<(ostream& os, const ServiceUsage& su) {
        << setw(width_room_id) << su.room_ID << " | "
        << setw(width_service_id) << su.service_ID << " | "
        << setw(width_tenant_id) << su.tenantID << " | "
-       << setw(width_usage_month) << su.usageDate.toString() << " | "
        << setw(width_status) << (su.status ? "Active" : "Inactive") << endl;
     return os;
 }

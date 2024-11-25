@@ -3,6 +3,7 @@
 #include <iostream>
 #include <iomanip>
 #include <sstream>
+
 using namespace std;
 
 // Static Element
@@ -19,6 +20,18 @@ Service::Service(const string& n, int price, const string& desc)
     service_ID = generateID(++currentNumber);
 }
 Service::~Service() {}
+
+bool Service::isActive(string& id) {
+    LinkedList<ServiceUsage>::Node* uNode = ServiceUsage::usageList.begin();
+    while (uNode) {
+        if (uNode->data.getServiceID() == id && uNode->data.getStatus() == true ) {
+            cout << "Khong the xoa, dich vu nay dang duoc su dung!" << endl;
+            return true;
+        }
+        uNode = uNode->next;
+    }
+    return false;
+}
 
 // ID Generate
 string Service::generateID(int number) {
@@ -100,19 +113,11 @@ void Service::updateService() {
 void Service::deleteService() {
     string serviceID;
     cout << "Nhap Service ID de xoa: "; cin >> serviceID;
-    
-    // Check if service is being used by checking ServiceUsage list
-    LinkedList<ServiceUsage>::Node* current = ServiceUsage::usageList.begin();
-    while (current) {
-        if (current->data.getServiceID() == serviceID && current->data.getStatus() == true) {
-            cout << "Khong the xoa dich vu nay vi dang duoc su dung!" << endl;
-            return;
-        }
-        current = current->next;
+    if (isActive(serviceID)) { return; }
+    else {
+        serviceList.deleteNode(serviceID);
+        cout << "Xoa dich vu thanh cong!" << endl;
     }
-    
-    serviceList.deleteNode(serviceID);
-    cout << "Xoa dich vu thanh cong!" << endl;
     total--;
 }
 

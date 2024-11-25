@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string.h>
 #include "LinkedList.h"
+#include "RoomType.h"
 #include "Room.h"
 #include "Tenant.h"
 #include "Service.h"
@@ -34,7 +35,8 @@ void displayLoginMenu();  // Function declaration (prototype)
 
 void displayTenantMenu() {
     cout << "\n========= TENANT MENU =========" << endl;
-    cout << "     Current UserID: " << Account::currentTenantID << endl;
+    cout << "    Current UserID: " << Account::currentTenantID << endl;
+    Payment::checkUnpaidPayments(Account::currentTenantID);
     cout << "  1. Account Management" << endl;
     cout << "  2. Make Room Reservation" << endl;
     cout << "  3. View My Room" << endl;
