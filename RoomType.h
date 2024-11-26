@@ -1,13 +1,6 @@
 #ifndef ROOMTYPE_H
 #define ROOMTYPE_H
-
-#include <iostream>
-#include <string>
-#include <sstream>
-#include <iomanip>
 #include "LinkedList.h"
-
-using namespace std;
 
 class RoomType {
 private:

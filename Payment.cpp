@@ -1,6 +1,8 @@
 #include "Payment.h"
+#include "PaymentStatistics.h"
 
-// Static Element
+
+// Static Element Initialization
 int Payment::total = 0;
 int Payment::currentNumber = 0;
 LinkedList<Payment> Payment::paymentList;
@@ -26,42 +28,31 @@ void Payment::load(const string& filename) { paymentList.load(filename); }
 void Payment::updateFile(const string& filename) { paymentList.updateFile(filename); }
 
 string Payment::getID() const { return paymentID; }
-string Payment::getRoomID () const { return roomID; }
-string Payment::getTenantID () const { return tenantID; }
-int Payment::getPayMonth() { return payMonth; }
-int Payment::getPayYear() { return payYear; }
-
+string Payment::getRoomID() const { return roomID; }
+string Payment::getTenantID() const { return tenantID; }
+int Payment::getPayMonth() const { return payMonth; }
+int Payment::getPayYear() const { return payYear; }
+double Payment::getDepositAmount() const { return depositAmount; }
+double Payment::getTotalAmount() const { return totalAmount; }
+double Payment::getRemainingAmount() const { return totalAmount - depositAmount; }
 
 void Payment::fromString(const string& line) {
-    string payDatestr;
     stringstream ss(line);
-    getline(ss, paymentID, ',');
-    getline(ss, roomID, ',');
-    getline(ss, tenantID, ',');
-    ss >> rentAmount;
-    ss.ignore(1); 
-    ss >> serviceAmount;
-    ss.ignore(1); 
-    ss >> totalAmount;
+    getline(ss, paymentID, ','); getline(ss, roomID, ','); getline(ss, tenantID, ',');
+    ss >> rentAmount >> serviceAmount >> totalAmount >> payMonth >> payYear;
     ss.ignore(1);
-    ss >> payMonth;
-    ss.ignore(1);
-    ss >> payYear;
-    ss.ignore(1); 
-    getline(ss, payDatestr, ',');
+    string payDatestr; getline(ss, payDatestr, ',');
     payDate.fromString(payDatestr);
-    ss >> status;
-    ss.ignore(1);
-    ss >> depositAmount;
+    ss >> status >> depositAmount;
     total++;
 }
 
 string Payment::toString() const {
-    stringstream ss;
-    ss << paymentID << "," << roomID << "," << tenantID << ","
-       << int(rentAmount) << "," << int(serviceAmount) << "," << int(totalAmount) << "," << payMonth << "," << payYear << ","
-       << payDate.toString() << "," << status << "," << depositAmount; 
-    return ss.str();
+    return paymentID + "," + roomID + "," + tenantID + "," + 
+           to_string(rentAmount) + "," + to_string(serviceAmount) + "," + 
+           to_string(totalAmount) + "," + to_string(payMonth) + "," + 
+           to_string(payYear) + "," + payDate.toString() + "," + 
+           to_string(status) + "," + to_string(depositAmount);
 }
 
 void Payment::showAllPayments() {
@@ -87,7 +78,6 @@ void Payment::showAllPayments() {
         }
     }
 }
-
 
 void Payment::autocreatePayment() {
     int payMonth, payYear;
@@ -185,102 +175,70 @@ void Payment::autocreatePayment() {
         cout << "Tao bills thanh cong!" << endl;
     }
 }
-
 ostream& operator<<(ostream& os, const Payment& p) {
-    // Định nghĩa độ rộng cho từng cột
-    const int width_payment_id = 15;
-    const int width_room_id = 10;
-    const int width_tenant_id = 10;
-    const int width_rent_amount = 12;
-    const int width_service_amount = 15;
-    const int width_total_amount = 12;
-    const int width_pay_month = 10;    // Thêm độ rộng cho payMonth
-    const int width_pay_year = 10;     // Thêm độ rộng cho payYear
-    const int width_pay_date = 12;
-    const int width_status = 8;
-    const int width_deposit = 15;
-    const int width_remaining = 15;
+    const int widths[] = {15, 10, 10, 12, 15, 12, 10, 10, 12, 8, 15, 15}; // Độ rộng các cột
+    const string headers[] = {"Payment ID", "Room ID", "Tenant ID", "Rent Amount", 
+                            "Service Amount", "Total Amount", "Pay Month", "Pay Year",
+                            "Pay Date", "Status", "Deposited", "Remaining"};
 
     if (!Payment::is_header_printed) {
-        os << left
-           << setw(width_payment_id) << "Payment ID" << " | "
-           << setw(width_room_id) << "Room ID" << " | "
-           << setw(width_tenant_id) << "Tenant ID" << " | "
-           << setw(width_rent_amount) << "Rent Amount" << " | "
-           << setw(width_service_amount) << "Service Amount" << " | "
-           << setw(width_total_amount) << "Total Amount" << " | "
-           << setw(width_pay_month) << "Pay Month" << " | "    // Thêm cột payMonth
-           << setw(width_pay_year) << "Pay Year" << " | "      // Thêm cột payYear
-           << setw(width_pay_date) << "Pay Date" << " | "
-           << setw(width_status) << "Status" << " | "
-           << setw(width_deposit) << "Deposited" << " | "
-           << setw(width_remaining) << "Remaining"
-           << endl;
+        // In tiêu đề
+        for (int i = 0; i < 12; i++) {
+            os << left << setw(widths[i]) << headers[i] << " | ";
+        }
+        os << endl;
 
-        // In dòng kẻ ngang phân cách tiêu đề và dữ liệu
-        os << setfill('-')
-           << setw(width_payment_id + 2) << ""
-           << setw(width_room_id + 3) << ""
-           << setw(width_tenant_id + 3) << ""
-           << setw(width_rent_amount + 3) << ""
-           << setw(width_service_amount + 3) << ""
-           << setw(width_total_amount + 3) << ""
-           << setw(width_pay_month + 3) << ""      // Thêm dòng kẻ cho payMonth
-           << setw(width_pay_year + 3) << ""       // Thêm dòng kẻ cho payYear
-           << setw(width_pay_date + 3) << ""
-           << setw(width_status + 3) << ""
-           << setw(width_deposit + 3) << ""
-           << setw(width_remaining + 3) << ""
-           << setfill(' ') << endl;
+        // In dòng kẻ ngang
+        for (int i = 0; i < 12; i++) {
+            os << setfill('-') << setw(widths[i] + 3) << "";
+        }
+        os << setfill(' ') << endl;
 
         Payment::is_header_printed = true;
     }
 
-    // In dữ liệu Payment
+    // In dữ liệu
     os << left
-       << setw(width_payment_id) << p.paymentID << " | "
-       << setw(width_room_id) << p.roomID << " | "
-       << setw(width_tenant_id) << p.tenantID << " | "
-       << setw(width_rent_amount) << fixed << setprecision(2) << p.rentAmount << " | "
-       << setw(width_service_amount) << fixed << setprecision(2) << p.serviceAmount << " | "
-       << setw(width_total_amount) << fixed << setprecision(2) << p.totalAmount << " | "
-       << setw(width_pay_month) << p.payMonth << " | "     // In payMonth
-       << setw(width_pay_year) << p.payYear << " | "       // In payYear
-       << setw(width_pay_date) << p.payDate.toString() << " | "
-       << setw(width_status) << (p.status ? "Paid" : "Pending") << " | "
-       << setw(width_deposit) << p.depositAmount << " | "
-       << setw(width_remaining) << p.getRemainingAmount() << endl;
+       << setw(widths[0]) << p.paymentID << " | "
+       << setw(widths[1]) << p.roomID << " | "
+       << setw(widths[2]) << p.tenantID << " | "
+       << setw(widths[3]) << fixed << setprecision(2) << p.rentAmount << " | "
+       << setw(widths[4]) << p.serviceAmount << " | "
+       << setw(widths[5]) << p.totalAmount << " | "
+       << setw(widths[6]) << p.payMonth << " | "
+       << setw(widths[7]) << p.payYear << " | "
+       << setw(widths[8]) << p.payDate.toString() << " | "
+       << setw(widths[9]) << (p.status ? "Paid" : "Pending") << " | "
+       << setw(widths[10]) << p.depositAmount << " | "
+       << setw(widths[11]) << p.getRemainingAmount() << endl;
     return os;
 }
 
 void Payment::searchByMonth() {
     resetHeader();
-    int month, year; 
-    do {
-        cout << "Nhap thang (1-12): "; cin >> month;
-        if (month < 1 || month > 12) {
-            cout << "Thang khong hop le. Vui long nhap lai!\n";
-        }
-    } while (month < 1 || month > 12);
+    int month, year;
+    cout << "Nhap thang (1-12): "; 
+    if(!(cin >> month) || month < 1 || month > 12) {
+        cout << "Thang khong hop le!\n";
+        return;
+    }
     
-    do {
-        cout << "Nhap nam (>= 2000): "; cin >> year;
-        if (year < 2000) {
-            cout << "Nam khong hop le. Vui long nhap lai!\n";
-        }
-    } while (year < 2000);
+    cout << "Nhap nam (>= 2000): ";
+    if(!(cin >> year) || year < 2000) {
+        cout << "Nam khong hop le!\n";
+        return;
+    }
     
     bool found = false;
     cout << "\nDanh sach cac bills trong thang " << month << "/" << year << ":\n";
     
-    for (LinkedList<Payment>::Node* current = paymentList.begin(); current != nullptr; current = current->next) {
-        Payment& payment = current->data;
-        if (payment.payMonth == month && payment.payYear == year) {
-            cout << payment;
+    for (auto current = paymentList.begin(); current != nullptr; current = current->next) {
+        if (current->data.payMonth == month && current->data.payYear == year) {
+            cout << current->data;
             found = true;
         }
     }
-    if (!found) { cout << "   Khong tim thay bills nao trong thang " << month << "/" << year << endl; }
+    if (!found) cout << "   Khong tim thay bills nao trong thang " << month << "/" << year << endl;
 }
 
 void Payment::makePayment() {
@@ -345,188 +303,6 @@ void Payment::managePayments() {
     cout << "Khong tim thay bill hoac bill khong thuoc ve ban!\n";
 }
 
-void Payment::showRevenueStatistics() {
-    resetHeader();
-    // Kiểm tra xem c dữ liệu payment nào không
-    if (paymentList.begin() == nullptr) {
-        cout << "\nKhong co du lieu payment nao trong he thong!" << endl;
-        return;
-    }
-
-    int choice;
-    do {
-        cout << "\n=== THONG KE DOANH THU ===\n";
-        cout << "1. Xem doanh thu theo thang\n";
-        cout << "2. So sanh doanh thu cac thang trong nam\n";
-        cout << "3. So sanh doanh thu qua cac nam\n";
-        cout << "0. Thoat\n";
-        cout << "Nhap lua chon: ";
-        cin >> choice;
-
-        try {
-            switch (choice) {
-                case 1: {
-                    int month, year;
-                    cout << "Nhap thang (1-12): "; 
-                    cin >> month;
-                    if (month < 1 || month > 12) {
-                        cout << "Thang khong hop le!" << endl;
-                        continue;
-                    }
-                    cout << "Nhap nam: "; 
-                    cin >> year;
-                    if (year < 2000) {
-                        cout << "Nam khong hop le!" << endl;
-                        continue;
-                    }
-                    double totalBilled = calculateTotalBilled(month, year);
-                    double totalCollected = calculateTotalCollected(month, year);
-                    cout << "\nThong ke thang " << month << "/" << year << ":\n";
-                    cout << "Tong so tien hoa don: " << fixed << setprecision(2) << totalBilled << endl;
-                    cout << "Tong so tien da thu: " << fixed << setprecision(2) << totalCollected << endl;
-                    cout << "So tien chua thu: " << fixed << setprecision(2) << (totalBilled - totalCollected) << endl;
-                    break;
-                }
-                case 2: {
-                    int year;
-                    cout << "Nhap nam can thong ke: ";
-                    cin >> year;
-                    if (year < 2000) {
-                        cout << "Nam khong hop le!" << endl;
-                        continue;
-                    }
-                    showMonthlyComparison(year);
-                    break;
-                }
-                case 3: {
-                    int startYear, endYear;
-                    cout << "Nhap nam bat dau: "; 
-                    cin >> startYear;
-                    cout << "Nhap nam ket thuc: "; 
-                    cin >> endYear;
-                    if (startYear > endYear || startYear < 2000) {
-                        cout << "Nam khong hop le!" << endl;
-                        continue;
-                    }
-                    showYearlyComparison(startYear, endYear);
-                    break;
-                }
-            }
-        } catch (...) {
-            cout << "Co loi xay ra! Vui long thu lai." << endl;
-        }
-    } while (choice != 0);
-}
-
-// Tính tổng số tiền của các hóa đơn trong tháng
-double Payment::calculateTotalBilled(int month, int year) {
-    double total = 0;
-    for (LinkedList<Payment>::Node* current = paymentList.begin(); 
-         current != nullptr; current = current->next) {
-        Payment& payment = current->data;
-        if (payment.payMonth == month && payment.payYear == year) {
-            total += payment.totalAmount;
-        }
-    }
-    return total;
-}
-
-// Tính tổng số tiền đã thu được trong tháng
-double Payment::calculateTotalCollected(int month, int year) {
-    double total = 0;
-    for (LinkedList<Payment>::Node* current = paymentList.begin(); 
-         current != nullptr; current = current->next) {
-        Payment& payment = current->data;
-        if (payment.payMonth == month && payment.payYear == year && payment.status) {
-            total += payment.totalAmount;
-        }
-    }
-    return total;
-}
-
-void Payment::showMonthlyComparison(int year) {
-    resetHeader();
-    if (year < 2000) {
-        cout << "Nam khong hop le! Nam phai tu 2000 tro len" << endl;
-        return;
-    }
-    cout << "\nSo sanh doanh thu cac thang trong nam " << year << ":\n";
-    cout << setw(10) << "Thang" 
-         << setw(20) << "Tong hoa don" 
-         << setw(20) << "Da thu" 
-         << setw(20) << "Chua thu" << endl;
-    cout << string(70, '-') << endl;
-    
-    double maxBilled = 0;
-    for (int month = 1; month <= 12; month++) {
-        double billed = calculateTotalBilled(month, year);
-        if (billed > maxBilled) maxBilled = billed;
-    }
-
-    for (int month = 1; month <= 12; month++) {
-        double totalBilled = calculateTotalBilled(month, year);
-        double totalCollected = calculateTotalCollected(month, year);
-        
-        cout << setw(10) << month 
-             << setw(20) << fixed << setprecision(2) << totalBilled 
-             << setw(20) << totalCollected
-             << setw(20) << (totalBilled - totalCollected);
-        
-        // Vẽ biểu đồ đơn giản
-        cout << "  ";
-        int barLength = maxBilled > 0 ? (totalBilled/maxBilled) * 30 : 0;
-        cout << string(barLength, '*');
-        cout << endl;
-    }
-}
-
-void Payment::showYearlyComparison(int startYear, int endYear) {
-    resetHeader();
-    cout << "\nSo sanh doanh thu qua cac nam:\n";
-    cout << setw(10) << "Nam" 
-         << setw(20) << "Tong hoa don" 
-         << setw(20) << "Da thu" 
-         << setw(20) << "Chua thu" << endl;
-    cout << string(70, '-') << endl;
-
-    // Tìm giá trị lớn nhất để scale biểu đồ
-    double maxYearlyBilled = 0;
-    for (int year = startYear; year <= endYear; year++) {
-        double yearlyBilled = 0;
-        for (int month = 1; month <= 12; month++) {
-            yearlyBilled += calculateTotalBilled(month, year);
-        }
-        if (yearlyBilled > maxYearlyBilled) maxYearlyBilled = yearlyBilled;
-    }
-
-    // Kiểm tra nếu không có dữ liệu
-    if (maxYearlyBilled == 0) {
-        cout << "Khong co du lieu doanh thu trong khoang thoi gian nay!" << endl;
-        return;
-    }
-
-    for (int year = startYear; year <= endYear; year++) {
-        double yearlyBilled = 0;
-        double yearlyCollected = 0;
-        
-        for (int month = 1; month <= 12; month++) {
-            yearlyBilled += calculateTotalBilled(month, year);
-            yearlyCollected += calculateTotalCollected(month, year);
-        }
-        
-        cout << setw(10) << year 
-             << setw(20) << fixed << setprecision(2) << yearlyBilled 
-             << setw(20) << yearlyCollected
-             << setw(20) << (yearlyBilled - yearlyCollected);
-
-        // Vẽ biểu đồ đơn giản lấy chia cho cái lớn nhất
-        cout << "  ";
-        int barLength = static_cast<int>((yearlyBilled/maxYearlyBilled) * 30);
-        cout << string(barLength, '*');
-        cout << endl;
-    }
-}
-
 void Payment::searchByTenantID(string tenantID) {
     resetHeader();
     cout << "\nDanh sach bills cua ban: " << endl;
@@ -547,8 +323,7 @@ void Payment::checkUnpaidPayments(const string& tenantID) {
     double totalUnpaid = 0;
     int count = 0;
     
-    for (LinkedList<Payment>::Node* current = paymentList.begin(); 
-         current != nullptr; current = current->next) {
+    for (LinkedList<Payment>::Node* current = paymentList.begin(); current != nullptr; current = current->next) {
         Payment& payment = current->data;
         if (payment.getTenantID() == tenantID && !payment.status) {
             hasUnpaid = true;

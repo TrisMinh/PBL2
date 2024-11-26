@@ -55,6 +55,7 @@ string ServiceUsage::toString() const {
 
 // Chuc nang co ban (Basic Function)
 void ServiceUsage::addServiceUsage() {
+    resetHeader();
     Room::searchRoomByTenantID(Account::currentTenantID);
     string room_ID, service_ID;
     if (Service::serviceList.begin() == NULL) { 
@@ -63,25 +64,28 @@ void ServiceUsage::addServiceUsage() {
     }
 
     bool found1 = false;
-    bool found2 = false;
-    do{
+    do {
         resetHeader();
-        cout << "Room ID: "; cin >> room_ID;
+        cout << "Room ID (0 to exit): "; cin >> room_ID;
+        if (room_ID == "0") return;
+        
         Room* room = Room::roomList.searchID(room_ID);
         if (room != NULL && room->getStatus() == 1) { found1 = true; } 
         else { cout << "Room ID not found or no owner. Please enter again! "<< endl; }
     } while(!found1);
     
-    do{
+    bool found2 = false;
+    do {
         resetHeader();
         Service::serviceList.show();
-        cout << "Service ID: "; cin >> service_ID;
+        cout << "Service ID (0 to exit): "; cin >> service_ID;
+        if (service_ID == "0") return;
         
         // Kiểm tra xem dịch vụ này đã được đăng ký chưa
         LinkedList<ServiceUsage>::Node* current = usageList.begin();
         bool serviceAlreadyActive = false;
         while (current) {
-            if (current->data.getTenantID() == Account::currentTenantID && 
+            if (current->data.getTenantID() == Account::currentTenantID &&  current->data.getRoomID() == room_ID &&
                 current->data.getServiceID() == service_ID &&
                 current->data.getStatus() == true) {
                 cout << "This service is already active for your account!" << endl;
@@ -93,8 +97,15 @@ void ServiceUsage::addServiceUsage() {
         if (serviceAlreadyActive) continue;
 
         Service* service = Service::serviceList.searchID(service_ID);
-        if (service != NULL) { found2 = true;} 
-        else { cout << "Service ID not found. Please enter again! "<< endl; }
+        if (service != NULL) {
+            if (service->isMandatory()) {
+                cout << "This is a mandatory service. You cannot register/unregister it manually." << endl;
+                return;
+            }
+            found2 = true;
+        } else {
+            cout << "Service ID not found. Please enter again! "<< endl;
+        }
     } while(!found2);
 
     ServiceUsage newUsage(room_ID, service_ID, Account::currentTenantID, true);
@@ -245,4 +256,17 @@ void ServiceUsage::searchByTenantID(string tenantID) {
         cout << "\t\t\t\t\tNo service usage found!\n";
     }
     cout << "\t\t\t\t\t==============================\n";
+}
+
+// Thêm hàm mới
+void ServiceUsage::registerMandatoryServices(const string& roomID, const string& tenantID) {
+    LinkedList<Service>::Node* current = Service::serviceList.begin();
+    while (current) {
+        if (current->data.isMandatory()) {
+            ServiceUsage newUsage(roomID, current->data.getID(), tenantID, true);
+            usageList.add(newUsage);
+            total++;
+        }
+        current = current->next;
+    }
 }

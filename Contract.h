@@ -1,17 +1,6 @@
 #ifndef CONTRACT_H
 #define CONTRACT_H
-
-#include <iostream>
-#include <string>
-#include <sstream>
-#include <iomanip>
-#include "Account.h"
-#include "Date.h"
-#include "Tenant.h"
 #include "Reservation.h"
-#include "LinkedList.h"
-
-using namespace std;
 
 class Contract : public Reservation {
 private:

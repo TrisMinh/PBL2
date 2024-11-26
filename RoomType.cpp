@@ -1,7 +1,5 @@
 #include "RoomType.h"
 #include "Room.h"
-using namespace std;
-
 // Static members initialization
 int RoomType::total = 0;
 int RoomType::currentNumber = 0;
@@ -65,10 +63,18 @@ void RoomType::updateFile(const string& filename) { roomTypeList.updateFile(file
 void RoomType::addRoomType() {
     string desc; double price;
     cin.ignore();
-    cout << "Enter description: "; getline(cin, desc);
-    cout << "Enter price: "; cin >> price;
+    cout << "Nhap mo ta loai phong (Nhap 0 de thoat): "; getline(cin, desc);
+    if (desc == "0") {
+        cout << "Thoat them loai phong." << endl;
+        return;
+    }
+    cout << "Nhap gia phong (Nhap 0 de thoat): "; cin >> price;
+    if (price == 0) {
+        cout << "Thoat them loai phong." << endl;
+        return;
+    }
     roomTypeList.add(RoomType(desc, price)); total++;
-    cout << "RoomType added successfully!\n";
+    cout << "Them loai phong thanh cong!\n";
 }
 
 void RoomType::updateRoomType() {
@@ -89,9 +95,11 @@ void RoomType::deleteRoomType() {
     if (isActive(id)) {
         return;
     }
-    roomTypeList.deleteNode(id);
-    cout << "Xoa kieu phong thanh cong!" << endl;
-    total--;
+    if (roomTypeList.searchID(id) != NULL) {
+        roomTypeList.deleteNode(id);
+        cout << "Xoa kieu phong thanh cong!" << endl;
+        total--;
+    }
 }
 
 void RoomType::showAllRoomTypes() {
@@ -117,7 +125,7 @@ void RoomType::searchByID() {
     string id;
     cout << "Enter RoomType ID to search: "; cin >> id;
     RoomType* found = roomTypeList.searchID(id);
-    if (found) cout << "Found room: " << *found;
+    if (found) cout << "Found room: \n" << *found;
     else cout << "Room not found with ID: " << id << endl;
 }
 
@@ -173,18 +181,10 @@ void RoomType::searchByPrice() {
         bool matches = false;
 
         switch (operation) {
-            case '>':
-                matches = rt.getPrice() > searchPrice;
-                break;
-            case '<':
-                matches = rt.getPrice() < searchPrice;
-                break;
-            case '=':
-                matches = rt.getPrice() == searchPrice;
-                break;
-            default:
-                cout << "Toán tử không hợp lệ! Sử dụng >, < hoặc =\n";
-                return;
+            case '>': matches = rt.getPrice() > searchPrice; break;
+            case '<': matches = rt.getPrice() < searchPrice; break;
+            case '=': matches = rt.getPrice() == searchPrice; break;
+            default: cout << "Toán tử không hợp lệ! Sử dụng >, < hoặc =\n"; return;
         }
 
         if (matches) {

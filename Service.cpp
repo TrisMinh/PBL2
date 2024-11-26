@@ -1,10 +1,5 @@
 #include "Service.h"
 #include "ServiceUsage.h"
-#include <iostream>
-#include <iomanip>
-#include <sstream>
-
-using namespace std;
 
 // Static Element
 int Service::total = 0;
@@ -14,9 +9,9 @@ bool Service::is_header_printed = false;
 void Service::resetHeader() { is_header_printed = false; }
 
 // Constructor
-Service::Service() {}
-Service::Service(const string& n, int price, const string& desc)
-    : name(n), unit_price(price), description(desc) {
+Service::Service() : is_mandatory(false) {}
+Service::Service(const string& n, int price, const string& desc, bool mandatory)
+    : name(n), unit_price(price), description(desc), is_mandatory(mandatory) {
     service_ID = generateID(++currentNumber);
 }
 Service::~Service() {}
@@ -49,6 +44,10 @@ string Service::getID() const { return service_ID; }
 string Service::getName() const { return name; }
 double Service::getUnitPrice() const { return unit_price; }
 
+// Thêm getter/setter cho is_mandatory
+bool Service::isMandatory() const { return is_mandatory; }
+void Service::setMandatory(bool mandatory) { is_mandatory = mandatory; }
+
 // Ham bien doi nham doc du lieu tu file (moi du lieu se co 1 fromstring khac nhau)
 void Service::fromString(const string& line) {
     stringstream ss(line);
@@ -56,14 +55,15 @@ void Service::fromString(const string& line) {
     getline(ss, name, ',');
     ss >> unit_price;
     ss.ignore(1);
-    getline(ss, description);
+    getline(ss, description, ',');
+    ss >> is_mandatory;
     total++;
 }
 
 // Ham chuyen thanh chuoi de ghi du lieu vao file
 string Service::toString() const {
     stringstream ss;
-    ss << service_ID << "," << name << "," << unit_price << "," << description;
+    ss << service_ID << "," << name << "," << unit_price << "," << description << "," << is_mandatory;
     return ss.str();
 }
 
@@ -71,12 +71,14 @@ string Service::toString() const {
 void Service::addService() {
     string name, description;
     int unit_price;
+    bool mandatory;
     cin.ignore();
     cout << "Nhap ten dich vu: "; getline(cin, name);
     cout << "Nhap gia dich vu: "; cin >> unit_price;
     cin.ignore();
     cout << "Nhap mo ta dich vu: "; getline(cin, description);
-    Service service(name, unit_price, description);
+    cout << "Dich vu bat buoc? (1: Co, 0: Khong): "; cin >> mandatory;
+    Service service(name, unit_price, description, mandatory);
     serviceList.add(service);
     cout << "Dich vu da duoc them voi ID: " << service.getID() << endl;
     total++;
@@ -191,20 +193,23 @@ void Service::showAllServices() {
 ostream& operator<<(ostream& os, const Service& s) {
     const int width_service_id = 15;
     const int width_name = 20;
-    const int width_price = 10;
+    const int width_price = 20;
     const int width_description = 30;
+    const int width_mandatory = 15;
 
     if (!Service::is_header_printed) {
         os << left
            << setw(width_service_id) << "Service ID" << " | "
            << setw(width_name) << "Service Name" << " | "
            << setw(width_price) << "Price" << " | "
-           << setw(width_description) << "Description" << endl;
+           << setw(width_description) << "Description" << " | "
+           << setw(width_mandatory) << "Mandatory" << endl;
         os << setfill('-')
            << setw(width_service_id + 2) << ""
            << setw(width_name + 3) << ""
            << setw(width_price + 3) << ""
            << setw(width_description + 3) << ""
+           << setw(width_mandatory + 3) << ""
            << setfill(' ') << endl;
 
         Service::is_header_printed = true;
@@ -213,8 +218,9 @@ ostream& operator<<(ostream& os, const Service& s) {
     os << left
        << setw(width_service_id) << s.service_ID << " | "
        << setw(width_name) << s.name << " | "
-       << setw(width_price) << fixed << setprecision(2) << s.unit_price << " | "
-       << setw(width_description) << s.description
+       << setw(width_price) << (s.unit_price == -1 ? "Tuy muc su dung" : to_string(s.unit_price)) << " | "
+       << setw(width_description) << s.description << " | "
+       << setw(width_mandatory) << (s.is_mandatory ? "Yes" : "No")
        << endl;
 
     return os;

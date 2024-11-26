@@ -1,20 +1,14 @@
 #ifndef MENU_H
 #define MENU_H
 
-#include <iostream>
-#include <string.h>
-#include "LinkedList.h"
 #include "RoomType.h"
 #include "Room.h"
-#include "Tenant.h"
 #include "Service.h"
 #include "ServiceUsage.h"
 #include "Reservation.h"
 #include "Contract.h"
-#include "Account.h"
+#include "PaymentStatistics.h"
 #include "Payment.h"
-using namespace std;
-
 // update all file
 
 void updateAllFile() {
@@ -152,6 +146,7 @@ void controlTenantMenu() {
 void displayAdminMenu() {
     cout << "\n========= ROOM MANAGEMENT SYSTEM MENU =========" << endl;
     cout << "             Current UserID: " << Account::currentTenantID << endl;
+    Reservation::checkNewReservations();
     cout << "  1. Room Management " << endl;
     cout << "  2. Tenant Management" << endl;
     cout << "  3. Service Management" << endl;
@@ -306,7 +301,7 @@ void controlAdminMenu() {
             }
             case 7: { // Reports and Statistics
                 cout << "\n-- Reports and Statistics --" << endl;
-                Payment::showRevenueStatistics();
+                PaymentStatistics::showRevenueStatistics();
                 break;
             }
             case 8: { // Contract Management
@@ -364,7 +359,7 @@ void displayLoginMenu() {
         cout << "\n========= LOGIN MENU =========" << endl;
         cout << "  1. Sign in" << endl;
         cout << "  2. Sign up" << endl;
-        cout << "  0. Exit Program" << endl; // Added new exit option
+        cout << "  0. Exit Program" << endl;
         cout << "==============================" << endl;
         cout << "Please select an option: ";
         cin >> choice;

@@ -1,15 +1,8 @@
 #ifndef ROOM_H
 #define ROOM_H
 
-#include <fstream>
-#include <sstream>
-#include <iostream>
-#include <iomanip>
 #include "RoomType.h"
 #include "Tenant.h"
-#include "LinkedList.h"
-
-using namespace std;
 
 class Room {
 private:

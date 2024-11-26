@@ -1,13 +1,6 @@
 #ifndef ACCOUNT_H
 #define ACCOUNT_H
-
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <ctime>
-#include "LinkedList.h"
 #include "Tenant.h"
-using namespace std;
 
 class Account {
 private:

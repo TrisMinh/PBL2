@@ -1,11 +1,8 @@
-#include <iostream>
 #include "LinkedList.h"
-#include <string>
-#include <fstream>
-#include <sstream>
+
 using namespace std;
 template <typename T>
-LinkedList<T>::Node::Node(const T& data) : data(data), prev(nullptr), next(nullptr) {}
+LinkedList<T>::Node::Node(const T& data) : data(data), next(nullptr) {}
 template <typename T>
 LinkedList<T>::LinkedList() : head(nullptr), tail(nullptr), count(0) {}
 template <typename T>
@@ -82,35 +79,50 @@ void LinkedList<T>::add(const T& data) {
         head = tail = newNode;
     } else {
         tail->next = newNode;
-        newNode->prev = tail;
         tail = newNode;
     }
     count++;
 }
 template <typename T>
 void LinkedList<T>::deleteNode(const string& value) {
+    if (head == nullptr) {
+        cout << "List is empty!!" << endl;
+        return;
+    }
+
     Node* current = head;
-    while (current != nullptr) {
-        if (current->data.getID() == value) {
-            if (head == nullptr) {
-                cout << "List is empty!!" << endl;
-                return;
-            }
-            if (head == current)
-                head = current->next;
-            if (current->next != nullptr)
-                current->next->prev = current->prev;
-            if (current->prev != nullptr)
-                current->prev->next = current->next;
-            if (tail == current)
-                tail = current->prev;
-            delete current;  // Xóa nút hiện tại
-            count--;
-            return;
+    Node* prev = nullptr;
+
+    // Nếu node cần xóa là head
+    if (current != nullptr && current->data.getID() == value) {
+        head = current->next;
+        if (head == nullptr) {
+            tail = nullptr;
         }
+        delete current;
+        count--;
+        return;
+    }
+
+    // Tìm node cần xóa
+    while (current != nullptr && current->data.getID() != value) {
+        prev = current;
         current = current->next;
     }
-    cout << "Not found in the list: " << value << ".\n";
+
+    // Nếu không tìm thấy node
+    if (current == nullptr) {
+        cout << "Not found in the list: " << value << ".\n";
+        return;
+    }
+
+    // Xóa node
+    if (current == tail) {
+        tail = prev;
+    }
+    prev->next = current->next;
+    delete current;
+    count--;
 }
 
 template <typename T>
@@ -128,6 +140,7 @@ void LinkedList<T>::edit(const string& ID) {
 
 template <typename T>
 void LinkedList<T>::show() const {
+    T::resetHeader();
     cout << "Total: " << T::total << endl;
     Node* current = head;
     if (current == NULL) { cout << "List is empty! " << endl;}
@@ -176,6 +189,7 @@ void LinkedList<T>::sortByAlphabet(bool ascending) {
 //Search
 template <typename T>
 T* LinkedList<T>::searchID(const string& ID) const{
+    T::resetHeader();
     Node* current = head;
     while (current) {
         if (current->data.getID() == ID) {
@@ -187,6 +201,7 @@ T* LinkedList<T>::searchID(const string& ID) const{
 }
 template <typename T>
 void LinkedList<T>::searchStatus(const int& status) {
+    T::resetHeader();
     Node* current = head;
     bool found = false;  // Biến kiểm tra có tìm thấy phòng hay không
     

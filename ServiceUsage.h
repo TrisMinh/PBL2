@@ -1,12 +1,7 @@
 #ifndef SERVICEUSAGE_H
 #define SERVICEUSAGE_H
-#include <iostream>
-#include <string>
-#include <sstream>
-#include <iomanip>
 #include "Room.h"
 #include "Service.h"
-#include "LinkedList.h"
 #include "Account.h"
 #include "Date.h"
 using namespace std;
@@ -53,6 +48,8 @@ public:
 
     // Title control
     static void resetHeader();
+
+    static void registerMandatoryServices(const string& roomID, const string& tenantID);
 };
 #include "ServiceUsage.cpp"
 #endif

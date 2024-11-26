@@ -1,5 +1,4 @@
 #include "Menu.h"
-#include "Date.h"
 int main() {
     Account::load("Data/Account.txt");
     RoomType::load("Data/RoomType.txt");
@@ -10,7 +9,6 @@ int main() {
     Reservation::load("Data/Reservation.txt");
     Contract::load("Data/Contract.txt");
     Payment::load("Data/Payment.txt");
-    displayLoginMenu();
-    
+    displayLoginMenu();    
     return 0;
 }

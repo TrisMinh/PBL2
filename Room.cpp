@@ -67,7 +67,11 @@ void Room::addRoom() {
     cout << "Nhap thong tin phong:" << endl;
     do {
         RoomType::roomTypeList.show();
-        cout << "Loai phong (Type ID: co dang RT.): "; cin >> type_id;
+        cout << "Loai phong (Type ID: co dang RT.) (Nhap 0 de thoat): "; cin >> type_id;
+        if (type_id == "0") {
+            cout << "Thoat them phong." << endl;
+            return;
+        }
         matchedRoomType = RoomType::roomTypeList.searchID(type_id);
         if (matchedRoomType == nullptr) {
             cout << "Loai phong khong hop le!" << endl;

@@ -1,15 +1,10 @@
 #ifndef RESERVATION_H
 #define RESERVATION_H
 
-#include <iostream>
-#include <string>
-#include <sstream>
-#include <iomanip>
 #include "Date.h"
 #include "Room.h"
 #include "Account.h"
-#include "LinkedList.h"
-using namespace std;
+#include "ServiceUsage.h"
 
 class Reservation {
 protected:
@@ -74,7 +69,7 @@ public:
     static void searchByID();
     static void searchAll();
 
-
+    static void checkNewReservations();
 };
 
 #include "Reservation.cpp"

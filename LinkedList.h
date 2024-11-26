@@ -14,7 +14,6 @@ private:
 public:
     struct Node {
         T data;
-        Node* prev;
         Node* next;
         Node(const T& data);
     };

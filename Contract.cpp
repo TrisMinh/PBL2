@@ -225,6 +225,7 @@ void Contract::confirmReservationandcreatContract() {
     int choice;
     string tempRE;
     do {
+        resetHeader();
         Reservation::reservationList.searchStatus(0);
         do {
             cout << "Enter ReservationID to manage (or type '0' to quit): "; cin >> tempRE;
@@ -258,6 +259,7 @@ void Contract::confirmReservationandcreatContract() {
                     ro->setTenantID(re->getTenantID());
                     cout << "Reservation confirmed." << endl;
                     addContract(re->getRoomID(),re->getTenantID(),re->getStartDate(),re->getEndDate(),1);
+                    ServiceUsage::registerMandatoryServices(re->getRoomID(),re->getTenantID());
                 } else {
                     cout << "Invalid Reservation ID or Room ID." << endl;
                 }

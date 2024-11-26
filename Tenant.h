@@ -1,11 +1,7 @@
 #ifndef TENANT_H
 #define TENANT_H
 
-#include <iostream>
-#include <string>
-#include <sstream>
 #include "LinkedList.h"
-using namespace std;
 
 class Account; // Forward declaration
 

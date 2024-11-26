@@ -15,6 +15,7 @@ class Service {
     string name;
     int unit_price;
     string description;
+    bool is_mandatory;
 public:
     static int total;
     static int currentNumber;
@@ -22,7 +23,7 @@ public:
     static bool is_header_printed; 
 
     Service();
-    Service(const string& n, int price, const string& desc);
+    Service(const string& n, int price, const string& desc, bool mandatory = false);
     ~Service();
 
     static bool isActive(string& id);
@@ -57,6 +58,9 @@ public:
     static void searchByID();
     static void searchByName();
     static void searchAll();
+
+    bool isMandatory() const;
+    void setMandatory(bool mandatory);
 };
 #include "Service.cpp"
 #endif
