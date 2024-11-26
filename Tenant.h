@@ -57,6 +57,7 @@ public:
     static void showAllTenants();
 
     static void searchByID();
+    static void searchByGender();
     static void searchByName();
     static void searchAll();
 

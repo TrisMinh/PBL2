@@ -98,6 +98,13 @@ void Payment::autocreatePayment() {
         break;
     } while (true);
 
+    char usageChoice;
+    cout << "Ban muon nhap so luong dien/nuoc?\n";
+    cout << "0. Tu dong gan 100 cho moi phong\n";
+    cout << "1. Tu nhap so luong\n";
+    cout << "Nhap lua chon: ";
+    cin >> usageChoice;
+
     bool hasCreated = false;
 
     for (LinkedList<Contract>::Node* current = Contract::contractList.begin(); current != nullptr; current = current->next) {
@@ -159,7 +166,20 @@ void Payment::autocreatePayment() {
                 tenantID == usage.getTenantID()) {
                 Service* service = Service::serviceList.searchID(usage.getServiceID());
                 if (service != nullptr) {
-                    serviceAmount += service->getUnitPrice();
+                    if (service->getID() == "S.005" || 
+                        service->getID() == "S.006") {
+                        double quantity;
+                        if (usageChoice == '0') {
+                            quantity = 100;
+                        } else {
+                            cout << "Nhap so luong " << service->getName() 
+                                 << " cho phong " << roomID << ": ";
+                            cin >> quantity;
+                        }
+                        serviceAmount += service->getUnitPrice() * quantity;
+                    } else {
+                        serviceAmount += service->getUnitPrice();
+                    }
                 }
             }
         }

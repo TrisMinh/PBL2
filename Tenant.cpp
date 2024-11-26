@@ -170,6 +170,18 @@ void Tenant::searchByID() {
     }
 }
 
+
+void Tenant::searchByGender() {
+    resetHeader();
+    int genderInput;
+    cout << "Nhap gioi tinh can tim kiem (0: Nam, 1: Nu): "; cin >> genderInput;
+    LinkedList<Tenant>::Node* current = tenantList.begin();
+    while (current != nullptr) {
+        if (current->data.getGender() == genderInput) { cout << current->data; }
+        current = current->next;
+    }
+}
+
 void Tenant::searchByName() {
     resetHeader();
     string searchName;
@@ -200,11 +212,13 @@ void Tenant::searchAll() {
         cout << "Tenant Searching Function: " << endl;
         cout << "1. Search by TenantID" << endl;
         cout << "2. Search by Tenant Name" << endl;
+        cout << "3. Search by Gender" << endl;
         cout << "0. Exit" << endl;
         cout << "Please enter your option: "; cin >> choice;
         switch (choice) {
             case 1: searchByID(); break;
             case 2: searchByName(); break;
+            case 3: searchByGender(); break;
             case 0: cout << "Exit Search Function." << endl; break;
             default: cout << "Invalid selection. Please try again." << endl; break;
         }

@@ -62,10 +62,15 @@ void Reservation::fromString(const string& line) {
     getline(ss, room_ID, ',');
     getline(ss, tenant_ID, ',');    
     string start_day;
+    int staytime, status;
     getline(ss, start_day, ',');
-    ss >> staytime >> status;
-    startDate.fromString(start_day);
-    endDate = startDate + staytime;
+    ss >> staytime;
+    ss.ignore(1); // bỏ qua dấu phẩy
+    ss >> status;
+    this->startDate.fromString(start_day);
+    this->staytime = staytime;
+    this->status = status;
+    this->endDate = this->startDate + staytime;
     total++;
 }
 
@@ -82,18 +87,24 @@ string Reservation::toString() const {
 void Reservation::addReservation() {
     string room_ID;
     Room* room = nullptr;
+    // Hiển thị và kiểm tra room_ID trước
     cout << "Danh sach phong con trong: " << endl;
     Room::roomList.searchStatus(0);
     
     do {
-        cout << "Nhap Room ID: "; cin >> room_ID;
+        cout << "Nhap Room ID: "; 
+        cin >> room_ID;
         room = Room::roomList.searchID(room_ID);
+        
         if (!room || room->getStatus() != 0) {
             cout << "Phong khong ton tai hoac da co nguoi o. Vui long nhap lai Room ID hoac nhap '0' de thoat: " << endl;
         }
-        if (room_ID == "0") return;
+        
+        if (room_ID == "0") return; // Thoát nếu người dùng nhập 0
+        
     } while (!room || room->getStatus() != 0);
     
+    // Chỉ nhập các thông tin còn lại khi đã có phòng hợp lệ
     DATE startDate;
     int staytime;
     cout << "Nhap Start Date: "; cin >> startDate;
@@ -141,8 +152,11 @@ void Reservation::searchAll() {
         cin >> choice;
         switch (choice) {
             case 1: searchByID(); break;
-            case 0: return; 
-            default: cout << "Invalid choice. Please try again.";
+            case 0: 
+                return;  // Chỉ cần return, không cần thông báo
+            default: 
+                cout << "Invalid choice. Please try again." << endl; 
+                break;
         }
     } while (choice != 0);
 }
@@ -152,8 +166,10 @@ void Reservation::showAllReservations() {
     resetHeader();
     cout << "Danh sach tat ca cac dich vu:" << endl;
     reservationList.show();
-    cout << "1. Sap xep tang ID\n2. Sap xep giam ID\n3. Tim kiem\n0. Thoat!\n"; int choice;
-    cout << "Vui long chon mot lua chon: "; cin >> choice;
+    cout << "1. Sap xep tang ID\n2. Sap xep giam ID\n3. Tim kiem\n0. Thoat!\n";
+    int choice;
+    cout << "Vui long chon mot lua chon: ";
+    cin >> choice;
     switch (choice) {
         case 1: reservationList.sortByID(true); showAllReservations(); break;
         case 2: reservationList.sortByID(false); showAllReservations(); break;
