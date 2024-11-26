@@ -140,6 +140,11 @@ void Reservation::searchByID() {
     else { cout << "Khong tim thay dat phong voi ID: " << reservationID << endl; }
 }
 
+void Reservation::searchByStatus() {
+    int status;
+    cout << "Nhap Status de tim kiem (0: Waiting, 1: Accepted, 2: Rejected): "; cin >> status;
+    reservationList.searchStatus(status);
+}
 
 void Reservation::searchAll() {
     resetHeader();
@@ -147,16 +152,15 @@ void Reservation::searchAll() {
     do {
         cout << "Room Searching Function: " << endl 
              << "   1. Search by ID" << endl
+             << "   2. Search by Status" << endl
              << "   0. Exit" << endl
              << "Please enter your choice: ";
         cin >> choice;
         switch (choice) {
             case 1: searchByID(); break;
-            case 0: 
-                return;  // Chỉ cần return, không cần thông báo
-            default: 
-                cout << "Invalid choice. Please try again." << endl; 
-                break;
+            case 2: searchByStatus(); break;
+            case 0: return; 
+            default: cout << "Invalid choice. Please try again." << endl; break;
         }
     } while (choice != 0);
 }
