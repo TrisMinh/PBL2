@@ -39,7 +39,15 @@ double Payment::getRemainingAmount() const { return totalAmount - depositAmount;
 void Payment::fromString(const string& line) {
     stringstream ss(line);
     getline(ss, paymentID, ','); getline(ss, roomID, ','); getline(ss, tenantID, ',');
-    ss >> rentAmount >> serviceAmount >> totalAmount >> payMonth >> payYear;
+    ss >> rentAmount;
+    ss.ignore(1);
+    ss >> serviceAmount;
+    ss.ignore(1);
+    ss >> totalAmount;
+    ss.ignore(1);
+    ss >> payMonth;
+    ss.ignore(1);
+    ss >> payYear;
     ss.ignore(1);
     string payDatestr; getline(ss, payDatestr, ',');
     payDate.fromString(payDatestr);
@@ -48,8 +56,7 @@ void Payment::fromString(const string& line) {
 }
 
 string Payment::toString() const {
-    return paymentID + "," + roomID + "," + tenantID + "," + 
-           to_string(rentAmount) + "," + to_string(serviceAmount) + "," + 
+    return paymentID + "," + roomID + "," + tenantID + "," + to_string(rentAmount) + "," + to_string(serviceAmount) + "," + 
            to_string(totalAmount) + "," + to_string(payMonth) + "," + 
            to_string(payYear) + "," + payDate.toString() + "," + 
            to_string(status) + "," + to_string(depositAmount);
@@ -196,41 +203,37 @@ void Payment::autocreatePayment() {
     }
 }
 ostream& operator<<(ostream& os, const Payment& p) {
-    const int widths[] = {15, 10, 10, 12, 15, 12, 10, 10, 12, 8, 15, 15}; // Độ rộng các cột
-    const string headers[] = {"Payment ID", "Room ID", "Tenant ID", "Rent Amount", 
-                            "Service Amount", "Total Amount", "Pay Month", "Pay Year",
-                            "Pay Date", "Status", "Deposited", "Remaining"};
-
+    const int w_id=15,w_room=10,w_tenant=10,w_rent=15,w_service=15,w_total=15,w_status=10,w_date=12,w_mo=10,w_ye=10,w_deposit=15,w_remain=15;
+    
     if (!Payment::is_header_printed) {
-        // In tiêu đề
-        for (int i = 0; i < 12; i++) {
-            os << left << setw(widths[i]) << headers[i] << " | ";
-        }
-        os << endl;
-
-        // In dòng kẻ ngang
-        for (int i = 0; i < 12; i++) {
-            os << setfill('-') << setw(widths[i] + 3) << "";
-        }
-        os << setfill(' ') << endl;
-
+        os << left << setw(w_id) << "Payment ID" << " | "
+           << setw(w_room) << "Room ID" << " | "
+           << setw(w_tenant) << "Tenant ID" << " | "
+           << setw(w_rent) << "Rent Amount" << " | "
+           << setw(w_service) << "Service Amount" << " | "
+           << setw(w_total) << "Total Amount" << " | "
+           << setw(w_mo) << "Month" << " | "
+           << setw(w_ye) << "Year" << " | "
+           << setw(w_date) << "Pay Date" << " | "
+           << setw(w_status) << "Status" << " | "
+           << setw(w_deposit) << "Deposit" << " | "
+           << setw(w_remain) << "Remaining" << endl
+           << string(w_id + w_room + w_tenant + w_rent + w_service + w_total + w_mo + w_ye + w_date + w_status + w_deposit + w_remain + 36, '-') << endl;
         Payment::is_header_printed = true;
     }
-
-    // In dữ liệu
-    os << left
-       << setw(widths[0]) << p.paymentID << " | "
-       << setw(widths[1]) << p.roomID << " | "
-       << setw(widths[2]) << p.tenantID << " | "
-       << setw(widths[3]) << fixed << setprecision(2) << p.rentAmount << " | "
-       << setw(widths[4]) << p.serviceAmount << " | "
-       << setw(widths[5]) << p.totalAmount << " | "
-       << setw(widths[6]) << p.payMonth << " | "
-       << setw(widths[7]) << p.payYear << " | "
-       << setw(widths[8]) << p.payDate.toString() << " | "
-       << setw(widths[9]) << (p.status ? "Paid" : "Pending") << " | "
-       << setw(widths[10]) << p.depositAmount << " | "
-       << setw(widths[11]) << p.getRemainingAmount() << endl;
+    
+    os << left << setw(w_id) << p.paymentID << " | "
+       << setw(w_room) << p.roomID << " | "
+       << setw(w_tenant) << p.tenantID << " | "
+       << setw(w_rent) << fixed << setprecision(2) << p.rentAmount << " | "
+       << setw(w_service) << p.serviceAmount << " | "
+       << setw(w_total) << p.totalAmount << " | "
+       << setw(w_mo) << p.payMonth << " | "
+       << setw(w_ye) << p.payYear << " | "
+       << setw(w_date) << p.payDate.toString() << " | "
+       << setw(w_status) << (p.status ? "Paid" : "Pending") << " | "
+       << setw(w_deposit) << p.depositAmount << " | "
+       << setw(w_remain) << p.getRemainingAmount() << endl;
     return os;
 }
 
@@ -238,17 +241,9 @@ void Payment::searchByMonth() {
     resetHeader();
     int month, year;
     cout << "Nhap thang (1-12): "; 
-    if(!(cin >> month) || month < 1 || month > 12) {
-        cout << "Thang khong hop le!\n";
-        return;
-    }
-    
+    if(!(cin >> month) || month < 1 || month > 12) { cout << "Thang khong hop le!\n"; return; }
     cout << "Nhap nam (>= 2000): ";
-    if(!(cin >> year) || year < 2000) {
-        cout << "Nam khong hop le!\n";
-        return;
-    }
-    
+    if(!(cin >> year) || year < 2000) { cout << "Nam khong hop le!\n"; return; }
     bool found = false;
     cout << "\nDanh sach cac bills trong thang " << month << "/" << year << ":\n";
     

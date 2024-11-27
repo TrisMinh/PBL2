@@ -23,8 +23,6 @@ int LinkedList<T>::size() const {
 template <typename T>
 typename LinkedList<T>::Node* LinkedList<T>::begin() { return head; }
 template <typename T>
-typename LinkedList<T>::Node* LinkedList<T>::end() { return nullptr; }
-template <typename T>
 void LinkedList<T>::load(const string& filename) {
     ifstream file(filename);
     if (!file.is_open()) {
@@ -234,5 +232,12 @@ const T& LinkedList<T>::operator[](int index) const {
     }
     
     throw out_of_range("Index out of bounds");
+}
+
+string toLower(string str) {
+    for(char& c : str) { // duyệt chuỗi 
+        if(c >= 'A' && c <= 'Z') c += 32;  
+    }
+    return str;
 }
 

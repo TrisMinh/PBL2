@@ -185,10 +185,7 @@ void Tenant::searchByGender() {
 void Tenant::searchByName() {
     resetHeader();
     string searchName;
-    cout << "Nhap ten can tim kiem: ";
-    cin.ignore();
-    getline(cin, searchName);
-    
+    cout << "Nhap ten can tim kiem: "; cin.ignore(); getline(cin, searchName);
     bool found = false;
     LinkedList<Tenant>::Node* current = tenantList.begin();
     while (current != nullptr) {
@@ -247,44 +244,25 @@ void Tenant::showAllTenants() {
 
 // Da nang hoa ham xuat
 ostream& operator<<(ostream& os, const Tenant& t) {
-    const int width_tenant_id = 15;
-    const int width_name = 20;
-    const int width_phone = 20;
-    const int width_age = 10;
-    const int width_cccd = 15;
-    const int width_gender = 10;
-
+    const int w_id = 15, w_name = 30, w_phone = 20, w_age = 15, w_cccd = 15, w_gender = 15;
+    
     if (!Tenant::is_header_printed) {
-        os << left
-           << setw(width_tenant_id) << "Tenant ID" << " | "
-           << setw(width_name) << "Name" << " | "
-           << setw(width_phone) << "Phone" << " | "
-           << setw(width_age) << "Age" << " | "
-           << setw(width_cccd) << "CCCD" << " | "
-           << setw(width_gender) << "Gender"
-           << endl;
-
-        os << setfill('-')
-           << setw(width_tenant_id + 2) << ""
-           << setw(width_name + 3) << ""
-           << setw(width_phone + 3) << ""
-           << setw(width_age + 3) << ""
-           << setw(width_cccd + 1) << ""
-           << setw(width_gender + 1) << ""
-           << setfill(' ') << endl;
-
+        os << left << setw(w_id) << "Tenant ID" << " | "
+           << setw(w_name) << "Name" << " | "
+           << setw(w_phone) << "Phone" << " | "
+           << setw(w_age) << "Age" << " | "
+           << setw(w_cccd) << "CCCD" << " | "
+           << setw(w_gender) << "Gender" << endl
+           << string(w_id + w_name + w_phone + w_age + w_cccd + w_gender + 15, '-') << endl;
         Tenant::is_header_printed = true;
     }
-
-    os << left
-       << setw(width_tenant_id) << t.tenant_ID << " | "
-       << setw(width_name) << t.getFullName() << " | "
-       << setw(width_phone) << t.phone << " | "
-       << setw(width_age) << to_string(t.getAge()) << " | "
-       << setw(width_cccd) << t.cccd << " | "
-       << setw(width_gender) << (t.gender ? "Nu" : "Nam")
-       << endl;
-
+    
+    os << left << setw(w_id) << t.tenant_ID << " | "
+       << setw(w_name) << t.getFullName() << " | "
+       << setw(w_phone) << t.phone << " | "
+       << setw(w_age) << to_string(t.getAge()) << " | "
+       << setw(w_cccd) << t.cccd << " | "
+       << setw(w_gender) << (t.gender ? "Nu" : "Nam") << endl;
     return os;
 }
 

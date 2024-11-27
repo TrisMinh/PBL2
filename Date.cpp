@@ -18,17 +18,10 @@ bool DATE::is_nam_nhuan(int year) {
 }
 
 int DATE::day_in_month(int month, int year) {
-    switch (month)
-    {
-    case 4: case 6: case 9:  case 11: 
-        return 30;
-        break;
-    case 2:
-        return is_nam_nhuan(year) ? 29 : 28;
-        break;
-    default:
-        return 31;
-        break;
+    switch (month) {
+    case 4: case 6: case 9:  case 11: return 30; break;
+    case 2: return is_nam_nhuan(year) ? 29 : 28; break;
+    default: return 31; break;
     }
 }
 
@@ -140,27 +133,19 @@ DATE DATE::addMonths(int months) const {
     
     // Điều chỉnh ngày nếu vượt quá số ngày trong tháng mới
     int max_days = temp.day_in_month(temp.month, temp.year);
-    if (temp.day > max_days) {
-        temp.day = max_days;
-    }
+    if (temp.day > max_days) { temp.day = max_days; }
     
     return temp;
 }
 
 int DATE::toDays() {
     int totalDays = day;
-    for (int i = 1; i < year; ++i) {
-        totalDays += (is_nam_nhuan(i) ? 366 : 365);
-    }
-    for (int i = 1; i < month; ++i) {
-        totalDays += day_in_month(i, year);
-    }
+    for (int i = 1; i < year; ++i) { totalDays += (is_nam_nhuan(i) ? 366 : 365); }
+    for (int i = 1; i < month; ++i) { totalDays += day_in_month(i, year); }
     return totalDays;
 }
 
-int DATE::operator-(DATE& other)  {
-    return this->toDays() - other.toDays();
-}
+int DATE::operator-(DATE& other)  { return this->toDays() - other.toDays(); }
 
 bool DATE::operator<(const DATE& other) const {
     if (year != other.year) return year < other.year;
@@ -168,23 +153,9 @@ bool DATE::operator<(const DATE& other) const {
     return day < other.day;
 }
 
-bool DATE::operator>(const DATE& other) const {
-    return other < *this;
-}
-
-bool DATE::operator<=(const DATE& other) const {
-    return !(other < *this);
-}
-
-bool DATE::operator>=(const DATE& other) const {
-    return !(*this < other);
-}
-
-bool DATE::operator==(const DATE& other) const {
-    return (day == other.day && month == other.month && year == other.year);
-}
-
-bool DATE::operator!=(const DATE& other) const {
-    return !(*this == other);
-}
+bool DATE::operator>(const DATE& other) const { return other < *this; }
+bool DATE::operator<=(const DATE& other) const { return !(other < *this); }
+bool DATE::operator>=(const DATE& other) const { return !(*this < other); }
+bool DATE::operator==(const DATE& other) const { return (day == other.day && month == other.month && year == other.year); }
+bool DATE::operator!=(const DATE& other) const { return !(*this == other); }
 

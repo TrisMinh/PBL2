@@ -367,8 +367,8 @@ void displayLoginMenu() {
         switch (choice) {
             case 1: // Sign in
                 if (Account::signin()) {
-                    cout << "Login as: " << ( Account::currentRoll == 1 ? "Admin" : "Tenant") << endl;
-                    if (Account::currentRoll == 1) {
+                    cout << "Login as: " << ( Account::currentrole == 1 ? "Admin" : "Tenant") << endl;
+                    if (Account::currentrole == 1) {
                         controlAdminMenu();
                     } else {
                         controlTenantMenu();

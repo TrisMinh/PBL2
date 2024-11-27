@@ -4,7 +4,7 @@
 int Account::total = 0;
 int Account::currentNumber = 0;
 string Account::currentTenantID = "None";
-int Account::currentRoll = 0;
+int Account::currentrole = 0;
 string Account::AdminCode = "000";
 LinkedList<Account> Account::accountList;
 bool Account::is_header_printed = false;
@@ -12,7 +12,7 @@ void Account::resetHeader() { is_header_printed = false; }
 
 // Constructor
 Account::Account() {}
-Account::Account(const string& u, const string& p, const string& id, int roll) : username(u), password(p), tenant_ID(id), roll(roll) {
+Account::Account(const string& u, const string& p, const string& id, int role) : username(u), password(p), tenant_ID(id), role(role) {
     account_ID = generateID(++currentNumber);
 }
 Account::~Account() {}
@@ -46,7 +46,7 @@ void Account::updateFile(const string& filename) {
         cerr << "Khong the mo file: " << filename << endl;
         return;
     } 
-    file << "accountID,username,password,tenantID,roll,AdminCode:" << AdminCode << endl;
+    file << "accountID,username,password,tenantID,role,AdminCode:" << AdminCode << endl;
     file.close();
     accountList.updateFile(filename); 
 }
@@ -55,7 +55,7 @@ void Account::updateFile(const string& filename) {
 string Account::getusername() { return username; }
 string Account::getpassword() { return password; }
 string Account::gettenantID() { return tenant_ID; }
-int Account::getRoll() { return roll; };
+int Account::getrole() { return role; };
 
 // Set function
 void Account::setusername(string u) { this->username = u; }
@@ -75,19 +75,19 @@ void Account::setAdminCode() {
 
 // Convert function
 void Account::fromString(const string& line) {
-    string rollstr;
+    string rolestr;
     stringstream ss(line);
     getline(ss, account_ID, ',');
     getline(ss, username, ',');
     getline(ss, password, ',');
     getline(ss, tenant_ID, ',');
-    getline(ss, rollstr);
-    roll = stoi(rollstr); 
+    getline(ss, rolestr);
+    role = stoi(rolestr); 
     total++;
 }
 
 string Account::toString() const {
-    return account_ID + ',' + username + "," + password + "," + tenant_ID+ "," + (roll == 0 ? "0" : "1") ;
+    return account_ID + ',' + username + "," + password + "," + tenant_ID+ "," + (role == 0 ? "0" : "1") ;
 }
 
 // Basic function
@@ -199,7 +199,7 @@ bool Account::signin() {
         
         if (account != NULL && account->data.password == p) {
             currentTenantID = account->data.gettenantID();
-            currentRoll = account->data.getRoll();
+            currentrole = account->data.getrole();
             cout << "Dang nhap thanh cong!" << endl;
             return true;
         }      
@@ -230,40 +230,23 @@ void Account::showAllAccount() {
 }
 
 ostream& operator<<(ostream& os, const Account& a) {
-    const int width_id = 15;
-    const int width_username = 15;
-    const int width_password = 15;
-    const int width_tenant_id = 15;
-    const int width_role = 10;
-
+    const int w_id = 15, w_user = 15, w_pass = 15, w_tenant = 15, w_role = 10;
+    
     if (!Account::is_header_printed) {
-        os << left
-           << setw(width_id) << "AccountID" << " | "
-           << setw(width_username) << "Username" << " | "
-           << setw(width_password) << "Password" << " | "
-           << setw(width_tenant_id) << "TenantID" << " | "
-           << setw(width_role) << "Role" 
-           << endl;
-
-        os << setfill('-')
-           << setw(width_id + 2) << ""
-           << setw(width_username + 3) << ""
-           << setw(width_password + 3) << ""
-           << setw(width_tenant_id + 3) << ""
-           << setw(width_role + 1) << ""
-           << setfill(' ') << endl;
-
+        os << left << setw(w_id) << "AccountID" << " | "
+           << setw(w_user) << "Username" << " | "
+           << setw(w_pass) << "Password" << " | "
+           << setw(w_tenant) << "TenantID" << " | "
+           << setw(w_role) << "Role" << endl
+           << string(w_id + w_user + w_pass + w_tenant + w_role + 13, '-') << endl;
         Account::is_header_printed = true;
     }
-
-    os << left 
-       << setw(width_id) << a.account_ID << " | "
-       << setw(width_username) << a.username << " | "
-       << setw(width_password) << a.password << " | "
-       << setw(width_tenant_id) << a.tenant_ID << " | "
-       << setw(width_role) << (a.roll == 0 ? "Tenant" : "Admin")
-       << endl;
-
+    
+    os << left << setw(w_id) << a.account_ID << " | "
+       << setw(w_user) << a.username << " | "
+       << setw(w_pass) << a.password << " | "
+       << setw(w_tenant) << a.tenant_ID << " | "
+       << setw(w_role) << (a.role == 0 ? "Tenant" : "Admin") << endl;
     return os;
 }
 

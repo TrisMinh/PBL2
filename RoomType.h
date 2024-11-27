@@ -5,6 +5,7 @@
 class RoomType {
 private:
     string type_ID;         // ID của loại phòng
+    string name;           // Tên loại phòng
     string description;     // Mô tả loại phòng
     double price;          // Giá phòng
     string generateID(int number);
@@ -16,7 +17,7 @@ public:
     static bool is_header_printed;
 
     RoomType(); 
-    RoomType(const string& desc, double price);
+    RoomType(const string& desc, double price, const string& name = "Standard Room");
     ~RoomType();
 
     static bool isActive(string& id);
@@ -25,11 +26,13 @@ public:
     string getID() const;
     string getDescription() const;
     double getPrice() const;
+    string getName() const;
 
     // Setters
     void setTypeID(const string& id);
     void setDescription(const string& desc);
     void setPrice(double price);
+    void setName(const string& name);
 
     // Convert functions
     void fromString(const string& line);
@@ -48,6 +51,7 @@ public:
     // Search functions
     static void searchByID();
     static void searchByPrice();
+    static void searchByName();
     static void searchAll();
 
     // Title control

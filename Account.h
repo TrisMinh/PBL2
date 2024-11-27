@@ -4,23 +4,17 @@
 
 class Account {
 private:
-    string account_ID;
-    string username;
-    string password;
-    string tenant_ID;
-    int roll; // 0: Khach, 1: Admin
+    string account_ID,username,password,tenant_ID;
+    int role; // 0: Khach, 1: Admin
 public:
-    static int total;          
-    static int currentNumber;
-    static string currentTenantID;
-    static int currentRoll;
-    static string AdminCode;
+    static int total,currentNumber,currentrole;
+    static string currentTenantID,AdminCode;
     static LinkedList<Account> accountList;
     static bool is_header_printed;
 
     // Constructor, Destructor
     Account();
-    Account(const string& username, const string& password, const string& id, int roll = 0);
+    Account(const string& username, const string& password, const string& id, int role = 0);
     ~Account();
 
     // Ham Get
@@ -28,13 +22,12 @@ public:
     string getusername();
     string getpassword();
     string gettenantID();
-    int getRoll();
+    int getrole();
 
     // Ham Set
     void setusername(string u);
     void setpassword(string p);
     static void setAdminCode();
-
 
     void fromString(const string& line);
     string toString() const;
@@ -49,20 +42,15 @@ public:
     void addAccount();
     void deleteAccount();
     void editAccount();
-    void resetPassword();
+    static void showAllAccount();
 
     // Search function
     static LinkedList<Account>::Node* searchByUsername(string u, int check);
-
-    static void showAllAccount();
-
-    friend ostream& operator<<(ostream& os, const Account&);
-
-    static bool forgotPassword();
     static LinkedList<Account>::Node* verifyTenantInfo(const string& phone, const string& cccd);
-
+    friend ostream& operator<<(ostream& os, const Account&);
     static void resetHeader();
 
+    static bool forgotPassword();
     static void changePassword();
 
 };

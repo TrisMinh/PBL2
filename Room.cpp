@@ -143,16 +143,22 @@ void Room::searchByStatus() {
     resetHeader();
     int status;
     cout << "Nhap trang thai phong can tim kiem (0: Trong, 1: Co nguoi, 2: Da dat, 3: Dang bao tri): "; cin >> status;
-    roomList.searchStatus(status); 
+    roomList.searchStatus(status);
+    //
+    cout << "1. Sap xep ID tang dan" << endl
+         << "2. Sap xep ID giam dan" << endl
+         << "0. Thoat" << endl;
+    int choice;
+    cout << "Lua chon cua ban: "; cin >> choice;
+    switch (choice) {
+        case 1: roomList.sortByID(true); roomList.searchStatus(status); break;
+        case 2: roomList.sortByID(false); roomList.searchStatus(status); break;
+        default: break;
+    }
 }
 
 // Hàm chuyển đổi chuỗi thành chữ thường
-string toLower(string str) {
-    for(char& c : str) { // duyệt chuỗi 
-        if(c >= 'A' && c <= 'Z') c += 32;  
-    }
-    return str;
-}
+
 
 void Room::searchByName() {
     resetHeader();
@@ -240,31 +246,19 @@ void Room::showAllRooms() {
 
 // Da nang hoa ham xuat
 ostream& operator<<(ostream& os, const Room& r) {
-    const int width_room_id = 15;
-    const int width_room_type = 15;
-    const int width_status = 15;
-    const int width_tenant_id = 20;
-    const int width_tenant_name = 25;
-    const int width_price = 10;
+    const int w_room = 15, w_type = 15, w_stat = 15, w_tid = 20, w_name = 25, w_price = 10;
 
     if (!Room::is_header_printed) {
         os << left
-           << setw(width_room_id) << "Ma phong" << " | "
-           << setw(width_room_type) << "Loai phong" << " | "
-           << setw(width_status) << "Trang thai" << " | "
-           << setw(width_tenant_id) << "Ma khach thue" << " | "
-           << setw(width_tenant_name) << "Ten khach thue" << " | "
-           << setw(width_price) << "Gia" 
+           << setw(w_room) << "Ma phong" << " | "
+           << setw(w_type) << "Loai phong" << " | "
+           << setw(w_stat) << "Trang thai" << " | "
+           << setw(w_tid) << "Ma khach thue" << " | "
+           << setw(w_name) << "Ten khach thue" << " | "
+           << setw(w_price) << "Gia" 
            << endl;
 
-        os << setfill('-')
-           << setw(width_room_id + 2) << ""
-           << setw(width_room_type + 3) << ""
-           << setw(width_status + 3) << ""
-           << setw(width_tenant_id + 3) << ""
-           << setw(width_tenant_name + 3) << ""
-           << setw(width_price + 1) << ""
-           << setfill(' ') << endl;
+        os << setfill('-') << setw(w_room + w_type + w_stat + w_tid + w_name + w_price + 13) << "" << setfill(' ') << setfill(' ') << endl;
 
         Room::is_header_printed = true;
     }
@@ -278,16 +272,15 @@ ostream& operator<<(ostream& os, const Room& r) {
     }
 
     os << left 
-       << setw(width_room_id) << r.room_ID << " | "
-       << setw(width_room_type) << r.getRoomTypeID() << " | "
-       << setw(width_status) << (r.status == 0 ? "Trong" : 
+       << setw(w_room) << r.room_ID << " | "
+       << setw(w_type) << r.getRoomTypeID() << " | "
+       << setw(w_stat) << (r.status == 0 ? "Trong" : 
                                 (r.status == 1 ? "Dang thue" : 
                                 (r.status == 3 ? "Dang bao tri" : "Da dat"))) << " | "
-       << setw(width_tenant_id) << (r.tenant_ID.empty() ? "N/A" : r.tenant_ID) << " | "
-       << setw(width_tenant_name) << tenantName << " | "
-       << fixed << setprecision(2) << setw(width_price) << r.getPrice() << endl;
+       << setw(w_tid) << (r.tenant_ID.empty() ? "N/A" : r.tenant_ID) << " | "
+       << setw(w_name) << tenantName << " | "
+       << fixed << setprecision(2) << setw(w_price) << r.getPrice() << endl;
 
     return os;
 }
-
 

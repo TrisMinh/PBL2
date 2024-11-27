@@ -21,15 +21,9 @@ void PaymentStatistics::showRevenueStatistics() {
             case 1: {
                 int month, year;
                 cout << "Nhap thang (1-12): "; cin >> month;
-                if (month < 1 || month > 12) {
-                    cout << "Thang khong hop le!" << endl;
-                    continue;
-                }
+                if (month < 1 || month > 12) { cout << "Thang khong hop le!" << endl; continue; }
                 cout << "Nhap nam: "; cin >> year;
-                if (year < 2000) {
-                    cout << "Nam khong hop le!" << endl;
-                    continue;
-                }
+                if (year < 2000) { cout << "Nam khong hop le!" << endl; continue; }
                 
                 double totalBilled = calculateTotalBilled(month, year);
                 double totalCollected = calculateTotalCollected(month, year);
@@ -43,10 +37,7 @@ void PaymentStatistics::showRevenueStatistics() {
             case 2: {
                 int year;
                 cout << "Nhap nam can thong ke: "; cin >> year;
-                if (year < 2000) {
-                    cout << "Nam khong hop le!" << endl;
-                    continue;
-                }
+                if (year < 2000) { cout << "Nam khong hop le!" << endl; continue; }
                 showMonthlyComparison(year);
                 break;
             }
@@ -54,10 +45,7 @@ void PaymentStatistics::showRevenueStatistics() {
                 int startYear, endYear;
                 cout << "Nhap nam bat dau: "; cin >> startYear;
                 cout << "Nhap nam ket thuc: "; cin >> endYear;
-                if (startYear > endYear || startYear < 2000) {
-                    cout << "Nam khong hop le!" << endl;
-                    continue;
-                }
+                if (startYear > endYear || startYear < 2000) { cout << "Nam khong hop le!" << endl; continue; }
                 showYearlyComparison(startYear, endYear);
                 break;
             }

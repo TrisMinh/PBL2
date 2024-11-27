@@ -10,5 +10,6 @@ int main() {
     Contract::load("Data/Contract.txt");
     Payment::load("Data/Payment.txt");
     displayLoginMenu();    
+
     return 0;
 }

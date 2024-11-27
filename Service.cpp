@@ -191,38 +191,22 @@ void Service::showAllServices() {
 
 // Da nang hoa ham xuat
 ostream& operator<<(ostream& os, const Service& s) {
-    const int width_service_id = 15;
-    const int width_name = 20;
-    const int width_price = 20;
-    const int width_description = 30;
-    const int width_mandatory = 15;
-
+    const int w_id = 15, w_name = 15, w_desc = 30, w_price = 15;
+    
     if (!Service::is_header_printed) {
-        os << left
-           << setw(width_service_id) << "Service ID" << " | "
-           << setw(width_name) << "Service Name" << " | "
-           << setw(width_price) << "Price" << " | "
-           << setw(width_description) << "Description" << " | "
-           << setw(width_mandatory) << "Mandatory" << endl;
-        os << setfill('-')
-           << setw(width_service_id + 2) << ""
-           << setw(width_name + 3) << ""
-           << setw(width_price + 3) << ""
-           << setw(width_description + 3) << ""
-           << setw(width_mandatory + 3) << ""
-           << setfill(' ') << endl;
-
+        os << left << setw(w_id) << "Service ID" << " | "
+           << setw(w_name) << "Service Name" << " | "
+           << setw(w_desc) << "Description" << " | "
+           << setw(w_price) << "Price (VND)" << endl
+           << string(w_id + w_name + w_desc + w_price + 9, '-') << endl;
         Service::is_header_printed = true;
     }
-
-    os << left
-       << setw(width_service_id) << s.service_ID << " | "
-       << setw(width_name) << s.name << " | "
-       << setw(width_price) << (s.unit_price == -1 ? "Tuy muc su dung" : to_string(s.unit_price)) << " | "
-       << setw(width_description) << s.description << " | "
-       << setw(width_mandatory) << (s.is_mandatory ? "Yes" : "No")
-       << endl;
-
+    
+    os << left << setw(w_id) << s.service_ID << " | "
+       << setw(w_name) << s.name << " | "
+       << setw(w_desc) << s.description << " | "
+       << setw(w_price) << fixed << setprecision(2) 
+       << (s.unit_price == -1 ? "Tuy muc su dung" : to_string(s.unit_price)) << endl;
     return os;
 }
 

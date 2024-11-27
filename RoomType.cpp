@@ -11,7 +11,7 @@ void RoomType::resetHeader() { is_header_printed = false; }
 
 // Constructors & Destructor
 RoomType::RoomType() {}
-RoomType::RoomType(const string& desc, double price) : description(desc), price(price) {
+RoomType::RoomType(const string& desc, double price, const string& name) : description(desc), price(price), name(name) {
     type_ID = generateID(++currentNumber);
 }
 RoomType::~RoomType() {}
@@ -39,21 +39,26 @@ string RoomType::generateID(int number) {
 string RoomType::getID() const { return type_ID; }
 string RoomType::getDescription() const { return description; }
 double RoomType::getPrice() const { return price; }
+string RoomType::getName() const { return name; }
 
 // Setters
 void RoomType::setTypeID(const string& id) { type_ID = id; }
 void RoomType::setDescription(const string& desc) { description = desc; }
 void RoomType::setPrice(double p) { price = p; }
+void RoomType::setName(const string& n) { name = n; }
 
 // Convert functions
 void RoomType::fromString(const string& line) {
     stringstream ss(line);
     getline(ss, type_ID, ',');
+    getline(ss, name, ',');
     getline(ss, description, ',');
     ss >> price;
     total++;
 }
-string RoomType::toString() const { return type_ID + "," + description + "," + to_string(price); }
+string RoomType::toString() const { 
+    return type_ID + "," + name + "," + description + "," + to_string(price); 
+}
 
 // IO functions
 void RoomType::load(const string& filename) { roomTypeList.load(filename); }
@@ -61,28 +66,27 @@ void RoomType::updateFile(const string& filename) { roomTypeList.updateFile(file
 
 // Basic functions
 void RoomType::addRoomType() {
-    string desc; double price;
+    string name, desc; double price;
     cin.ignore();
+    cout << "Nhap ten loai phong (Nhap 0 de thoat): "; getline(cin, name);
+    if (name == "0") { cout << "Thoat them loai phong." << endl; return; }
     cout << "Nhap mo ta loai phong (Nhap 0 de thoat): "; getline(cin, desc);
-    if (desc == "0") {
-        cout << "Thoat them loai phong." << endl;
-        return;
-    }
+    if (desc == "0") { cout << "Thoat them loai phong." << endl; return; }
     cout << "Nhap gia phong (Nhap 0 de thoat): "; cin >> price;
-    if (price == 0) {
-        cout << "Thoat them loai phong." << endl;
-        return;
-    }
-    roomTypeList.add(RoomType(desc, price)); total++;
+    if (price == 0) { cout << "Thoat them loai phong." << endl; return; }   
+    RoomType newRoom(desc, price, name);
+    roomTypeList.add(newRoom); 
+    total++;
     cout << "Them loai phong thanh cong!\n";
 }
 
 void RoomType::updateRoomType() {
-    string id, desc; double price;
+    string id, name, desc; double price;
     cout << "Enter RoomType ID to update: "; cin >> id;
     cin.ignore();
     RoomType* roomType = roomTypeList.searchID(id);
     if (roomType) {
+        cout << "Enter new name: "; getline(cin, name); roomType->setName(name);
         cout << "Enter new description: "; getline(cin, desc); roomType->setDescription(desc);
         cout << "Enter new price: "; cin >> price; roomType->setPrice(price);
         cout << "RoomType updated successfully!\n";
@@ -129,6 +133,22 @@ void RoomType::searchByID() {
     else cout << "Room not found with ID: " << id << endl;
 }
 
+void RoomType::searchByName() {
+    resetHeader();
+    string name;
+    cout << "Enter RoomType Name to search: "; cin >> name;
+    bool found = false;
+    for (auto current = roomTypeList.begin(); current != nullptr; current = current->next) {
+        string roomName = current->data.getName();
+        if (toLower(roomName).find(toLower(name)) != string::npos) {
+            cout << current->data;
+            found = true;
+        }
+    }
+    if (!found) cout << "Room not found with Name: " << name << endl;
+    return;
+}
+
 void RoomType::searchAll() {
     resetHeader();
     int choice;
@@ -136,6 +156,7 @@ void RoomType::searchAll() {
         cout << "RoomType Search Menu:\n"
              << "1. Search by ID\n"
              << "2. Search by Price\n"
+             << "3. Search by Name\n"
              << "0. Exit\n"
              << "Your choice: ";
         cin >> choice;
@@ -143,6 +164,7 @@ void RoomType::searchAll() {
         switch (choice) {
             case 1: searchByID(); break;
             case 2: searchByPrice(); break; 
+            case 3: searchByName(); break;
             case 0: cout << "Exiting search.\n"; break;
             default: cout << "Invalid choice.\n";
         }
@@ -151,7 +173,7 @@ void RoomType::searchAll() {
 
 void RoomType::searchByPrice() {
     if (roomTypeList.begin() == nullptr) {
-        cout << "Danh sách loại phòng trống!\n";
+        cout << "Danh sach loai phong trong!\n";
         return;
     }
 
@@ -160,7 +182,7 @@ void RoomType::searchByPrice() {
     getline(cin, input);
 
     if (input.empty()) {
-        cout << "Điều kiện không hợp lệ!\n";
+        cout << "Dieu kien khong hop le!\n";
         return;
     }
 
@@ -169,7 +191,7 @@ void RoomType::searchByPrice() {
     try {
         searchPrice = stod(input.substr(1));
     } catch (...) {
-        cout << "Giá tiền không hợp lệ!\n";
+        cout << "Gia tien khong hop le!\n";
         return;
     }
 
@@ -184,7 +206,7 @@ void RoomType::searchByPrice() {
             case '>': matches = rt.getPrice() > searchPrice; break;
             case '<': matches = rt.getPrice() < searchPrice; break;
             case '=': matches = rt.getPrice() == searchPrice; break;
-            default: cout << "Toán tử không hợp lệ! Sử dụng >, < hoặc =\n"; return;
+            default: cout << "Toan tu khong hop le! Su dung >, < hoac =\n"; return;
         }
 
         if (matches) {
@@ -194,23 +216,25 @@ void RoomType::searchByPrice() {
     }
 
     if (!found) {
-        cout << "Không tìm thấy loại phòng nào phù hợp với điều kiện!\n";
+        cout << "Khong tim thay loai phong nao phu hop voi dieu kien!\n";
     }
 }
 
 // Output operator overload
 ostream& operator<<(ostream& os, const RoomType& rt) {
-    const int w_id = 15, w_desc = 30, w_price = 10;
+    const int w_id = 15, w_name = 30, w_desc = 20, w_price = 15;
     
     if (!RoomType::is_header_printed) {
-        os << left << setw(w_id) << "Type ID" << " | "
-           << setw(w_desc) << "Description" << " | "
-           << setw(w_price) << "Price" << endl
-           << string(w_id + w_desc + w_price + 6, '-') << endl;
+        os << left << setw(w_id) << "RoomType ID" << " | "
+           << setw(w_name) << "RoomType Name" << " | "
+           << setw(w_desc) << "RoomType Description" << " | "
+           << setw(w_price) << "Price (VND)" << endl
+           << string(w_id + w_name + w_desc + w_price + 9, '-') << endl;
         RoomType::is_header_printed = true;
     }
     
     os << left << setw(w_id) << rt.getID() << " | "
+       << setw(w_name) << rt.getName() << " | "
        << setw(w_desc) << rt.getDescription() << " | "
        << setw(w_price) << fixed << setprecision(2) << rt.getPrice() << endl;
     return os;

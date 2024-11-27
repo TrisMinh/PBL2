@@ -17,10 +17,9 @@ public:
         Node* next;
         Node(const T& data);
     };
-    Node* head;
     Node* begin();
+    Node* head;
     Node* tail;
-    Node* end();
     LinkedList();
     ~LinkedList();
     int size() const;

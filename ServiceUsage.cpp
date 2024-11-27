@@ -187,40 +187,23 @@ void ServiceUsage::showAllServiceUsages() {
 
 // Da nang hoa ham xuat
 ostream& operator<<(ostream& os, const ServiceUsage& su) {
-    const int width_usage_id = 15;
-    const int width_room_id = 15;
-    const int width_service_id = 15;
-    const int width_tenant_id = 15;
-    const int width_usage_month = 15;
-    const int width_status = 10;
-
+    const int w_id = 15, w_room = 15, w_service = 15, w_tenant = 15, w_status = 10;
+    
     if (!ServiceUsage::is_header_printed) {
-        os << left
-           << setw(width_usage_id) << "Usage ID" << " | "
-           << setw(width_room_id) << "Room ID" << " | "
-           << setw(width_service_id) << "Service ID" << " | "
-           << setw(width_tenant_id) << "Tenant ID" << " | "
-           << setw(width_status) << "Status"
-           << endl;
-
-        os << setfill('-')
-           << setw(width_usage_id + 2) << ""
-           << setw(width_room_id + 2) << ""
-           << setw(width_service_id + 2) << ""
-           << setw(width_tenant_id + 2) << ""
-           << setw(width_usage_month + 2) << ""
-           << setw(width_status + 2) << ""
-           << setfill(' ') << endl;
-
+        os << left << setw(w_id) << "Usage ID" << " | "
+           << setw(w_room) << "Room ID" << " | "
+           << setw(w_service) << "Service ID" << " | "
+           << setw(w_tenant) << "Tenant ID" << " | "
+           << setw(w_status) << "Status" << endl
+           << string(w_id + w_room + w_service + w_tenant + w_status + 13, '-') << endl;
         ServiceUsage::is_header_printed = true;
     }
-
-    os << left
-       << setw(width_usage_id) << su.usage_ID << " | "
-       << setw(width_room_id) << su.room_ID << " | "
-       << setw(width_service_id) << su.service_ID << " | "
-       << setw(width_tenant_id) << su.tenantID << " | "
-       << setw(width_status) << (su.status ? "Active" : "Inactive") << endl;
+    
+    os << left << setw(w_id) << su.usage_ID << " | "
+       << setw(w_room) << su.room_ID << " | "
+       << setw(w_service) << su.service_ID << " | "
+       << setw(w_tenant) << su.tenantID << " | "
+       << setw(w_status) << (su.status ? "Active" : "Inactive") << endl;
     return os;
 }
 

@@ -83,7 +83,7 @@ string Contract::toString() const {
 // Chuc nang co ban (Basic Function)
 
 void Contract::deleteContract() {
-    if (Account::currentRoll == 1) {
+    if (Account::currentrole == 1) {
         resetHeader();
         contractList.show();
         string roomIDtodelete;
@@ -289,61 +289,46 @@ void Contract::confirmReservationandcreatContract() {
 
 // Da nang hoa ham xuat
 ostream& operator<<(ostream& os, const Contract& c) {
-    Tenant* t = Tenant::tenantList.searchID(c.tenant_ID);
+    const int w_id = 12, w_room_id = 12, w_roomtype = 30, w_tenantid = 10, w_name = 25, w_age = 10,w_cccd = 15, w_phone = 15, w_start_date = 15, w_end_date = 15, w_price = 10, w_status = 10;
+
     Room* r = Room::roomList.searchID(c.room_ID);
-
-    // Định nghĩa độ rộng cho từng cột
-    const int width_id = 12;
-    const int width_room_id = 8;
-    const int width_room_type = 30;
-    const int width_tenant_id = 12;
-    const int width_name = 20;
-    const int width_age = 7;
-    const int width_cccd = 12;
-    const int width_phone = 12;
-    const int width_start_date = 15;
-    const int width_end_date = 15;
-    const int width_price = 10;
-    const int width_status = 15;
-
-
+    Tenant* t = Tenant::tenantList.searchID(c.tenant_ID);
+    
     if (!Contract::is_header_printed) {
         os << left
-           << setw(width_id) << "Contract ID" << " | "
-           << setw(width_room_id) << "Room ID" << " | "
-           << setw(width_room_type) << "Room Type" << " | "
-           << setw(width_tenant_id) << "Tenant ID" << " | "
-           << setw(width_name) << "Name" << " | "
-           << setw(width_age) << "Age" << " | "
-           << setw(width_cccd) << "CCCD" << " | "
-           << setw(width_phone) << "Phone" << " | "
-           << setw(width_start_date) << "Start Date" << " | "
-           << setw(width_end_date) << "End Date" << " | "
-           << setw(width_price + 12) << "Price" << " | "
-           << setw(width_status) << "Status" << endl;
+           << setw(w_id) << "ContractID" << " | "
+           << setw(w_room_id) << "RoomID" << " | "
+           << setw(w_roomtype) << "RoomType" << " | "
+           << setw(w_tenantid) << "TenantID" << " | "
+           << setw(w_name) << "Name" << " | "
+           << setw(w_age) << "Age" << " | "
+           << setw(w_cccd) << "CCCD" << " | "
+           << setw(w_phone) << "Phone" << " | "
+           << setw(w_start_date) << "Start Date" << " | "
+           << setw(w_end_date) << "End Date" << " | "
+           << setw(w_price + 12) << "Price" << " | "
+           << setw(w_status) << "Status" << endl;
 
-        // In dòng kẻ ngang phân cách tiêu đề và dữ liệu
         os << setfill('-')
-           << setw(width_id + width_room_id + width_room_type + width_tenant_id + width_name + width_age + width_cccd + width_phone + width_start_date + width_end_date + width_price + width_status + 45) << ""
+           << setw(w_id + w_room_id + w_roomtype + w_tenantid + w_name + w_age + w_cccd + w_phone + w_start_date + w_end_date + w_price + w_status + 45) << ""
            << setfill(' ') << endl;
 
-        Contract::is_header_printed = true; // Đánh dấu đã in tiêu đề
+        Contract::is_header_printed = true;
     }
 
-    // In thông tin hợp đồng
     os << left
-       << setw(width_id) << c.contractID << " | "
-       << setw(width_room_id) << c.room_ID << " | "
-       << setw(width_room_type) << r->getRoomType()->getDescription() << " | "
-       << setw(width_tenant_id) << c.tenant_ID << " | "
-       << setw(width_name) << t->getFullName() << " | "
-       << setw(width_age) << t->getAge() << " | "
-       << setw(width_cccd) << t->getCCCD() << " | "
-       << setw(width_phone) << t->getPhone() << " | "
-       << setw(width_start_date) << c.startDate.toString() << " | "
-       << setw(width_end_date) << c.endDate.toString() << " | "
-       << setw(width_price) << fixed << setprecision(2) << c.rentprice << " VND/1 month" << " | "
-       << setw(width_status) << (c.status == 1 ? "Active" : "Expired") << endl;
+       << setw(w_id) << c.contractID << " | "
+       << setw(w_room_id) << c.room_ID << " | "
+       << setw(w_roomtype) << r->getRoomType()->getName() << " | "
+       << setw(w_tenantid) << c.tenant_ID << " | "
+       << setw(w_name) << t->getFullName() << " | "
+       << setw(w_age) << t->getAge() << " | "
+       << setw(w_cccd) << t->getCCCD() << " | "
+       << setw(w_phone) << t->getPhone() << " | "
+       << setw(w_start_date) << c.startDate.toString() << " | "
+       << setw(w_end_date) << c.endDate.toString() << " | "
+       << setw(w_price) << fixed << setprecision(2) << c.rentprice << " VND/1 month" << " | "
+       << setw(w_status) << (c.status == 1 ? "Active" : "Expired") << endl;
     return os;
 }
 
