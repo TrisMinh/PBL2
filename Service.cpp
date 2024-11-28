@@ -191,22 +191,24 @@ void Service::showAllServices() {
 
 // Da nang hoa ham xuat
 ostream& operator<<(ostream& os, const Service& s) {
-    const int w_id = 15, w_name = 15, w_desc = 30, w_price = 15;
+    const int w_id = 15, w_name = 15, w_desc = 30, w_price = 15,w_mendo=10;
     
     if (!Service::is_header_printed) {
         os << left << setw(w_id) << "Service ID" << " | "
            << setw(w_name) << "Service Name" << " | "
            << setw(w_desc) << "Description" << " | "
-           << setw(w_price) << "Price (VND)" << endl
-           << string(w_id + w_name + w_desc + w_price + 9, '-') << endl;
+           << setw(w_price) << "Price (VND)" << " | "
+           << setw(w_mendo) << "Madantory" << endl
+           << string(w_id + w_name + w_desc + w_price + w_mendo + 9, '-') << endl;
         Service::is_header_printed = true;
     }
     
     os << left << setw(w_id) << s.service_ID << " | "
        << setw(w_name) << s.name << " | "
        << setw(w_desc) << s.description << " | "
-       << setw(w_price) << fixed << setprecision(2) 
-       << (s.unit_price == -1 ? "Tuy muc su dung" : to_string(s.unit_price)) << endl;
+       << setw(w_price) << fixed << setprecision(2) << s.unit_price << " | "
+       << setw(w_mendo) << (s.is_mandatory ? "Co dinh" : "Tu do") << endl;
+
     return os;
 }
 

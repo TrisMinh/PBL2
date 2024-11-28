@@ -50,7 +50,40 @@ Lưu ý:
             + Sau đó tìm kiếm hợp đồng đang active có trùng tt phòng đó và huỷ nó -> expired
     -> Go 3.7/
     3.7/ Đăng kí sử dụng dịch vụ:
-        - Xem các dịch vụ đang sử dụng
+        - Xem các dịch vụ đang sử dụng -> sẽ có các dịch vụ mặc định khi thuê vòng -> sẽ tự động active
+          vì 1 người có thuể thuê nhiều phòng nên có search theo phòng để tiện theo dõi
+        - Chức năng đăng kí sử dụng dịch vụ 
+        - Dừng sử dụng dịch vụ (dịch vụ mặc định sẽ không thể dừng)
+    3.8/ Tạo hoá đơn. Login -> Admin
+        - Chức năng xem tất cả hoá đơn -> tìm kiếm theo tháng năm
+        - Chức năng tạo hoá đơn. Mô tả: Nhập tháng và năm của hoá đơn, hệ thống sẽ tự tạo tất cả hoá đơn của các phòng đang thuê,
+        chương trình sẽ yêu cầu nhập điện nước (chỗ này nghĩ nên tách điện nước nhập riêng) sau đó sẽ tạo payment,
+        tiền sẽ được tính bằng cách lấy tiền thuê nhà hàng tháng(tuỳ thuộc vào số ngày ở vd khi chuyển vào ở trong tháng) + tiền dịch vụ + tiền điện nước
+    3.9/ Trả tiền thuê trọ.  Login -> khách
+        - Xem danh sách các hoá đơn hiện có.
+        - Trả tiền. Mô tả: nhập id cần thanh toán -> hiện ra số tiền đã thành toán và số tiền còn lại. Khi thanh toán nhưng không hết thì trừ ra và tiếp tục đã đến khi đủ
+          nếu nhập quá số tiền thì sẽ yêu cầu nhập lại. Đến khi nhập vừa đúng só tiền, hệ thống sẽ thông báo đã thanh toán đầy đủ.
+    3.10/ Chức năng thống kê doanh thu và biểu đồ . Login -> Admin
+        - 1. Xem doanh thu theo tháng. total thì cho duyệt, trùng tháng năm thì + totalamount vào, còn lại thì + deposite, chưa thu thì là getremaining = total - desposit
+        - 2. Xem doanh thu theo năm. Tương tự thuật toán như trên. Hiển thị: khởi tạo từ tháng 1->12. Độ dài biểu đồ bằng total lớn nhất làm 30 đơn vị. Các cột khác bé hơn thì chia tỉ lệ 
+        - 3. Xem doanh thu qua các năm. Tương tự duyệt từ năm bắt đầu đến năm kết thúc.
+        Kết luận 3.10: 1. là bài toán con của 2., 2. là bài toán con của 3.
+    3.11/ Quản lý thông tin tài khoảng: Login -> khách
+        - Xem sửa thông tin
+        - Đổi mật khẩu
+3/ Kết luận
+
+
+
+
+***** Kịch bản chưa đo thời gian *******
+Những công việc cần làm:
+- Hoàn thiện kịch bản
+- Tập thuyết trình và xem xét giảm hoặc thêm để đủ từ 5-10 phút
+
+
+
+
         
             
         

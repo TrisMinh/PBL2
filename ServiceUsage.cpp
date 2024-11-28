@@ -211,7 +211,9 @@ ostream& operator<<(ostream& os, const ServiceUsage& su) {
 }
 
 void ServiceUsage::stopService() {
-    string serviceID;
+    string serviceID, roomID;
+    searchByTenantID(Account::currentTenantID);
+    cout << "Nhap phong muon tuong tac: "; cin >> roomID;
     cout << "Nhap Service ID muon dung su dung: "; cin >> serviceID;
     
     // Kiểm tra xem dịch vụ có phải là dịch vụ bắt buộc không
@@ -225,6 +227,7 @@ void ServiceUsage::stopService() {
     while (current) {
         if (current->data.getServiceID() == serviceID && 
             current->data.getTenantID() == Account::currentTenantID &&
+            current->data.getRoomID() == roomID &&
             current->data.getStatus() == true) {
             current->data.setStatus(false);
             cout << "Da dung su dung dich vu thanh cong!" << endl;
@@ -249,6 +252,7 @@ void ServiceUsage::searchByTenantID(string tenantID) {
         cout << "\t\t\t\t\tNo service usage found!\n";
     }
     cout << "\t\t\t\t\t==============================\n";
+    searchAll();
 }
 
 // Thêm hàm mới
