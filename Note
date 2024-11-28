@@ -20,6 +20,6 @@ Làm thông báo //done
 Xoá ngày đăng kí trong service usage //done
 thêm chức năng gia hạn vô menu tenant //done
 
-Sửa đặt phòng, số ngày thành số tháng 
+Sửa đặt phòng, số ngày thành số tháng //Done
 menu khách sử dụng dịch vụ thêm tìm kiếm theo phòng
 -> lỗi, huỷ phòng thì set status của các dịch vụ về 0 nếu không thì sẽ bị lặp lại nếu thuê cùng phòng đó

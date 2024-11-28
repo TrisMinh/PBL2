@@ -24,7 +24,7 @@ public:
 
     // Constructors
     Reservation();
-    Reservation(const string& roomId, const string& tenantId, DATE& start, int staytime, int stat = 0);
+    Reservation(const string& roomId, const string& tenantId, DATE& start, int monthStay, int stat = 0);
 
     // Destructor
     ~Reservation();

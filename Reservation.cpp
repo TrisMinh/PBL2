@@ -9,11 +9,12 @@ void Reservation::resetHeader() { is_header_printed = false;}
 
 // Constructor
 Reservation::Reservation() {}
-Reservation::Reservation(const string& roomId, const string& tenantId, DATE& start, int time, int stat)
-    : room_ID(roomId), tenant_ID(tenantId), startDate(start), staytime(time), status(stat) {
+Reservation::Reservation(const string& roomId, const string& tenantId, DATE& start, int monthStay, int stat)
+    : room_ID(roomId), tenant_ID(tenantId), startDate(start), status(stat) {
     currentNumber++;
     reservation_ID = generateID(currentNumber);
-    endDate = startDate.addMonths(staytime);
+    endDate = startDate.addMonths(monthStay);
+    staytime = endDate - startDate;
 }
 Reservation::~Reservation() {}
 
@@ -106,16 +107,16 @@ void Reservation::addReservation() {
     
     // Chỉ nhập các thông tin còn lại khi đã có phòng hợp lệ
     DATE startDate;
-    int staytime;
+    int monthStay;
     cout << "Nhap Start Date: "; cin >> startDate;
     do {
-        cout << "Nhap Stay Time (so thang): "; cin >> staytime;
-        if (staytime <= 0) {
+        cout << "Nhap Stay Time (so thang): "; cin >> monthStay;
+        if (monthStay <= 0) {
             cout << "So thang thue phong phai lon hon 0. Vui long nhap lai!" << endl;
         }
-    } while (staytime <= 0);
+    } while (monthStay <= 0);
     
-    Reservation newReservation(room_ID, Account::currentTenantID, startDate, staytime, 0);
+    Reservation newReservation(room_ID, Account::currentTenantID, startDate, monthStay, 0);
     reservationList.add(newReservation);
     room->setStatus(2);
     cout << "Dat phong thanh cong!" << endl;
