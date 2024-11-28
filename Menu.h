@@ -75,15 +75,19 @@ void controlTenantMenu() {
             case 4: {
                 int contractChoice;
                 do {
-                    cout << "\n=== Contract Management ===" << endl;
-                    cout << "1. View Contract" << endl;
-                    cout << "2. Extension Contract" << endl;
+                    cout << "\n=== Contracts Management ===" << endl;
+                    cout << "1. View Active Contracts" << endl;
+                    cout << "2. Contracts History" << endl;
+                    cout << "3. Extension Contract" << endl;
+                    cout << "4. Terminate Contract" << endl;
                     cout << "0. Back" << endl;
                     cout << "Enter your choice: ";
                     cin >> contractChoice;
                     switch(contractChoice) {
-                        case 1: Contract::searchByTenantID(Account::currentTenantID); break;
-                        case 2: Contract::extensionContract(); break;
+                        case 1: Contract::searchByTenantID(Account::currentTenantID,1); break;
+                        case 2: Contract::searchByTenantID(Account::currentTenantID,0); break;
+                        case 3: Contract::extensionContract(); break;
+                        case 4: Contract::deleteContract(); break;
                         case 0: break;
                         default: cout << "Invalid choice. Please try again." << endl;
                     }

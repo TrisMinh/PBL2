@@ -10,7 +10,7 @@ class Payment {
         string paymentID,roomID,tenantID;
         double rentAmount, serviceAmount, totalAmount;
         DATE payDate;
-        int payMonth, payYear;
+        int billMonth, billYear;
         bool status; // 0: pending, 1: paid
         double depositAmount;
     public:
@@ -22,7 +22,7 @@ class Payment {
 
         Payment();
         Payment(const string& roomID, const string& tenantID, double rentAmount, double serviceAmount,
-             double totalAmount, int payMonth, int payYear, bool status = 0);
+             double totalAmount, int billMonth, int billYear, bool status = 0);
         ~Payment();
 
         static string generateID(int number);
@@ -35,8 +35,8 @@ class Payment {
         double getTotalAmount() const;
         double getDepositAmount() const;
         double getRemainingAmount() const;
-        int getPayMonth () const;
-        int getPayYear() const;
+        int getbillMonth () const;
+        int getbillYear() const;
 
         void fromString(const string& line);
         string toString() const;
@@ -60,6 +60,11 @@ class Payment {
 
         static void checkUnpaidPayments(const string& tenantID);
 
+        static double calculateProRatedRent(double fullRentAmount, int startDay, int billMonth, int billYear);
+
+        static bool isPaymentExist(const string& roomID, const string& tenantID, int billMonth, int billYear);
+
+        static bool isValidPaymentDate(const DATE& paymentDate, const Contract& contract);
 };
 #include "Payment.cpp"
 #endif

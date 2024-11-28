@@ -10,7 +10,7 @@ void ServiceUsage::resetHeader() { is_header_printed = false; }
 // Constructor
 ServiceUsage::ServiceUsage() {}
 ServiceUsage::ServiceUsage(const string& roomId, const string& servId, const string& tenantId, bool status)
-    : room_ID(roomId), service_ID(servId), tenantID(tenantId), status(status) {
+    : room_ID(roomId), service_ID(servId), tenantID(tenantId), status(status), quantity(1) {
     usage_ID = generateID(++currentNumber);
 }
 ServiceUsage::~ServiceUsage() {}
@@ -33,6 +33,7 @@ string ServiceUsage::getTenantID() const { return tenantID; }
 string ServiceUsage::getServiceID() const { return service_ID; }
 bool ServiceUsage::getStatus() const { return status; }
 void ServiceUsage::setStatus(bool newStatus) { status = newStatus; }
+void ServiceUsage::setQuantity(int qty) { quantity = qty; }
 
 // Ham bien doi nham doc du lieu tu file (moi du lieu se co 1 fromstring khac nhau)
 void ServiceUsage::fromString(const string& line) {
@@ -40,16 +41,18 @@ void ServiceUsage::fromString(const string& line) {
     stringstream ss(line);
     getline(ss, usage_ID, ',');
     getline(ss, room_ID, ',');
-    getline(ss, service_ID, ',');
     getline(ss, tenantID, ',');
+    getline(ss, service_ID, ',');
+    ss >> quantity;
+    ss.ignore(1);
     ss >> status;
     total++;
 }
 
 string ServiceUsage::toString() const {
     stringstream ss;
-    ss << usage_ID << ',' << room_ID << ',' << service_ID << ',' 
-       << tenantID << ',' << status;
+    ss << usage_ID << ',' << room_ID << ',' << tenantID << ',' 
+       << service_ID << ',' << quantity << ',' << status;
     return ss.str();
 }
 
@@ -114,9 +117,7 @@ void ServiceUsage::addServiceUsage() {
     total++;
 }
 
-void ServiceUsage::deleteServiceUsage() {
-    string usageID;
-    cout << "Nhap Usage ID de xoa: "; cin >> usageID;
+void ServiceUsage::deleteServiceUsage(string& usageID) {
     usageList.deleteNode(usageID);
     total--;
 }
@@ -187,22 +188,24 @@ void ServiceUsage::showAllServiceUsages() {
 
 // Da nang hoa ham xuat
 ostream& operator<<(ostream& os, const ServiceUsage& su) {
-    const int w_id = 15, w_room = 15, w_service = 15, w_tenant = 15, w_status = 10;
+    const int w_id = 15, w_room = 15, w_service = 15, w_tenant = 15, w_status = 10, w_qty = 10;
     
     if (!ServiceUsage::is_header_printed) {
         os << left << setw(w_id) << "Usage ID" << " | "
            << setw(w_room) << "Room ID" << " | "
-           << setw(w_service) << "Service ID" << " | "
            << setw(w_tenant) << "Tenant ID" << " | "
+           << setw(w_service) << "Service ID" << " | "
+           << setw(w_qty) << "Quantity" << " | "
            << setw(w_status) << "Status" << endl
-           << string(w_id + w_room + w_service + w_tenant + w_status + 13, '-') << endl;
+           << string(w_id + w_room + w_service + w_tenant + w_qty + w_status + 16, '-') << endl;
         ServiceUsage::is_header_printed = true;
     }
     
     os << left << setw(w_id) << su.usage_ID << " | "
        << setw(w_room) << su.room_ID << " | "
-       << setw(w_service) << su.service_ID << " | "
        << setw(w_tenant) << su.tenantID << " | "
+       << setw(w_service) << su.service_ID << " | "
+       << setw(w_qty) << su.quantity << " | "
        << setw(w_status) << (su.status ? "Active" : "Inactive") << endl;
     return os;
 }
@@ -210,6 +213,13 @@ ostream& operator<<(ostream& os, const ServiceUsage& su) {
 void ServiceUsage::stopService() {
     string serviceID;
     cout << "Nhap Service ID muon dung su dung: "; cin >> serviceID;
+    
+    // Kiểm tra xem dịch vụ có phải là dịch vụ bắt buộc không
+    Service* service = Service::serviceList.searchID(serviceID);
+    if (service && service->isMandatory()) {
+        cout << "Khong the dung dich vu bat buoc!" << endl;
+        return;
+    }
     
     LinkedList<ServiceUsage>::Node* current = usageList.begin();
     while (current) {
@@ -252,4 +262,35 @@ void ServiceUsage::registerMandatoryServices(const string& roomID, const string&
         }
         current = current->next;
     }
+}
+
+// Thêm các hàm mới vào ServiceUsage class
+double ServiceUsage::calculateServiceAmountForRoom(const string& roomID, const string& tenantID, char usageChoice) {
+    double serviceAmount = 0;
+    for (LinkedList<ServiceUsage>::Node* current = usageList.begin(); current != nullptr; current = current->next) {
+        ServiceUsage& usage = current->data;
+        if (usage.getStatus() && 
+            roomID == usage.getRoomID() && 
+            tenantID == usage.getTenantID()) {
+            Service* service = Service::serviceList.searchID(usage.getServiceID());
+            if (service != nullptr) {
+                if (service->getID() == "S.005" || service->getID() == "S.006") {
+                    double quantity = (usageChoice == '0') ? 100 : 
+                        promptServiceQuantity(service->getName(), roomID);
+                    usage.setQuantity(quantity);
+                    serviceAmount += service->getUnitPrice() * quantity;
+                } else {
+                    serviceAmount += service->getUnitPrice();
+                }
+            }
+        }
+    }
+    return serviceAmount;
+}
+
+double ServiceUsage::promptServiceQuantity(const string& serviceName, const string& roomID) {
+    double quantity;
+    cout << "Nhap so luong " << serviceName << " cho phong " << roomID << ": ";
+    cin >> quantity;
+    return quantity;
 }

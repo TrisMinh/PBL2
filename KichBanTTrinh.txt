@@ -1,0 +1,59 @@
+Tiêu chí đánh giá:
+    1/ Các thành viên đều phải thuyết trình
+    2/ Trình bày trong vòng 5-10p.
+    3/ Thấy được kết quả của sản phẩm (trình bày có chọn lọc, đi vào ý chính)
+
+Lưu ý: 
+    1/ Người trình bày đầu tiên phải giới thiệu chủ đề.
+    2/ Trình bày các phần chính, rõ ràng không lan man, sau khi trình bày xong trình bày 
+       xong thì nói về các chức năng phụ.Vd: ngoài ra chúng em còn có các chức năng như ...
+    3/ Nghiêm túc, lễ phép, không cãi lại, không ngắt lời giáo viên (nếu cô hiểu nhầm thì trình bày không bao biện)
+    
+1/ Giới thiệu chủ đề:
+    - Vì sao chọn đề tài
+    - Nhóm gồm bao nhiêu Người
+    - Phân việc: Sinh viên nào làm gì,...
+    - Em tên là:... xin phép trình bày về phần ...
+    - Giới thiệu bối cảnh, mục tiêu đề tài, giải quyết những vấn đề gì
+
+2/ Trình bày:
+    2.1/ Giới thiệu đề tài
+    2.2/ Phân tích thiết kế các lớp, cấu trúc dữ liệu, các thuật toán
+    2.3/ Giao diện có sử dụng các hàm gì để liên kết sử dụng sao sao đó ...
+    2.4/ Trình bày demo chương trình ( chạy theo kịch bản đã chuẩn bị )
+    2.5/ Kết luận, đánh giá: bên cạnh nhưng kết quả đạt được là ... còn những hạn chế là ...(tránh nói về việc thiếu kiến thức),
+         dự định ứng dụng trong tương lai nếu tiếp tục, các kinh nghiệm, giá trị tạo ra vd: tài liệu tham khảo, các thư viện để sử dụng cho các dự án tiếp theo
+
+3/ Kịch bản chương trình:
+    3.1/ Login -> TK Khách
+        - Giới thiệu sơ phân quyền tài khoảng: TK khách, Admin
+    3.2/ Giới thiệu sơ menu khách
+        - Giới thiệu sơ chức năng thông báo:
+            + Thông báo khi khách thuê có hoá đơn chưa thanh toán
+            + Thông báo cho admin khi có lệnh đặt thuê mới
+        - Chức năng đặt phòng, xem tt các phòng đang thuê, xem hợp đồng, dịch vụ đang thuê, hoá đơn
+    3.3/ Đặt phòng:
+        - Thực hiện đặt phòng ở menu khách
+    3.4/ Login -> Admin, confirm lệnh đặt phòng
+        - Giới thiệu sơ (nói qua chưa trình bày) có các chức năng quản lý tài khoảng, phòng, khách thuê, đặt phòng, hợp đồng, hoá đơn, báo cáo doanh thu
+        - Thực hiện chức năng xác nhận đặt phòng    
+        - Sau khi confirm tự tạo hợp đồng (phần này sẽ trình bày sau) ->
+    3.5/ Login -> TK khách
+        - Nhắc lại chức năng xem phòng
+        - Trình bày chức năng hợp đồng => Go 3.6/
+    3.6/ Hợp đồng:
+        - Xem các hợp đồng hiện có >>
+        - Xem lịch sử các hợp đồng
+        - Chức năng của hợp đồng. Trình bày:
+            + Khi huỷ phòng thì cho nhập id phòng cần huỷ, hệ thống sẽ tìm phòng đó và reset. Có thể huỷ ở cả 2 bên
+            + Gia hạn hợp đồng.
+            + Sau đó tìm kiếm hợp đồng đang active có trùng tt phòng đó và huỷ nó -> expired
+    -> Go 3.7/
+    3.7/ Đăng kí sử dụng dịch vụ:
+        - Xem các dịch vụ đang sử dụng
+        
+            
+        
+    
+
+

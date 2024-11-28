@@ -11,8 +11,8 @@ void Payment::resetHeader() { Payment::is_header_printed = false; }
 
 Payment::Payment() : depositAmount(0) {}
 Payment::Payment(const string& roomID, const string& tenantID, double rentAmount, double serviceAmount,
-             double totalAmount, int payMonth, int payYear, bool status) :  roomID(roomID), tenantID(tenantID), rentAmount(rentAmount), serviceAmount(serviceAmount),
-                totalAmount(totalAmount) ,payMonth(payMonth), payYear(payYear), status(status), depositAmount(0) {
+             double totalAmount, int billMonth, int billYear, bool status) :  roomID(roomID), tenantID(tenantID), rentAmount(rentAmount), serviceAmount(serviceAmount),
+                totalAmount(totalAmount) ,billMonth(billMonth), billYear(billYear), status(status), depositAmount(0) {
                 paymentID = generateID(++currentNumber);
                 totalAmount = rentAmount + serviceAmount;    
 }
@@ -30,35 +30,34 @@ void Payment::updateFile(const string& filename) { paymentList.updateFile(filena
 string Payment::getID() const { return paymentID; }
 string Payment::getRoomID() const { return roomID; }
 string Payment::getTenantID() const { return tenantID; }
-int Payment::getPayMonth() const { return payMonth; }
-int Payment::getPayYear() const { return payYear; }
+int Payment::getbillMonth() const { return billMonth; }
+int Payment::getbillYear() const { return billYear; }
 double Payment::getDepositAmount() const { return depositAmount; }
 double Payment::getTotalAmount() const { return totalAmount; }
 double Payment::getRemainingAmount() const { return totalAmount - depositAmount; }
 
 void Payment::fromString(const string& line) {
     stringstream ss(line);
-    getline(ss, paymentID, ','); getline(ss, roomID, ','); getline(ss, tenantID, ',');
-    ss >> rentAmount;
-    ss.ignore(1);
-    ss >> serviceAmount;
-    ss.ignore(1);
-    ss >> totalAmount;
-    ss.ignore(1);
-    ss >> payMonth;
-    ss.ignore(1);
-    ss >> payYear;
-    ss.ignore(1);
-    string payDatestr; getline(ss, payDatestr, ',');
+    getline(ss, paymentID, ',');
+    getline(ss, roomID, ',');
+    getline(ss, tenantID, ',');
+    ss >> rentAmount; ss.ignore(1);
+    ss >> serviceAmount; ss.ignore(1); 
+    ss >> totalAmount; ss.ignore(1);
+    ss >> billMonth; ss.ignore(1);
+    ss >> billYear; ss.ignore(1);
+    string payDatestr;
+    getline(ss, payDatestr, ',');
     payDate.fromString(payDatestr);
-    ss >> status >> depositAmount;
+    ss >> status; ss.ignore(1);
+    ss >> depositAmount;
     total++;
 }
 
 string Payment::toString() const {
     return paymentID + "," + roomID + "," + tenantID + "," + to_string(rentAmount) + "," + to_string(serviceAmount) + "," + 
-           to_string(totalAmount) + "," + to_string(payMonth) + "," + 
-           to_string(payYear) + "," + payDate.toString() + "," + 
+           to_string(totalAmount) + "," + to_string(billMonth) + "," + 
+           to_string(billYear) + "," + payDate.toString() + "," + 
            to_string(status) + "," + to_string(depositAmount);
 }
 
@@ -86,19 +85,48 @@ void Payment::showAllPayments() {
     }
 }
 
+double Payment::calculateProRatedRent(double fullRentAmount, int startDay, int billMonth, int billYear) {
+    int daysInMonth = 31; // Mặc định là 31 ngày
+    if (billMonth == 4 || billMonth == 6 || billMonth == 9 || billMonth == 11) {
+        daysInMonth = 30;
+    } else if (billMonth == 2) {
+        daysInMonth = (billYear % 4 == 0 && (billYear % 100 != 0 || billYear % 400 == 0)) ? 29 : 28;
+    }
+    
+    int remainingDays = daysInMonth - startDay + 1;
+    return (fullRentAmount / daysInMonth) * remainingDays;
+}
+
+bool Payment::isPaymentExist(const string& roomID, const string& tenantID, int billMonth, int billYear) {
+    for (LinkedList<Payment>::Node* current = paymentList.begin(); current != nullptr; current = current->next) {
+        Payment& payment = current->data;
+        if (payment.getRoomID() == roomID && payment.getTenantID() == tenantID && 
+            payment.getbillMonth() == billMonth && payment.getbillYear() == billYear) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool Payment::isValidPaymentDate(const DATE& paymentDate, const Contract& contract) {
+    return !(paymentDate > contract.getEndDate() || 
+           (paymentDate.get_year() < contract.getStartDate().get_year()) ||
+           (paymentDate.get_year() == contract.getStartDate().get_year() && 
+            paymentDate.get_month() < contract.getStartDate().get_month()));
+}
+
 void Payment::autocreatePayment() {
-    int payMonth, payYear;
+    int billMonth, billYear;
     do {
         cout << "Nhap thang va nam ban muon tao bills: \n";
-        cout << "Nhap thang: "; cin >> payMonth;
-        cout << "Nhap nam: "; cin >> payYear;
+        cout << "Nhap thang: "; cin >> billMonth;
+        cout << "Nhap nam: "; cin >> billYear;
 
-        // Validate month and year
-        if (payMonth < 1 || payMonth > 12) {
+        if (billMonth < 1 || billMonth > 12) {
             cout << "Thang khong hop le! Thang phai tu 1-12" << endl;
             continue;
         }
-        if (payYear < 2000) {
+        if (billYear < 2000) {
             cout << "Nam khong hop le! Nam phai tu 2000 tro len" << endl;
             continue;
         }
@@ -113,85 +141,31 @@ void Payment::autocreatePayment() {
     cin >> usageChoice;
 
     bool hasCreated = false;
+    DATE paymentDate(1, billMonth, billYear);
 
-    for (LinkedList<Contract>::Node* current = Contract::contractList.begin(); current != nullptr; current = current->next) {
+    for (LinkedList<Contract>::Node* current = Contract::contractList.begin(); 
+         current != nullptr; current = current->next) {
         Contract& contract = current->data;
-        string roomID, tenantID;
-        double rentAmount = 0, serviceAmount = 0;
+        
+        if (!contract.getStatus() || !isValidPaymentDate(paymentDate, contract)) continue;
+        
+        string roomID = contract.getRoomID();
+        string tenantID = contract.getTenantID();
+        
+        if (isPaymentExist(roomID, tenantID, billMonth, billYear)) continue;
 
-        if (contract.getStatus() == 0) continue;
-
-        // Kiểm tra ngày thanh toán có nằm trong thời hạn hợp đồng
-        DATE paymentDate(1, payMonth, payYear);
-        if (paymentDate > contract.getEndDate() || 
-            (paymentDate.get_year() < contract.getStartDate().get_year()) ||
-            (paymentDate.get_year() == contract.getStartDate().get_year() && 
-             paymentDate.get_month() < contract.getStartDate().get_month())) {
-            continue;
+        double rentAmount = contract.getPrice();
+        if (billMonth == contract.getStartDate().get_month() && 
+            billYear == contract.getStartDate().get_year()) {
+            rentAmount = calculateProRatedRent(rentAmount, 
+                                            contract.getStartDate().get_day(), 
+                                            billMonth, billYear);
         }
 
-        roomID = contract.getRoomID();
-        tenantID = contract.getTenantID();
-        rentAmount = contract.getPrice();
-
-        // Tính toán tiền nhà cho tháng đầu tiên nếu ngày bắt đầu hợp đồng không phải ngày 1
-        if (payMonth == contract.getStartDate().get_month() && 
-            payYear == contract.getStartDate().get_year()) {
-            int daysInMonth = 31; // Mặc định là 31 ngày
-            // Xác định chính xác số ngày trong tháng
-            if (payMonth == 4 || payMonth == 6 || payMonth == 9 || payMonth == 11) {
-                daysInMonth = 30;
-            } else if (payMonth == 2) {
-                // Kiểm tra năm nhuận cho tháng 2
-                daysInMonth = (payYear % 4 == 0 && (payYear % 100 != 0 || payYear % 400 == 0)) ? 29 : 28;
-            }
-            
-            // Tính số ngày ở thực tế trong tháng đầu
-            int startDay = contract.getStartDate().get_day();
-            int remainingDays = daysInMonth - startDay + 1;
-            // Tính tiền nhà theo số ngày thực ở
-            rentAmount = (rentAmount / daysInMonth) * remainingDays;
-        }
-
-        // Check if payment already exists
-        bool isPaymentExist = false;
-        for (LinkedList<Payment>::Node* paymentCurrent = paymentList.begin(); paymentCurrent != nullptr; paymentCurrent = paymentCurrent->next) {
-            Payment& payment = paymentCurrent->data;
-            if (payment.getRoomID() == roomID && payment.getTenantID() == tenantID && 
-                payment.getPayMonth() == payMonth && payment.getPayYear() == payYear) {
-                isPaymentExist = true;
-                break;  
-            }
-        }
-        if (isPaymentExist) continue;
-
-        // Calculate service amount
-        for (LinkedList<ServiceUsage>::Node* current = ServiceUsage::usageList.begin(); current != nullptr; current = current->next) {
-            ServiceUsage& usage = current->data;
-            if (usage.getStatus() && 
-                roomID == usage.getRoomID() && 
-                tenantID == usage.getTenantID()) {
-                Service* service = Service::serviceList.searchID(usage.getServiceID());
-                if (service != nullptr) {
-                    if (service->getID() == "S.005" || 
-                        service->getID() == "S.006") {
-                        double quantity;
-                        if (usageChoice == '0') {
-                            quantity = 100;
-                        } else {
-                            cout << "Nhap so luong " << service->getName() 
-                                 << " cho phong " << roomID << ": ";
-                            cin >> quantity;
-                        }
-                        serviceAmount += service->getUnitPrice() * quantity;
-                    } else {
-                        serviceAmount += service->getUnitPrice();
-                    }
-                }
-            }
-        }
-
-        Payment p(roomID, tenantID, rentAmount, serviceAmount, rentAmount + serviceAmount, payMonth, payYear);
+        double serviceAmount = ServiceUsage::calculateServiceAmountForRoom(roomID, tenantID, usageChoice);
+        
+        Payment p(roomID, tenantID, rentAmount, serviceAmount, 
+                 rentAmount + serviceAmount, billMonth, billYear);
         paymentList.add(p);
         hasCreated = true;
     }
@@ -202,6 +176,7 @@ void Payment::autocreatePayment() {
         cout << "Tao bills thanh cong!" << endl;
     }
 }
+
 ostream& operator<<(ostream& os, const Payment& p) {
     const int w_id=15,w_room=10,w_tenant=10,w_rent=15,w_service=15,w_total=15,w_status=10,w_date=12,w_mo=10,w_ye=10,w_deposit=15,w_remain=15;
     
@@ -228,8 +203,8 @@ ostream& operator<<(ostream& os, const Payment& p) {
        << setw(w_rent) << fixed << setprecision(2) << p.rentAmount << " | "
        << setw(w_service) << p.serviceAmount << " | "
        << setw(w_total) << p.totalAmount << " | "
-       << setw(w_mo) << p.payMonth << " | "
-       << setw(w_ye) << p.payYear << " | "
+       << setw(w_mo) << p.billMonth << " | "
+       << setw(w_ye) << p.billYear << " | "
        << setw(w_date) << p.payDate.toString() << " | "
        << setw(w_status) << (p.status ? "Paid" : "Pending") << " | "
        << setw(w_deposit) << p.depositAmount << " | "
@@ -248,7 +223,7 @@ void Payment::searchByMonth() {
     cout << "\nDanh sach cac bills trong thang " << month << "/" << year << ":\n";
     
     for (auto current = paymentList.begin(); current != nullptr; current = current->next) {
-        if (current->data.payMonth == month && current->data.payYear == year) {
+        if (current->data.billMonth == month && current->data.billYear == year) {
             cout << current->data;
             found = true;
         }

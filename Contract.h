@@ -60,8 +60,8 @@ public:
     static void showAllContracts();
 
     // Search
-    static Contract* searchByRidAndTid(const string& rid, const string& tid);
-    static void searchByTenantID(const string& id);
+    static Contract* searchByRidAndTid(const string& rid, const string& tid, bool st);
+    static void searchByTenantID(const string& id, bool his);
     static void confirmReservationandcreatContract();
 
 };

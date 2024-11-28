@@ -19,6 +19,7 @@ Contract::Contract(const string& roomID, const string& tenantID,
     this->endDate = end;
     this->status = status;
     this->rentprice = Reservation::getPrice();
+    this->staytime = endDate.toDays() - startDate.toDays();
 }
 Contract::~Contract() {}
 
@@ -83,75 +84,60 @@ string Contract::toString() const {
 // Chuc nang co ban (Basic Function)
 
 void Contract::deleteContract() {
-    if (Account::currentrole == 1) {
-        resetHeader();
-        contractList.show();
-        string roomIDtodelete;
-        cout << "Nhap RoomID ban muon huy thue hoac nhap '0' de thoat: "; cin >> roomIDtodelete;
-        if (roomIDtodelete == "0") { return; }
-        
-        Room* room = Room::roomList.searchID(roomIDtodelete);
-        if (!room) {
-            cout << "Khong tim thay phong!\n";
-            return;
-        }
-        
-        Contract* ct = Contract::searchByRidAndTid(roomIDtodelete, room->getTenantID());
-        if (ct == nullptr) {
-            cout << "Khong tim thay hop dong!\n";
-            return;
-        }
+    resetHeader();
+    // Hiển thị danh sách phù hợp theo role
+    if (Account::currentrole == 1) {contractList.show();} 
+    else {Room::searchRoomByTenantID(Account::currentTenantID);}
+    // Nhập và kiểm tra roomID
+    string roomIDtodelete;
+    cout << "Nhap RoomID ban muon huy thue hoac nhap '0' de thoat: "; cin >> roomIDtodelete;
+    if (roomIDtodelete == "0") return;
 
-        cout << "Ban muon huy thue phong " << roomIDtodelete << "?" << endl
-             << "1. Yes" << endl
-             << "2. No" << endl;
-        int choice;
-        cout << "Lua chon cua ban: "; cin >> choice;
-        if (choice == 1) {
-            room->resetRoom();
-            ct->setStatus(0);
-            total--;
-            cout << "Da huy thue phong thanh cong!\n";
-        }
-    } else {
-        // Original code for regular users
-        Room::searchRoomByTenantID(Account::currentTenantID);
-        string roomIDtodelete;
-        cout << "Nhap RoomID ban muon huy thue hoac nhap '0' de thoat: "; cin >> roomIDtodelete;
-        if (roomIDtodelete == "0") { return; }
-        
-        Contract* ct = Contract::searchByRidAndTid(roomIDtodelete, Account::currentTenantID);
-        if (ct == nullptr) {
-            cout << "Khong tim thay hop dong!\n";
-            return;
-        }
-        
-        if (Room::roomList.searchID(roomIDtodelete)->getTenantID() == Account::currentTenantID) {
-            cout << "Ban muon huy thue phong " << roomIDtodelete << "?" << endl
-                 << "1. Yes" << endl
-                 << "2. No" << endl;
-            int choice;
-            cout << "Lua chon cua ban: "; cin >> choice;
-            if (choice == 1) {
-                Room::roomList.searchID(roomIDtodelete)->resetRoom();
-                ct->setStatus(0);
-                total--;
-                cout << "Da huy thue phong thanh cong!\n";
+    // Kiểm tra quyền và tìm hợp đồng
+    Room* room = Room::roomList.searchID(roomIDtodelete);
+    if (!room) {cout << "Khong tim thay phong!\n"; return;}
+
+    string tenantID = (Account::currentrole == 1) ? room->getTenantID() : Account::currentTenantID;
+    Contract* ct = searchByRidAndTid(roomIDtodelete, tenantID, true);
+    
+    // Kiểm tra quyền truy cập
+    if (ct == nullptr || (Account::currentrole != 1 && room->getTenantID() != Account::currentTenantID)) {
+        cout << "Khong tim thay hop dong hoac ban khong co quyen huy!\n";
+        return;
+    }
+
+    // Xác nhận hủy
+    cout << "Ban muon huy thue phong " << roomIDtodelete << "?" << endl
+         << "1. Yes" << endl
+         << "2. No" << endl;
+    int choice;
+    cout << "Lua chon cua ban: "; cin >> choice;
+    
+    if (choice == 1) {
+        // Hủy các dịch vụ liên quan
+        LinkedList<ServiceUsage>::Node* current = ServiceUsage::usageList.begin();
+        while (current != nullptr) {
+            if (current->data.getRoomID() == roomIDtodelete && current->data.getTenantID() == tenantID && current->data.getStatus()) {
+                current->data.setStatus(false);
             }
-        } else {
-            cout << "Phong voi ID: " << roomIDtodelete << " khong duoc thue hoac khong phai cua ban." << endl;
+            current = current->next;
         }
+        
+        room->resetRoom();
+        ct->setStatus(0);
+        total--;
+        cout << "Da huy thue phong thanh cong!\n";
     }
 }
 
 void Contract::extensionContract() {
     resetHeader();
-    Contract::searchByTenantID(Account::currentTenantID);
+    Contract::searchByTenantID(Account::currentTenantID,1);
     int extenmonth;
     string roomIDtoextend;
     DATE extendate;
     cout << "Nhap RoomID ban muon gia han thue hoac nhap '0' de thoat: "; cin >> roomIDtoextend;
-    Contract* ct = Contract::searchByRidAndTid(roomIDtoextend, Account::currentTenantID);
+    Contract* ct = Contract::searchByRidAndTid(roomIDtoextend, Account::currentTenantID, true);
     if (roomIDtoextend == "0") { return; }
     else if ( ct != nullptr && ct->getStatus() ==1 ) {
         cout << "So thang ban muon gia han them thue hoac nhap '0' de thoat: "; cin >> extenmonth;
@@ -194,11 +180,11 @@ void Contract::addContract(const string& roomID, const string& tenantID,
     total++;
 }
 
-Contract* Contract::searchByRidAndTid(const string& rid, const string& tid) {
+Contract* Contract::searchByRidAndTid(const string& rid, const string& tid, bool st) {
     resetHeader();
     LinkedList<Contract>::Node* current = contractList.begin();
     while (current!= nullptr) { 
-        if (current->data.getRoomID() == rid && current->data.getTenantID() == tid) {
+        if (current->data.getRoomID() == rid && current->data.getTenantID() == tid && current->data.getStatus() == st) {
             return &(current->data);
         }
         current = current->next;    
@@ -206,14 +192,20 @@ Contract* Contract::searchByRidAndTid(const string& rid, const string& tid) {
     return nullptr;
 }
 
-void Contract::searchByTenantID(const string& id) {
+void Contract::searchByTenantID(const string& id, bool history) {
     resetHeader();
     int count = 0;
     LinkedList<Contract>::Node* current = contractList.begin();
     if (current == nullptr) { cout << "Khong tim thay hop dong nao" << endl; return; }
     while (current!= nullptr) {
-        if (current->data.getTenantID() == id && current->data.status == 1) {
-            cout << current->data; count++;
+        if (history == 0) {
+            if (current->data.getTenantID() == id) {
+                cout << current->data; count++;
+            }
+        } else {
+            if (current->data.getTenantID() == id && current->data.getStatus() == 1) {
+                cout << current->data; count++;
+            }
         }
         current = current->next;
     }
@@ -277,12 +269,8 @@ void Contract::confirmReservationandcreatContract() {
                 }
                 break;
             }
-            case 0: 
-                cout << "Exiting Reservation Confirm." << endl; 
-                break;
-            default: 
-                cout << "Invalid selection. Please try again." << endl; 
-                break;
+            case 0: cout << "Exiting Reservation Confirm." << endl; break;
+            default: cout << "Invalid selection. Please try again." << endl; break;
         }
     } while (choice != 0);
 }
@@ -331,6 +319,4 @@ ostream& operator<<(ostream& os, const Contract& c) {
        << setw(w_status) << (c.status == 1 ? "Active" : "Expired") << endl;
     return os;
 }
-
-
 

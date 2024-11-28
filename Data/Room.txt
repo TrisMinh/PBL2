@@ -2,7 +2,7 @@ roomID,typeID,status,tenantID
 10
 R.001,RT.01,3,N/A
 R.002,RT.02,1,T.001
-R.003,RT.03,1,T.001
+R.003,RT.03,0,N/A
 R.004,RT.01,0,N/A
 R.005,RT.02,0,N/A
 R.006,RT.03,0,N/A
