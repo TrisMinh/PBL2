@@ -134,7 +134,7 @@ double PaymentStatistics::calculateTotalBilled(int month, int year) {
     for (LinkedList<Payment>::Node* current = Payment::paymentList.begin(); 
          current != nullptr; current = current->next) {
         Payment& payment = current->data;
-        if (payment.getPayMonth() == month && payment.getPayYear() == year) {
+        if (payment.getBillMonth() == month && payment.getBillYear() == year) {
             total += payment.getTotalAmount();
         }
     }
@@ -146,7 +146,7 @@ double PaymentStatistics::calculateTotalCollected(int month, int year) {
     for (LinkedList<Payment>::Node* current = Payment::paymentList.begin(); 
          current != nullptr; current = current->next) {
         Payment& payment = current->data;
-        if (payment.getPayMonth() == month && payment.getPayYear() == year) {
+        if (payment.getBillMonth() == month && payment.getBillYear() == year) {
             total += payment.getDepositAmount();
         }
     }

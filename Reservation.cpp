@@ -13,7 +13,7 @@ Reservation::Reservation(const string& roomId, const string& tenantId, DATE& sta
     : room_ID(roomId), tenant_ID(tenantId), startDate(start), staytime(time), status(stat) {
     currentNumber++;
     reservation_ID = generateID(currentNumber);
-    endDate = startDate + staytime; // Tính ngày kết thúc dựa trên `staytime`
+    endDate = startDate.addMonths(staytime);
 }
 Reservation::~Reservation() {}
 
@@ -109,9 +109,9 @@ void Reservation::addReservation() {
     int staytime;
     cout << "Nhap Start Date: "; cin >> startDate;
     do {
-        cout << "Nhap Stay Time (so ngay): "; cin >> staytime;
+        cout << "Nhap Stay Time (so thang): "; cin >> staytime;
         if (staytime <= 0) {
-            cout << "So ngay thue phong phai lon hon 0. Vui long nhap lai!" << endl;
+            cout << "So thang thue phong phai lon hon 0. Vui long nhap lai!" << endl;
         }
     } while (staytime <= 0);
     

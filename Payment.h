@@ -35,8 +35,8 @@ class Payment {
         double getTotalAmount() const;
         double getDepositAmount() const;
         double getRemainingAmount() const;
-        int getbillMonth () const;
-        int getbillYear() const;
+        int getBillMonth () const;
+        int getBillYear() const;
 
         void fromString(const string& line);
         string toString() const;

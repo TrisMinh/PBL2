@@ -30,8 +30,8 @@ void Payment::updateFile(const string& filename) { paymentList.updateFile(filena
 string Payment::getID() const { return paymentID; }
 string Payment::getRoomID() const { return roomID; }
 string Payment::getTenantID() const { return tenantID; }
-int Payment::getbillMonth() const { return billMonth; }
-int Payment::getbillYear() const { return billYear; }
+int Payment::getBillMonth() const { return billMonth; }
+int Payment::getBillYear() const { return billYear; }
 double Payment::getDepositAmount() const { return depositAmount; }
 double Payment::getTotalAmount() const { return totalAmount; }
 double Payment::getRemainingAmount() const { return totalAmount - depositAmount; }
@@ -101,7 +101,7 @@ bool Payment::isPaymentExist(const string& roomID, const string& tenantID, int b
     for (LinkedList<Payment>::Node* current = paymentList.begin(); current != nullptr; current = current->next) {
         Payment& payment = current->data;
         if (payment.getRoomID() == roomID && payment.getTenantID() == tenantID && 
-            payment.getbillMonth() == billMonth && payment.getbillYear() == billYear) {
+            payment.getBillMonth() == billMonth && payment.getBillYear() == billYear) {
             return true;
         }
     }
