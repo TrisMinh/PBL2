@@ -1,0 +1,56 @@
+<RCC>
+    <qresource prefix="/new/prefix1">
+        <file>Resources/bed.png</file>
+        <file>Resources/Bedroom.png</file>
+        <file>Resources/booking.png</file>
+        <file>Resources/contract.png</file>
+        <file>Resources/customer-service.png</file>
+        <file>Resources/dashboard (1).png</file>
+        <file>Resources/dashboard.png</file>
+        <file>Resources/dashboard1.png</file>
+        <file>Resources/dashboardbig.png</file>
+        <file>Resources/dashboardbig1.png</file>
+        <file>Resources/drop.png</file>
+        <file>Resources/financessmall1.png</file>
+        <file>Resources/flash.png</file>
+        <file>Resources/house_icon_with_green_background.png</file>
+        <file>Resources/images.png</file>
+        <file>Resources/Left.png</file>
+        <file>Resources/logo.png</file>
+        <file>Resources/logo78x79.png</file>
+        <file>Resources/logoooo.png</file>
+        <file>Resources/logoooonew.png</file>
+        <file>Resources/loupe.png</file>
+        <file>Resources/Maintenance.png</file>
+        <file>Resources/menu.png</file>
+        <file>Resources/Person.png</file>
+        <file>Resources/Person1.png</file>
+        <file>Resources/Personb2.png</file>
+        <file>Resources/responsible.png</file>
+        <file>Resources/Right.png</file>
+        <file>Resources/Room.png</file>
+        <file>Resources/Room1 20%.png</file>
+        <file>Resources/Room1.png</file>
+        <file>Resources/Roomb1.png</file>
+        <file>Resources/Roomb2.png</file>
+        <file>Resources/Screenshot 2024-10-27 212338.png</file>
+        <file>Resources/Service.png</file>
+        <file>Resources/ServiceUsage.png</file>
+        <file>Resources/signout1.png</file>
+        <file>Resources/signout2.png</file>
+        <file>Resources/signoutsmall1.png</file>
+        <file>Resources/signoutsmall2.png</file>
+        <file>Resources/Untitled copy.jpg</file>
+        <file>Resources/Untitled.jpg</file>
+        <file>Resources/Untitled.png</file>
+        <file>Resources/wi-fi.png</file>
+        <file>Resources/delete.png</file>
+        <file>Resources/edit.png</file>
+        <file>Resources/sxgiam.png</file>
+        <file>Resources/sxtang.png</file>
+        <file>Resources/add.png</file>
+        <file>Resources/reload.png</file>
+        <file>Resources/sx.png</file>
+        <file>Resources/Personb1.png</file>
+    </qresource>
+</RCC>
