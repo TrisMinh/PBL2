@@ -256,14 +256,12 @@ void ServiceUsage::searchByTenantID(string tenantID) {
 }
 
 // Thêm hàm mới
-void ServiceUsage::registerMandatoryServices(const string& roomID, const string& tenantID) {
+void ServiceUsage::registerServices(const string& roomID, const string& tenantID) {
     LinkedList<Service>::Node* current = Service::serviceList.begin();
     while (current) {
-        if (current->data.isMandatory()) {
-            ServiceUsage newUsage(roomID, current->data.getID(), tenantID, true);
-            usageList.add(newUsage);
-            total++;
-        }
+        ServiceUsage newUsage(roomID, current->data.getID(), tenantID, current->data.isMandatory());
+        usageList.add(newUsage);
+        total++;
         current = current->next;
     }
 }

@@ -251,7 +251,7 @@ void Contract::confirmReservationandcreatContract() {
                     ro->setTenantID(re->getTenantID());
                     cout << "Reservation confirmed." << endl;
                     addContract(re->getRoomID(),re->getTenantID(),re->getStartDate(),re->getEndDate(),1);
-                    ServiceUsage::registerMandatoryServices(re->getRoomID(),re->getTenantID());
+                    ServiceUsage::registerServices(re->getRoomID(),re->getTenantID());
                 } else {
                     cout << "Invalid Reservation ID or Room ID." << endl;
                 }

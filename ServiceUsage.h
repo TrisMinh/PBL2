@@ -51,8 +51,8 @@ public:
 
     // Title control
     static void resetHeader();
-
-    static void registerMandatoryServices(const string& roomID, const string& tenantID);
+    // Trí đã sửa hàm này 3/12/2024 -> chỉnh xong qua contract chỉnh lại tên hàm này trong confirm là được
+    static void registerServices(const string& roomID, const string& tenantID);
 
     static double calculateServiceAmountForRoom(const string& roomID, const string& tenantID, char usageChoice);
 
