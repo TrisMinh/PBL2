@@ -1,5 +1,0 @@
-service_ID,name,unit_price,description
-3
-S.001,Thu Rac,10000,10k / 1 thang
-S.002,Cap Quang,210000,210k / 1 thang
-S.003,Internet,150000,150k / 1 month

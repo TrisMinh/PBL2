@@ -1,5 +1,0 @@
-reservation_ID,room_ID,tenant_ID,start_day,staytime,status
-3
-RS.001,R.002,T.001,28/11/2024,100,1
-RS.002,R.003,T.001,28/11/2024,3,1
-RS.003,R.004,T.001,28/11/2024,120,1
