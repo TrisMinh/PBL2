@@ -1,6 +1,7 @@
 #ifndef CONTRACT_H
 #define CONTRACT_H
 #include "Reservation.h"
+class Payment;
 
 class Contract : public Reservation {
 private:

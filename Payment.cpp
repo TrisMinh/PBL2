@@ -1,6 +1,6 @@
 #include "Payment.h"
 #include "PaymentStatistics.h"
-
+#include "Contract.h"
 
 // Static Element Initialization
 int Payment::total = 0;
@@ -330,4 +330,15 @@ void Payment::checkUnpaidPayments(const string& tenantID) {
         cout << "Vui long thanh toan dung han!\n\n";
     }
 }
+bool Payment::checkUnpaidPaymentForRoom(const string& tenantID, const string& roomID) {
+    for (LinkedList<Payment>::Node* current = paymentList.begin(); current != nullptr; current = current->next) {
+        Payment& payment = current->data;
+        if (payment.getTenantID() == tenantID && !payment.status && payment.getRoomID() == roomID) {
+            cout << "Ban con " << payment.getRemainingAmount() << " VND can thanh toan truoc khi tra phong!";
+            return true;
+        }
+    }
+    return false;
+}
+
 

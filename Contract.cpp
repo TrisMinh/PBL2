@@ -1,4 +1,5 @@
 #include "Contract.h"
+#include "Payment.h"
 
 // Static Element
 int Contract::currentNumber = 0;
@@ -93,7 +94,6 @@ void Contract::deleteContract() {
     cout << "Nhap RoomID ban muon huy thue hoac nhap '0' de thoat: "; cin >> roomIDtodelete;
     if (roomIDtodelete == "0") return;
 
-    // Kiểm tra quyền và tìm hợp đồng
     Room* room = Room::roomList.searchID(roomIDtodelete);
     if (!room) {cout << "Khong tim thay phong!\n"; return;}
 
@@ -103,6 +103,10 @@ void Contract::deleteContract() {
     // Kiểm tra quyền truy cập
     if (ct == nullptr || (Account::currentrole != 1 && room->getTenantID() != Account::currentTenantID)) {
         cout << "Khong tim thay hop dong hoac ban khong co quyen huy!\n";
+        return;
+    }
+    // Kiểm tra còn hoá đơn chưa thanh toán cho phòng đó
+    if (Payment::checkUnpaidPaymentForRoom(Account::currentTenantID, roomIDtodelete)) {
         return;
     }
 

@@ -2,8 +2,8 @@
 #define PAYMENT_H
 #include "ServiceUsage.h"
 #include "Service.h"
-#include "Contract.h"
-#include "Account.h"
+
+class Contract;
 
 class Payment {
     private:
@@ -59,6 +59,7 @@ class Payment {
         static void searchByTenantID(string tenantID);
 
         static void checkUnpaidPayments(const string& tenantID);
+        static bool checkUnpaidPaymentForRoom(const string& tenantID, const string& roomID);
 
         static double calculateProRatedRent(double fullRentAmount, int startDay, int billMonth, int billYear);
 
