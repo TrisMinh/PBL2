@@ -1,0 +1,3 @@
+contractID,roomID,tenantID,startDate,endDate,staytime,status,price
+1
+CT.001,R.002,T.001,08/12/2024,08/12/2025,1422975248,0,200000.00
