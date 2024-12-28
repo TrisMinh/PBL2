@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>217</width>
-    <height>235</height>
+    <width>201</width>
+    <height>225</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Book Room</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_3">
    <item>
@@ -40,7 +40,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Đặt phòng</string>
+        <string>Book Room</string>
        </property>
       </widget>
      </item>
@@ -54,11 +54,51 @@
     </layout>
    </item>
    <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QLabel" name="label_22">
+       <property name="maximumSize">
+        <size>
+         <width>60</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>9</pointsize>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Room ID: </string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="ID">
+       <property name="font">
+        <font>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <widget class="QLabel" name="label_21">
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
        <property name="text">
-        <string>Nhập StayDate</string>
+        <string>Enter Stay Date</string>
        </property>
       </widget>
      </item>
@@ -98,8 +138,13 @@
     <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
       <widget class="QLabel" name="label_20">
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
        <property name="text">
-        <string>Nhập Stay Time (số tháng)</string>
+        <string>Enter Stay Time (months)</string>
        </property>
       </widget>
      </item>
@@ -167,10 +212,10 @@
 }</string>
          </property>
          <property name="text">
-          <string>Đặt</string>
+          <string>Book</string>
          </property>
          <property name="checkable">
-          <bool>true</bool>
+          <bool>false</bool>
          </property>
         </widget>
        </item>
@@ -198,7 +243,7 @@
 }</string>
          </property>
          <property name="text">
-          <string>Hủy</string>
+          <string>Cancel</string>
          </property>
          <property name="checkable">
           <bool>true</bool>

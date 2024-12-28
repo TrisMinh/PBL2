@@ -6,18 +6,18 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>206</width>
-    <height>250</height>
+    <width>255</width>
+    <height>265</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Account</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QStackedWidget" name="stackedWidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="page">
       <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -82,7 +82,7 @@
             </font>
            </property>
            <property name="text">
-            <string>Nhập AdminCode cũ</string>
+            <string>Enter Old AdminCode</string>
            </property>
           </widget>
          </item>
@@ -91,7 +91,7 @@
            <property name="minimumSize">
             <size>
              <width>0</width>
-             <height>25</height>
+             <height>35</height>
             </size>
            </property>
            <property name="echoMode">
@@ -120,7 +120,7 @@
             </font>
            </property>
            <property name="text">
-            <string>Nhập AdminCode mới</string>
+            <string>Enter New AdminCode</string>
            </property>
           </widget>
          </item>
@@ -129,7 +129,7 @@
            <property name="minimumSize">
             <size>
              <width>0</width>
-             <height>25</height>
+             <height>35</height>
             </size>
            </property>
            <property name="echoMode">
@@ -164,7 +164,7 @@
              <property name="minimumSize">
               <size>
                <width>55</width>
-               <height>18</height>
+               <height>25</height>
               </size>
              </property>
              <property name="styleSheet">
@@ -181,7 +181,7 @@
               <string>Update</string>
              </property>
              <property name="checkable">
-              <bool>true</bool>
+              <bool>false</bool>
              </property>
             </widget>
            </item>
@@ -190,7 +190,7 @@
              <property name="minimumSize">
               <size>
                <width>18</width>
-               <height>18</height>
+               <height>25</height>
               </size>
              </property>
              <property name="styleSheet">
@@ -283,7 +283,7 @@
            <property name="minimumSize">
             <size>
              <width>0</width>
-             <height>25</height>
+             <height>35</height>
             </size>
            </property>
            <property name="echoMode">
@@ -321,7 +321,7 @@
            <property name="minimumSize">
             <size>
              <width>0</width>
-             <height>25</height>
+             <height>35</height>
             </size>
            </property>
            <property name="echoMode">
@@ -356,7 +356,7 @@
              <property name="minimumSize">
               <size>
                <width>55</width>
-               <height>18</height>
+               <height>25</height>
               </size>
              </property>
              <property name="styleSheet">
@@ -373,7 +373,7 @@
               <string>Update</string>
              </property>
              <property name="checkable">
-              <bool>true</bool>
+              <bool>false</bool>
              </property>
             </widget>
            </item>
@@ -382,7 +382,7 @@
              <property name="minimumSize">
               <size>
                <width>18</width>
-               <height>18</height>
+               <height>25</height>
               </size>
              </property>
              <property name="styleSheet">
@@ -414,5 +414,22 @@
   </layout>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>pushButton_2</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>Adminaccount</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>212</x>
+     <y>223</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>210</x>
+     <y>283</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

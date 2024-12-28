@@ -11,6 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QCheckBox>
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QFrame>
 #include <QtWidgets/QHBoxLayout>
@@ -28,7 +29,7 @@ class Ui_AddService
 public:
     QFrame *line;
     QLabel *label_4;
-    QWidget *widget;
+    QWidget *layoutWidget;
     QVBoxLayout *verticalLayout_4;
     QVBoxLayout *verticalLayout;
     QLabel *label;
@@ -39,6 +40,11 @@ public:
     QVBoxLayout *verticalLayout_3;
     QLabel *label_3;
     QLineEdit *newdes;
+    QHBoxLayout *horizontalLayout_4;
+    QLabel *label_5;
+    QHBoxLayout *horizontalLayout_3;
+    QCheckBox *checkBox;
+    QCheckBox *checkBox_2;
     QHBoxLayout *horizontalLayout_2;
     QSpacerItem *horizontalSpacer;
     QHBoxLayout *horizontalLayout;
@@ -49,10 +55,10 @@ public:
     {
         if (AddService->objectName().isEmpty())
             AddService->setObjectName("AddService");
-        AddService->resize(221, 275);
+        AddService->resize(246, 296);
         line = new QFrame(AddService);
         line->setObjectName("line");
-        line->setGeometry(QRect(10, 30, 201, 20));
+        line->setGeometry(QRect(10, 30, 221, 20));
         line->setFrameShape(QFrame::Shape::HLine);
         line->setFrameShadow(QFrame::Shadow::Sunken);
         label_4 = new QLabel(AddService);
@@ -62,15 +68,15 @@ public:
         font.setPointSize(13);
         font.setBold(true);
         label_4->setFont(font);
-        widget = new QWidget(AddService);
-        widget->setObjectName("widget");
-        widget->setGeometry(QRect(10, 50, 201, 211));
-        verticalLayout_4 = new QVBoxLayout(widget);
+        layoutWidget = new QWidget(AddService);
+        layoutWidget->setObjectName("layoutWidget");
+        layoutWidget->setGeometry(QRect(10, 51, 221, 231));
+        verticalLayout_4 = new QVBoxLayout(layoutWidget);
         verticalLayout_4->setObjectName("verticalLayout_4");
         verticalLayout_4->setContentsMargins(0, 0, 0, 0);
         verticalLayout = new QVBoxLayout();
         verticalLayout->setObjectName("verticalLayout");
-        label = new QLabel(widget);
+        label = new QLabel(layoutWidget);
         label->setObjectName("label");
         label->setMaximumSize(QSize(16777215, 15));
         QFont font1;
@@ -79,9 +85,9 @@ public:
 
         verticalLayout->addWidget(label);
 
-        newname = new QLineEdit(widget);
+        newname = new QLineEdit(layoutWidget);
         newname->setObjectName("newname");
-        newname->setMinimumSize(QSize(0, 25));
+        newname->setMinimumSize(QSize(0, 30));
 
         verticalLayout->addWidget(newname);
 
@@ -90,16 +96,16 @@ public:
 
         verticalLayout_2 = new QVBoxLayout();
         verticalLayout_2->setObjectName("verticalLayout_2");
-        label_2 = new QLabel(widget);
+        label_2 = new QLabel(layoutWidget);
         label_2->setObjectName("label_2");
         label_2->setMaximumSize(QSize(16777215, 15));
         label_2->setFont(font1);
 
         verticalLayout_2->addWidget(label_2);
 
-        newprice = new QLineEdit(widget);
+        newprice = new QLineEdit(layoutWidget);
         newprice->setObjectName("newprice");
-        newprice->setMinimumSize(QSize(0, 25));
+        newprice->setMinimumSize(QSize(0, 30));
 
         verticalLayout_2->addWidget(newprice);
 
@@ -108,21 +114,52 @@ public:
 
         verticalLayout_3 = new QVBoxLayout();
         verticalLayout_3->setObjectName("verticalLayout_3");
-        label_3 = new QLabel(widget);
+        label_3 = new QLabel(layoutWidget);
         label_3->setObjectName("label_3");
         label_3->setMaximumSize(QSize(16777215, 15));
         label_3->setFont(font1);
 
         verticalLayout_3->addWidget(label_3);
 
-        newdes = new QLineEdit(widget);
+        newdes = new QLineEdit(layoutWidget);
         newdes->setObjectName("newdes");
-        newdes->setMinimumSize(QSize(0, 25));
+        newdes->setMinimumSize(QSize(0, 30));
 
         verticalLayout_3->addWidget(newdes);
 
 
         verticalLayout_4->addLayout(verticalLayout_3);
+
+        horizontalLayout_4 = new QHBoxLayout();
+        horizontalLayout_4->setSpacing(10);
+        horizontalLayout_4->setObjectName("horizontalLayout_4");
+        label_5 = new QLabel(layoutWidget);
+        label_5->setObjectName("label_5");
+        label_5->setMaximumSize(QSize(16777215, 15));
+        label_5->setFont(font1);
+
+        horizontalLayout_4->addWidget(label_5);
+
+        horizontalLayout_3 = new QHBoxLayout();
+        horizontalLayout_3->setObjectName("horizontalLayout_3");
+        checkBox = new QCheckBox(layoutWidget);
+        checkBox->setObjectName("checkBox");
+        checkBox->setMinimumSize(QSize(55, 0));
+        checkBox->setAutoExclusive(true);
+
+        horizontalLayout_3->addWidget(checkBox);
+
+        checkBox_2 = new QCheckBox(layoutWidget);
+        checkBox_2->setObjectName("checkBox_2");
+        checkBox_2->setAutoExclusive(true);
+
+        horizontalLayout_3->addWidget(checkBox_2);
+
+
+        horizontalLayout_4->addLayout(horizontalLayout_3);
+
+
+        verticalLayout_4->addLayout(horizontalLayout_4);
 
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setObjectName("horizontalLayout_2");
@@ -132,9 +169,9 @@ public:
 
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName("horizontalLayout");
-        AddSerbtn = new QPushButton(widget);
+        AddSerbtn = new QPushButton(layoutWidget);
         AddSerbtn->setObjectName("AddSerbtn");
-        AddSerbtn->setMinimumSize(QSize(55, 18));
+        AddSerbtn->setMinimumSize(QSize(55, 25));
         AddSerbtn->setStyleSheet(QString::fromUtf8("QPushButton{\n"
 "/background-color: #34D481;\n"
 "/color:white;\n"
@@ -143,13 +180,13 @@ public:
 "/font-weight:bold;\n"
 "/font-size: 10px;\n"
 "}"));
-        AddSerbtn->setCheckable(true);
+        AddSerbtn->setCheckable(false);
 
         horizontalLayout->addWidget(AddSerbtn);
 
-        pushButton_2 = new QPushButton(widget);
+        pushButton_2 = new QPushButton(layoutWidget);
         pushButton_2->setObjectName("pushButton_2");
-        pushButton_2->setMinimumSize(QSize(18, 18));
+        pushButton_2->setMinimumSize(QSize(18, 25));
         pushButton_2->setStyleSheet(QString::fromUtf8("QPushButton{\n"
 "/background-color: #585858;\n"
 "/color:white;\n"
@@ -170,21 +207,25 @@ public:
 
 
         retranslateUi(AddService);
+        QObject::connect(pushButton_2, &QPushButton::toggled, AddService, qOverload<>(&QDialog::close));
 
         QMetaObject::connectSlotsByName(AddService);
     } // setupUi
 
     void retranslateUi(QDialog *AddService)
     {
-        AddService->setWindowTitle(QCoreApplication::translate("AddService", "Dialog", nullptr));
+        AddService->setWindowTitle(QCoreApplication::translate("AddService", "Add Service", nullptr));
         label_4->setText(QCoreApplication::translate("AddService", " Add Service", nullptr));
-        label->setText(QCoreApplication::translate("AddService", "Nh\341\272\255p t\303\252n d\341\273\213ch v\341\273\245", nullptr));
+        label->setText(QCoreApplication::translate("AddService", "Enter Service Name", nullptr));
         newname->setPlaceholderText(QString());
-        label_2->setText(QCoreApplication::translate("AddService", "Nh\341\272\255p gi\303\241 d\341\273\213ch v\341\273\245", nullptr));
+        label_2->setText(QCoreApplication::translate("AddService", "Enter Service Price", nullptr));
         newprice->setPlaceholderText(QString());
-        label_3->setText(QCoreApplication::translate("AddService", "Nh\341\272\255p m\303\264 t\341\272\243 d\341\273\213ch v\341\273\245", nullptr));
+        label_3->setText(QCoreApplication::translate("AddService", "Enter Service Description", nullptr));
         newdes->setPlaceholderText(QString());
-        AddSerbtn->setText(QCoreApplication::translate("AddService", "Add Serive", nullptr));
+        label_5->setText(QCoreApplication::translate("AddService", "Service Type", nullptr));
+        checkBox->setText(QCoreApplication::translate("AddService", "C\341\273\221 \304\221\341\273\213nh", nullptr));
+        checkBox_2->setText(QCoreApplication::translate("AddService", "T\341\273\261 do", nullptr));
+        AddSerbtn->setText(QCoreApplication::translate("AddService", "Add Service", nullptr));
         pushButton_2->setText(QCoreApplication::translate("AddService", "Cancel", nullptr));
     } // retranslateUi
 

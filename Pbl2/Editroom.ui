@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>241</width>
-    <height>226</height>
+    <width>234</width>
+    <height>239</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -45,11 +45,11 @@
     <string>Edit Room</string>
    </property>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>50</y>
+     <y>70</y>
      <width>221</width>
      <height>161</height>
     </rect>
@@ -71,7 +71,7 @@
          </font>
         </property>
         <property name="text">
-         <string>Nhập loại phòng mới</string>
+         <string>Enter New RoomType</string>
         </property>
        </widget>
       </item>
@@ -80,7 +80,7 @@
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>25</height>
+          <height>35</height>
          </size>
         </property>
         <property name="placeholderText">
@@ -106,7 +106,7 @@
          </font>
         </property>
         <property name="text">
-         <string>Trạng thái</string>
+         <string>Status</string>
         </property>
        </widget>
       </item>
@@ -115,7 +115,7 @@
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>25</height>
+          <height>35</height>
          </size>
         </property>
         <item>
@@ -154,7 +154,7 @@
           <property name="minimumSize">
            <size>
             <width>55</width>
-            <height>18</height>
+            <height>25</height>
            </size>
           </property>
           <property name="styleSheet">
@@ -171,7 +171,7 @@
            <string>Update Room</string>
           </property>
           <property name="checkable">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
          </widget>
         </item>
@@ -180,7 +180,7 @@
           <property name="minimumSize">
            <size>
             <width>18</width>
-            <height>18</height>
+            <height>25</height>
            </size>
           </property>
           <property name="styleSheet">
@@ -206,6 +206,50 @@
      </layout>
     </item>
    </layout>
+  </widget>
+  <widget class="QLabel" name="ID">
+   <property name="geometry">
+    <rect>
+     <x>74</x>
+     <y>40</y>
+     <width>123</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_22">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>40</y>
+     <width>60</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>60</width>
+     <height>16777215</height>
+    </size>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>Room ID: </string>
+   </property>
   </widget>
  </widget>
  <resources/>

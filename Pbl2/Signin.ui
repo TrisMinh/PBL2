@@ -18,7 +18,7 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>833</width>
+    <width>417</width>
     <height>550</height>
    </size>
   </property>
@@ -29,7 +29,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Room Management System</string>
   </property>
   <property name="windowIcon">
    <iconset resource="Resources.qrc">
@@ -73,6 +73,12 @@
         </property>
         <item>
          <widget class="QFrame" name="frame">
+          <property name="maximumSize">
+           <size>
+            <width>407</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="styleSheet">
            <string notr="true">background-color: rgb(243, 243, 243);</string>
           </property>
@@ -92,7 +98,7 @@
               <number>3</number>
              </property>
              <widget class="QWidget" name="page_3">
-              <widget class="QWidget" name="layoutWidget">
+              <widget class="QWidget" name="layoutWidget10">
                <property name="geometry">
                 <rect>
                  <x>110</x>
@@ -153,7 +159,7 @@
                 <rect>
                  <x>30</x>
                  <y>290</y>
-                 <width>332</width>
+                 <width>333</width>
                  <height>42</height>
                 </rect>
                </property>
@@ -165,7 +171,7 @@
                  <widget class="QLineEdit" name="Password_2">
                   <property name="minimumSize">
                    <size>
-                    <width>295</width>
+                    <width>296</width>
                     <height>40</height>
                    </size>
                   </property>
@@ -423,6 +429,12 @@ color:white;
                  <height>16</height>
                 </rect>
                </property>
+               <property name="minimumSize">
+                <size>
+                 <width>241</width>
+                 <height>0</height>
+                </size>
+               </property>
                <property name="font">
                 <font>
                  <pointsize>8</pointsize>
@@ -443,9 +455,15 @@ border:none</string>
                 <rect>
                  <x>32</x>
                  <y>110</y>
-                 <width>211</width>
+                 <width>300</width>
                  <height>41</height>
                 </rect>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>300</width>
+                 <height>0</height>
+                </size>
                </property>
                <property name="font">
                 <font>
@@ -518,7 +536,7 @@ border-radius: 20px;
                 </rect>
                </property>
                <property name="text">
-                <string>Nhập CCCD</string>
+                <string>Enter CCCD</string>
                </property>
               </widget>
               <widget class="QLabel" name="label_27">
@@ -531,7 +549,7 @@ border-radius: 20px;
                 </rect>
                </property>
                <property name="text">
-                <string>Nhập số điện thoại</string>
+                <string>Enter Phone Number</string>
                </property>
               </widget>
               <widget class="QPushButton" name="tieptucpr">
@@ -657,6 +675,12 @@ border:none</string>
                  <height>41</height>
                 </rect>
                </property>
+               <property name="minimumSize">
+                <size>
+                 <width>351</width>
+                 <height>0</height>
+                </size>
+               </property>
                <property name="font">
                 <font>
                  <pointsize>20</pointsize>
@@ -682,7 +706,7 @@ border:none</string>
                 </font>
                </property>
                <property name="text">
-                <string>Xác minh thành công</string>
+                <string>Verification Successful</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -759,6 +783,12 @@ border:none;
                     <height>41</height>
                    </rect>
                   </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>141</width>
+                    <height>0</height>
+                   </size>
+                  </property>
                   <property name="font">
                    <font>
                     <pointsize>20</pointsize>
@@ -790,7 +820,7 @@ border:none;
                    </font>
                   </property>
                   <property name="text">
-                   <string>Chọn loại tài khoản</string>
+                   <string>Select Account Type</string>
                   </property>
                  </widget>
                  <widget class="QComboBox" name="comboBox">
@@ -851,7 +881,7 @@ background-color: rgb(255, 255, 255);</string>
                <item>
                 <widget class="QStackedWidget" name="stackedWidget_3">
                  <property name="currentIndex">
-                  <number>2</number>
+                  <number>0</number>
                  </property>
                  <widget class="QWidget" name="page_5">
                   <widget class="QPushButton" name="DKadminbtn">
@@ -1469,6 +1499,12 @@ border:none</string>
                      <height>31</height>
                     </rect>
                    </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>231</width>
+                     <height>0</height>
+                    </size>
+                   </property>
                    <property name="font">
                     <font>
                      <pointsize>13</pointsize>
@@ -1476,7 +1512,7 @@ border:none</string>
                     </font>
                    </property>
                    <property name="text">
-                    <string>Nhập thông tin cá nhân</string>
+                    <string>Enter Personal Information</string>
                    </property>
                   </widget>
                   <widget class="QPushButton" name="Dktenantbtn">
@@ -1524,8 +1560,14 @@ color:white;
                      <height>16</height>
                     </rect>
                    </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>241</width>
+                     <height>0</height>
+                    </size>
+                   </property>
                    <property name="text">
-                    <string>Nhập họ và tên</string>
+                    <string>Enter Full Name</string>
                    </property>
                   </widget>
                   <widget class="QLineEdit" name="name">
@@ -1601,8 +1643,14 @@ border-radius: 20px;
                      <height>16</height>
                     </rect>
                    </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>201</width>
+                     <height>0</height>
+                    </size>
+                   </property>
                    <property name="text">
-                    <string>Nhập số điện thoại</string>
+                    <string>Enter Phone Number</string>
                    </property>
                   </widget>
                   <widget class="QLineEdit" name="cccd">
@@ -1646,8 +1694,14 @@ border-radius: 20px;
                      <height>16</height>
                     </rect>
                    </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>151</width>
+                     <height>0</height>
+                    </size>
+                   </property>
                    <property name="text">
-                    <string>Nhập CCCD</string>
+                    <string>Enter CCCD</string>
                    </property>
                   </widget>
                   <widget class="QLineEdit" name="birth">
@@ -1691,8 +1745,14 @@ border-radius: 20px;
                      <height>16</height>
                     </rect>
                    </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>101</width>
+                     <height>0</height>
+                    </size>
+                   </property>
                    <property name="text">
-                    <string>Năm sinh</string>
+                    <string>Year of Birth</string>
                    </property>
                   </widget>
                   <widget class="QLabel" name="label_24">
@@ -1704,11 +1764,17 @@ border-radius: 20px;
                      <height>16</height>
                     </rect>
                    </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>101</width>
+                     <height>0</height>
+                    </size>
+                   </property>
                    <property name="text">
-                    <string>Giới tính</string>
+                    <string>Gender</string>
                    </property>
                   </widget>
-                  <widget class="QWidget" name="layoutWidget">
+                  <widget class="QWidget" name="layoutWidget11">
                    <property name="geometry">
                     <rect>
                      <x>262</x>
@@ -1745,12 +1811,12 @@ QComboBox::drop-down {
                       </property>
                       <item>
                        <property name="text">
-                        <string>Nam</string>
+                        <string>Male</string>
                        </property>
                       </item>
                       <item>
                        <property name="text">
-                        <string>Nữ</string>
+                        <string>Female</string>
                        </property>
                       </item>
                      </widget>
@@ -1834,8 +1900,14 @@ border:none</string>
          <widget class="QFrame" name="frame_2">
           <property name="minimumSize">
            <size>
-            <width>416</width>
+            <width>0</width>
             <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>16777215</height>
            </size>
           </property>
           <property name="styleSheet">
@@ -1847,6 +1919,30 @@ border:none</string>
           <property name="frameShadow">
            <enum>QFrame::Shadow::Raised</enum>
           </property>
+          <layout class="QVBoxLayout" name="verticalLayout_5">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QGraphicsView" name="graphicsView">
+             <property name="styleSheet">
+              <string notr="true">border-image: url(:/new/prefix1/Resources/Pbl2.jpg);</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
         </item>
        </layout>

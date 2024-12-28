@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Extend</string>
   </property>
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
@@ -19,7 +19,7 @@
      <x>10</x>
      <y>40</y>
      <width>201</width>
-     <height>91</height>
+     <height>97</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -42,7 +42,7 @@
          </font>
         </property>
         <property name="text">
-         <string>Nhập số tháng muốn gia hạn</string>
+         <string>Enter Months to Extend</string>
         </property>
        </widget>
       </item>
@@ -51,7 +51,7 @@
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>25</height>
+          <height>35</height>
          </size>
         </property>
         <property name="placeholderText">
@@ -83,7 +83,7 @@
           <property name="minimumSize">
            <size>
             <width>55</width>
-            <height>18</height>
+            <height>25</height>
            </size>
           </property>
           <property name="styleSheet">
@@ -100,7 +100,7 @@
            <string>Extend</string>
           </property>
           <property name="checkable">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
          </widget>
         </item>
@@ -109,7 +109,7 @@
           <property name="minimumSize">
            <size>
             <width>18</width>
-            <height>18</height>
+            <height>25</height>
            </size>
           </property>
           <property name="styleSheet">
@@ -170,5 +170,22 @@
   </widget>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>pushButton_2</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>Extend</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>197</x>
+     <y>117</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>195</x>
+     <y>175</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

@@ -46,6 +46,7 @@ private slots:
     void ondelete_Ser_btnClicked(int i);
     void on_TTCNbtn_clicked();
     void onedit_Ser_btnClicked(int row);
+    void on_Refbtn_clicked();
 
     void on_editprofilebtn_clicked();
 

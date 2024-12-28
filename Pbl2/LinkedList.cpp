@@ -112,7 +112,6 @@ typename LinkedList<T>::Node* LinkedList<T>::deleteNode(const string& value) {
             Node* temp = current;
             delete current;
             count--;
-            cout << "Delete succesfully!" << endl;
             return temp;
         }
         current = current->next;
@@ -279,7 +278,7 @@ const T& LinkedList<T>::operator[](int index) const {
 template <typename T>
 void LinkedList<T>::show(Admin* adminWindow) const {
     Node* current = head;
-    if (current == NULL) { qDebug() << "List is empty! ";}
+    // if (current == NULL) { qDebug() << "List is empty! ";}
     while (current) {
         current->data.display(adminWindow);
         current = current->next;
@@ -289,7 +288,7 @@ void LinkedList<T>::show(Admin* adminWindow) const {
 template <typename T>
 void LinkedList<T>::show(User* adminWindow) const {
     Node* current = head;
-    if (current == NULL) { qDebug() << "List is empty! ";}
+    // if (current == NULL) { qDebug() << "List is empty! ";}
     while (current) {
         current->data.displayuser(adminWindow);
         current = current->next;

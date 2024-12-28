@@ -15,9 +15,9 @@ void PaymentStatistics::showMonthlyComparison(int year, QChart *chart, Admin* ad
 
     QBarSeries *series = new QBarSeries();
 
-    QBarSet *set1 = new QBarSet("Tổng hóa đơn");
-    QBarSet *set2 = new QBarSet("Đã thu");
-    QBarSet *set3 = new QBarSet("Chưa thu");
+    QBarSet *set1 = new QBarSet("Total Invoice");
+    QBarSet *set2 = new QBarSet("Collected");
+    QBarSet *set3 = new QBarSet("Uncollected");
     // set1->setLabelColor(Qt::black);
     // set2->setLabelColor(Qt::black);
     // set3->setLabelColor(Qt::black);
@@ -75,9 +75,9 @@ void PaymentStatistics::showYearlyComparison(int startYear, int endYear, QChart 
 
     QBarSeries *series = new QBarSeries();
 
-    QBarSet *set1 = new QBarSet("Tổng hóa đơn");
-    QBarSet *set2 = new QBarSet("Đã thu");
-    QBarSet *set3 = new QBarSet("Chưa thu");
+    QBarSet *set1 = new QBarSet("Total Invoice");
+    QBarSet *set2 = new QBarSet("Collected");
+    QBarSet *set3 = new QBarSet("Uncollected");
     // set1->setLabelColor(Qt::black);
     // set2->setLabelColor(Qt::black);
     // set3->setLabelColor(Qt::black);

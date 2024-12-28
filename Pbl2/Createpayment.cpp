@@ -27,8 +27,8 @@ void Createpayment::displayRooms(const Room& room) {
     QTableWidgetItem* item1 = new QTableWidgetItem(QString::fromStdString(room.getTenantID()));
     item1->setFlags(item1->flags() & ~Qt::ItemIsEditable);
     ui->tableWidget->setItem(row, 1, item1);
-    ui->tableWidget->setItem(row, 2, new QTableWidgetItem("1"));
-    ui->tableWidget->setItem(row, 3, new QTableWidgetItem("1"));
+    ui->tableWidget->setItem(row, 2, new QTableWidgetItem("0"));
+    ui->tableWidget->setItem(row, 3, new QTableWidgetItem("0"));
 }
 
 
@@ -47,13 +47,14 @@ void Createpayment::on_Okbtn_clicked()
 {
     for (int i=0; i<ui->tableWidget->rowCount(); i++){
         bool c, d;
+        int e, w;
         string roomID = ui->tableWidget->item(i, 0)->text().toStdString();
-        int e = ui->tableWidget->item(i, 2)->text().toInt(&c);
+        e = ui->tableWidget->item(i, 2)->text().toInt(&c);
         if (!c){
             QMessageBox::warning(this, "Warning", "Nhập chỉ số điện nước không hợp lệ");
             return;
         }
-        int w = ui->tableWidget->item(i, 3)->text().toInt(&d);
+        w = ui->tableWidget->item(i, 3)->text().toInt(&d);
         if (!d){
             QMessageBox::warning(this, "Warning", "Nhập chỉ số điện nước không hợp lệ");
             return;

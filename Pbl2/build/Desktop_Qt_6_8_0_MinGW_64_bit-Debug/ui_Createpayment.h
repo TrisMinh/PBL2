@@ -142,7 +142,7 @@ public:
 "/font-weight:bold;\n"
 "/font-size: 10px;\n"
 "}"));
-        Okbtn->setCheckable(true);
+        Okbtn->setCheckable(false);
 
         horizontalLayout_3->addWidget(Okbtn);
 
@@ -169,13 +169,14 @@ public:
 
 
         retranslateUi(Createpayment);
+        QObject::connect(pushButton_2, &QPushButton::toggled, Createpayment, qOverload<>(&QDialog::close));
 
         QMetaObject::connectSlotsByName(Createpayment);
     } // setupUi
 
     void retranslateUi(QDialog *Createpayment)
     {
-        Createpayment->setWindowTitle(QCoreApplication::translate("Createpayment", "Dialog", nullptr));
+        Createpayment->setWindowTitle(QCoreApplication::translate("Createpayment", "Create Payment", nullptr));
         label->setText(QCoreApplication::translate("Createpayment", "Month: ", nullptr));
         CBSP->setItemText(0, QCoreApplication::translate("Createpayment", "Choose", nullptr));
         CBSP->setItemText(1, QCoreApplication::translate("Createpayment", "1", nullptr));
@@ -194,15 +195,15 @@ public:
         label_9->setText(QCoreApplication::translate("Createpayment", "Year: ", nullptr));
         Year->setText(QString());
         Year->setPlaceholderText(QCoreApplication::translate("Createpayment", "Search here ...", nullptr));
-        Enterbtn->setText(QCoreApplication::translate("Createpayment", "Nh\341\272\255p", nullptr));
+        Enterbtn->setText(QCoreApplication::translate("Createpayment", "Submit", nullptr));
         QTableWidgetItem *___qtablewidgetitem = tableWidget->horizontalHeaderItem(0);
         ___qtablewidgetitem->setText(QCoreApplication::translate("Createpayment", "Room ID", nullptr));
         QTableWidgetItem *___qtablewidgetitem1 = tableWidget->horizontalHeaderItem(1);
         ___qtablewidgetitem1->setText(QCoreApplication::translate("Createpayment", "Tenant ID", nullptr));
         QTableWidgetItem *___qtablewidgetitem2 = tableWidget->horizontalHeaderItem(2);
-        ___qtablewidgetitem2->setText(QCoreApplication::translate("Createpayment", "\304\220i\341\273\207n", nullptr));
+        ___qtablewidgetitem2->setText(QCoreApplication::translate("Createpayment", "Electricity", nullptr));
         QTableWidgetItem *___qtablewidgetitem3 = tableWidget->horizontalHeaderItem(3);
-        ___qtablewidgetitem3->setText(QCoreApplication::translate("Createpayment", "N\306\260\341\273\233c", nullptr));
+        ___qtablewidgetitem3->setText(QCoreApplication::translate("Createpayment", "Water", nullptr));
         Okbtn->setText(QCoreApplication::translate("Createpayment", "Ok", nullptr));
         pushButton_2->setText(QCoreApplication::translate("Createpayment", "Cancel", nullptr));
     } // retranslateUi

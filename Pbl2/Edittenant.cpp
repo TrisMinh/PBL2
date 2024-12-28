@@ -71,6 +71,13 @@ void Edittenant::on_Edittenantbtn_clicked()
     if (ui->newage->text().isEmpty()){
         newage = birthyear;
     }
+    time_t now = time(0);
+    tm* ltm = localtime(&now);
+    if(newage > (1900 + ltm->tm_year)){
+        QMessageBox::information(this, "Thông báo", "Năm sinh không hợp lệ");
+        return;
+    }
     Tenant::updateTenant(tenant_ID, lastName, firstName, newsdt, newcccd, newage, newgender);
+    this->close();
 }
 

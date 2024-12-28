@@ -9,6 +9,7 @@ Booking::Booking(const std::string &id, QWidget *parent)
 {
     ui->setupUi(this);
     ui->dateEdit->setDate(QDate::currentDate());
+    ui->ID->setText(QString::fromStdString(id));
 }
 
 Booking::~Booking()

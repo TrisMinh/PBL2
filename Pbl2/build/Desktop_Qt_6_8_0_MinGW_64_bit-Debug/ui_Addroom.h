@@ -38,24 +38,12 @@ public:
     QHBoxLayout *horizontalLayout;
     QPushButton *Addroombtn;
     QPushButton *pushButton_2;
-    QWidget *layoutWidget_2;
-    QVBoxLayout *verticalLayout_3;
-    QVBoxLayout *verticalLayout_4;
-    QLabel *label_3;
-    QLineEdit *newRT_2;
-    QHBoxLayout *horizontalLayout_3;
-    QSpacerItem *horizontalSpacer_2;
-    QHBoxLayout *horizontalLayout_4;
-    QPushButton *Addroombtn_2;
-    QPushButton *pushButton_3;
-    QFrame *line_2;
-    QLabel *label_4;
 
     void setupUi(QDialog *Addroom)
     {
         if (Addroom->objectName().isEmpty())
             Addroom->setObjectName("Addroom");
-        Addroom->resize(219, 154);
+        Addroom->resize(219, 155);
         Addroom->setStyleSheet(QString::fromUtf8("QDialog{\n"
 "background-color:white;\n"
 "}\n"
@@ -122,7 +110,7 @@ public:
 "/font-weight:bold;\n"
 "/font-size: 10px;\n"
 "}"));
-        Addroombtn->setCheckable(true);
+        Addroombtn->setCheckable(false);
 
         horizontalLayout->addWidget(Addroombtn);
 
@@ -147,83 +135,6 @@ public:
 
         verticalLayout_2->addLayout(horizontalLayout_2);
 
-        layoutWidget_2 = new QWidget(Addroom);
-        layoutWidget_2->setObjectName("layoutWidget_2");
-        layoutWidget_2->setGeometry(QRect(70, 110, 201, 91));
-        verticalLayout_3 = new QVBoxLayout(layoutWidget_2);
-        verticalLayout_3->setObjectName("verticalLayout_3");
-        verticalLayout_3->setContentsMargins(0, 0, 0, 0);
-        verticalLayout_4 = new QVBoxLayout();
-        verticalLayout_4->setObjectName("verticalLayout_4");
-        label_3 = new QLabel(layoutWidget_2);
-        label_3->setObjectName("label_3");
-        label_3->setMaximumSize(QSize(16777215, 15));
-        label_3->setFont(font1);
-
-        verticalLayout_4->addWidget(label_3);
-
-        newRT_2 = new QLineEdit(layoutWidget_2);
-        newRT_2->setObjectName("newRT_2");
-        newRT_2->setMinimumSize(QSize(0, 25));
-
-        verticalLayout_4->addWidget(newRT_2);
-
-
-        verticalLayout_3->addLayout(verticalLayout_4);
-
-        horizontalLayout_3 = new QHBoxLayout();
-        horizontalLayout_3->setObjectName("horizontalLayout_3");
-        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
-
-        horizontalLayout_3->addItem(horizontalSpacer_2);
-
-        horizontalLayout_4 = new QHBoxLayout();
-        horizontalLayout_4->setObjectName("horizontalLayout_4");
-        Addroombtn_2 = new QPushButton(layoutWidget_2);
-        Addroombtn_2->setObjectName("Addroombtn_2");
-        Addroombtn_2->setMinimumSize(QSize(55, 18));
-        Addroombtn_2->setStyleSheet(QString::fromUtf8("QPushButton{\n"
-"/background-color: #34D481;\n"
-"/color:white;\n"
-"/border:none;\n"
-"/border-radius: 8px;\n"
-"/font-weight:bold;\n"
-"/font-size: 10px;\n"
-"}"));
-        Addroombtn_2->setCheckable(true);
-
-        horizontalLayout_4->addWidget(Addroombtn_2);
-
-        pushButton_3 = new QPushButton(layoutWidget_2);
-        pushButton_3->setObjectName("pushButton_3");
-        pushButton_3->setMinimumSize(QSize(18, 18));
-        pushButton_3->setStyleSheet(QString::fromUtf8("QPushButton{\n"
-"/background-color: #585858;\n"
-"/color:white;\n"
-"/border:none;\n"
-"/border-radius: 8px;\n"
-"/font-weight:bold;\n"
-"/font-size: 10px;\n"
-"}"));
-        pushButton_3->setCheckable(true);
-
-        horizontalLayout_4->addWidget(pushButton_3);
-
-
-        horizontalLayout_3->addLayout(horizontalLayout_4);
-
-
-        verticalLayout_3->addLayout(horizontalLayout_3);
-
-        line_2 = new QFrame(Addroom);
-        line_2->setObjectName("line_2");
-        line_2->setGeometry(QRect(70, 90, 201, 20));
-        line_2->setFrameShape(QFrame::Shape::HLine);
-        line_2->setFrameShadow(QFrame::Shadow::Sunken);
-        label_4 = new QLabel(Addroom);
-        label_4->setObjectName("label_4");
-        label_4->setGeometry(QRect(70, 70, 161, 21));
-        label_4->setFont(font);
 
         retranslateUi(Addroom);
         QObject::connect(pushButton_2, &QPushButton::toggled, Addroom, qOverload<>(&QDialog::close));
@@ -233,17 +144,12 @@ public:
 
     void retranslateUi(QDialog *Addroom)
     {
-        Addroom->setWindowTitle(QCoreApplication::translate("Addroom", "Dialog", nullptr));
+        Addroom->setWindowTitle(QCoreApplication::translate("Addroom", "Add Room", nullptr));
         label_2->setText(QCoreApplication::translate("Addroom", " Add Room", nullptr));
-        label->setText(QCoreApplication::translate("Addroom", "Nh\341\272\255p lo\341\272\241i ph\303\262ng", nullptr));
+        label->setText(QCoreApplication::translate("Addroom", "Enter Room Type", nullptr));
         newRT->setPlaceholderText(QCoreApplication::translate("Addroom", "RT. ...", nullptr));
         Addroombtn->setText(QCoreApplication::translate("Addroom", "Add Room", nullptr));
         pushButton_2->setText(QCoreApplication::translate("Addroom", "Cancel", nullptr));
-        label_3->setText(QCoreApplication::translate("Addroom", "Nh\341\272\255p lo\341\272\241i ph\303\262ng", nullptr));
-        newRT_2->setPlaceholderText(QCoreApplication::translate("Addroom", "RT. ...", nullptr));
-        Addroombtn_2->setText(QCoreApplication::translate("Addroom", "Add Room", nullptr));
-        pushButton_3->setText(QCoreApplication::translate("Addroom", "Cancel", nullptr));
-        label_4->setText(QCoreApplication::translate("Addroom", " Add Room", nullptr));
     } // retranslateUi
 
 };

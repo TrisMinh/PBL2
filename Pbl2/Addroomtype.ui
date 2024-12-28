@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Add Room Type</string>
   </property>
   <property name="styleSheet">
    <string notr="true">QLineEdit{
@@ -51,7 +51,7 @@ border-radius:5px;
     <enum>Qt::Orientation::Horizontal</enum>
    </property>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -83,7 +83,7 @@ border-radius:5px;
          </font>
         </property>
         <property name="text">
-         <string>Nhập tên loại phòng</string>
+         <string>Enter Room Type Name</string>
         </property>
        </widget>
       </item>
@@ -92,7 +92,7 @@ border-radius:5px;
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>25</height>
+          <height>30</height>
          </size>
         </property>
         <property name="placeholderText">
@@ -121,7 +121,7 @@ border-radius:5px;
          </font>
         </property>
         <property name="text">
-         <string>Nhập mô tả</string>
+         <string>Enter Description</string>
         </property>
        </widget>
       </item>
@@ -130,7 +130,7 @@ border-radius:5px;
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>25</height>
+          <height>30</height>
          </size>
         </property>
         <property name="placeholderText">
@@ -159,7 +159,7 @@ border-radius:5px;
          </font>
         </property>
         <property name="text">
-         <string>Nhập giá</string>
+         <string>Enter Price</string>
         </property>
        </widget>
       </item>
@@ -168,7 +168,7 @@ border-radius:5px;
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>25</height>
+          <height>30</height>
          </size>
         </property>
         <property name="placeholderText">
@@ -200,7 +200,7 @@ border-radius:5px;
           <property name="minimumSize">
            <size>
             <width>55</width>
-            <height>18</height>
+            <height>25</height>
            </size>
           </property>
           <property name="styleSheet">
@@ -217,7 +217,7 @@ border-radius:5px;
            <string>Add Room Type</string>
           </property>
           <property name="checkable">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
          </widget>
         </item>
@@ -226,7 +226,7 @@ border-radius:5px;
           <property name="minimumSize">
            <size>
             <width>18</width>
-            <height>18</height>
+            <height>25</height>
            </size>
           </property>
           <property name="styleSheet">
@@ -255,5 +255,22 @@ border-radius:5px;
   </widget>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>pushButton_4</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>Addroomtype</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>209</x>
+     <y>253</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>207</x>
+     <y>312</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

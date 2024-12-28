@@ -69,7 +69,7 @@ void User::AccandNotipopup() {
     line->setFrameShadow(QFrame::Sunken);
     buttonsLayout->addWidget(line);
 
-    QPushButton *logoutBtn = new QPushButton("Log Out", AccPopup);
+    QPushButton *logoutBtn = new QPushButton("Sign Out", AccPopup);
     logoutBtn->setStyleSheet("border: none; padding: 10px;text-align: left;");
     buttonsLayout->addWidget(logoutBtn);
 
@@ -267,6 +267,8 @@ void User::on_pushButton_2_clicked()
 }
 
 void User::managerooms(){
+    QAction *searchAction = new QAction(QIcon(":/new/prefix1/Resources/loupe.png"), "Search", this);
+    ui->LineEditSearchRoom->addAction(searchAction, QLineEdit::LeadingPosition);
     Room::searchByStatus(0, this);
     // ui->totalroom->setText(QString::number(Room::total));
     ui->table1->horizontalHeader()->setStyleSheet("QHeaderView::section { border: none; }");
@@ -368,6 +370,8 @@ void User::showmyroom(){
 }
 
 void User::manageservices(){
+    QAction *searchAction = new QAction(QIcon(":/new/prefix1/Resources/loupe.png"), "Search", this);
+    ui->LineEditSearchSer->addAction(searchAction, QLineEdit::LeadingPosition);
     ui->SerTable->horizontalHeader()->setStyleSheet("QHeaderView::section { border: none; }");
     ui->SerTable->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
     ui->SerTable->horizontalHeaderItem(ui->SerTable->columnCount() - 1)->setTextAlignment(Qt::AlignCenter);
@@ -420,7 +424,7 @@ void User::displayRooms(const Room& room) {
     QWidget* buttonWidget = new QWidget();
     QPushButton* editButton = new QPushButton();
     editButton->setIcon(QIcon(":/new/prefix1/Resources/booking2.png"));
-    editButton->setToolTip("Edit this room");
+    editButton->setToolTip("Book");
     connect(editButton, &QPushButton::clicked, this, [this, row]() {
         onEditButtonClicked(row);
     });
@@ -449,14 +453,16 @@ void User::displayServices(const Service& s) {
         while (current) {
             if (ui->listWidget->currentItem()->text() == current->data.getRoomID() && ui->SerTable->item(row, 0)->text() == current->data.getServiceID()){
                 ui->SerTable->setItem(row, 5, new QTableWidgetItem(QString::fromStdString(current->data.getStatus()? "Active" : "Inactive")));
+                break;
             }
+            ui->SerTable->setItem(row, 5, new QTableWidgetItem(QString::fromStdString("Inactive")));
             current = current->next;
         }
         if (ui->SerTable->item(row, 5)->text() == "Inactive"){
             QWidget* buttonWidget = new QWidget();
             QPushButton* edit_Ser_btn = new QPushButton();
             // edit_Ser_btn->setIcon(QIcon(":/new/prefix1/Resources/edit.png"));
-            edit_Ser_btn->setText("Đăng ký");
+            edit_Ser_btn->setText("Register");
             connect(edit_Ser_btn, &QPushButton::clicked, this, [this, row]() {
                 onedit_Ser_btnClicked(row);
             });
@@ -473,7 +479,7 @@ void User::displayServices(const Service& s) {
             QWidget* buttonWidget = new QWidget();
             QPushButton* delete_Ser_btn = new QPushButton();
             // delete_Ser_btn->setIcon(QIcon(":/new/prefix1/Resources/delete.png"));
-            delete_Ser_btn->setText("Hủy");
+            delete_Ser_btn->setText("Unregister");
             connect(delete_Ser_btn, &QPushButton::clicked, this, [this, row]() {
                 ondelete_Ser_btnClicked(row);
             });
@@ -570,7 +576,7 @@ void User::displayPayments(const Payment& p){
 
         QPushButton* pay_btn = new QPushButton();
         // terminate_btn->setIcon(QIcon(":/new/prefix1/Resources/rejectcontract.png"));
-        pay_btn->setText("Thanh toán");
+        pay_btn->setText("Pay");
         connect(pay_btn, &QPushButton::clicked, this, [this, row]() {
             onpay_btnbtnClicked(row);
         });
@@ -708,7 +714,7 @@ void User::onpay_btnbtnClicked(int row){
     pay.exec();
     ui->PaymentTable->clearContents();
     ui->PaymentTable->setRowCount(0);
-    Payment::showAllPayments(this);
+    Payment::searchByTenantID(Account::currentTenantID, this);
 }
 
 void User::updateAllFile() {
@@ -797,3 +803,11 @@ void User::on_RefPaymentbtn_clicked()
     Payment::searchByTenantID(Account::currentTenantID, this);
 }
 
+void User::on_Refbtn_clicked()
+{
+    ui->table1->clearContents();
+    ui->table1->setRowCount(0);
+    Room::searchByStatus(0, this);
+    ui->LineEditSearchRoom->clear();
+    ui->CBSR->setCurrentIndex(0);
+}

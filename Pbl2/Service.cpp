@@ -61,8 +61,8 @@ void Service::showAllServices(User* adminWindow) {
     serviceList.show(adminWindow);
 }
 
-void Service::addService(const string& name, int price, const string& des) {
-    Service service(name, price, des);
+void Service::addService(const string& name, int price, const string& des, bool mandatory) {
+    Service service(name, price, des, mandatory);
     serviceList.add(service);
     total++;
     Service::updateFile("Service.txt");

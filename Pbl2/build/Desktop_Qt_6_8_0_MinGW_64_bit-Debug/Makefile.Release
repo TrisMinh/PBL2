@@ -296,6 +296,7 @@ release/qrc_Resources.cpp: ../../Resources.qrc \
 		../../Resources/Statisticsbig1.png \
 		../../Resources/Personb1.png \
 		../../Resources/add.png \
+		../../Resources/Pbl2.jpg \
 		../../Resources/rejectcontract.png \
 		../../Resources/dashboardbig1.png \
 		../../Resources/bookingbing.png \
@@ -513,7 +514,7 @@ release/moc_AddService.cpp: ../../AddService.h \
 		D:/Qt/6.8.0/mingw_64/include/QtGui/qguiapplication_platform.h \
 		release/moc_predefs.h \
 		D:/Qt/6.8.0/mingw_64/bin/moc.exe
-	D:\Qt\6.8.0\mingw_64\bin\moc.exe $(DEFINES) --include C:/Users/minht/Downloads/Pbl2/Pbl2/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/release/moc_predefs.h -ID:/Qt/6.8.0/mingw_64/mkspecs/win32-g++ -IC:/Users/minht/Downloads/Pbl2/Pbl2 -ID:/Qt/6.8.0/mingw_64/include -ID:/Qt/6.8.0/mingw_64/include/QtCharts -ID:/Qt/6.8.0/mingw_64/include/QtOpenGLWidgets -ID:/Qt/6.8.0/mingw_64/include/QtWidgets -ID:/Qt/6.8.0/mingw_64/include/QtOpenGL -ID:/Qt/6.8.0/mingw_64/include/QtGui -ID:/Qt/6.8.0/mingw_64/include/QtCore -I. -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++ -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32 -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed -IE:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include ..\..\AddService.h -o release\moc_AddService.cpp
+	D:\Qt\6.8.0\mingw_64\bin\moc.exe $(DEFINES) --include C:/Users/minht/Downloads/pbl2new/Pbl2/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/release/moc_predefs.h -ID:/Qt/6.8.0/mingw_64/mkspecs/win32-g++ -IC:/Users/minht/Downloads/pbl2new/Pbl2 -ID:/Qt/6.8.0/mingw_64/include -ID:/Qt/6.8.0/mingw_64/include/QtCharts -ID:/Qt/6.8.0/mingw_64/include/QtOpenGLWidgets -ID:/Qt/6.8.0/mingw_64/include/QtWidgets -ID:/Qt/6.8.0/mingw_64/include/QtOpenGL -ID:/Qt/6.8.0/mingw_64/include/QtGui -ID:/Qt/6.8.0/mingw_64/include/QtCore -I. -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++ -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32 -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed -IE:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include ..\..\AddService.h -o release\moc_AddService.cpp
 
 release/moc_Addroom.cpp: ../../Addroom.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QDialog \
@@ -708,7 +709,7 @@ release/moc_Addroom.cpp: ../../Addroom.h \
 		D:/Qt/6.8.0/mingw_64/include/QtGui/qguiapplication_platform.h \
 		release/moc_predefs.h \
 		D:/Qt/6.8.0/mingw_64/bin/moc.exe
-	D:\Qt\6.8.0\mingw_64\bin\moc.exe $(DEFINES) --include C:/Users/minht/Downloads/Pbl2/Pbl2/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/release/moc_predefs.h -ID:/Qt/6.8.0/mingw_64/mkspecs/win32-g++ -IC:/Users/minht/Downloads/Pbl2/Pbl2 -ID:/Qt/6.8.0/mingw_64/include -ID:/Qt/6.8.0/mingw_64/include/QtCharts -ID:/Qt/6.8.0/mingw_64/include/QtOpenGLWidgets -ID:/Qt/6.8.0/mingw_64/include/QtWidgets -ID:/Qt/6.8.0/mingw_64/include/QtOpenGL -ID:/Qt/6.8.0/mingw_64/include/QtGui -ID:/Qt/6.8.0/mingw_64/include/QtCore -I. -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++ -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32 -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed -IE:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include ..\..\Addroom.h -o release\moc_Addroom.cpp
+	D:\Qt\6.8.0\mingw_64\bin\moc.exe $(DEFINES) --include C:/Users/minht/Downloads/pbl2new/Pbl2/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/release/moc_predefs.h -ID:/Qt/6.8.0/mingw_64/mkspecs/win32-g++ -IC:/Users/minht/Downloads/pbl2new/Pbl2 -ID:/Qt/6.8.0/mingw_64/include -ID:/Qt/6.8.0/mingw_64/include/QtCharts -ID:/Qt/6.8.0/mingw_64/include/QtOpenGLWidgets -ID:/Qt/6.8.0/mingw_64/include/QtWidgets -ID:/Qt/6.8.0/mingw_64/include/QtOpenGL -ID:/Qt/6.8.0/mingw_64/include/QtGui -ID:/Qt/6.8.0/mingw_64/include/QtCore -I. -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++ -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32 -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed -IE:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include ..\..\Addroom.h -o release\moc_Addroom.cpp
 
 release/moc_Addroomtype.cpp: ../../Addroomtype.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QDialog \
@@ -903,7 +904,7 @@ release/moc_Addroomtype.cpp: ../../Addroomtype.h \
 		D:/Qt/6.8.0/mingw_64/include/QtGui/qguiapplication_platform.h \
 		release/moc_predefs.h \
 		D:/Qt/6.8.0/mingw_64/bin/moc.exe
-	D:\Qt\6.8.0\mingw_64\bin\moc.exe $(DEFINES) --include C:/Users/minht/Downloads/Pbl2/Pbl2/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/release/moc_predefs.h -ID:/Qt/6.8.0/mingw_64/mkspecs/win32-g++ -IC:/Users/minht/Downloads/Pbl2/Pbl2 -ID:/Qt/6.8.0/mingw_64/include -ID:/Qt/6.8.0/mingw_64/include/QtCharts -ID:/Qt/6.8.0/mingw_64/include/QtOpenGLWidgets -ID:/Qt/6.8.0/mingw_64/include/QtWidgets -ID:/Qt/6.8.0/mingw_64/include/QtOpenGL -ID:/Qt/6.8.0/mingw_64/include/QtGui -ID:/Qt/6.8.0/mingw_64/include/QtCore -I. -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++ -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32 -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed -IE:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include ..\..\Addroomtype.h -o release\moc_Addroomtype.cpp
+	D:\Qt\6.8.0\mingw_64\bin\moc.exe $(DEFINES) --include C:/Users/minht/Downloads/pbl2new/Pbl2/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/release/moc_predefs.h -ID:/Qt/6.8.0/mingw_64/mkspecs/win32-g++ -IC:/Users/minht/Downloads/pbl2new/Pbl2 -ID:/Qt/6.8.0/mingw_64/include -ID:/Qt/6.8.0/mingw_64/include/QtCharts -ID:/Qt/6.8.0/mingw_64/include/QtOpenGLWidgets -ID:/Qt/6.8.0/mingw_64/include/QtWidgets -ID:/Qt/6.8.0/mingw_64/include/QtOpenGL -ID:/Qt/6.8.0/mingw_64/include/QtGui -ID:/Qt/6.8.0/mingw_64/include/QtCore -I. -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++ -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32 -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed -IE:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include ..\..\Addroomtype.h -o release\moc_Addroomtype.cpp
 
 release/moc_Adminaccount.cpp: ../../Adminaccount.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QDialog \
@@ -1098,7 +1099,7 @@ release/moc_Adminaccount.cpp: ../../Adminaccount.h \
 		D:/Qt/6.8.0/mingw_64/include/QtGui/qguiapplication_platform.h \
 		release/moc_predefs.h \
 		D:/Qt/6.8.0/mingw_64/bin/moc.exe
-	D:\Qt\6.8.0\mingw_64\bin\moc.exe $(DEFINES) --include C:/Users/minht/Downloads/Pbl2/Pbl2/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/release/moc_predefs.h -ID:/Qt/6.8.0/mingw_64/mkspecs/win32-g++ -IC:/Users/minht/Downloads/Pbl2/Pbl2 -ID:/Qt/6.8.0/mingw_64/include -ID:/Qt/6.8.0/mingw_64/include/QtCharts -ID:/Qt/6.8.0/mingw_64/include/QtOpenGLWidgets -ID:/Qt/6.8.0/mingw_64/include/QtWidgets -ID:/Qt/6.8.0/mingw_64/include/QtOpenGL -ID:/Qt/6.8.0/mingw_64/include/QtGui -ID:/Qt/6.8.0/mingw_64/include/QtCore -I. -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++ -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32 -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed -IE:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include ..\..\Adminaccount.h -o release\moc_Adminaccount.cpp
+	D:\Qt\6.8.0\mingw_64\bin\moc.exe $(DEFINES) --include C:/Users/minht/Downloads/pbl2new/Pbl2/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/release/moc_predefs.h -ID:/Qt/6.8.0/mingw_64/mkspecs/win32-g++ -IC:/Users/minht/Downloads/pbl2new/Pbl2 -ID:/Qt/6.8.0/mingw_64/include -ID:/Qt/6.8.0/mingw_64/include/QtCharts -ID:/Qt/6.8.0/mingw_64/include/QtOpenGLWidgets -ID:/Qt/6.8.0/mingw_64/include/QtWidgets -ID:/Qt/6.8.0/mingw_64/include/QtOpenGL -ID:/Qt/6.8.0/mingw_64/include/QtGui -ID:/Qt/6.8.0/mingw_64/include/QtCore -I. -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++ -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32 -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed -IE:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include ..\..\Adminaccount.h -o release\moc_Adminaccount.cpp
 
 release/moc_Booking.cpp: ../../Booking.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QDialog \
@@ -1293,7 +1294,7 @@ release/moc_Booking.cpp: ../../Booking.h \
 		D:/Qt/6.8.0/mingw_64/include/QtGui/qguiapplication_platform.h \
 		release/moc_predefs.h \
 		D:/Qt/6.8.0/mingw_64/bin/moc.exe
-	D:\Qt\6.8.0\mingw_64\bin\moc.exe $(DEFINES) --include C:/Users/minht/Downloads/Pbl2/Pbl2/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/release/moc_predefs.h -ID:/Qt/6.8.0/mingw_64/mkspecs/win32-g++ -IC:/Users/minht/Downloads/Pbl2/Pbl2 -ID:/Qt/6.8.0/mingw_64/include -ID:/Qt/6.8.0/mingw_64/include/QtCharts -ID:/Qt/6.8.0/mingw_64/include/QtOpenGLWidgets -ID:/Qt/6.8.0/mingw_64/include/QtWidgets -ID:/Qt/6.8.0/mingw_64/include/QtOpenGL -ID:/Qt/6.8.0/mingw_64/include/QtGui -ID:/Qt/6.8.0/mingw_64/include/QtCore -I. -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++ -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32 -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed -IE:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include ..\..\Booking.h -o release\moc_Booking.cpp
+	D:\Qt\6.8.0\mingw_64\bin\moc.exe $(DEFINES) --include C:/Users/minht/Downloads/pbl2new/Pbl2/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/release/moc_predefs.h -ID:/Qt/6.8.0/mingw_64/mkspecs/win32-g++ -IC:/Users/minht/Downloads/pbl2new/Pbl2 -ID:/Qt/6.8.0/mingw_64/include -ID:/Qt/6.8.0/mingw_64/include/QtCharts -ID:/Qt/6.8.0/mingw_64/include/QtOpenGLWidgets -ID:/Qt/6.8.0/mingw_64/include/QtWidgets -ID:/Qt/6.8.0/mingw_64/include/QtOpenGL -ID:/Qt/6.8.0/mingw_64/include/QtGui -ID:/Qt/6.8.0/mingw_64/include/QtCore -I. -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++ -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32 -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed -IE:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include ..\..\Booking.h -o release\moc_Booking.cpp
 
 release/moc_Createpayment.cpp: ../../Createpayment.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QDialog \
@@ -1488,7 +1489,7 @@ release/moc_Createpayment.cpp: ../../Createpayment.h \
 		D:/Qt/6.8.0/mingw_64/include/QtGui/qguiapplication_platform.h \
 		release/moc_predefs.h \
 		D:/Qt/6.8.0/mingw_64/bin/moc.exe
-	D:\Qt\6.8.0\mingw_64\bin\moc.exe $(DEFINES) --include C:/Users/minht/Downloads/Pbl2/Pbl2/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/release/moc_predefs.h -ID:/Qt/6.8.0/mingw_64/mkspecs/win32-g++ -IC:/Users/minht/Downloads/Pbl2/Pbl2 -ID:/Qt/6.8.0/mingw_64/include -ID:/Qt/6.8.0/mingw_64/include/QtCharts -ID:/Qt/6.8.0/mingw_64/include/QtOpenGLWidgets -ID:/Qt/6.8.0/mingw_64/include/QtWidgets -ID:/Qt/6.8.0/mingw_64/include/QtOpenGL -ID:/Qt/6.8.0/mingw_64/include/QtGui -ID:/Qt/6.8.0/mingw_64/include/QtCore -I. -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++ -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32 -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed -IE:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include ..\..\Createpayment.h -o release\moc_Createpayment.cpp
+	D:\Qt\6.8.0\mingw_64\bin\moc.exe $(DEFINES) --include C:/Users/minht/Downloads/pbl2new/Pbl2/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/release/moc_predefs.h -ID:/Qt/6.8.0/mingw_64/mkspecs/win32-g++ -IC:/Users/minht/Downloads/pbl2new/Pbl2 -ID:/Qt/6.8.0/mingw_64/include -ID:/Qt/6.8.0/mingw_64/include/QtCharts -ID:/Qt/6.8.0/mingw_64/include/QtOpenGLWidgets -ID:/Qt/6.8.0/mingw_64/include/QtWidgets -ID:/Qt/6.8.0/mingw_64/include/QtOpenGL -ID:/Qt/6.8.0/mingw_64/include/QtGui -ID:/Qt/6.8.0/mingw_64/include/QtCore -I. -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++ -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32 -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed -IE:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include ..\..\Createpayment.h -o release\moc_Createpayment.cpp
 
 release/moc_Editroom.cpp: ../../Editroom.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QDialog \
@@ -1683,7 +1684,7 @@ release/moc_Editroom.cpp: ../../Editroom.h \
 		D:/Qt/6.8.0/mingw_64/include/QtGui/qguiapplication_platform.h \
 		release/moc_predefs.h \
 		D:/Qt/6.8.0/mingw_64/bin/moc.exe
-	D:\Qt\6.8.0\mingw_64\bin\moc.exe $(DEFINES) --include C:/Users/minht/Downloads/Pbl2/Pbl2/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/release/moc_predefs.h -ID:/Qt/6.8.0/mingw_64/mkspecs/win32-g++ -IC:/Users/minht/Downloads/Pbl2/Pbl2 -ID:/Qt/6.8.0/mingw_64/include -ID:/Qt/6.8.0/mingw_64/include/QtCharts -ID:/Qt/6.8.0/mingw_64/include/QtOpenGLWidgets -ID:/Qt/6.8.0/mingw_64/include/QtWidgets -ID:/Qt/6.8.0/mingw_64/include/QtOpenGL -ID:/Qt/6.8.0/mingw_64/include/QtGui -ID:/Qt/6.8.0/mingw_64/include/QtCore -I. -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++ -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32 -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed -IE:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include ..\..\Editroom.h -o release\moc_Editroom.cpp
+	D:\Qt\6.8.0\mingw_64\bin\moc.exe $(DEFINES) --include C:/Users/minht/Downloads/pbl2new/Pbl2/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/release/moc_predefs.h -ID:/Qt/6.8.0/mingw_64/mkspecs/win32-g++ -IC:/Users/minht/Downloads/pbl2new/Pbl2 -ID:/Qt/6.8.0/mingw_64/include -ID:/Qt/6.8.0/mingw_64/include/QtCharts -ID:/Qt/6.8.0/mingw_64/include/QtOpenGLWidgets -ID:/Qt/6.8.0/mingw_64/include/QtWidgets -ID:/Qt/6.8.0/mingw_64/include/QtOpenGL -ID:/Qt/6.8.0/mingw_64/include/QtGui -ID:/Qt/6.8.0/mingw_64/include/QtCore -I. -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++ -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32 -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed -IE:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include ..\..\Editroom.h -o release\moc_Editroom.cpp
 
 release/moc_Editroomtype.cpp: ../../Editroomtype.h \
 		../../RoomType.h \
@@ -2353,7 +2354,7 @@ release/moc_Editroomtype.cpp: ../../Editroomtype.h \
 		../../LinkedList.cpp \
 		release/moc_predefs.h \
 		D:/Qt/6.8.0/mingw_64/bin/moc.exe
-	D:\Qt\6.8.0\mingw_64\bin\moc.exe $(DEFINES) --include C:/Users/minht/Downloads/Pbl2/Pbl2/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/release/moc_predefs.h -ID:/Qt/6.8.0/mingw_64/mkspecs/win32-g++ -IC:/Users/minht/Downloads/Pbl2/Pbl2 -ID:/Qt/6.8.0/mingw_64/include -ID:/Qt/6.8.0/mingw_64/include/QtCharts -ID:/Qt/6.8.0/mingw_64/include/QtOpenGLWidgets -ID:/Qt/6.8.0/mingw_64/include/QtWidgets -ID:/Qt/6.8.0/mingw_64/include/QtOpenGL -ID:/Qt/6.8.0/mingw_64/include/QtGui -ID:/Qt/6.8.0/mingw_64/include/QtCore -I. -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++ -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32 -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed -IE:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include ..\..\Editroomtype.h -o release\moc_Editroomtype.cpp
+	D:\Qt\6.8.0\mingw_64\bin\moc.exe $(DEFINES) --include C:/Users/minht/Downloads/pbl2new/Pbl2/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/release/moc_predefs.h -ID:/Qt/6.8.0/mingw_64/mkspecs/win32-g++ -IC:/Users/minht/Downloads/pbl2new/Pbl2 -ID:/Qt/6.8.0/mingw_64/include -ID:/Qt/6.8.0/mingw_64/include/QtCharts -ID:/Qt/6.8.0/mingw_64/include/QtOpenGLWidgets -ID:/Qt/6.8.0/mingw_64/include/QtWidgets -ID:/Qt/6.8.0/mingw_64/include/QtOpenGL -ID:/Qt/6.8.0/mingw_64/include/QtGui -ID:/Qt/6.8.0/mingw_64/include/QtCore -I. -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++ -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32 -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed -IE:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include ..\..\Editroomtype.h -o release\moc_Editroomtype.cpp
 
 release/moc_Editservice.cpp: ../../Editservice.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QDialog \
@@ -2548,7 +2549,7 @@ release/moc_Editservice.cpp: ../../Editservice.h \
 		D:/Qt/6.8.0/mingw_64/include/QtGui/qguiapplication_platform.h \
 		release/moc_predefs.h \
 		D:/Qt/6.8.0/mingw_64/bin/moc.exe
-	D:\Qt\6.8.0\mingw_64\bin\moc.exe $(DEFINES) --include C:/Users/minht/Downloads/Pbl2/Pbl2/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/release/moc_predefs.h -ID:/Qt/6.8.0/mingw_64/mkspecs/win32-g++ -IC:/Users/minht/Downloads/Pbl2/Pbl2 -ID:/Qt/6.8.0/mingw_64/include -ID:/Qt/6.8.0/mingw_64/include/QtCharts -ID:/Qt/6.8.0/mingw_64/include/QtOpenGLWidgets -ID:/Qt/6.8.0/mingw_64/include/QtWidgets -ID:/Qt/6.8.0/mingw_64/include/QtOpenGL -ID:/Qt/6.8.0/mingw_64/include/QtGui -ID:/Qt/6.8.0/mingw_64/include/QtCore -I. -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++ -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32 -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed -IE:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include ..\..\Editservice.h -o release\moc_Editservice.cpp
+	D:\Qt\6.8.0\mingw_64\bin\moc.exe $(DEFINES) --include C:/Users/minht/Downloads/pbl2new/Pbl2/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/release/moc_predefs.h -ID:/Qt/6.8.0/mingw_64/mkspecs/win32-g++ -IC:/Users/minht/Downloads/pbl2new/Pbl2 -ID:/Qt/6.8.0/mingw_64/include -ID:/Qt/6.8.0/mingw_64/include/QtCharts -ID:/Qt/6.8.0/mingw_64/include/QtOpenGLWidgets -ID:/Qt/6.8.0/mingw_64/include/QtWidgets -ID:/Qt/6.8.0/mingw_64/include/QtOpenGL -ID:/Qt/6.8.0/mingw_64/include/QtGui -ID:/Qt/6.8.0/mingw_64/include/QtCore -I. -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++ -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32 -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed -IE:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include ..\..\Editservice.h -o release\moc_Editservice.cpp
 
 release/moc_Edittenant.cpp: ../../Edittenant.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QDialog \
@@ -2743,7 +2744,7 @@ release/moc_Edittenant.cpp: ../../Edittenant.h \
 		D:/Qt/6.8.0/mingw_64/include/QtGui/qguiapplication_platform.h \
 		release/moc_predefs.h \
 		D:/Qt/6.8.0/mingw_64/bin/moc.exe
-	D:\Qt\6.8.0\mingw_64\bin\moc.exe $(DEFINES) --include C:/Users/minht/Downloads/Pbl2/Pbl2/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/release/moc_predefs.h -ID:/Qt/6.8.0/mingw_64/mkspecs/win32-g++ -IC:/Users/minht/Downloads/Pbl2/Pbl2 -ID:/Qt/6.8.0/mingw_64/include -ID:/Qt/6.8.0/mingw_64/include/QtCharts -ID:/Qt/6.8.0/mingw_64/include/QtOpenGLWidgets -ID:/Qt/6.8.0/mingw_64/include/QtWidgets -ID:/Qt/6.8.0/mingw_64/include/QtOpenGL -ID:/Qt/6.8.0/mingw_64/include/QtGui -ID:/Qt/6.8.0/mingw_64/include/QtCore -I. -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++ -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32 -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed -IE:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include ..\..\Edittenant.h -o release\moc_Edittenant.cpp
+	D:\Qt\6.8.0\mingw_64\bin\moc.exe $(DEFINES) --include C:/Users/minht/Downloads/pbl2new/Pbl2/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/release/moc_predefs.h -ID:/Qt/6.8.0/mingw_64/mkspecs/win32-g++ -IC:/Users/minht/Downloads/pbl2new/Pbl2 -ID:/Qt/6.8.0/mingw_64/include -ID:/Qt/6.8.0/mingw_64/include/QtCharts -ID:/Qt/6.8.0/mingw_64/include/QtOpenGLWidgets -ID:/Qt/6.8.0/mingw_64/include/QtWidgets -ID:/Qt/6.8.0/mingw_64/include/QtOpenGL -ID:/Qt/6.8.0/mingw_64/include/QtGui -ID:/Qt/6.8.0/mingw_64/include/QtCore -I. -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++ -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32 -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed -IE:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include ..\..\Edittenant.h -o release\moc_Edittenant.cpp
 
 release/moc_Extend.cpp: ../../Extend.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QDialog \
@@ -2938,7 +2939,7 @@ release/moc_Extend.cpp: ../../Extend.h \
 		D:/Qt/6.8.0/mingw_64/include/QtGui/qguiapplication_platform.h \
 		release/moc_predefs.h \
 		D:/Qt/6.8.0/mingw_64/bin/moc.exe
-	D:\Qt\6.8.0\mingw_64\bin\moc.exe $(DEFINES) --include C:/Users/minht/Downloads/Pbl2/Pbl2/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/release/moc_predefs.h -ID:/Qt/6.8.0/mingw_64/mkspecs/win32-g++ -IC:/Users/minht/Downloads/Pbl2/Pbl2 -ID:/Qt/6.8.0/mingw_64/include -ID:/Qt/6.8.0/mingw_64/include/QtCharts -ID:/Qt/6.8.0/mingw_64/include/QtOpenGLWidgets -ID:/Qt/6.8.0/mingw_64/include/QtWidgets -ID:/Qt/6.8.0/mingw_64/include/QtOpenGL -ID:/Qt/6.8.0/mingw_64/include/QtGui -ID:/Qt/6.8.0/mingw_64/include/QtCore -I. -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++ -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32 -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed -IE:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include ..\..\Extend.h -o release\moc_Extend.cpp
+	D:\Qt\6.8.0\mingw_64\bin\moc.exe $(DEFINES) --include C:/Users/minht/Downloads/pbl2new/Pbl2/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/release/moc_predefs.h -ID:/Qt/6.8.0/mingw_64/mkspecs/win32-g++ -IC:/Users/minht/Downloads/pbl2new/Pbl2 -ID:/Qt/6.8.0/mingw_64/include -ID:/Qt/6.8.0/mingw_64/include/QtCharts -ID:/Qt/6.8.0/mingw_64/include/QtOpenGLWidgets -ID:/Qt/6.8.0/mingw_64/include/QtWidgets -ID:/Qt/6.8.0/mingw_64/include/QtOpenGL -ID:/Qt/6.8.0/mingw_64/include/QtGui -ID:/Qt/6.8.0/mingw_64/include/QtCore -I. -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++ -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32 -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed -IE:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include ..\..\Extend.h -o release\moc_Extend.cpp
 
 release/moc_Paybill.cpp: ../../Paybill.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QDialog \
@@ -3133,7 +3134,7 @@ release/moc_Paybill.cpp: ../../Paybill.h \
 		D:/Qt/6.8.0/mingw_64/include/QtGui/qguiapplication_platform.h \
 		release/moc_predefs.h \
 		D:/Qt/6.8.0/mingw_64/bin/moc.exe
-	D:\Qt\6.8.0\mingw_64\bin\moc.exe $(DEFINES) --include C:/Users/minht/Downloads/Pbl2/Pbl2/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/release/moc_predefs.h -ID:/Qt/6.8.0/mingw_64/mkspecs/win32-g++ -IC:/Users/minht/Downloads/Pbl2/Pbl2 -ID:/Qt/6.8.0/mingw_64/include -ID:/Qt/6.8.0/mingw_64/include/QtCharts -ID:/Qt/6.8.0/mingw_64/include/QtOpenGLWidgets -ID:/Qt/6.8.0/mingw_64/include/QtWidgets -ID:/Qt/6.8.0/mingw_64/include/QtOpenGL -ID:/Qt/6.8.0/mingw_64/include/QtGui -ID:/Qt/6.8.0/mingw_64/include/QtCore -I. -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++ -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32 -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed -IE:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include ..\..\Paybill.h -o release\moc_Paybill.cpp
+	D:\Qt\6.8.0\mingw_64\bin\moc.exe $(DEFINES) --include C:/Users/minht/Downloads/pbl2new/Pbl2/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/release/moc_predefs.h -ID:/Qt/6.8.0/mingw_64/mkspecs/win32-g++ -IC:/Users/minht/Downloads/pbl2new/Pbl2 -ID:/Qt/6.8.0/mingw_64/include -ID:/Qt/6.8.0/mingw_64/include/QtCharts -ID:/Qt/6.8.0/mingw_64/include/QtOpenGLWidgets -ID:/Qt/6.8.0/mingw_64/include/QtWidgets -ID:/Qt/6.8.0/mingw_64/include/QtOpenGL -ID:/Qt/6.8.0/mingw_64/include/QtGui -ID:/Qt/6.8.0/mingw_64/include/QtCore -I. -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++ -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32 -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed -IE:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include ..\..\Paybill.h -o release\moc_Paybill.cpp
 
 release/moc_Signin.cpp: ../../Signin.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QMainWindow \
@@ -3329,7 +3330,7 @@ release/moc_Signin.cpp: ../../Signin.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qtabwidget.h \
 		release/moc_predefs.h \
 		D:/Qt/6.8.0/mingw_64/bin/moc.exe
-	D:\Qt\6.8.0\mingw_64\bin\moc.exe $(DEFINES) --include C:/Users/minht/Downloads/Pbl2/Pbl2/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/release/moc_predefs.h -ID:/Qt/6.8.0/mingw_64/mkspecs/win32-g++ -IC:/Users/minht/Downloads/Pbl2/Pbl2 -ID:/Qt/6.8.0/mingw_64/include -ID:/Qt/6.8.0/mingw_64/include/QtCharts -ID:/Qt/6.8.0/mingw_64/include/QtOpenGLWidgets -ID:/Qt/6.8.0/mingw_64/include/QtWidgets -ID:/Qt/6.8.0/mingw_64/include/QtOpenGL -ID:/Qt/6.8.0/mingw_64/include/QtGui -ID:/Qt/6.8.0/mingw_64/include/QtCore -I. -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++ -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32 -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed -IE:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include ..\..\Signin.h -o release\moc_Signin.cpp
+	D:\Qt\6.8.0\mingw_64\bin\moc.exe $(DEFINES) --include C:/Users/minht/Downloads/pbl2new/Pbl2/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/release/moc_predefs.h -ID:/Qt/6.8.0/mingw_64/mkspecs/win32-g++ -IC:/Users/minht/Downloads/pbl2new/Pbl2 -ID:/Qt/6.8.0/mingw_64/include -ID:/Qt/6.8.0/mingw_64/include/QtCharts -ID:/Qt/6.8.0/mingw_64/include/QtOpenGLWidgets -ID:/Qt/6.8.0/mingw_64/include/QtWidgets -ID:/Qt/6.8.0/mingw_64/include/QtOpenGL -ID:/Qt/6.8.0/mingw_64/include/QtGui -ID:/Qt/6.8.0/mingw_64/include/QtCore -I. -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++ -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32 -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed -IE:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include ..\..\Signin.h -o release\moc_Signin.cpp
 
 release/moc_User.cpp: ../../User.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QMainWindow \
@@ -3525,7 +3526,7 @@ release/moc_User.cpp: ../../User.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qtabwidget.h \
 		release/moc_predefs.h \
 		D:/Qt/6.8.0/mingw_64/bin/moc.exe
-	D:\Qt\6.8.0\mingw_64\bin\moc.exe $(DEFINES) --include C:/Users/minht/Downloads/Pbl2/Pbl2/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/release/moc_predefs.h -ID:/Qt/6.8.0/mingw_64/mkspecs/win32-g++ -IC:/Users/minht/Downloads/Pbl2/Pbl2 -ID:/Qt/6.8.0/mingw_64/include -ID:/Qt/6.8.0/mingw_64/include/QtCharts -ID:/Qt/6.8.0/mingw_64/include/QtOpenGLWidgets -ID:/Qt/6.8.0/mingw_64/include/QtWidgets -ID:/Qt/6.8.0/mingw_64/include/QtOpenGL -ID:/Qt/6.8.0/mingw_64/include/QtGui -ID:/Qt/6.8.0/mingw_64/include/QtCore -I. -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++ -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32 -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed -IE:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include ..\..\User.h -o release\moc_User.cpp
+	D:\Qt\6.8.0\mingw_64\bin\moc.exe $(DEFINES) --include C:/Users/minht/Downloads/pbl2new/Pbl2/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/release/moc_predefs.h -ID:/Qt/6.8.0/mingw_64/mkspecs/win32-g++ -IC:/Users/minht/Downloads/pbl2new/Pbl2 -ID:/Qt/6.8.0/mingw_64/include -ID:/Qt/6.8.0/mingw_64/include/QtCharts -ID:/Qt/6.8.0/mingw_64/include/QtOpenGLWidgets -ID:/Qt/6.8.0/mingw_64/include/QtWidgets -ID:/Qt/6.8.0/mingw_64/include/QtOpenGL -ID:/Qt/6.8.0/mingw_64/include/QtGui -ID:/Qt/6.8.0/mingw_64/include/QtCore -I. -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++ -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32 -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed -IE:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include ..\..\User.h -o release\moc_User.cpp
 
 release/moc_admin.cpp: ../../admin.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QMainWindow \
@@ -4187,7 +4188,7 @@ release/moc_admin.cpp: ../../admin.h \
 		D:/Qt/6.8.0/mingw_64/include/QtCharts/qxylegendmarker.h \
 		release/moc_predefs.h \
 		D:/Qt/6.8.0/mingw_64/bin/moc.exe
-	D:\Qt\6.8.0\mingw_64\bin\moc.exe $(DEFINES) --include C:/Users/minht/Downloads/Pbl2/Pbl2/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/release/moc_predefs.h -ID:/Qt/6.8.0/mingw_64/mkspecs/win32-g++ -IC:/Users/minht/Downloads/Pbl2/Pbl2 -ID:/Qt/6.8.0/mingw_64/include -ID:/Qt/6.8.0/mingw_64/include/QtCharts -ID:/Qt/6.8.0/mingw_64/include/QtOpenGLWidgets -ID:/Qt/6.8.0/mingw_64/include/QtWidgets -ID:/Qt/6.8.0/mingw_64/include/QtOpenGL -ID:/Qt/6.8.0/mingw_64/include/QtGui -ID:/Qt/6.8.0/mingw_64/include/QtCore -I. -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++ -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32 -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed -IE:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include ..\..\admin.h -o release\moc_admin.cpp
+	D:\Qt\6.8.0\mingw_64\bin\moc.exe $(DEFINES) --include C:/Users/minht/Downloads/pbl2new/Pbl2/build/Desktop_Qt_6_8_0_MinGW_64_bit-Debug/release/moc_predefs.h -ID:/Qt/6.8.0/mingw_64/mkspecs/win32-g++ -IC:/Users/minht/Downloads/pbl2new/Pbl2 -ID:/Qt/6.8.0/mingw_64/include -ID:/Qt/6.8.0/mingw_64/include/QtCharts -ID:/Qt/6.8.0/mingw_64/include/QtOpenGLWidgets -ID:/Qt/6.8.0/mingw_64/include/QtWidgets -ID:/Qt/6.8.0/mingw_64/include/QtOpenGL -ID:/Qt/6.8.0/mingw_64/include/QtGui -ID:/Qt/6.8.0/mingw_64/include/QtCore -I. -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++ -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32 -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed -IE:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include ..\..\admin.h -o release\moc_admin.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -5131,6 +5132,9 @@ release/AddService.o: ../../AddService.cpp ../../AddService.h \
 		D:/Qt/6.8.0/mingw_64/include/QtCore/QVariant \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QApplication \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qapplication.h \
+		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QCheckBox \
+		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qcheckbox.h \
+		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qabstractbutton.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QFrame \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qframe.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QHBoxLayout \
@@ -5150,7 +5154,6 @@ release/AddService.o: ../../AddService.cpp ../../AddService.h \
 		D:/Qt/6.8.0/mingw_64/include/QtGui/qtextoption.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QPushButton \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qpushbutton.h \
-		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qabstractbutton.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QSpacerItem \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QVBoxLayout \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QWidget \
@@ -5392,7 +5395,6 @@ release/AddService.o: ../../AddService.cpp ../../AddService.h \
 		D:/Qt/6.8.0/mingw_64/include/QtGui/QActionGroup \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qbuttongroup.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qcalendarwidget.h \
-		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qcheckbox.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qcolordialog.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qcolormap.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qcolumnview.h \
@@ -18811,6 +18813,14 @@ release/Signin.o: ../../Signin.cpp ../../Signin.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qframe.h \
 		D:/Qt/6.8.0/mingw_64/include/QtCore/qabstractitemmodel.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QFrame \
+		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QGraphicsView \
+		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qgraphicsview.h \
+		D:/Qt/6.8.0/mingw_64/include/QtGui/qpainter.h \
+		D:/Qt/6.8.0/mingw_64/include/QtGui/qtextoption.h \
+		D:/Qt/6.8.0/mingw_64/include/QtGui/qpen.h \
+		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qscrollarea.h \
+		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qabstractscrollarea.h \
+		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qgraphicsscene.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QHBoxLayout \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qboxlayout.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qlayout.h \
@@ -18824,8 +18834,6 @@ release/Signin.o: ../../Signin.cpp ../../Signin.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qlineedit.h \
 		D:/Qt/6.8.0/mingw_64/include/QtGui/qtextcursor.h \
 		D:/Qt/6.8.0/mingw_64/include/QtGui/qtextformat.h \
-		D:/Qt/6.8.0/mingw_64/include/QtGui/qpen.h \
-		D:/Qt/6.8.0/mingw_64/include/QtGui/qtextoption.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QPushButton \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qpushbutton.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qabstractbutton.h \
@@ -19023,7 +19031,6 @@ release/Signin.o: ../../Signin.cpp ../../Signin.h \
 		D:/Qt/6.8.0/mingw_64/include/QtGui/QWindow \
 		D:/Qt/6.8.0/mingw_64/include/QtGui/QPaintDevice \
 		D:/Qt/6.8.0/mingw_64/include/QtGui/qpaintengine.h \
-		D:/Qt/6.8.0/mingw_64/include/QtGui/qpainter.h \
 		D:/Qt/6.8.0/mingw_64/include/QtGui/qpainterpath.h \
 		D:/Qt/6.8.0/mingw_64/include/QtGui/qpdfoutputintent.h \
 		D:/Qt/6.8.0/mingw_64/include/QtGui/qpdfwriter.h \
@@ -19049,7 +19056,6 @@ release/Signin.o: ../../Signin.cpp ../../Signin.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QtWidgets \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QtWidgetsDepends \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qabstractitemview.h \
-		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qabstractscrollarea.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qaccessiblewidget.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qaction.h \
 		D:/Qt/6.8.0/mingw_64/include/QtGui/QAction \
@@ -19093,13 +19099,10 @@ release/Signin.o: ../../Signin.cpp ../../Signin.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qgraphicslinearlayout.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qgraphicsproxywidget.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qgraphicswidget.h \
-		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qgraphicsscene.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qgraphicssceneevent.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qgraphicstransform.h \
 		D:/Qt/6.8.0/mingw_64/include/QtGui/QVector3D \
 		D:/Qt/6.8.0/mingw_64/include/QtGui/QMatrix4x4 \
-		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qgraphicsview.h \
-		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qscrollarea.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qgroupbox.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qheaderview.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/qinputdialog.h \
@@ -19233,7 +19236,6 @@ release/Signin.o: ../../Signin.cpp ../../Signin.h \
 		D:/Qt/6.8.0/mingw_64/include/QtCharts/qchart.h \
 		D:/Qt/6.8.0/mingw_64/include/QtCharts/qchartview.h \
 		D:/Qt/6.8.0/mingw_64/include/QtCharts/QChart \
-		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QGraphicsView \
 		D:/Qt/6.8.0/mingw_64/include/QtCharts/qcoloraxis.h \
 		D:/Qt/6.8.0/mingw_64/include/QtCharts/qdatetimeaxis.h \
 		D:/Qt/6.8.0/mingw_64/include/QtCharts/qhbarmodelmapper.h \

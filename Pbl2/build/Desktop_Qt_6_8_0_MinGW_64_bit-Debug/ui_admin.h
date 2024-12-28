@@ -285,7 +285,6 @@ public:
     QLabel *label_21;
     QLabel *totalaccount;
     QSpacerItem *horizontalSpacer_24;
-    QPushButton *Refaccbtn;
     QFrame *frame_11;
     QVBoxLayout *verticalLayout_13;
     QTableWidget *AccountTable;
@@ -1278,7 +1277,7 @@ public:
 
         frame_5 = new QFrame(page_3);
         frame_5->setObjectName("frame_5");
-        frame_5->setMinimumSize(QSize(1020, 600));
+        frame_5->setMinimumSize(QSize(920, 600));
         frame_5->setStyleSheet(QString::fromUtf8("QWidget{\n"
 "background-color: rgb(255, 255, 255);\n"
 "border-radius:15px;\n"
@@ -1587,7 +1586,7 @@ public:
 
         frame_7 = new QFrame(page_5);
         frame_7->setObjectName("frame_7");
-        frame_7->setMinimumSize(QSize(1020, 600));
+        frame_7->setMinimumSize(QSize(1030, 600));
         frame_7->setStyleSheet(QString::fromUtf8("QWidget{\n"
 "background-color: rgb(255, 255, 255);\n"
 "border-radius:15px;\n"
@@ -2017,6 +2016,7 @@ public:
         verticalLayout_16->setObjectName("verticalLayout_16");
         horizontalLayout_41 = new QHBoxLayout();
         horizontalLayout_41->setObjectName("horizontalLayout_41");
+        horizontalLayout_41->setContentsMargins(30, -1, -1, -1);
         label_27 = new QLabel(page_8);
         label_27->setObjectName("label_27");
         label_27->setMinimumSize(QSize(0, 0));
@@ -2189,12 +2189,12 @@ public:
         verticalLayout_16->addLayout(horizontalLayout_41);
 
         horizontalLayout_53 = new QHBoxLayout();
-        horizontalLayout_53->setSpacing(30);
+        horizontalLayout_53->setSpacing(50);
         horizontalLayout_53->setObjectName("horizontalLayout_53");
-        horizontalLayout_53->setContentsMargins(20, 0, 20, 30);
+        horizontalLayout_53->setContentsMargins(30, 0, 30, 30);
         widgetchart_2 = new QWidget(page_8);
         widgetchart_2->setObjectName("widgetchart_2");
-        widgetchart_2->setMinimumSize(QSize(410, 600));
+        widgetchart_2->setMinimumSize(QSize(450, 600));
         widgetchart_2->setMaximumSize(QSize(410, 600));
         widgetchart_2->setStyleSheet(QString::fromUtf8("QWidget{\n"
 "background-color: rgb(255, 255, 255);\n"
@@ -2245,7 +2245,7 @@ public:
         QTableWidgetItem *__qtablewidgetitem51 = new QTableWidgetItem();
         YearTable->setHorizontalHeaderItem(3, __qtablewidgetitem51);
         YearTable->setObjectName("YearTable");
-        YearTable->setAlternatingRowColors(true);
+        YearTable->setAlternatingRowColors(false);
 
         verticalLayout_18->addWidget(YearTable);
 
@@ -2456,13 +2456,6 @@ public:
         horizontalSpacer_24 = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
 
         horizontalLayout_20->addItem(horizontalSpacer_24);
-
-        Refaccbtn = new QPushButton(page_10);
-        Refaccbtn->setObjectName("Refaccbtn");
-        Refaccbtn->setMinimumSize(QSize(65, 28));
-        Refaccbtn->setIcon(icon28);
-
-        horizontalLayout_20->addWidget(Refaccbtn);
 
 
         verticalLayout_26->addLayout(horizontalLayout_20);
@@ -2716,8 +2709,6 @@ public:
         retranslateUi(Admin);
         QObject::connect(roombtn, &QPushButton::toggled, pushButton_3, &QPushButton::setChecked);
         QObject::connect(pushButton_3, &QPushButton::toggled, roombtn, &QPushButton::setChecked);
-        QObject::connect(pushButton_5, &QPushButton::toggled, MI_AD, &QFrame::setVisible);
-        QObject::connect(pushButton_5, &QPushButton::toggled, MIT_AD, &QFrame::setHidden);
         QObject::connect(pushButton_17, &QPushButton::toggled, Tenantbtn, &QPushButton::setChecked);
         QObject::connect(Tenantbtn, &QPushButton::toggled, pushButton_17, &QPushButton::setChecked);
         QObject::connect(Serbtn1, &QPushButton::toggled, Serbtn, &QPushButton::setChecked);
@@ -2738,10 +2729,12 @@ public:
         QObject::connect(Accountbtn, &QPushButton::toggled, Accountbtn1, &QPushButton::setChecked);
         QObject::connect(RoomTypebtn1, &QPushButton::toggled, RoomTypebtn, &QPushButton::setChecked);
         QObject::connect(RoomTypebtn, &QPushButton::toggled, RoomTypebtn1, &QPushButton::setChecked);
+        QObject::connect(pushButton_5, &QPushButton::toggled, MI_AD, &QFrame::setVisible);
+        QObject::connect(pushButton_5, &QPushButton::toggled, MIT_AD, &QFrame::setHidden);
 
-        stackedWidget->setCurrentIndex(3);
+        stackedWidget->setCurrentIndex(1);
         stackedWidget_2->setCurrentIndex(2);
-        stackedWidgetSta->setCurrentIndex(1);
+        stackedWidgetSta->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(Admin);
@@ -2776,7 +2769,7 @@ public:
         signoutbtn->setText(QString());
         pushButton_5->setText(QString());
         notifyButton->setText(QString());
-        Accbtn->setText(QCoreApplication::translate("Admin", "PushButton", nullptr));
+        Accbtn->setText(QString());
         Accbtn_2->setText(QString());
         label->setText(QCoreApplication::translate("Admin", "Dashboard", nullptr));
         label_5->setText(QCoreApplication::translate("Admin", "Room List", nullptr));
@@ -2795,17 +2788,17 @@ public:
         LineEditSearchRoom->setPlaceholderText(QCoreApplication::translate("Admin", "Search here ...", nullptr));
         Refbtn->setText(QCoreApplication::translate("Admin", "Refresh", nullptr));
         QTableWidgetItem *___qtablewidgetitem = table1->horizontalHeaderItem(0);
-        ___qtablewidgetitem->setText(QCoreApplication::translate("Admin", "M\303\243 ph\303\262ng", nullptr));
+        ___qtablewidgetitem->setText(QCoreApplication::translate("Admin", "Room ID", nullptr));
         QTableWidgetItem *___qtablewidgetitem1 = table1->horizontalHeaderItem(1);
-        ___qtablewidgetitem1->setText(QCoreApplication::translate("Admin", "Lo\341\272\241i ph\303\262ng", nullptr));
+        ___qtablewidgetitem1->setText(QCoreApplication::translate("Admin", "Room Type", nullptr));
         QTableWidgetItem *___qtablewidgetitem2 = table1->horizontalHeaderItem(2);
-        ___qtablewidgetitem2->setText(QCoreApplication::translate("Admin", "Tr\341\272\241ng th\303\241i", nullptr));
+        ___qtablewidgetitem2->setText(QCoreApplication::translate("Admin", "Status", nullptr));
         QTableWidgetItem *___qtablewidgetitem3 = table1->horizontalHeaderItem(3);
-        ___qtablewidgetitem3->setText(QCoreApplication::translate("Admin", "M\303\243 kh\303\241ch thu\303\252", nullptr));
+        ___qtablewidgetitem3->setText(QCoreApplication::translate("Admin", "Tenant ID", nullptr));
         QTableWidgetItem *___qtablewidgetitem4 = table1->horizontalHeaderItem(4);
-        ___qtablewidgetitem4->setText(QCoreApplication::translate("Admin", "T\303\252n kh\303\241ch thu\303\252", nullptr));
+        ___qtablewidgetitem4->setText(QCoreApplication::translate("Admin", "Tenant Name", nullptr));
         QTableWidgetItem *___qtablewidgetitem5 = table1->horizontalHeaderItem(5);
-        ___qtablewidgetitem5->setText(QCoreApplication::translate("Admin", "Gi\303\241", nullptr));
+        ___qtablewidgetitem5->setText(QCoreApplication::translate("Admin", "Price", nullptr));
         QTableWidgetItem *___qtablewidgetitem6 = table1->horizontalHeaderItem(6);
         ___qtablewidgetitem6->setText(QCoreApplication::translate("Admin", "Action", nullptr));
         label_7->setText(QCoreApplication::translate("Admin", "Tenant List", nullptr));
@@ -2822,11 +2815,11 @@ public:
         QTableWidgetItem *___qtablewidgetitem7 = TenantTable->horizontalHeaderItem(0);
         ___qtablewidgetitem7->setText(QCoreApplication::translate("Admin", "Tenant ID", nullptr));
         QTableWidgetItem *___qtablewidgetitem8 = TenantTable->horizontalHeaderItem(1);
-        ___qtablewidgetitem8->setText(QCoreApplication::translate("Admin", "T\303\252n", nullptr));
+        ___qtablewidgetitem8->setText(QCoreApplication::translate("Admin", "Name", nullptr));
         QTableWidgetItem *___qtablewidgetitem9 = TenantTable->horizontalHeaderItem(2);
-        ___qtablewidgetitem9->setText(QCoreApplication::translate("Admin", "S\341\273\221 \304\221i\341\273\207n tho\341\272\241i", nullptr));
+        ___qtablewidgetitem9->setText(QCoreApplication::translate("Admin", "Phone Number", nullptr));
         QTableWidgetItem *___qtablewidgetitem10 = TenantTable->horizontalHeaderItem(3);
-        ___qtablewidgetitem10->setText(QCoreApplication::translate("Admin", "Tu\341\273\225i", nullptr));
+        ___qtablewidgetitem10->setText(QCoreApplication::translate("Admin", "Age", nullptr));
         QTableWidgetItem *___qtablewidgetitem11 = TenantTable->horizontalHeaderItem(4);
         ___qtablewidgetitem11->setText(QCoreApplication::translate("Admin", "CCCD", nullptr));
         QTableWidgetItem *___qtablewidgetitem12 = TenantTable->horizontalHeaderItem(5);
@@ -2844,13 +2837,13 @@ public:
         LineEditSearchSer->setPlaceholderText(QCoreApplication::translate("Admin", "Search here ...", nullptr));
         RefbtnSer->setText(QCoreApplication::translate("Admin", "Refresh", nullptr));
         QTableWidgetItem *___qtablewidgetitem14 = SerTable->horizontalHeaderItem(0);
-        ___qtablewidgetitem14->setText(QCoreApplication::translate("Admin", "M\303\243 d\341\273\213ch v\341\273\245", nullptr));
+        ___qtablewidgetitem14->setText(QCoreApplication::translate("Admin", "Service ID", nullptr));
         QTableWidgetItem *___qtablewidgetitem15 = SerTable->horizontalHeaderItem(1);
-        ___qtablewidgetitem15->setText(QCoreApplication::translate("Admin", "T\303\252n d\341\273\213ch v\341\273\245", nullptr));
+        ___qtablewidgetitem15->setText(QCoreApplication::translate("Admin", "Service Name", nullptr));
         QTableWidgetItem *___qtablewidgetitem16 = SerTable->horizontalHeaderItem(2);
-        ___qtablewidgetitem16->setText(QCoreApplication::translate("Admin", "M\303\264 t\341\272\243", nullptr));
+        ___qtablewidgetitem16->setText(QCoreApplication::translate("Admin", "Description", nullptr));
         QTableWidgetItem *___qtablewidgetitem17 = SerTable->horizontalHeaderItem(3);
-        ___qtablewidgetitem17->setText(QCoreApplication::translate("Admin", "Gi\303\241", nullptr));
+        ___qtablewidgetitem17->setText(QCoreApplication::translate("Admin", "Price", nullptr));
         QTableWidgetItem *___qtablewidgetitem18 = SerTable->horizontalHeaderItem(4);
         ___qtablewidgetitem18->setText(QCoreApplication::translate("Admin", "Mandatory", nullptr));
         QTableWidgetItem *___qtablewidgetitem19 = SerTable->horizontalHeaderItem(5);
@@ -2949,8 +2942,8 @@ public:
         QTableWidgetItem *___qtablewidgetitem43 = PaymentTable->horizontalHeaderItem(11);
         ___qtablewidgetitem43->setText(QCoreApplication::translate("Admin", "Remaining", nullptr));
         label_27->setText(QCoreApplication::translate("Admin", "Statistic", nullptr));
-        comboBoxTK->setItemText(0, QCoreApplication::translate("Admin", "Doanh thu c\303\241c th\303\241ng trong n\304\203m", nullptr));
-        comboBoxTK->setItemText(1, QCoreApplication::translate("Admin", "Doanh thu qua c\303\241c n\304\203m", nullptr));
+        comboBoxTK->setItemText(0, QCoreApplication::translate("Admin", "Revenue by Month in the Year", nullptr));
+        comboBoxTK->setItemText(1, QCoreApplication::translate("Admin", "Revenue over the Years", nullptr));
 
         label_24->setText(QCoreApplication::translate("Admin", "T\341\273\253:", nullptr));
         TK2year1->setPlaceholderText(QCoreApplication::translate("Admin", "N\304\203m...", nullptr));
@@ -2973,23 +2966,23 @@ public:
         TK1Month->setItemText(12, QCoreApplication::translate("Admin", "12", nullptr));
 
         label_26->setText(QCoreApplication::translate("Admin", "Year: ", nullptr));
-        TKbtn->setText(QCoreApplication::translate("Admin", "Th\341\273\221ng k\303\252", nullptr));
+        TKbtn->setText(QCoreApplication::translate("Admin", "View Stats", nullptr));
         QTableWidgetItem *___qtablewidgetitem44 = MonthTable->horizontalHeaderItem(0);
-        ___qtablewidgetitem44->setText(QCoreApplication::translate("Admin", "Th\303\241ng", nullptr));
+        ___qtablewidgetitem44->setText(QCoreApplication::translate("Admin", "Month", nullptr));
         QTableWidgetItem *___qtablewidgetitem45 = MonthTable->horizontalHeaderItem(1);
-        ___qtablewidgetitem45->setText(QCoreApplication::translate("Admin", "T\341\273\225ng h\303\263a \304\221\306\241n", nullptr));
+        ___qtablewidgetitem45->setText(QCoreApplication::translate("Admin", "Total Invoice", nullptr));
         QTableWidgetItem *___qtablewidgetitem46 = MonthTable->horizontalHeaderItem(2);
-        ___qtablewidgetitem46->setText(QCoreApplication::translate("Admin", "\304\220\303\243 thu", nullptr));
+        ___qtablewidgetitem46->setText(QCoreApplication::translate("Admin", "Collected", nullptr));
         QTableWidgetItem *___qtablewidgetitem47 = MonthTable->horizontalHeaderItem(3);
-        ___qtablewidgetitem47->setText(QCoreApplication::translate("Admin", "Ch\306\260a thu", nullptr));
+        ___qtablewidgetitem47->setText(QCoreApplication::translate("Admin", "Uncollected", nullptr));
         QTableWidgetItem *___qtablewidgetitem48 = YearTable->horizontalHeaderItem(0);
-        ___qtablewidgetitem48->setText(QCoreApplication::translate("Admin", "N\304\203m", nullptr));
+        ___qtablewidgetitem48->setText(QCoreApplication::translate("Admin", "Year", nullptr));
         QTableWidgetItem *___qtablewidgetitem49 = YearTable->horizontalHeaderItem(1);
-        ___qtablewidgetitem49->setText(QCoreApplication::translate("Admin", "T\341\273\225ng h\303\263a \304\221\306\241n", nullptr));
+        ___qtablewidgetitem49->setText(QCoreApplication::translate("Admin", "Total Invoice", nullptr));
         QTableWidgetItem *___qtablewidgetitem50 = YearTable->horizontalHeaderItem(2);
-        ___qtablewidgetitem50->setText(QCoreApplication::translate("Admin", "\304\220\303\243 thu", nullptr));
+        ___qtablewidgetitem50->setText(QCoreApplication::translate("Admin", "Collected", nullptr));
         QTableWidgetItem *___qtablewidgetitem51 = YearTable->horizontalHeaderItem(3);
-        ___qtablewidgetitem51->setText(QCoreApplication::translate("Admin", "Ch\306\260a thu", nullptr));
+        ___qtablewidgetitem51->setText(QCoreApplication::translate("Admin", "Uncollected", nullptr));
         label_17->setText(QCoreApplication::translate("Admin", "Contract List", nullptr));
         label_16->setText(QCoreApplication::translate("Admin", "Total: ", nullptr));
         totalcontract->setText(QCoreApplication::translate("Admin", "TextLabel", nullptr));
@@ -3022,7 +3015,6 @@ public:
         label_20->setText(QCoreApplication::translate("Admin", "Account List", nullptr));
         label_21->setText(QCoreApplication::translate("Admin", "Total: ", nullptr));
         totalaccount->setText(QCoreApplication::translate("Admin", "TextLabel", nullptr));
-        Refaccbtn->setText(QCoreApplication::translate("Admin", "Refresh", nullptr));
         QTableWidgetItem *___qtablewidgetitem65 = AccountTable->horizontalHeaderItem(0);
         ___qtablewidgetitem65->setText(QCoreApplication::translate("Admin", "Account ID", nullptr));
         QTableWidgetItem *___qtablewidgetitem66 = AccountTable->horizontalHeaderItem(1);

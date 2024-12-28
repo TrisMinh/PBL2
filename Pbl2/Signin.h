@@ -31,6 +31,8 @@ private slots:
 
     void on_pushButton_clicked();
 
+    void on_backbtn_2_clicked();
+
 private:
     Ui::Signin *ui;
 };

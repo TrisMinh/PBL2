@@ -29,7 +29,7 @@ class Ui_Editroom
 public:
     QFrame *line;
     QLabel *label_3;
-    QWidget *widget;
+    QWidget *layoutWidget;
     QVBoxLayout *verticalLayout_3;
     QVBoxLayout *verticalLayout;
     QLabel *label;
@@ -42,12 +42,14 @@ public:
     QHBoxLayout *horizontalLayout;
     QPushButton *Updateroombtn;
     QPushButton *pushButton_2;
+    QLabel *ID;
+    QLabel *label_22;
 
     void setupUi(QDialog *Editroom)
     {
         if (Editroom->objectName().isEmpty())
             Editroom->setObjectName("Editroom");
-        Editroom->resize(241, 226);
+        Editroom->resize(234, 239);
         line = new QFrame(Editroom);
         line->setObjectName("line");
         line->setGeometry(QRect(10, 30, 211, 20));
@@ -60,15 +62,15 @@ public:
         font.setPointSize(13);
         font.setBold(true);
         label_3->setFont(font);
-        widget = new QWidget(Editroom);
-        widget->setObjectName("widget");
-        widget->setGeometry(QRect(10, 50, 221, 161));
-        verticalLayout_3 = new QVBoxLayout(widget);
+        layoutWidget = new QWidget(Editroom);
+        layoutWidget->setObjectName("layoutWidget");
+        layoutWidget->setGeometry(QRect(10, 70, 221, 161));
+        verticalLayout_3 = new QVBoxLayout(layoutWidget);
         verticalLayout_3->setObjectName("verticalLayout_3");
         verticalLayout_3->setContentsMargins(0, 0, 0, 0);
         verticalLayout = new QVBoxLayout();
         verticalLayout->setObjectName("verticalLayout");
-        label = new QLabel(widget);
+        label = new QLabel(layoutWidget);
         label->setObjectName("label");
         label->setMaximumSize(QSize(16777215, 15));
         QFont font1;
@@ -77,9 +79,9 @@ public:
 
         verticalLayout->addWidget(label);
 
-        newRT = new QLineEdit(widget);
+        newRT = new QLineEdit(layoutWidget);
         newRT->setObjectName("newRT");
-        newRT->setMinimumSize(QSize(0, 25));
+        newRT->setMinimumSize(QSize(0, 35));
 
         verticalLayout->addWidget(newRT);
 
@@ -88,18 +90,18 @@ public:
 
         verticalLayout_2 = new QVBoxLayout();
         verticalLayout_2->setObjectName("verticalLayout_2");
-        label_2 = new QLabel(widget);
+        label_2 = new QLabel(layoutWidget);
         label_2->setObjectName("label_2");
         label_2->setMaximumSize(QSize(16777215, 15));
         label_2->setFont(font1);
 
         verticalLayout_2->addWidget(label_2);
 
-        comboBox = new QComboBox(widget);
+        comboBox = new QComboBox(layoutWidget);
         comboBox->addItem(QString());
         comboBox->addItem(QString());
         comboBox->setObjectName("comboBox");
-        comboBox->setMinimumSize(QSize(0, 25));
+        comboBox->setMinimumSize(QSize(0, 35));
 
         verticalLayout_2->addWidget(comboBox);
 
@@ -114,9 +116,9 @@ public:
 
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName("horizontalLayout");
-        Updateroombtn = new QPushButton(widget);
+        Updateroombtn = new QPushButton(layoutWidget);
         Updateroombtn->setObjectName("Updateroombtn");
-        Updateroombtn->setMinimumSize(QSize(55, 18));
+        Updateroombtn->setMinimumSize(QSize(55, 25));
         Updateroombtn->setStyleSheet(QString::fromUtf8("QPushButton{\n"
 "/background-color: #34D481;\n"
 "/color:white;\n"
@@ -125,13 +127,13 @@ public:
 "/font-weight:bold;\n"
 "/font-size: 10px;\n"
 "}"));
-        Updateroombtn->setCheckable(true);
+        Updateroombtn->setCheckable(false);
 
         horizontalLayout->addWidget(Updateroombtn);
 
-        pushButton_2 = new QPushButton(widget);
+        pushButton_2 = new QPushButton(layoutWidget);
         pushButton_2->setObjectName("pushButton_2");
-        pushButton_2->setMinimumSize(QSize(18, 18));
+        pushButton_2->setMinimumSize(QSize(18, 25));
         pushButton_2->setStyleSheet(QString::fromUtf8("QPushButton{\n"
 "/background-color: #585858;\n"
 "/color:white;\n"
@@ -150,6 +152,18 @@ public:
 
         verticalLayout_3->addLayout(horizontalLayout_2);
 
+        ID = new QLabel(Editroom);
+        ID->setObjectName("ID");
+        ID->setGeometry(QRect(74, 40, 123, 24));
+        QFont font2;
+        font2.setPointSize(10);
+        font2.setBold(true);
+        ID->setFont(font2);
+        label_22 = new QLabel(Editroom);
+        label_22->setObjectName("label_22");
+        label_22->setGeometry(QRect(10, 40, 60, 24));
+        label_22->setMaximumSize(QSize(60, 16777215));
+        label_22->setFont(font2);
 
         retranslateUi(Editroom);
         QObject::connect(pushButton_2, &QPushButton::toggled, Editroom, qOverload<>(&QDialog::close));
@@ -161,14 +175,16 @@ public:
     {
         Editroom->setWindowTitle(QCoreApplication::translate("Editroom", "Edit Room", nullptr));
         label_3->setText(QCoreApplication::translate("Editroom", "Edit Room", nullptr));
-        label->setText(QCoreApplication::translate("Editroom", "Nh\341\272\255p lo\341\272\241i ph\303\262ng m\341\273\233i", nullptr));
+        label->setText(QCoreApplication::translate("Editroom", "Enter New RoomType", nullptr));
         newRT->setPlaceholderText(QCoreApplication::translate("Editroom", "RT. ...", nullptr));
-        label_2->setText(QCoreApplication::translate("Editroom", "Tr\341\272\241ng th\303\241i", nullptr));
+        label_2->setText(QCoreApplication::translate("Editroom", "Status", nullptr));
         comboBox->setItemText(0, QCoreApplication::translate("Editroom", "Tr\341\273\221ng", nullptr));
         comboBox->setItemText(1, QCoreApplication::translate("Editroom", "\304\220ang b\341\272\243o tr\303\254", nullptr));
 
         Updateroombtn->setText(QCoreApplication::translate("Editroom", "Update Room", nullptr));
         pushButton_2->setText(QCoreApplication::translate("Editroom", "Cancel", nullptr));
+        ID->setText(QString());
+        label_22->setText(QCoreApplication::translate("Editroom", "Room ID: ", nullptr));
     } // retranslateUi
 
 };

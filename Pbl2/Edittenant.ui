@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Edit Tenant</string>
   </property>
   <widget class="Line" name="line">
    <property name="geometry">
@@ -45,7 +45,7 @@
     <string>Edit Tenant</string>
    </property>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -71,7 +71,7 @@
          </font>
         </property>
         <property name="text">
-         <string>Nhập họ và tên</string>
+         <string>Enter Full Name</string>
         </property>
        </widget>
       </item>
@@ -106,7 +106,7 @@
          </font>
         </property>
         <property name="text">
-         <string>Nhập số điện thoại</string>
+         <string>Enter Phone Number</string>
         </property>
        </widget>
       </item>
@@ -176,7 +176,7 @@
          </font>
         </property>
         <property name="text">
-         <string>Nhập năm sinh</string>
+         <string>Enter Year of Birth</string>
         </property>
        </widget>
       </item>
@@ -211,7 +211,7 @@
          </font>
         </property>
         <property name="text">
-         <string>Giới tính</string>
+         <string>Gender</string>
         </property>
        </widget>
       </item>
@@ -225,12 +225,12 @@
         </property>
         <item>
          <property name="text">
-          <string>Nam</string>
+          <string>Male</string>
          </property>
         </item>
         <item>
          <property name="text">
-          <string>Nữ</string>
+          <string>Female</string>
          </property>
         </item>
        </widget>
@@ -259,7 +259,7 @@
           <property name="minimumSize">
            <size>
             <width>55</width>
-            <height>18</height>
+            <height>25</height>
            </size>
           </property>
           <property name="styleSheet">
@@ -276,7 +276,7 @@
            <string>Update Tenant</string>
           </property>
           <property name="checkable">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
          </widget>
         </item>
@@ -285,7 +285,7 @@
           <property name="minimumSize">
            <size>
             <width>18</width>
-            <height>18</height>
+            <height>25</height>
            </size>
           </property>
           <property name="styleSheet">
@@ -316,30 +316,14 @@
  <resources/>
  <connections>
   <connection>
-   <sender>Edittenantbtn</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>Edittenant</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>140</x>
-     <y>248</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>134</x>
-     <y>279</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>pushButton_3</sender>
    <signal>toggled(bool)</signal>
    <receiver>Edittenant</receiver>
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>207</x>
-     <y>247</y>
+     <x>217</x>
+     <y>315</y>
     </hint>
     <hint type="destinationlabel">
      <x>209</x>

@@ -12,6 +12,7 @@ Signin::Signin(QWidget *parent)
     ui->stackedWidget_2->setCurrentIndex(0);
     ui->stackedWidget_3->setCurrentIndex(1);
     // this->setWindowFlags(windowFlags() & ~Qt::WindowMaximizeButtonHint);
+    ui->UserName->setFocus();
     connect(ui->UserName, &QLineEdit::returnPressed, this, [this]() {
         ui->Password_2->setFocus();
     });
@@ -120,24 +121,30 @@ void Signin::on_DKadminbtn_clicked()
         ui->UserNameadmin->setText("");
         ui->Passwordadmin->setText("");
         ui->Cfpassadmin->setText("");
+        QMessageBox::information(this, "Đăng ký", "Đăng ký tài khoản thành công!");
+        Account::accountList.updateFile("Account.txt");
     }
 }
 
 void Signin::on_tieptucbtn_clicked()
 {
-    ui->comboBox->setEnabled(false);
-    ui->comboBox->setStyleSheet("background-color: #f3f3f3");
     bool check = true;
     if (Account::searchByUsername(ui->UserNametenant->text().toStdString(), 0) != NULL){
         ui->usernamefailtenant->setText("Username is already in use");
         check = false;
     } else {ui->usernamefailtenant->setText("");}
+    if (ui->UserNametenant->text().isEmpty() || ui->Passwordtenant->text().isEmpty()){
+        QMessageBox::information(this, "Thông báo", "Vui lòng nhập đầy đủ thông tin");
+        check = false;
+    }
     if (ui->Passwordtenant->text()!=ui->Cfpasstenant->text()){
         ui->passfailtenant->setText("Mật khẩu không khớp");
         check = false;
     } else {ui->passfailtenant->setText("");}
     if (check){
         ui->stackedWidget_3->setCurrentIndex(2);
+        ui->comboBox->setEnabled(false);
+        ui->comboBox->setStyleSheet("background-color: #f3f3f3");
     }
 }
 
@@ -158,7 +165,12 @@ void Signin::on_Dktenantbtn_clicked()
     string sdt = ui->sdt->text().toStdString();
     string cccd = ui->cccd->text().toStdString();
     int birth = ui->birth->text().toInt(&c);
-    if (birth>2024 || !c){
+    time_t now = time(0);
+    tm* ltm = localtime(&now);
+    if (ui->name->text().isEmpty() || ui->sdt->text().isEmpty() || ui->birth->text().isEmpty()){
+        QMessageBox::information(this, "Thông báo", "Vui lòng nhập đầy đủ thông tin");
+    } else
+    if (birth> (1900 + ltm->tm_year) || !c){
         ui->error->setText("Năm sinh không hợp lệ");
     } else {
         ui->error->setText("");
@@ -179,6 +191,8 @@ void Signin::on_Dktenantbtn_clicked()
         ui->stackedWidget_2->setCurrentIndex(0);
         ui->comboBox->setEnabled(true);
         ui->comboBox->setStyleSheet("background-color: rgb(255, 255, 255);");
+        QMessageBox::information(this, "Đăng ký", "Đăng ký tài khoản thành công!");
+        Account::accountList.updateFile("Account.txt");
     }
 }
 
@@ -203,5 +217,13 @@ void Signin::on_tieptucpr_clicked()
 void Signin::on_pushButton_clicked()
 {
     ui->stackedWidget_2->setCurrentIndex(1);
+}
+
+
+void Signin::on_backbtn_2_clicked()
+{
+    ui->stackedWidget_2->setCurrentIndex(0);
+    ui->xmsdt->clear();
+    ui->xmcccd->clear();
 }
 

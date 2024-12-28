@@ -37,7 +37,7 @@ public:
 
     static void load(const string& filename);
     static void updateFile(const string& filename);
-    static void addService(const string& name, int price, const string& des);
+    static void addService(const string& name, int price, const string& des, bool manadatory);
     static void updateService(const string& id, const string& name, int price, const string& des);
     static void deleteService(const string& id);
     static void showAllServices(Admin* adminWindow);

@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Create Payment</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -136,7 +136,7 @@ border-radius: 10px;
      <item>
       <widget class="QPushButton" name="Enterbtn">
        <property name="text">
-        <string>Nhập</string>
+        <string>Submit</string>
        </property>
       </widget>
      </item>
@@ -159,12 +159,12 @@ border-radius: 10px;
      </column>
      <column>
       <property name="text">
-       <string>Điện</string>
+       <string>Electricity</string>
       </property>
      </column>
      <column>
       <property name="text">
-       <string>Nước</string>
+       <string>Water</string>
       </property>
      </column>
     </widget>
@@ -208,7 +208,7 @@ border-radius: 10px;
           <string>Ok</string>
          </property>
          <property name="checkable">
-          <bool>true</bool>
+          <bool>false</bool>
          </property>
         </widget>
        </item>
@@ -245,5 +245,22 @@ border-radius: 10px;
   </layout>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>pushButton_2</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>Createpayment</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>392</x>
+     <y>361</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>390</x>
+     <y>405</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

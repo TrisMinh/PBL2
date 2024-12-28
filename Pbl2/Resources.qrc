@@ -76,6 +76,7 @@
         <file>Resources/decline1.png</file>
         <file>Resources/add1.png</file>
         <file>Resources/extend.png</file>
+        <file>Resources/Pbl2.jpg</file>
     </qresource>
     <qresource prefix="/new/prefix2"/>
 </RCC>

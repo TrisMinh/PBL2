@@ -105,7 +105,6 @@ void Room::updateRoom(const string& rid, int sta, const string& rt){
     Room* room = roomList.searchID(rid);
     room->setStatus(sta);
     RoomType* find = roomTypeList.searchID(rt);
-    qDebug() << find->getID();
     room->setRT(find);
     // Room::updateFile("Room.txt");
 }

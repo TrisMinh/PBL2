@@ -14,6 +14,7 @@ Editroom::Editroom(const string& roomID, QWidget *parent)
     }
     string RT = r->getRoomType()->getID();
     ui->newRT->setText(QString::fromStdString(RT));
+    ui->ID->setText(QString::fromStdString(room_ID));
 }
 
 Editroom::~Editroom()

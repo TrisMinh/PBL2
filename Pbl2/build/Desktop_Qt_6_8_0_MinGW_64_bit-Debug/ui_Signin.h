@@ -14,6 +14,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QFrame>
+#include <QtWidgets/QGraphicsView>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
@@ -37,7 +38,7 @@ public:
     QVBoxLayout *verticalLayout_2;
     QStackedWidget *stackedWidget_2;
     QWidget *page_3;
-    QWidget *layoutWidget;
+    QWidget *layoutWidget10;
     QHBoxLayout *horizontalLayout_4;
     QLabel *label_6;
     QPushButton *Signupbtn;
@@ -63,7 +64,7 @@ public:
     QLabel *label_26;
     QLabel *label_27;
     QPushButton *tieptucpr;
-    QWidget *layoutWidget1;
+    QWidget *layoutWidget;
     QVBoxLayout *verticalLayout_4;
     QLineEdit *xmcccd;
     QLabel *xmfail;
@@ -126,12 +127,14 @@ public:
     QLineEdit *birth;
     QLabel *label_23;
     QLabel *label_24;
-    QWidget *layoutWidget2;
+    QWidget *layoutWidget11;
     QHBoxLayout *horizontalLayout_2;
     QComboBox *gender;
     QPushButton *hidebtn_3;
     QLabel *error;
     QFrame *frame_2;
+    QVBoxLayout *verticalLayout_5;
+    QGraphicsView *graphicsView;
     QWidget *page_2;
 
     void setupUi(QMainWindow *Signin)
@@ -144,7 +147,7 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(Signin->sizePolicy().hasHeightForWidth());
         Signin->setSizePolicy(sizePolicy);
-        Signin->setMinimumSize(QSize(833, 550));
+        Signin->setMinimumSize(QSize(417, 550));
         Signin->setMaximumSize(QSize(833, 530));
         QIcon icon;
         icon.addFile(QString::fromUtf8(":/new/prefix1/Resources/logoooo.png"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
@@ -165,6 +168,7 @@ public:
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
         frame = new QFrame(page);
         frame->setObjectName("frame");
+        frame->setMaximumSize(QSize(407, 16777215));
         frame->setStyleSheet(QString::fromUtf8("background-color: rgb(243, 243, 243);"));
         frame->setFrameShape(QFrame::Shape::StyledPanel);
         frame->setFrameShadow(QFrame::Shadow::Raised);
@@ -175,20 +179,20 @@ public:
         stackedWidget_2->setObjectName("stackedWidget_2");
         page_3 = new QWidget();
         page_3->setObjectName("page_3");
-        layoutWidget = new QWidget(page_3);
-        layoutWidget->setObjectName("layoutWidget");
-        layoutWidget->setGeometry(QRect(110, 400, 185, 16));
-        horizontalLayout_4 = new QHBoxLayout(layoutWidget);
+        layoutWidget10 = new QWidget(page_3);
+        layoutWidget10->setObjectName("layoutWidget10");
+        layoutWidget10->setGeometry(QRect(110, 400, 185, 16));
+        horizontalLayout_4 = new QHBoxLayout(layoutWidget10);
         horizontalLayout_4->setSpacing(0);
         horizontalLayout_4->setObjectName("horizontalLayout_4");
         horizontalLayout_4->setContentsMargins(0, 0, 0, 0);
-        label_6 = new QLabel(layoutWidget);
+        label_6 = new QLabel(layoutWidget10);
         label_6->setObjectName("label_6");
         label_6->setMinimumSize(QSize(150, 0));
 
         horizontalLayout_4->addWidget(label_6);
 
-        Signupbtn = new QPushButton(layoutWidget);
+        Signupbtn = new QPushButton(layoutWidget10);
         Signupbtn->setObjectName("Signupbtn");
         QFont font;
         font.setBold(true);
@@ -202,14 +206,14 @@ public:
         label->setGeometry(QRect(32, 200, 171, 16));
         layoutWidget_2 = new QWidget(page_3);
         layoutWidget_2->setObjectName("layoutWidget_2");
-        layoutWidget_2->setGeometry(QRect(30, 290, 332, 42));
+        layoutWidget_2->setGeometry(QRect(30, 290, 333, 42));
         horizontalLayout_5 = new QHBoxLayout(layoutWidget_2);
         horizontalLayout_5->setSpacing(0);
         horizontalLayout_5->setObjectName("horizontalLayout_5");
         horizontalLayout_5->setContentsMargins(0, 0, 0, 0);
         Password_2 = new QLineEdit(layoutWidget_2);
         Password_2->setObjectName("Password_2");
-        Password_2->setMinimumSize(QSize(295, 40));
+        Password_2->setMinimumSize(QSize(296, 40));
         Password_2->setMaximumSize(QSize(300, 16777215));
         QFont font1;
         font1.setPointSize(11);
@@ -314,6 +318,7 @@ public:
         signinfailed = new QLabel(page_3);
         signinfailed->setObjectName("signinfailed");
         signinfailed->setGeometry(QRect(31, 331, 241, 16));
+        signinfailed->setMinimumSize(QSize(241, 0));
         signinfailed->setFont(font2);
         signinfailed->setStyleSheet(QString::fromUtf8("color: rgb(255, 0, 0);\n"
 "border:none"));
@@ -322,7 +327,8 @@ public:
         page_8->setObjectName("page_8");
         label_25 = new QLabel(page_8);
         label_25->setObjectName("label_25");
-        label_25->setGeometry(QRect(32, 110, 211, 41));
+        label_25->setGeometry(QRect(32, 110, 300, 41));
+        label_25->setMinimumSize(QSize(300, 0));
         QFont font6;
         font6.setPointSize(20);
         font6.setBold(true);
@@ -363,13 +369,13 @@ public:
 "background-color: rgb(0, 0, 0);\n"
 "color:white;\n"
 "}"));
-        layoutWidget1 = new QWidget(page_8);
-        layoutWidget1->setObjectName("layoutWidget1");
-        layoutWidget1->setGeometry(QRect(32, 290, 332, 57));
-        verticalLayout_4 = new QVBoxLayout(layoutWidget1);
+        layoutWidget = new QWidget(page_8);
+        layoutWidget->setObjectName("layoutWidget");
+        layoutWidget->setGeometry(QRect(32, 290, 332, 57));
+        verticalLayout_4 = new QVBoxLayout(layoutWidget);
         verticalLayout_4->setObjectName("verticalLayout_4");
         verticalLayout_4->setContentsMargins(0, 0, 0, 0);
-        xmcccd = new QLineEdit(layoutWidget1);
+        xmcccd = new QLineEdit(layoutWidget);
         xmcccd->setObjectName("xmcccd");
         xmcccd->setMinimumSize(QSize(330, 40));
         xmcccd->setFont(font1);
@@ -382,7 +388,7 @@ public:
 
         verticalLayout_4->addWidget(xmcccd);
 
-        xmfail = new QLabel(layoutWidget1);
+        xmfail = new QLabel(layoutWidget);
         xmfail->setObjectName("xmfail");
         xmfail->setFont(font2);
         xmfail->setStyleSheet(QString::fromUtf8("color: rgb(255, 0, 0);\n"
@@ -402,6 +408,7 @@ public:
         label_28 = new QLabel(page_9);
         label_28->setObjectName("label_28");
         label_28->setGeometry(QRect(32, 110, 351, 41));
+        label_28->setMinimumSize(QSize(351, 0));
         label_28->setFont(font6);
         label_4 = new QLabel(page_9);
         label_4->setObjectName("label_4");
@@ -440,6 +447,7 @@ public:
         label_10 = new QLabel(frame_3);
         label_10->setObjectName("label_10");
         label_10->setGeometry(QRect(32, 16, 141, 41));
+        label_10->setMinimumSize(QSize(141, 0));
         label_10->setFont(font6);
         label_12 = new QLabel(frame_3);
         label_12->setObjectName("label_12");
@@ -684,6 +692,7 @@ public:
         label_19 = new QLabel(page_7);
         label_19->setObjectName("label_19");
         label_19->setGeometry(QRect(32, 10, 231, 31));
+        label_19->setMinimumSize(QSize(231, 0));
         QFont font9;
         font9.setPointSize(13);
         font9.setBold(true);
@@ -703,6 +712,7 @@ public:
         label_20 = new QLabel(page_7);
         label_20->setObjectName("label_20");
         label_20->setGeometry(QRect(33, 61, 241, 16));
+        label_20->setMinimumSize(QSize(241, 0));
         name = new QLineEdit(page_7);
         name->setObjectName("name");
         name->setGeometry(QRect(33, 77, 330, 40));
@@ -728,6 +738,7 @@ public:
         label_21 = new QLabel(page_7);
         label_21->setObjectName("label_21");
         label_21->setGeometry(QRect(33, 131, 201, 16));
+        label_21->setMinimumSize(QSize(201, 0));
         cccd = new QLineEdit(page_7);
         cccd->setObjectName("cccd");
         cccd->setGeometry(QRect(32, 210, 330, 40));
@@ -742,6 +753,7 @@ public:
         label_22 = new QLabel(page_7);
         label_22->setObjectName("label_22");
         label_22->setGeometry(QRect(32, 194, 151, 16));
+        label_22->setMinimumSize(QSize(151, 0));
         birth = new QLineEdit(page_7);
         birth->setObjectName("birth");
         birth->setGeometry(QRect(34, 280, 200, 40));
@@ -756,17 +768,19 @@ public:
         label_23 = new QLabel(page_7);
         label_23->setObjectName("label_23");
         label_23->setGeometry(QRect(32, 260, 101, 16));
+        label_23->setMinimumSize(QSize(101, 0));
         label_24 = new QLabel(page_7);
         label_24->setObjectName("label_24");
         label_24->setGeometry(QRect(260, 260, 101, 16));
-        layoutWidget2 = new QWidget(page_7);
-        layoutWidget2->setObjectName("layoutWidget2");
-        layoutWidget2->setGeometry(QRect(262, 279, 102, 42));
-        horizontalLayout_2 = new QHBoxLayout(layoutWidget2);
+        label_24->setMinimumSize(QSize(101, 0));
+        layoutWidget11 = new QWidget(page_7);
+        layoutWidget11->setObjectName("layoutWidget11");
+        layoutWidget11->setGeometry(QRect(262, 279, 102, 42));
+        horizontalLayout_2 = new QHBoxLayout(layoutWidget11);
         horizontalLayout_2->setSpacing(0);
         horizontalLayout_2->setObjectName("horizontalLayout_2");
         horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
-        gender = new QComboBox(layoutWidget2);
+        gender = new QComboBox(layoutWidget11);
         gender->addItem(QString());
         gender->addItem(QString());
         gender->setObjectName("gender");
@@ -786,7 +800,7 @@ public:
 
         horizontalLayout_2->addWidget(gender);
 
-        hidebtn_3 = new QPushButton(layoutWidget2);
+        hidebtn_3 = new QPushButton(layoutWidget11);
         hidebtn_3->setObjectName("hidebtn_3");
         hidebtn_3->setMinimumSize(QSize(35, 40));
         hidebtn_3->setMaximumSize(QSize(35, 16777215));
@@ -824,10 +838,21 @@ public:
 
         frame_2 = new QFrame(page);
         frame_2->setObjectName("frame_2");
-        frame_2->setMinimumSize(QSize(416, 0));
+        frame_2->setMinimumSize(QSize(0, 0));
+        frame_2->setMaximumSize(QSize(16777215, 16777215));
         frame_2->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
         frame_2->setFrameShape(QFrame::Shape::StyledPanel);
         frame_2->setFrameShadow(QFrame::Shadow::Raised);
+        verticalLayout_5 = new QVBoxLayout(frame_2);
+        verticalLayout_5->setSpacing(0);
+        verticalLayout_5->setObjectName("verticalLayout_5");
+        verticalLayout_5->setContentsMargins(0, 0, 0, 0);
+        graphicsView = new QGraphicsView(frame_2);
+        graphicsView->setObjectName("graphicsView");
+        graphicsView->setStyleSheet(QString::fromUtf8("border-image: url(:/new/prefix1/Resources/Pbl2.jpg);"));
+
+        verticalLayout_5->addWidget(graphicsView);
+
 
         horizontalLayout->addWidget(frame_2);
 
@@ -843,7 +868,7 @@ public:
         retranslateUi(Signin);
 
         stackedWidget_2->setCurrentIndex(3);
-        stackedWidget_3->setCurrentIndex(2);
+        stackedWidget_3->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(Signin);
@@ -851,7 +876,7 @@ public:
 
     void retranslateUi(QMainWindow *Signin)
     {
-        Signin->setWindowTitle(QCoreApplication::translate("Signin", "MainWindow", nullptr));
+        Signin->setWindowTitle(QCoreApplication::translate("Signin", "Room Management System", nullptr));
         label_6->setText(QCoreApplication::translate("Signin", "Don't have any account?", nullptr));
         Signupbtn->setText(QCoreApplication::translate("Signin", "Sign up", nullptr));
         label->setText(QCoreApplication::translate("Signin", "Username", nullptr));
@@ -869,18 +894,18 @@ public:
         label_25->setText(QCoreApplication::translate("Signin", "Password recovery", nullptr));
         backbtn_2->setText(QCoreApplication::translate("Signin", "< Back", nullptr));
         xmsdt->setPlaceholderText(QString());
-        label_26->setText(QCoreApplication::translate("Signin", "Nh\341\272\255p CCCD", nullptr));
-        label_27->setText(QCoreApplication::translate("Signin", "Nh\341\272\255p s\341\273\221 \304\221i\341\273\207n tho\341\272\241i", nullptr));
+        label_26->setText(QCoreApplication::translate("Signin", "Enter CCCD", nullptr));
+        label_27->setText(QCoreApplication::translate("Signin", "Enter Phone Number", nullptr));
         tieptucpr->setText(QCoreApplication::translate("Signin", "Ti\341\272\277p t\341\273\245c", nullptr));
         xmcccd->setPlaceholderText(QString());
         xmfail->setText(QString());
         label_3->setText(QString());
         label_28->setText(QCoreApplication::translate("Signin", "Password recovery", nullptr));
-        label_4->setText(QCoreApplication::translate("Signin", "X\303\241c minh th\303\240nh c\303\264ng", nullptr));
+        label_4->setText(QCoreApplication::translate("Signin", "Verification Successful", nullptr));
         backbtn_3->setText(QCoreApplication::translate("Signin", "< Back", nullptr));
         mk->setText(QString());
         label_10->setText(QCoreApplication::translate("Signin", "Sign up", nullptr));
-        label_12->setText(QCoreApplication::translate("Signin", "Ch\341\273\215n lo\341\272\241i t\303\240i kho\341\272\243n", nullptr));
+        label_12->setText(QCoreApplication::translate("Signin", "Select Account Type", nullptr));
         comboBox->setItemText(0, QCoreApplication::translate("Signin", "Tenant", nullptr));
         comboBox->setItemText(1, QCoreApplication::translate("Signin", "Admin", nullptr));
 
@@ -911,19 +936,19 @@ public:
         label_18->setText(QCoreApplication::translate("Signin", "Confirm Password", nullptr));
         usernamefailtenant->setText(QString());
         passfailtenant->setText(QString());
-        label_19->setText(QCoreApplication::translate("Signin", "Nh\341\272\255p th\303\264ng tin c\303\241 nh\303\242n", nullptr));
+        label_19->setText(QCoreApplication::translate("Signin", "Enter Personal Information", nullptr));
         Dktenantbtn->setText(QCoreApplication::translate("Signin", "\304\220\304\203ng k\303\275", nullptr));
-        label_20->setText(QCoreApplication::translate("Signin", "Nh\341\272\255p h\341\273\215 v\303\240 t\303\252n", nullptr));
+        label_20->setText(QCoreApplication::translate("Signin", "Enter Full Name", nullptr));
         name->setPlaceholderText(QString());
         sdt->setPlaceholderText(QString());
-        label_21->setText(QCoreApplication::translate("Signin", "Nh\341\272\255p s\341\273\221 \304\221i\341\273\207n tho\341\272\241i", nullptr));
+        label_21->setText(QCoreApplication::translate("Signin", "Enter Phone Number", nullptr));
         cccd->setPlaceholderText(QString());
-        label_22->setText(QCoreApplication::translate("Signin", "Nh\341\272\255p CCCD", nullptr));
+        label_22->setText(QCoreApplication::translate("Signin", "Enter CCCD", nullptr));
         birth->setPlaceholderText(QString());
-        label_23->setText(QCoreApplication::translate("Signin", "N\304\203m sinh", nullptr));
-        label_24->setText(QCoreApplication::translate("Signin", "Gi\341\273\233i t\303\255nh", nullptr));
-        gender->setItemText(0, QCoreApplication::translate("Signin", "Nam", nullptr));
-        gender->setItemText(1, QCoreApplication::translate("Signin", "N\341\273\257", nullptr));
+        label_23->setText(QCoreApplication::translate("Signin", "Year of Birth", nullptr));
+        label_24->setText(QCoreApplication::translate("Signin", "Gender", nullptr));
+        gender->setItemText(0, QCoreApplication::translate("Signin", "Male", nullptr));
+        gender->setItemText(1, QCoreApplication::translate("Signin", "Female", nullptr));
 
         hidebtn_3->setText(QString());
         error->setText(QString());

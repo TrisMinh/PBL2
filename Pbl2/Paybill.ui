@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Payment</string>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: rgb(255, 255, 255);</string>
@@ -34,7 +34,7 @@
     <rect>
      <x>20</x>
      <y>15</y>
-     <width>101</width>
+     <width>241</width>
      <height>21</height>
     </rect>
    </property>
@@ -45,7 +45,7 @@
     </font>
    </property>
    <property name="text">
-    <string>Thanh toán</string>
+    <string>Payment</string>
    </property>
   </widget>
   <widget class="QWidget" name="layoutWidget_2">
@@ -97,10 +97,10 @@
 }</string>
         </property>
         <property name="text">
-         <string>Thanh toán</string>
+         <string>Pay</string>
         </property>
         <property name="checkable">
-         <bool>true</bool>
+         <bool>false</bool>
         </property>
        </widget>
       </item>
@@ -128,7 +128,7 @@
 }</string>
         </property>
         <property name="text">
-         <string>Hủy</string>
+         <string>Cancel</string>
         </property>
         <property name="checkable">
          <bool>true</bool>
@@ -139,7 +139,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>30</x>
@@ -266,7 +266,7 @@
          </font>
         </property>
         <property name="text">
-         <string>Số tiền đã thanh toán:</string>
+         <string>Amount Paid:</string>
         </property>
        </widget>
       </item>
@@ -312,7 +312,7 @@
          </font>
         </property>
         <property name="text">
-         <string>Số tiền còn lại:</string>
+         <string>Remaining Amount:</string>
         </property>
        </widget>
       </item>
@@ -361,8 +361,11 @@
    <property name="styleSheet">
     <string notr="true"/>
    </property>
+   <property name="text">
+    <string/>
+   </property>
    <property name="placeholderText">
-    <string>Nhập số tiền muốn thanh toán</string>
+    <string>Enter Amount to Pay</string>
    </property>
   </widget>
  </widget>

@@ -85,7 +85,6 @@ void RoomType::addRoomType(const string& name, const string& desc, double price)
     RoomType newRoom(desc, price, name);
     roomTypeList.add(newRoom);
     total++;
-    cout << "Them loai phong thanh cong!\n";
 }
 
 void RoomType::updateRoomType(const string& id, const string& name, const string& desc, double price) {

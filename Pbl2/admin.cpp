@@ -46,8 +46,6 @@ Admin::Admin(QWidget *parent)
     AccandNotipopup();
     ui->roombtn->click();
     ui->stackedWidget_2->setCurrentIndex(1);
-    QAction *searchAction = new QAction(QIcon(":/new/prefix1/Resources/loupe.png"), "Search", this);
-    ui->LineEditSearchRoom->addAction(searchAction, QLineEdit::LeadingPosition);
 
     // connect(ui->LineEditSearchTenant, &QLineEdit::returnPressed, this, [this]() {
     //     ui->searchtenant->click();
@@ -102,6 +100,8 @@ void Admin::moverMenu()
 }
 
 void Admin::managerooms(){
+    QAction *searchAction = new QAction(QIcon(":/new/prefix1/Resources/loupe.png"), "Search", this);
+    ui->LineEditSearchRoom->addAction(searchAction, QLineEdit::LeadingPosition);
     Room::showAllRooms(this);
     ui->totalroom->setText(QString::number(Room::total));
     ui->table1->horizontalHeader()->setStyleSheet("QHeaderView::section { border: none; }");
@@ -123,7 +123,7 @@ void Admin::managerooms(){
     sortButton->setIcon(QIcon(":/new/prefix1/Resources/sxtang.png"));
     sortButton->setFixedSize(16, 16);
     sortButton->setToolTip("Sort by Room ID");
-    sortButton->move(headerRect.right() - 90, headerRect.top() + 3);
+    sortButton->move(headerRect.right() - 85, headerRect.top() + 3);
     sortButton->setCheckable(true);
     connect(sortButton, &QPushButton::toggled, this, [this, sortButton](bool checked) {
         if (checked) {
@@ -241,6 +241,8 @@ void Admin::managerooms(){
 }
 
 void Admin::manageroomtypes(){
+    QAction *searchAction = new QAction(QIcon(":/new/prefix1/Resources/loupe.png"), "Search", this);
+    ui->LineEditSearchRoomType->addAction(searchAction, QLineEdit::LeadingPosition);
     RoomType::showAllRoomTypes(this);
     ui->totalservice->setText(QString::number(Service::total));
     ui->RoomTypeTable->horizontalHeader()->setStyleSheet("QHeaderView::section { border: none; }");
@@ -256,6 +258,8 @@ void Admin::manageroomtypes(){
 }
 
 void Admin::managetenants(){
+    QAction *searchAction = new QAction(QIcon(":/new/prefix1/Resources/loupe.png"), "Search", this);
+    ui->LineEditSearchTenant->addAction(searchAction, QLineEdit::LeadingPosition);
     Tenant::showAllTenants(this);
     ui->totaltenant->setText(QString::number(Tenant::total));
     ui->TenantTable->horizontalHeader()->setStyleSheet("QHeaderView::section { border: none; }");
@@ -264,9 +268,9 @@ void Admin::managetenants(){
     ui->TenantTable->setColumnWidth(0, 150);
     ui->TenantTable->setColumnWidth(1, 150);
     ui->TenantTable->setColumnWidth(2, 150);
-    ui->TenantTable->setColumnWidth(3, 150);
+    ui->TenantTable->setColumnWidth(3, 100);
     ui->TenantTable->setColumnWidth(4, 150);
-    ui->TenantTable->setColumnWidth(5, 150);
+    ui->TenantTable->setColumnWidth(5, 100);
     ui->TenantTable->verticalHeader()->hide();
     ui->TenantTable->setShowGrid(false);
 
@@ -276,7 +280,7 @@ void Admin::managetenants(){
     sortIDTenantButton->setText("");
     sortIDTenantButton->setIcon(QIcon(":/new/prefix1/Resources/sxtang.png"));
     sortIDTenantButton->setFixedSize(16, 16);
-    sortIDTenantButton->setToolTip("Sort by Room ID");
+    sortIDTenantButton->setToolTip("Sort by ID");
     sortIDTenantButton->move(headertenant.right() - 90, headertenant.top() + 3);
     sortIDTenantButton->setCheckable(true);
     connect(sortIDTenantButton, &QPushButton::toggled, this, [this, sortIDTenantButton](bool checked) {
@@ -355,8 +359,8 @@ void Admin::managetenants(){
     sortNameTenantButton->setText("");
     sortNameTenantButton->setIcon(QIcon(":/new/prefix1/Resources/sxtang.png"));
     sortNameTenantButton->setFixedSize(16, 16);
-    sortNameTenantButton->setToolTip("Sort by Room ID");
-    sortNameTenantButton->move(headertenant.right() +25, headertenant.top() + 3);
+    sortNameTenantButton->setToolTip("Sort by Name");
+    sortNameTenantButton->move(headertenant.right() +35, headertenant.top() + 3);
     sortNameTenantButton->setCheckable(true);
     connect(sortNameTenantButton, &QPushButton::toggled, this, [this, sortNameTenantButton](bool checked) {
         if (checked) {
@@ -432,6 +436,8 @@ void Admin::managetenants(){
 }
 
 void Admin::manageservices(){
+    QAction *searchAction = new QAction(QIcon(":/new/prefix1/Resources/loupe.png"), "Search", this);
+    ui->LineEditSearchSer->addAction(searchAction, QLineEdit::LeadingPosition);
     Service::showAllServices(this);
     ui->totalservice->setText(QString::number(Service::total));
     ui->SerTable->horizontalHeader()->setStyleSheet("QHeaderView::section { border: none; }");
@@ -440,8 +446,8 @@ void Admin::manageservices(){
     ui->SerTable->setColumnWidth(0, 200);
     ui->SerTable->setColumnWidth(1, 200);
     ui->SerTable->setColumnWidth(2, 200);
-    ui->SerTable->setColumnWidth(3, 200);
-    ui->SerTable->setColumnWidth(4, 200);
+    ui->SerTable->setColumnWidth(3, 150);
+    ui->SerTable->setColumnWidth(4, 150);
     ui->SerTable->verticalHeader()->hide();
     ui->SerTable->setShowGrid(false);
 
@@ -452,7 +458,7 @@ void Admin::manageservices(){
     sortidserviceButton->setIcon(QIcon(":/new/prefix1/Resources/sxtang.png"));
     sortidserviceButton->setFixedSize(16, 16);
     sortidserviceButton->setToolTip("Sort by Room ID");
-    sortidserviceButton->move(headerSer.right() - 85, headerSer.top() + 3);
+    sortidserviceButton->move(headerSer.right() - 155, headerSer.top() + 3);
     sortidserviceButton->setCheckable(true);
     connect(sortidserviceButton, &QPushButton::toggled, this, [this, sortidserviceButton](bool checked) {
         if (checked) {
@@ -500,6 +506,8 @@ void Admin::manageservices(){
 }
 
 void Admin::manageserviceusages(){
+    QAction *searchAction = new QAction(QIcon(":/new/prefix1/Resources/loupe.png"), "Search", this);
+    ui->LineEditSearchSerUsage->addAction(searchAction, QLineEdit::LeadingPosition);
     ServiceUsage::showAllServiceUsages(this);
     ui->totalserviceUsage->setText(QString::number(ServiceUsage::total));
     ui->SerUsageTable->horizontalHeader()->setStyleSheet("QHeaderView::section { border: none; }");
@@ -521,8 +529,8 @@ void Admin::manageserviceusages(){
     sortidserviceusageButton->setText("");
     sortidserviceusageButton->setIcon(QIcon(":/new/prefix1/Resources/sxtang.png"));
     sortidserviceusageButton->setFixedSize(16, 16);
-    sortidserviceusageButton->setToolTip("Sort by Room ID");
-    sortidserviceusageButton->move(headerSerUsage.right() - 75, headerSerUsage.top() + 3);
+    sortidserviceusageButton->setToolTip("Sort by ID");
+    sortidserviceusageButton->move(headerSerUsage.right() - 135, headerSerUsage.top() + 3);
     sortidserviceusageButton->setCheckable(true);
     connect(sortidserviceusageButton, &QPushButton::toggled, this, [this, sortidserviceusageButton](bool checked) {
         if (checked) {
@@ -570,6 +578,8 @@ void Admin::manageserviceusages(){
 }
 
 void Admin::managereservations(){
+    QAction *searchAction = new QAction(QIcon(":/new/prefix1/Resources/loupe.png"), "Search", this);
+    ui->LineEditSearchRe->addAction(searchAction, QLineEdit::LeadingPosition);
     Reservation::showAllReservations(this);
     ui->totalreservation->setText(QString::number(Reservation::total));
     ui->ReservationTable->horizontalHeader()->setStyleSheet("QHeaderView::section { border: none; }");
@@ -590,7 +600,7 @@ void Admin::managereservations(){
     sortidREButton->setText("");
     sortidREButton->setIcon(QIcon(":/new/prefix1/Resources/sxtang.png"));
     sortidREButton->setFixedSize(16, 16);
-    sortidREButton->setToolTip("Sort by Room ID");
+    sortidREButton->setToolTip("Sort by ID");
     sortidREButton->move(headerReservation.right() - 35, headerReservation.top() + 3);
     sortidREButton->setCheckable(true);
     connect(sortidREButton, &QPushButton::toggled, this, [this, sortidREButton](bool checked) {
@@ -690,7 +700,7 @@ void Admin::managecontracts(){
     sortidContractButton->setText("");
     sortidContractButton->setIcon(QIcon(":/new/prefix1/Resources/sxtang.png"));
     sortidContractButton->setFixedSize(16, 16);
-    sortidContractButton->setToolTip("Sort by Room ID");
+    sortidContractButton->setToolTip("Sort by ID");
     sortidContractButton->move(headerContract.right() - 30, headerContract.top() + 3);
     sortidContractButton->setCheckable(true);
     connect(sortidContractButton, &QPushButton::toggled, this, [this, sortidContractButton](bool checked) {
@@ -852,25 +862,16 @@ void Admin::displayTenants(const Tenant& t) {
 
     QPushButton* edit_tenant_btn = new QPushButton();
     edit_tenant_btn->setIcon(QIcon(":/new/prefix1/Resources/edit.png"));
-    edit_tenant_btn->setToolTip("Edit this room");
+    edit_tenant_btn->setToolTip("Edit");
     connect(edit_tenant_btn, &QPushButton::clicked, this, [this, row]() {
         onedit_tenant_btnClicked(row);
     });
 
-    QPushButton* delete_tenant_btn = new QPushButton();
-    delete_tenant_btn->setIcon(QIcon(":/new/prefix1/Resources/delete.png"));
-    delete_tenant_btn->setToolTip("Delete this room");
-    connect(delete_tenant_btn, &QPushButton::clicked, this, [this, row]() {
-        onDeleteButtonClicked(row);
-    });
-
     QHBoxLayout* layout = new QHBoxLayout(buttonWidget);
     layout->addWidget(edit_tenant_btn);
-    layout->addWidget(delete_tenant_btn);
     layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(0);
     edit_tenant_btn->setFixedSize(20, 20);
-    delete_tenant_btn->setFixedSize(20, 20);
 
     buttonWidget->setLayout(layout);
 
@@ -918,7 +919,7 @@ void Admin::displayServices(const Service& s) {
 void Admin::displayServiceUsages(const ServiceUsage& su){
     int row = ui->SerUsageTable->rowCount();
     ui->SerUsageTable->insertRow(row);
-
+    ui->SerUsageTable->setRowHeight(row, 35);
     ui->SerUsageTable->setItem(row, 0, new QTableWidgetItem(QString::fromStdString(su.getID())));
     ui->SerUsageTable->setItem(row, 1, new QTableWidgetItem(QString::fromStdString(su.getRoomID())));
     ui->SerUsageTable->setItem(row, 2, new QTableWidgetItem(QString::fromStdString(su.getServiceID())));
@@ -938,6 +939,7 @@ void Admin::displayPayments(const Payment& p){
     int row = ui->PaymentTable->rowCount();
     ui->PaymentTable->insertRow(row);
 
+    ui->PaymentTable->setRowHeight(row, 35);
     ui->PaymentTable->setItem(row, 0, new QTableWidgetItem(QString::fromStdString(p.getID())));
     ui->PaymentTable->setItem(row, 1, new QTableWidgetItem(QString::fromStdString(p.getRoomID())));
     ui->PaymentTable->setItem(row, 2, new QTableWidgetItem(QString::fromStdString(p.getTenantID())));
@@ -967,6 +969,7 @@ void Admin::displayContracts(const Contract& c){
     ui->ContractTable->insertRow(row);
     Tenant* t = Tenant::tenantList.searchID(c.getTenantID());
     Room* r = Room::roomList.searchID(c.getRoomID());
+    ui->ContractTable->setRowHeight(row, 35);
     ui->ContractTable->setItem(row, 0, new QTableWidgetItem(QString::fromStdString(c.getID())));
     ui->ContractTable->setItem(row, 1, new QTableWidgetItem(QString::fromStdString(c.getRoomID())));
     ui->ContractTable->setItem(row, 2, new QTableWidgetItem(QString::fromStdString(r->getRoomType()->getName())));
@@ -1099,9 +1102,33 @@ void Admin::onacceptbtnClicked(int row){
     if (reply == QMessageBox::Yes) {
     string id = ui->ReservationTable->item(row, 0)->text().toStdString();
     Contract::confirmReservationandcreatContract(1, id);
-    ui->ReservationTable->clearContents();
-    ui->ReservationTable->setRowCount(0);
-    Reservation::showAllReservations(this);
+    string search = ui->LineEditSearchRe->text().toStdString();
+    string check = ui->CBSRe->currentText().toStdString();
+    if (search.empty()){
+        ui->ReservationTable->clearContents();
+        ui->ReservationTable->setRowCount(0);
+        Reservation::showAllReservations(this);
+    }
+    if (check == "Reservation ID"){
+        ui->ReservationTable->clearContents();
+        ui->ReservationTable->setRowCount(0);
+        Reservation::searchByID(search, this);
+    }
+    if (check == "Accepted"){
+        ui->ReservationTable->clearContents();
+        ui->ReservationTable->setRowCount(0);
+        Reservation::searchByStatus(1, this);
+    }
+    if (check == "Waiting"){
+        ui->ReservationTable->clearContents();
+        ui->ReservationTable->setRowCount(0);
+        Reservation::searchByStatus(0, this);
+    }
+    if (check == "Rejected"){
+        ui->ReservationTable->clearContents();
+        ui->ReservationTable->setRowCount(0);
+        Reservation::searchByStatus(2, this);
+    }
     }
 }
 
@@ -1111,9 +1138,33 @@ void Admin::onrejectbtnClicked(int row){
     if (reply == QMessageBox::Yes) {
     string id = ui->ReservationTable->item(row, 0)->text().toStdString();
     Contract::confirmReservationandcreatContract(2, id);
-    ui->ReservationTable->clearContents();
-    ui->ReservationTable->setRowCount(0);
-    Reservation::showAllReservations(this);
+    string search = ui->LineEditSearchRe->text().toStdString();
+    string check = ui->CBSRe->currentText().toStdString();
+    if (search.empty()){
+        ui->ReservationTable->clearContents();
+        ui->ReservationTable->setRowCount(0);
+        Reservation::showAllReservations(this);
+    }
+    if (check == "Reservation ID"){
+        ui->ReservationTable->clearContents();
+        ui->ReservationTable->setRowCount(0);
+        Reservation::searchByID(search, this);
+    }
+    if (check == "Accepted"){
+        ui->ReservationTable->clearContents();
+        ui->ReservationTable->setRowCount(0);
+        Reservation::searchByStatus(1, this);
+    }
+    if (check == "Waiting"){
+        ui->ReservationTable->clearContents();
+        ui->ReservationTable->setRowCount(0);
+        Reservation::searchByStatus(0, this);
+    }
+    if (check == "Rejected"){
+        ui->ReservationTable->clearContents();
+        ui->ReservationTable->setRowCount(0);
+        Reservation::searchByStatus(2, this);
+    }
     }
 }
 
@@ -1126,6 +1177,7 @@ void Admin::onedit_tenant_btnClicked(int row){
     string gender = ui->TenantTable->item(row, 5)->text().toStdString();
     Edittenant tenantedit(tenantID, name, phone, age, cccd, gender, this);
     tenantedit.exec();
+    ui->CBST->setCurrentIndex(0);
     ui->TenantTable->clearContents();
     ui->TenantTable->setRowCount(0);
     Tenant::showAllTenants(this);
@@ -1135,10 +1187,11 @@ void Admin::onedit_tenant_btnClicked(int row){
 void Admin::onedit_Ser_btnClicked(int row){
     string ID = ui->SerTable->item(row, 0)->text().toStdString();
     string name = ui->SerTable->item(row, 1)->text().toStdString();
-    int price = ui->SerTable->item(row, 2)->text().toInt();
-    string des = ui->SerTable->item(row, 3)->text().toStdString();
+    int price = ui->SerTable->item(row, 3)->text().toInt();
+    string des = ui->SerTable->item(row, 2)->text().toStdString();
     Editservice edit(ID, name, price, des, this);
     edit.exec();
+    ui->CBSS->setCurrentIndex(0);
     ui->SerTable->clearContents();
     ui->SerTable->setRowCount(0);
     Service::showAllServices(this);
@@ -1148,6 +1201,7 @@ void Admin::onEditButtonClicked(int row) {
     string roomID = ui->table1->item(row, 0)->text().toStdString();
     Editroom roomedit(roomID, this);
     roomedit.exec();
+    ui->CBSR->setCurrentIndex(0);
     ui->table1->clearContents();
     ui->table1->setRowCount(0);
     Room::showAllRooms(this);
@@ -1161,6 +1215,7 @@ void Admin::onedit_RT_btnClicked(int row){
     string des = ui->RoomTypeTable->item(row, 2)->text().toStdString();
     Editroomtype edit(id, name, des, price, this);
     edit.exec();
+    ui->CBSRT->setCurrentIndex(0);
     ui->RoomTypeTable->clearContents();
     ui->RoomTypeTable->setRowCount(0);
     RoomType::showAllRoomTypes(this);
@@ -1172,6 +1227,7 @@ void Admin::onDeleteButtonClicked(int row) {
     if (reply == QMessageBox::Yes) {
     string roomID = ui->table1->item(row, 0)->text().toStdString();
     Room::deleteRoom(roomID);
+    ui->CBSR->setCurrentIndex(0);
     ui->table1->clearContents();
     ui->table1->setRowCount(0);
     Room::showAllRooms(this);
@@ -1185,6 +1241,7 @@ void Admin::ondelete_Ser_btnClicked(int row){
     if (reply == QMessageBox::Yes) {
         string ID = ui->SerTable->item(row, 0)->text().toStdString();
         Service::deleteService(ID);
+        ui->CBSS->setCurrentIndex(0);
         ui->SerTable->clearContents();
         ui->SerTable->setRowCount(0);
         Service::showAllServices(this);
@@ -1202,6 +1259,7 @@ void Admin::ondelete_RT_btnClicked(int row){
             return;
         } else {
         RoomType::deleteRoomType(ID);
+        ui->CBSRT->setCurrentIndex(0);
         ui->RoomTypeTable->clearContents();
         ui->RoomTypeTable->setRowCount(0);
         RoomType::showAllRoomTypes(this);
@@ -1228,7 +1286,7 @@ void Admin::searchroom()
         ui->table1->clearContents();
         ui->table1->setRowCount(0);
         Room::showAllRooms(this);
-    }
+    } else {
         if (check == "Room ID"){
             ui->table1->clearContents();
             ui->table1->setRowCount(0);
@@ -1244,6 +1302,7 @@ void Admin::searchroom()
             ui->table1->setRowCount(0);
             Room::searchByName(search, this);
         }
+    }
 }
 
 void Admin::searchtenant()
@@ -1351,12 +1410,36 @@ void Admin::searchRoomType(){
 
 void Admin::on_CBSR_currentIndexChanged(int index)
 {
-    if (index == 0 || index == 4 || index == 5 || index == 6 || index == 7) {
+    if (index == 4 || index == 5 || index == 6 || index == 7) {
+        ui->LineEditSearchRoom->clear();
         ui->LineEditSearchRoom->setEnabled(false);
         ui->LineEditSearchRoom->setStyleSheet("QLineEdit { background-color: #d3d3d3; padding-left:20px; border: 1px solid gray; border-radius: 10px; }");
     } else {
         ui->LineEditSearchRoom->setEnabled(true);
         ui->LineEditSearchRoom->setStyleSheet("QLineEdit {padding-left:20px; border: 1px solid gray; border-radius: 10px;}");
+    }
+    string search = ui->LineEditSearchRoom->text().toStdString();
+    string check = ui->CBSR->currentText().toStdString();
+    if (search.empty()) {
+        ui->table1->clearContents();
+        ui->table1->setRowCount(0);
+        Room::showAllRooms(this);
+    } else {
+        if (check == "Room ID"){
+            ui->table1->clearContents();
+            ui->table1->setRowCount(0);
+            Room::searchByID(search, this);
+        }
+        if (ui->CBSR->currentText() == "Room Type"){
+            ui->table1->clearContents();
+            ui->table1->setRowCount(0);
+            Room::searchByRoomType(search, this);
+        }
+        if (ui->CBSR->currentText() == "Tên khách thuê"){
+            ui->table1->clearContents();
+            ui->table1->setRowCount(0);
+            Room::searchByName(search, this);
+        }
     }
     if (ui->CBSR->currentIndex() == 4){
 
@@ -1396,7 +1479,6 @@ void Admin::on_Refbtn_clicked()
 {
     ui->table1->clearContents();
     ui->table1->setRowCount(0);
-    // managerooms();
     Room::showAllRooms(this);
     ui->LineEditSearchRoom->clear();
     ui->CBSR->setCurrentIndex(0);
@@ -1622,7 +1704,23 @@ void Admin::on_CBST_currentIndexChanged(int index)
         ui->LineEditSearchTenant->setEnabled(true);
         ui->LineEditSearchTenant->setStyleSheet("QLineEdit {padding-left:20px; border: 1px solid gray; border-radius: 10px;}");
     }
-    QString check = ui->CBST->currentText();
+    string search = ui->LineEditSearchTenant->text().toStdString();
+    string check = ui->CBST->currentText().toStdString();
+    if (search.empty()) {
+        ui->TenantTable->clearContents();
+        ui->TenantTable->setRowCount(0);
+        Tenant::showAllTenants(this);
+    }
+    if (check == "Tenant ID"){
+        ui->TenantTable->clearContents();
+        ui->TenantTable->setRowCount(0);
+        Tenant::searchByID(search, this);
+    }
+    if (check == "Tên"){
+        ui->TenantTable->clearContents();
+        ui->TenantTable->setRowCount(0);
+        Tenant::searchByName(search, this);
+    }
     if (check == "Nam"){
         ui->TenantTable->clearContents();
         ui->TenantTable->setRowCount(0);
@@ -1640,14 +1738,26 @@ void Admin::on_CBST_currentIndexChanged(int index)
 
 void Admin::on_CBSRe_currentIndexChanged(int index)
 {
-    if (index == 0 || index == 2 || index == 3 || index == 4) {
+    if (index == 2 || index == 3 || index == 4) {
+        ui->LineEditSearchRe->clear();
         ui->LineEditSearchRe->setEnabled(false);
         ui->LineEditSearchRe->setStyleSheet("QLineEdit { background-color: #d3d3d3; padding-left:20px; border: 1px solid gray; border-radius: 10px; }");
     } else {
         ui->LineEditSearchRe->setEnabled(true);
         ui->LineEditSearchRe->setStyleSheet("QLineEdit {padding-left:20px; border: 1px solid gray; border-radius: 10px;}");
     }
-    QString check = ui->CBSRe->currentText();
+    string search = ui->LineEditSearchRe->text().toStdString();
+    string check = ui->CBSRe->currentText().toStdString();
+    if (search.empty()){
+        ui->ReservationTable->clearContents();
+        ui->ReservationTable->setRowCount(0);
+        Reservation::showAllReservations(this);
+    }
+    if (check == "Reservation ID"){
+        ui->ReservationTable->clearContents();
+        ui->ReservationTable->setRowCount(0);
+        Reservation::searchByID(search, this);
+    }
     if (check == "Accepted"){
         ui->ReservationTable->clearContents();
         ui->ReservationTable->setRowCount(0);
@@ -1852,7 +1962,7 @@ void Admin::AccandNotipopup() {
     line->setFrameShadow(QFrame::Sunken);
     buttonsLayout->addWidget(line);
 
-    QPushButton *logoutBtn = new QPushButton("Log Out", AccPopup);
+    QPushButton *logoutBtn = new QPushButton("Sign Out", AccPopup);
     logoutBtn->setStyleSheet("border: none; padding: 10px;text-align: left;");
     buttonsLayout->addWidget(logoutBtn);
 

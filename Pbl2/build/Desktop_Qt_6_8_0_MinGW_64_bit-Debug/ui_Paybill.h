@@ -34,7 +34,7 @@ public:
     QHBoxLayout *horizontalLayout_6;
     QPushButton *Datbtn;
     QPushButton *pushButton_2;
-    QWidget *widget;
+    QWidget *layoutWidget;
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout;
     QLabel *label_2;
@@ -63,7 +63,7 @@ public:
         line->setFrameShadow(QFrame::Shadow::Sunken);
         label = new QLabel(Paybill);
         label->setObjectName("label");
-        label->setGeometry(QRect(20, 15, 101, 21));
+        label->setGeometry(QRect(20, 15, 241, 21));
         QFont font;
         font.setPointSize(15);
         font.setBold(true);
@@ -94,7 +94,7 @@ public:
 "/font-weight:bold;\n"
 "/font-size: 10px;\n"
 "}"));
-        Datbtn->setCheckable(true);
+        Datbtn->setCheckable(false);
 
         horizontalLayout_6->addWidget(Datbtn);
 
@@ -117,16 +117,16 @@ public:
 
         horizontalLayout_5->addLayout(horizontalLayout_6);
 
-        widget = new QWidget(Paybill);
-        widget->setObjectName("widget");
-        widget->setGeometry(QRect(30, 60, 259, 100));
-        verticalLayout = new QVBoxLayout(widget);
+        layoutWidget = new QWidget(Paybill);
+        layoutWidget->setObjectName("layoutWidget");
+        layoutWidget->setGeometry(QRect(30, 60, 259, 100));
+        verticalLayout = new QVBoxLayout(layoutWidget);
         verticalLayout->setSpacing(6);
         verticalLayout->setObjectName("verticalLayout");
         verticalLayout->setContentsMargins(0, 0, 0, 0);
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName("horizontalLayout");
-        label_2 = new QLabel(widget);
+        label_2 = new QLabel(layoutWidget);
         label_2->setObjectName("label_2");
         label_2->setMinimumSize(QSize(151, 0));
         label_2->setMaximumSize(QSize(151, 16777215));
@@ -136,7 +136,7 @@ public:
 
         horizontalLayout->addWidget(label_2);
 
-        paymentID = new QLabel(widget);
+        paymentID = new QLabel(layoutWidget);
         paymentID->setObjectName("paymentID");
         paymentID->setMinimumSize(QSize(100, 0));
         paymentID->setFont(font1);
@@ -148,7 +148,7 @@ public:
 
         horizontalLayout_3 = new QHBoxLayout();
         horizontalLayout_3->setObjectName("horizontalLayout_3");
-        label_3 = new QLabel(widget);
+        label_3 = new QLabel(layoutWidget);
         label_3->setObjectName("label_3");
         label_3->setMinimumSize(QSize(151, 0));
         label_3->setMaximumSize(QSize(151, 16777215));
@@ -156,7 +156,7 @@ public:
 
         horizontalLayout_3->addWidget(label_3);
 
-        roomID = new QLabel(widget);
+        roomID = new QLabel(layoutWidget);
         roomID->setObjectName("roomID");
         roomID->setMinimumSize(QSize(100, 0));
         roomID->setFont(font1);
@@ -168,7 +168,7 @@ public:
 
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setObjectName("horizontalLayout_2");
-        label_4 = new QLabel(widget);
+        label_4 = new QLabel(layoutWidget);
         label_4->setObjectName("label_4");
         label_4->setMinimumSize(QSize(151, 0));
         label_4->setMaximumSize(QSize(151, 16777215));
@@ -176,7 +176,7 @@ public:
 
         horizontalLayout_2->addWidget(label_4);
 
-        deposit = new QLabel(widget);
+        deposit = new QLabel(layoutWidget);
         deposit->setObjectName("deposit");
         deposit->setMinimumSize(QSize(100, 0));
         deposit->setFont(font1);
@@ -188,7 +188,7 @@ public:
 
         horizontalLayout_4 = new QHBoxLayout();
         horizontalLayout_4->setObjectName("horizontalLayout_4");
-        label_5 = new QLabel(widget);
+        label_5 = new QLabel(layoutWidget);
         label_5->setObjectName("label_5");
         label_5->setMinimumSize(QSize(151, 0));
         label_5->setMaximumSize(QSize(151, 16777215));
@@ -196,7 +196,7 @@ public:
 
         horizontalLayout_4->addWidget(label_5);
 
-        remaining = new QLabel(widget);
+        remaining = new QLabel(layoutWidget);
         remaining->setObjectName("remaining");
         remaining->setMinimumSize(QSize(100, 0));
         remaining->setFont(font1);
@@ -221,19 +221,20 @@ public:
 
     void retranslateUi(QDialog *Paybill)
     {
-        Paybill->setWindowTitle(QCoreApplication::translate("Paybill", "Dialog", nullptr));
-        label->setText(QCoreApplication::translate("Paybill", "Thanh to\303\241n", nullptr));
-        Datbtn->setText(QCoreApplication::translate("Paybill", "Thanh to\303\241n", nullptr));
-        pushButton_2->setText(QCoreApplication::translate("Paybill", "H\341\273\247y", nullptr));
+        Paybill->setWindowTitle(QCoreApplication::translate("Paybill", "Payment", nullptr));
+        label->setText(QCoreApplication::translate("Paybill", "Payment", nullptr));
+        Datbtn->setText(QCoreApplication::translate("Paybill", "Pay", nullptr));
+        pushButton_2->setText(QCoreApplication::translate("Paybill", "Cancel", nullptr));
         label_2->setText(QCoreApplication::translate("Paybill", "Payment ID:", nullptr));
         paymentID->setText(QString());
         label_3->setText(QCoreApplication::translate("Paybill", "Room ID: ", nullptr));
         roomID->setText(QString());
-        label_4->setText(QCoreApplication::translate("Paybill", "S\341\273\221 ti\341\273\201n \304\221\303\243 thanh to\303\241n:", nullptr));
+        label_4->setText(QCoreApplication::translate("Paybill", "Amount Paid:", nullptr));
         deposit->setText(QString());
-        label_5->setText(QCoreApplication::translate("Paybill", "S\341\273\221 ti\341\273\201n c\303\262n l\341\272\241i:", nullptr));
+        label_5->setText(QCoreApplication::translate("Paybill", "Remaining Amount:", nullptr));
         remaining->setText(QString());
-        amount->setPlaceholderText(QCoreApplication::translate("Paybill", "Nh\341\272\255p s\341\273\221 ti\341\273\201n mu\341\273\221n thanh to\303\241n", nullptr));
+        amount->setText(QString());
+        amount->setPlaceholderText(QCoreApplication::translate("Paybill", "Enter Amount to Pay", nullptr));
     } // retranslateUi
 
 };

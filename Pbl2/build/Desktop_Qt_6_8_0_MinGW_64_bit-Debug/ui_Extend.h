@@ -46,7 +46,7 @@ public:
         Extend->resize(218, 148);
         layoutWidget = new QWidget(Extend);
         layoutWidget->setObjectName("layoutWidget");
-        layoutWidget->setGeometry(QRect(10, 40, 201, 91));
+        layoutWidget->setGeometry(QRect(10, 40, 201, 97));
         verticalLayout_2 = new QVBoxLayout(layoutWidget);
         verticalLayout_2->setObjectName("verticalLayout_2");
         verticalLayout_2->setContentsMargins(0, 0, 0, 0);
@@ -64,7 +64,7 @@ public:
 
         newRT = new QLineEdit(layoutWidget);
         newRT->setObjectName("newRT");
-        newRT->setMinimumSize(QSize(0, 25));
+        newRT->setMinimumSize(QSize(0, 35));
 
         verticalLayout->addWidget(newRT);
 
@@ -81,7 +81,7 @@ public:
         horizontalLayout->setObjectName("horizontalLayout");
         Extenbtn = new QPushButton(layoutWidget);
         Extenbtn->setObjectName("Extenbtn");
-        Extenbtn->setMinimumSize(QSize(55, 18));
+        Extenbtn->setMinimumSize(QSize(55, 25));
         Extenbtn->setStyleSheet(QString::fromUtf8("QPushButton{\n"
 "/background-color: #34D481;\n"
 "/color:white;\n"
@@ -90,13 +90,13 @@ public:
 "/font-weight:bold;\n"
 "/font-size: 10px;\n"
 "}"));
-        Extenbtn->setCheckable(true);
+        Extenbtn->setCheckable(false);
 
         horizontalLayout->addWidget(Extenbtn);
 
         pushButton_2 = new QPushButton(layoutWidget);
         pushButton_2->setObjectName("pushButton_2");
-        pushButton_2->setMinimumSize(QSize(18, 18));
+        pushButton_2->setMinimumSize(QSize(18, 25));
         pushButton_2->setStyleSheet(QString::fromUtf8("QPushButton{\n"
 "/background-color: #585858;\n"
 "/color:white;\n"
@@ -129,14 +129,15 @@ public:
         label_2->setFont(font1);
 
         retranslateUi(Extend);
+        QObject::connect(pushButton_2, &QPushButton::toggled, Extend, qOverload<>(&QDialog::close));
 
         QMetaObject::connectSlotsByName(Extend);
     } // setupUi
 
     void retranslateUi(QDialog *Extend)
     {
-        Extend->setWindowTitle(QCoreApplication::translate("Extend", "Dialog", nullptr));
-        label->setText(QCoreApplication::translate("Extend", "Nh\341\272\255p s\341\273\221 th\303\241ng mu\341\273\221n gia h\341\272\241n", nullptr));
+        Extend->setWindowTitle(QCoreApplication::translate("Extend", "Extend", nullptr));
+        label->setText(QCoreApplication::translate("Extend", "Enter Months to Extend", nullptr));
         newRT->setPlaceholderText(QString());
         Extenbtn->setText(QCoreApplication::translate("Extend", "Extend", nullptr));
         pushButton_2->setText(QCoreApplication::translate("Extend", "Cancel", nullptr));

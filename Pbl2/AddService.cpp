@@ -8,6 +8,7 @@ AddService::AddService(QWidget *parent)
     , ui(new Ui::AddService)
 {
     ui->setupUi(this);
+    ui->checkBox_2->setChecked(true);
 }
 
 AddService::~AddService()
@@ -18,7 +19,7 @@ AddService::~AddService()
 void AddService::on_AddSerbtn_clicked()
 {
     string name = ui->newname->text().toStdString();
-    bool c;
+    bool c, mandatory;
     int price = ui->newprice->text().toInt(&c);
     string des = ui->newdes->text().toStdString();
     if (ui->newname->text().isEmpty()){
@@ -33,7 +34,10 @@ void AddService::on_AddSerbtn_clicked()
         QMessageBox::warning(this, "Lỗi", "Giá dịch vụ không hợp lệ. Vui lòng nhập lại!");
         return;
     }
-    Service::addService(name, price, des);
+    if (ui->checkBox->isChecked()){
+        mandatory=1;
+    } else { mandatory=0;}
+    Service::addService(name, price, des, mandatory);
     this->close();
 }
 

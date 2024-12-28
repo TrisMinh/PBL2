@@ -29,7 +29,7 @@ class Ui_Edittenant
 public:
     QFrame *line;
     QLabel *label_2;
-    QWidget *widget;
+    QWidget *layoutWidget;
     QVBoxLayout *verticalLayout;
     QVBoxLayout *verticalLayout_3;
     QLabel *label_3;
@@ -69,15 +69,15 @@ public:
         font.setPointSize(13);
         font.setBold(true);
         label_2->setFont(font);
-        widget = new QWidget(Edittenant);
-        widget->setObjectName("widget");
-        widget->setGeometry(QRect(10, 50, 211, 271));
-        verticalLayout = new QVBoxLayout(widget);
+        layoutWidget = new QWidget(Edittenant);
+        layoutWidget->setObjectName("layoutWidget");
+        layoutWidget->setGeometry(QRect(10, 50, 211, 271));
+        verticalLayout = new QVBoxLayout(layoutWidget);
         verticalLayout->setObjectName("verticalLayout");
         verticalLayout->setContentsMargins(0, 0, 0, 0);
         verticalLayout_3 = new QVBoxLayout();
         verticalLayout_3->setObjectName("verticalLayout_3");
-        label_3 = new QLabel(widget);
+        label_3 = new QLabel(layoutWidget);
         label_3->setObjectName("label_3");
         label_3->setMaximumSize(QSize(16777215, 15));
         QFont font1;
@@ -86,7 +86,7 @@ public:
 
         verticalLayout_3->addWidget(label_3);
 
-        newname = new QLineEdit(widget);
+        newname = new QLineEdit(layoutWidget);
         newname->setObjectName("newname");
         newname->setMinimumSize(QSize(0, 25));
 
@@ -97,14 +97,14 @@ public:
 
         verticalLayout_5 = new QVBoxLayout();
         verticalLayout_5->setObjectName("verticalLayout_5");
-        label_5 = new QLabel(widget);
+        label_5 = new QLabel(layoutWidget);
         label_5->setObjectName("label_5");
         label_5->setMaximumSize(QSize(16777215, 15));
         label_5->setFont(font1);
 
         verticalLayout_5->addWidget(label_5);
 
-        newsdt = new QLineEdit(widget);
+        newsdt = new QLineEdit(layoutWidget);
         newsdt->setObjectName("newsdt");
         newsdt->setMinimumSize(QSize(0, 25));
 
@@ -115,14 +115,14 @@ public:
 
         verticalLayout_6 = new QVBoxLayout();
         verticalLayout_6->setObjectName("verticalLayout_6");
-        label_6 = new QLabel(widget);
+        label_6 = new QLabel(layoutWidget);
         label_6->setObjectName("label_6");
         label_6->setMaximumSize(QSize(16777215, 15));
         label_6->setFont(font1);
 
         verticalLayout_6->addWidget(label_6);
 
-        newcccd = new QLineEdit(widget);
+        newcccd = new QLineEdit(layoutWidget);
         newcccd->setObjectName("newcccd");
         newcccd->setMinimumSize(QSize(0, 25));
 
@@ -133,14 +133,14 @@ public:
 
         verticalLayout_7 = new QVBoxLayout();
         verticalLayout_7->setObjectName("verticalLayout_7");
-        label_7 = new QLabel(widget);
+        label_7 = new QLabel(layoutWidget);
         label_7->setObjectName("label_7");
         label_7->setMaximumSize(QSize(16777215, 15));
         label_7->setFont(font1);
 
         verticalLayout_7->addWidget(label_7);
 
-        newage = new QLineEdit(widget);
+        newage = new QLineEdit(layoutWidget);
         newage->setObjectName("newage");
         newage->setMinimumSize(QSize(0, 25));
 
@@ -151,14 +151,14 @@ public:
 
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName("horizontalLayout");
-        label_8 = new QLabel(widget);
+        label_8 = new QLabel(layoutWidget);
         label_8->setObjectName("label_8");
         label_8->setMaximumSize(QSize(16777215, 15));
         label_8->setFont(font1);
 
         horizontalLayout->addWidget(label_8);
 
-        comboBox = new QComboBox(widget);
+        comboBox = new QComboBox(layoutWidget);
         comboBox->addItem(QString());
         comboBox->addItem(QString());
         comboBox->setObjectName("comboBox");
@@ -177,9 +177,9 @@ public:
 
         horizontalLayout_4 = new QHBoxLayout();
         horizontalLayout_4->setObjectName("horizontalLayout_4");
-        Edittenantbtn = new QPushButton(widget);
+        Edittenantbtn = new QPushButton(layoutWidget);
         Edittenantbtn->setObjectName("Edittenantbtn");
-        Edittenantbtn->setMinimumSize(QSize(55, 18));
+        Edittenantbtn->setMinimumSize(QSize(55, 25));
         Edittenantbtn->setStyleSheet(QString::fromUtf8("QPushButton{\n"
 "/background-color: #34D481;\n"
 "/color:white;\n"
@@ -188,13 +188,13 @@ public:
 "/font-weight:bold;\n"
 "/font-size: 10px;\n"
 "}"));
-        Edittenantbtn->setCheckable(true);
+        Edittenantbtn->setCheckable(false);
 
         horizontalLayout_4->addWidget(Edittenantbtn);
 
-        pushButton_3 = new QPushButton(widget);
+        pushButton_3 = new QPushButton(layoutWidget);
         pushButton_3->setObjectName("pushButton_3");
-        pushButton_3->setMinimumSize(QSize(18, 18));
+        pushButton_3->setMinimumSize(QSize(18, 25));
         pushButton_3->setStyleSheet(QString::fromUtf8("QPushButton{\n"
 "/background-color: #585858;\n"
 "/color:white;\n"
@@ -215,7 +215,6 @@ public:
 
 
         retranslateUi(Edittenant);
-        QObject::connect(Edittenantbtn, &QPushButton::toggled, Edittenant, qOverload<>(&QDialog::close));
         QObject::connect(pushButton_3, &QPushButton::toggled, Edittenant, qOverload<>(&QDialog::close));
 
         QMetaObject::connectSlotsByName(Edittenant);
@@ -223,19 +222,19 @@ public:
 
     void retranslateUi(QDialog *Edittenant)
     {
-        Edittenant->setWindowTitle(QCoreApplication::translate("Edittenant", "Dialog", nullptr));
+        Edittenant->setWindowTitle(QCoreApplication::translate("Edittenant", "Edit Tenant", nullptr));
         label_2->setText(QCoreApplication::translate("Edittenant", "Edit Tenant", nullptr));
-        label_3->setText(QCoreApplication::translate("Edittenant", "Nh\341\272\255p h\341\273\215 v\303\240 t\303\252n", nullptr));
+        label_3->setText(QCoreApplication::translate("Edittenant", "Enter Full Name", nullptr));
         newname->setPlaceholderText(QString());
-        label_5->setText(QCoreApplication::translate("Edittenant", "Nh\341\272\255p s\341\273\221 \304\221i\341\273\207n tho\341\272\241i", nullptr));
+        label_5->setText(QCoreApplication::translate("Edittenant", "Enter Phone Number", nullptr));
         newsdt->setPlaceholderText(QString());
         label_6->setText(QCoreApplication::translate("Edittenant", "Nh\341\272\255p CCCD", nullptr));
         newcccd->setPlaceholderText(QString());
-        label_7->setText(QCoreApplication::translate("Edittenant", "Nh\341\272\255p n\304\203m sinh", nullptr));
+        label_7->setText(QCoreApplication::translate("Edittenant", "Enter Year of Birth", nullptr));
         newage->setPlaceholderText(QString());
-        label_8->setText(QCoreApplication::translate("Edittenant", "Gi\341\273\233i t\303\255nh", nullptr));
-        comboBox->setItemText(0, QCoreApplication::translate("Edittenant", "Nam", nullptr));
-        comboBox->setItemText(1, QCoreApplication::translate("Edittenant", "N\341\273\257", nullptr));
+        label_8->setText(QCoreApplication::translate("Edittenant", "Gender", nullptr));
+        comboBox->setItemText(0, QCoreApplication::translate("Edittenant", "Male", nullptr));
+        comboBox->setItemText(1, QCoreApplication::translate("Edittenant", "Female", nullptr));
 
         Edittenantbtn->setText(QCoreApplication::translate("Edittenant", "Update Tenant", nullptr));
         pushButton_3->setText(QCoreApplication::translate("Edittenant", "Cancel", nullptr));

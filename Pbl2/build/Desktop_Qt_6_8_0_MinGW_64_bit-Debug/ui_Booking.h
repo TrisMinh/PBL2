@@ -30,6 +30,9 @@ public:
     QVBoxLayout *verticalLayout_8;
     QLabel *label_6;
     QFrame *line_2;
+    QHBoxLayout *horizontalLayout_3;
+    QLabel *label_22;
+    QLabel *ID;
     QVBoxLayout *verticalLayout;
     QLabel *label_21;
     QDateEdit *dateEdit;
@@ -46,7 +49,7 @@ public:
     {
         if (Booking->objectName().isEmpty())
             Booking->setObjectName("Booking");
-        Booking->resize(217, 235);
+        Booking->resize(201, 225);
         verticalLayout_3 = new QVBoxLayout(Booking);
         verticalLayout_3->setObjectName("verticalLayout_3");
         verticalLayout_8 = new QVBoxLayout();
@@ -73,10 +76,36 @@ public:
 
         verticalLayout_3->addLayout(verticalLayout_8);
 
+        horizontalLayout_3 = new QHBoxLayout();
+        horizontalLayout_3->setObjectName("horizontalLayout_3");
+        label_22 = new QLabel(Booking);
+        label_22->setObjectName("label_22");
+        label_22->setMaximumSize(QSize(60, 16777215));
+        QFont font1;
+        font1.setPointSize(9);
+        font1.setBold(true);
+        label_22->setFont(font1);
+
+        horizontalLayout_3->addWidget(label_22);
+
+        ID = new QLabel(Booking);
+        ID->setObjectName("ID");
+        QFont font2;
+        font2.setBold(true);
+        ID->setFont(font2);
+
+        horizontalLayout_3->addWidget(ID);
+
+
+        verticalLayout_3->addLayout(horizontalLayout_3);
+
         verticalLayout = new QVBoxLayout();
         verticalLayout->setObjectName("verticalLayout");
         label_21 = new QLabel(Booking);
         label_21->setObjectName("label_21");
+        QFont font3;
+        font3.setPointSize(10);
+        label_21->setFont(font3);
 
         verticalLayout->addWidget(label_21);
 
@@ -84,9 +113,9 @@ public:
         dateEdit->setObjectName("dateEdit");
         dateEdit->setMinimumSize(QSize(0, 35));
         dateEdit->setMaximumSize(QSize(16777215, 25));
-        QFont font1;
-        font1.setPointSize(11);
-        dateEdit->setFont(font1);
+        QFont font4;
+        font4.setPointSize(11);
+        dateEdit->setFont(font4);
         dateEdit->setAutoFillBackground(false);
         dateEdit->setStyleSheet(QString::fromUtf8(""));
 
@@ -99,13 +128,14 @@ public:
         verticalLayout_2->setObjectName("verticalLayout_2");
         label_20 = new QLabel(Booking);
         label_20->setObjectName("label_20");
+        label_20->setFont(font3);
 
         verticalLayout_2->addWidget(label_20);
 
         stay = new QLineEdit(Booking);
         stay->setObjectName("stay");
         stay->setMinimumSize(QSize(0, 35));
-        stay->setFont(font1);
+        stay->setFont(font4);
         stay->setStyleSheet(QString::fromUtf8(""));
 
         verticalLayout_2->addWidget(stay);
@@ -124,9 +154,7 @@ public:
         Datbtn = new QPushButton(Booking);
         Datbtn->setObjectName("Datbtn");
         Datbtn->setMinimumSize(QSize(55, 30));
-        QFont font2;
-        font2.setPointSize(10);
-        Datbtn->setFont(font2);
+        Datbtn->setFont(font3);
         Datbtn->setStyleSheet(QString::fromUtf8("QPushButton{\n"
 "/background-color: #34D481;\n"
 "/color:white;\n"
@@ -135,14 +163,14 @@ public:
 "/font-weight:bold;\n"
 "/font-size: 10px;\n"
 "}"));
-        Datbtn->setCheckable(true);
+        Datbtn->setCheckable(false);
 
         horizontalLayout->addWidget(Datbtn);
 
         pushButton_2 = new QPushButton(Booking);
         pushButton_2->setObjectName("pushButton_2");
         pushButton_2->setMinimumSize(QSize(18, 30));
-        pushButton_2->setFont(font2);
+        pushButton_2->setFont(font3);
         pushButton_2->setStyleSheet(QString::fromUtf8("QPushButton{\n"
 "/background-color: #585858;\n"
 "/color:white;\n"
@@ -170,14 +198,16 @@ public:
 
     void retranslateUi(QDialog *Booking)
     {
-        Booking->setWindowTitle(QCoreApplication::translate("Booking", "Dialog", nullptr));
-        label_6->setText(QCoreApplication::translate("Booking", "\304\220\341\272\267t ph\303\262ng", nullptr));
-        label_21->setText(QCoreApplication::translate("Booking", "Nh\341\272\255p StayDate", nullptr));
+        Booking->setWindowTitle(QCoreApplication::translate("Booking", "Book Room", nullptr));
+        label_6->setText(QCoreApplication::translate("Booking", "Book Room", nullptr));
+        label_22->setText(QCoreApplication::translate("Booking", "Room ID: ", nullptr));
+        ID->setText(QString());
+        label_21->setText(QCoreApplication::translate("Booking", "Enter Stay Date", nullptr));
         dateEdit->setDisplayFormat(QCoreApplication::translate("Booking", "dd/MM/yyyy", nullptr));
-        label_20->setText(QCoreApplication::translate("Booking", "Nh\341\272\255p Stay Time (s\341\273\221 th\303\241ng)", nullptr));
+        label_20->setText(QCoreApplication::translate("Booking", "Enter Stay Time (months)", nullptr));
         stay->setPlaceholderText(QString());
-        Datbtn->setText(QCoreApplication::translate("Booking", "\304\220\341\272\267t", nullptr));
-        pushButton_2->setText(QCoreApplication::translate("Booking", "H\341\273\247y", nullptr));
+        Datbtn->setText(QCoreApplication::translate("Booking", "Book", nullptr));
+        pushButton_2->setText(QCoreApplication::translate("Booking", "Cancel", nullptr));
     } // retranslateUi
 
 };

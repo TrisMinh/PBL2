@@ -6,19 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>221</width>
-    <height>275</height>
+    <width>246</width>
+    <height>296</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Add Service</string>
   </property>
   <widget class="Line" name="line">
    <property name="geometry">
     <rect>
      <x>10</x>
      <y>30</y>
-     <width>201</width>
+     <width>221</width>
      <height>20</height>
     </rect>
    </property>
@@ -45,13 +45,13 @@
     <string> Add Service</string>
    </property>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>50</y>
-     <width>201</width>
-     <height>211</height>
+     <y>51</y>
+     <width>221</width>
+     <height>231</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -71,7 +71,7 @@
          </font>
         </property>
         <property name="text">
-         <string>Nhập tên dịch vụ</string>
+         <string>Enter Service Name</string>
         </property>
        </widget>
       </item>
@@ -80,7 +80,7 @@
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>25</height>
+          <height>30</height>
          </size>
         </property>
         <property name="placeholderText">
@@ -106,7 +106,7 @@
          </font>
         </property>
         <property name="text">
-         <string>Nhập giá dịch vụ</string>
+         <string>Enter Service Price</string>
         </property>
        </widget>
       </item>
@@ -115,7 +115,7 @@
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>25</height>
+          <height>30</height>
          </size>
         </property>
         <property name="placeholderText">
@@ -141,7 +141,7 @@
          </font>
         </property>
         <property name="text">
-         <string>Nhập mô tả dịch vụ</string>
+         <string>Enter Service Description</string>
         </property>
        </widget>
       </item>
@@ -150,13 +150,68 @@
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>25</height>
+          <height>30</height>
          </size>
         </property>
         <property name="placeholderText">
          <string/>
         </property>
        </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <property name="spacing">
+       <number>10</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="label_5">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>15</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>11</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Service Type</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="QCheckBox" name="checkBox">
+          <property name="minimumSize">
+           <size>
+            <width>55</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Cố định</string>
+          </property>
+          <property name="autoExclusive">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="checkBox_2">
+          <property name="text">
+           <string>Tự do</string>
+          </property>
+          <property name="autoExclusive">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
      </layout>
     </item>
@@ -182,7 +237,7 @@
           <property name="minimumSize">
            <size>
             <width>55</width>
-            <height>18</height>
+            <height>25</height>
            </size>
           </property>
           <property name="styleSheet">
@@ -196,10 +251,10 @@
 }</string>
           </property>
           <property name="text">
-           <string>Add Serive</string>
+           <string>Add Service</string>
           </property>
           <property name="checkable">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
          </widget>
         </item>
@@ -208,7 +263,7 @@
           <property name="minimumSize">
            <size>
             <width>18</width>
-            <height>18</height>
+            <height>25</height>
            </size>
           </property>
           <property name="styleSheet">
@@ -237,5 +292,22 @@
   </widget>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>pushButton_2</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>AddService</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>185</x>
+     <y>237</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>179</x>
+     <y>283</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

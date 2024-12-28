@@ -66,7 +66,7 @@ public:
     {
         if (Adminaccount->objectName().isEmpty())
             Adminaccount->setObjectName("Adminaccount");
-        Adminaccount->resize(206, 250);
+        Adminaccount->resize(255, 265);
         verticalLayout = new QVBoxLayout(Adminaccount);
         verticalLayout->setObjectName("verticalLayout");
         stackedWidget = new QStackedWidget(Adminaccount);
@@ -114,7 +114,7 @@ public:
 
         Oldcode = new QLineEdit(page);
         Oldcode->setObjectName("Oldcode");
-        Oldcode->setMinimumSize(QSize(0, 25));
+        Oldcode->setMinimumSize(QSize(0, 35));
         Oldcode->setEchoMode(QLineEdit::EchoMode::Password);
 
         verticalLayout_2->addWidget(Oldcode);
@@ -133,7 +133,7 @@ public:
 
         Newcode = new QLineEdit(page);
         Newcode->setObjectName("Newcode");
-        Newcode->setMinimumSize(QSize(0, 25));
+        Newcode->setMinimumSize(QSize(0, 35));
         Newcode->setEchoMode(QLineEdit::EchoMode::Password);
 
         verticalLayout_3->addWidget(Newcode);
@@ -151,7 +151,7 @@ public:
         horizontalLayout->setObjectName("horizontalLayout");
         Changecode = new QPushButton(page);
         Changecode->setObjectName("Changecode");
-        Changecode->setMinimumSize(QSize(55, 18));
+        Changecode->setMinimumSize(QSize(55, 25));
         Changecode->setStyleSheet(QString::fromUtf8("QPushButton{\n"
 "/background-color: #34D481;\n"
 "/color:white;\n"
@@ -160,13 +160,13 @@ public:
 "/font-weight:bold;\n"
 "/font-size: 10px;\n"
 "}"));
-        Changecode->setCheckable(true);
+        Changecode->setCheckable(false);
 
         horizontalLayout->addWidget(Changecode);
 
         pushButton_2 = new QPushButton(page);
         pushButton_2->setObjectName("pushButton_2");
-        pushButton_2->setMinimumSize(QSize(18, 18));
+        pushButton_2->setMinimumSize(QSize(18, 25));
         pushButton_2->setStyleSheet(QString::fromUtf8("QPushButton{\n"
 "/background-color: #585858;\n"
 "/color:white;\n"
@@ -222,7 +222,7 @@ public:
 
         oldpass = new QLineEdit(page_2);
         oldpass->setObjectName("oldpass");
-        oldpass->setMinimumSize(QSize(0, 25));
+        oldpass->setMinimumSize(QSize(0, 35));
         oldpass->setEchoMode(QLineEdit::EchoMode::Password);
 
         verticalLayout_7->addWidget(oldpass);
@@ -241,7 +241,7 @@ public:
 
         newpass = new QLineEdit(page_2);
         newpass->setObjectName("newpass");
-        newpass->setMinimumSize(QSize(0, 25));
+        newpass->setMinimumSize(QSize(0, 35));
         newpass->setEchoMode(QLineEdit::EchoMode::Password);
 
         verticalLayout_6->addWidget(newpass);
@@ -259,7 +259,7 @@ public:
         horizontalLayout_4->setObjectName("horizontalLayout_4");
         Changepass = new QPushButton(page_2);
         Changepass->setObjectName("Changepass");
-        Changepass->setMinimumSize(QSize(55, 18));
+        Changepass->setMinimumSize(QSize(55, 25));
         Changepass->setStyleSheet(QString::fromUtf8("QPushButton{\n"
 "/background-color: #34D481;\n"
 "/color:white;\n"
@@ -268,13 +268,13 @@ public:
 "/font-weight:bold;\n"
 "/font-size: 10px;\n"
 "}"));
-        Changepass->setCheckable(true);
+        Changepass->setCheckable(false);
 
         horizontalLayout_4->addWidget(Changepass);
 
         pushButton_3 = new QPushButton(page_2);
         pushButton_3->setObjectName("pushButton_3");
-        pushButton_3->setMinimumSize(QSize(18, 18));
+        pushButton_3->setMinimumSize(QSize(18, 25));
         pushButton_3->setStyleSheet(QString::fromUtf8("QPushButton{\n"
 "/background-color: #585858;\n"
 "/color:white;\n"
@@ -299,8 +299,9 @@ public:
 
 
         retranslateUi(Adminaccount);
+        QObject::connect(pushButton_2, &QPushButton::toggled, Adminaccount, qOverload<>(&QDialog::close));
 
-        stackedWidget->setCurrentIndex(1);
+        stackedWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(Adminaccount);
@@ -308,11 +309,11 @@ public:
 
     void retranslateUi(QDialog *Adminaccount)
     {
-        Adminaccount->setWindowTitle(QCoreApplication::translate("Adminaccount", "Dialog", nullptr));
+        Adminaccount->setWindowTitle(QCoreApplication::translate("Adminaccount", "Account", nullptr));
         label->setText(QCoreApplication::translate("Adminaccount", "Change Admin Code", nullptr));
-        label_2->setText(QCoreApplication::translate("Adminaccount", "Nh\341\272\255p AdminCode c\305\251", nullptr));
+        label_2->setText(QCoreApplication::translate("Adminaccount", "Enter Old AdminCode", nullptr));
         Oldcode->setPlaceholderText(QString());
-        label_3->setText(QCoreApplication::translate("Adminaccount", "Nh\341\272\255p AdminCode m\341\273\233i", nullptr));
+        label_3->setText(QCoreApplication::translate("Adminaccount", "Enter New AdminCode", nullptr));
         Newcode->setPlaceholderText(QString());
         Changecode->setText(QCoreApplication::translate("Adminaccount", "Update", nullptr));
         pushButton_2->setText(QCoreApplication::translate("Adminaccount", "Cancel", nullptr));

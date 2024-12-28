@@ -17,7 +17,11 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>My Room</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="Resources.qrc">
+    <normaloff>:/new/prefix1/Resources/logoooo.png</normaloff>:/new/prefix1/Resources/logoooo.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout_204">
@@ -885,7 +889,7 @@ QPushButton:hover {
 </string>
                </property>
                <property name="text">
-                <string>PushButton</string>
+                <string/>
                </property>
                <property name="icon">
                 <iconset resource="Resources.qrc">
@@ -994,7 +998,7 @@ border:none;
               <cursorShape>ArrowCursor</cursorShape>
              </property>
              <property name="currentIndex">
-              <number>3</number>
+              <number>5</number>
              </property>
              <widget class="QWidget" name="page_52">
               <widget class="QLabel" name="label_84">
@@ -1854,7 +1858,7 @@ border-radius:15px;
                       </font>
                      </property>
                      <property name="text">
-                      <string>Chọn phòng</string>
+                      <string>Select Your Room</string>
                      </property>
                     </widget>
                     <widget class="QListWidget" name="listWidget">
@@ -2024,7 +2028,7 @@ QHeaderView::section {
                           </attribute>
                           <column>
                            <property name="text">
-                            <string>Mã dịch vụ</string>
+                            <string>Service ID</string>
                            </property>
                            <property name="font">
                             <font>
@@ -2034,7 +2038,7 @@ QHeaderView::section {
                           </column>
                           <column>
                            <property name="text">
-                            <string>Tên dịch vụ</string>
+                            <string>Service Name</string>
                            </property>
                            <property name="font">
                             <font>
@@ -2044,7 +2048,7 @@ QHeaderView::section {
                           </column>
                           <column>
                            <property name="text">
-                            <string>Mô tả</string>
+                            <string>Description</string>
                            </property>
                            <property name="font">
                             <font>
@@ -2054,7 +2058,7 @@ QHeaderView::section {
                           </column>
                           <column>
                            <property name="text">
-                            <string>Giá</string>
+                            <string>Price</string>
                            </property>
                            <property name="font">
                             <font>
@@ -2069,7 +2073,7 @@ QHeaderView::section {
                           </column>
                           <column>
                            <property name="text">
-                            <string>Trạng thái</string>
+                            <string>Status</string>
                            </property>
                           </column>
                           <column>
@@ -2961,7 +2965,7 @@ QPushButton:hover:!checked {
                     </font>
                    </property>
                    <property name="text">
-                    <string>Thông tin</string>
+                    <string>Information</string>
                    </property>
                   </widget>
                   <widget class="Line" name="line">
@@ -3016,7 +3020,7 @@ QPushButton:hover:!checked {
                        <string notr="true">QPushButton { text-align: left; padding-left: 10px; }</string>
                       </property>
                       <property name="text">
-                       <string>Thông tin cá nhân</string>
+                       <string>Personal Information</string>
                       </property>
                       <property name="checkable">
                        <bool>true</bool>
@@ -3043,7 +3047,7 @@ QPushButton:hover:!checked {
                        <string notr="true">QPushButton { text-align: left; padding-left: 10px; }</string>
                       </property>
                       <property name="text">
-                       <string>Đổi mật khẩu</string>
+                       <string>Change Password</string>
                       </property>
                       <property name="checkable">
                        <bool>true</bool>
@@ -3093,7 +3097,7 @@ border-radius:15px;
                         </font>
                        </property>
                        <property name="text">
-                        <string>Thông tin cá nhân</string>
+                        <string>Personal Information</string>
                        </property>
                       </widget>
                       <widget class="Line" name="line_2">
@@ -3160,7 +3164,7 @@ border-radius:15px;
                              </font>
                             </property>
                             <property name="text">
-                             <string>Họ và tên:</string>
+                             <string>Full Name:</string>
                             </property>
                            </widget>
                           </item>
@@ -3188,7 +3192,7 @@ border-radius:15px;
                              </font>
                             </property>
                             <property name="text">
-                             <string>Số điện thoại: </string>
+                             <string>Phone Number:</string>
                             </property>
                            </widget>
                           </item>
@@ -3216,7 +3220,7 @@ border-radius:15px;
                              </font>
                             </property>
                             <property name="text">
-                             <string>Tuổi:</string>
+                             <string>Age:</string>
                             </property>
                            </widget>
                           </item>
@@ -3272,7 +3276,7 @@ border-radius:15px;
                              </font>
                             </property>
                             <property name="text">
-                             <string>Giới tính:</string>
+                             <string>Gender:</string>
                             </property>
                            </widget>
                           </item>
@@ -3309,7 +3313,7 @@ border-radius:15px;
                         </font>
                        </property>
                        <property name="text">
-                        <string>Cập nhật thông tin cá nhân</string>
+                        <string>Update Personal Information</string>
                        </property>
                       </widget>
                       <widget class="Line" name="line_4">
@@ -3396,7 +3400,7 @@ color:black;
                              </font>
                             </property>
                             <property name="text">
-                             <string>Họ và tên:</string>
+                             <string>Full Name:</string>
                             </property>
                            </widget>
                           </item>
@@ -3436,7 +3440,7 @@ background-color: rgb(255, 255, 255);
                              </font>
                             </property>
                             <property name="text">
-                             <string>Số điện thoại:</string>
+                             <string>Phone Number:</string>
                             </property>
                            </widget>
                           </item>
@@ -3476,7 +3480,7 @@ background-color: rgb(255, 255, 255);
                              </font>
                             </property>
                             <property name="text">
-                             <string>Tuổi:</string>
+                             <string>Age:</string>
                             </property>
                            </widget>
                           </item>
@@ -3556,7 +3560,7 @@ background-color: rgb(255, 255, 255);
                              </font>
                             </property>
                             <property name="text">
-                             <string>Giới tính:</string>
+                             <string>Gender:</string>
                             </property>
                            </widget>
                           </item>
@@ -3580,7 +3584,7 @@ background-color: rgb(255, 255, 255);
                                </size>
                               </property>
                               <property name="text">
-                               <string>Nam</string>
+                               <string>Male</string>
                               </property>
                               <property name="autoExclusive">
                                <bool>true</bool>
@@ -3602,7 +3606,7 @@ background-color: rgb(255, 255, 255);
                                </size>
                               </property>
                               <property name="text">
-                               <string>Nữ</string>
+                               <string>Female</string>
                               </property>
                               <property name="autoExclusive">
                                <bool>true</bool>
@@ -3632,7 +3636,7 @@ background-color: rgb(255, 255, 255);
                         </font>
                        </property>
                        <property name="text">
-                        <string>Đổi mật khẩu</string>
+                        <string>Change Password</string>
                        </property>
                       </widget>
                       <widget class="Line" name="line_3">
@@ -3678,7 +3682,7 @@ background-color: rgb(255, 255, 255);
                            </font>
                           </property>
                           <property name="text">
-                           <string>Mật khẩu mới:</string>
+                           <string>New password</string>
                           </property>
                          </widget>
                         </item>
@@ -3732,7 +3736,7 @@ background-color: rgb(255, 255, 255);
                            </font>
                           </property>
                           <property name="text">
-                           <string>Nhập lại mật khẩu mới:</string>
+                           <string>Confirm New Password:</string>
                           </property>
                          </widget>
                         </item>
@@ -3851,7 +3855,7 @@ border:none</string>
                            </font>
                           </property>
                           <property name="text">
-                           <string>Mật khẩu hiện tại:</string>
+                           <string>Current password</string>
                           </property>
                          </widget>
                         </item>

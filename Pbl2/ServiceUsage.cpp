@@ -111,14 +111,11 @@ double ServiceUsage::calculateServiceAmountForRoom(const string& roomID, const s
     double serviceAmount = 0;
     for (LinkedList<ServiceUsage>::Node* current = usageList.begin(); current != nullptr; current = current->next) {        
         ServiceUsage& usage = current->data;
-        qDebug() << usage.getRoomID();
-        qDebug() << usage.getTenantID();
         if (roomID == usage.getRoomID() && tenantID == usage.getTenantID()) {
             Service* service = Service::serviceList.searchID(usage.getServiceID());
             if (service != nullptr) {
                 if (service->getID() == "S.005" || service->getID() == "S.006") {
                     int quantity = usage.getQuantity();
-                    qDebug() << quantity;
                     serviceAmount += service->getUnitPrice() * quantity;
                 } else {
                     serviceAmount += service->getUnitPrice();

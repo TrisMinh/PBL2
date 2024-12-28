@@ -28,7 +28,7 @@ class Ui_Editroomtype
 public:
     QFrame *line;
     QLabel *label_2;
-    QWidget *widget;
+    QWidget *layoutWidget;
     QVBoxLayout *verticalLayout;
     QVBoxLayout *verticalLayout_3;
     QLabel *label_3;
@@ -49,7 +49,7 @@ public:
     {
         if (Editroomtype->objectName().isEmpty())
             Editroomtype->setObjectName("Editroomtype");
-        Editroomtype->resize(219, 249);
+        Editroomtype->resize(219, 254);
         line = new QFrame(Editroomtype);
         line->setObjectName("line");
         line->setGeometry(QRect(10, 30, 201, 20));
@@ -62,15 +62,15 @@ public:
         font.setPointSize(13);
         font.setBold(true);
         label_2->setFont(font);
-        widget = new QWidget(Editroomtype);
-        widget->setObjectName("widget");
-        widget->setGeometry(QRect(10, 50, 201, 191));
-        verticalLayout = new QVBoxLayout(widget);
+        layoutWidget = new QWidget(Editroomtype);
+        layoutWidget->setObjectName("layoutWidget");
+        layoutWidget->setGeometry(QRect(10, 50, 201, 196));
+        verticalLayout = new QVBoxLayout(layoutWidget);
         verticalLayout->setObjectName("verticalLayout");
         verticalLayout->setContentsMargins(0, 0, 0, 0);
         verticalLayout_3 = new QVBoxLayout();
         verticalLayout_3->setObjectName("verticalLayout_3");
-        label_3 = new QLabel(widget);
+        label_3 = new QLabel(layoutWidget);
         label_3->setObjectName("label_3");
         label_3->setMaximumSize(QSize(16777215, 15));
         QFont font1;
@@ -79,9 +79,9 @@ public:
 
         verticalLayout_3->addWidget(label_3);
 
-        newname = new QLineEdit(widget);
+        newname = new QLineEdit(layoutWidget);
         newname->setObjectName("newname");
-        newname->setMinimumSize(QSize(0, 25));
+        newname->setMinimumSize(QSize(0, 30));
 
         verticalLayout_3->addWidget(newname);
 
@@ -90,16 +90,16 @@ public:
 
         verticalLayout_4 = new QVBoxLayout();
         verticalLayout_4->setObjectName("verticalLayout_4");
-        label_4 = new QLabel(widget);
+        label_4 = new QLabel(layoutWidget);
         label_4->setObjectName("label_4");
         label_4->setMaximumSize(QSize(16777215, 15));
         label_4->setFont(font1);
 
         verticalLayout_4->addWidget(label_4);
 
-        newdes = new QLineEdit(widget);
+        newdes = new QLineEdit(layoutWidget);
         newdes->setObjectName("newdes");
-        newdes->setMinimumSize(QSize(0, 25));
+        newdes->setMinimumSize(QSize(0, 30));
 
         verticalLayout_4->addWidget(newdes);
 
@@ -108,16 +108,16 @@ public:
 
         verticalLayout_5 = new QVBoxLayout();
         verticalLayout_5->setObjectName("verticalLayout_5");
-        label_5 = new QLabel(widget);
+        label_5 = new QLabel(layoutWidget);
         label_5->setObjectName("label_5");
         label_5->setMaximumSize(QSize(16777215, 15));
         label_5->setFont(font1);
 
         verticalLayout_5->addWidget(label_5);
 
-        newprice = new QLineEdit(widget);
+        newprice = new QLineEdit(layoutWidget);
         newprice->setObjectName("newprice");
-        newprice->setMinimumSize(QSize(0, 25));
+        newprice->setMinimumSize(QSize(0, 30));
 
         verticalLayout_5->addWidget(newprice);
 
@@ -132,9 +132,9 @@ public:
 
         horizontalLayout_4 = new QHBoxLayout();
         horizontalLayout_4->setObjectName("horizontalLayout_4");
-        Update = new QPushButton(widget);
+        Update = new QPushButton(layoutWidget);
         Update->setObjectName("Update");
-        Update->setMinimumSize(QSize(55, 18));
+        Update->setMinimumSize(QSize(55, 25));
         Update->setStyleSheet(QString::fromUtf8("QPushButton{\n"
 "/background-color: #34D481;\n"
 "/color:white;\n"
@@ -143,13 +143,13 @@ public:
 "/font-weight:bold;\n"
 "/font-size: 10px;\n"
 "}"));
-        Update->setCheckable(true);
+        Update->setCheckable(false);
 
         horizontalLayout_4->addWidget(Update);
 
-        pushButton_3 = new QPushButton(widget);
+        pushButton_3 = new QPushButton(layoutWidget);
         pushButton_3->setObjectName("pushButton_3");
-        pushButton_3->setMinimumSize(QSize(18, 18));
+        pushButton_3->setMinimumSize(QSize(18, 25));
         pushButton_3->setStyleSheet(QString::fromUtf8("QPushButton{\n"
 "/background-color: #585858;\n"
 "/color:white;\n"
@@ -170,19 +170,20 @@ public:
 
 
         retranslateUi(Editroomtype);
+        QObject::connect(pushButton_3, &QPushButton::toggled, Editroomtype, qOverload<>(&QDialog::close));
 
         QMetaObject::connectSlotsByName(Editroomtype);
     } // setupUi
 
     void retranslateUi(QDialog *Editroomtype)
     {
-        Editroomtype->setWindowTitle(QCoreApplication::translate("Editroomtype", "Dialog", nullptr));
+        Editroomtype->setWindowTitle(QCoreApplication::translate("Editroomtype", "Edit Room Type", nullptr));
         label_2->setText(QCoreApplication::translate("Editroomtype", "Edit Room Type", nullptr));
-        label_3->setText(QCoreApplication::translate("Editroomtype", "Nh\341\272\255p t\303\252n lo\341\272\241i ph\303\262ng", nullptr));
+        label_3->setText(QCoreApplication::translate("Editroomtype", "Enter Room Type Name", nullptr));
         newname->setPlaceholderText(QString());
-        label_4->setText(QCoreApplication::translate("Editroomtype", "Nh\341\272\255p m\303\264 t\341\272\243", nullptr));
+        label_4->setText(QCoreApplication::translate("Editroomtype", "Enter Description", nullptr));
         newdes->setPlaceholderText(QString());
-        label_5->setText(QCoreApplication::translate("Editroomtype", "Nh\341\272\255p gi\303\241", nullptr));
+        label_5->setText(QCoreApplication::translate("Editroomtype", "Enter price", nullptr));
         newprice->setPlaceholderText(QString());
         Update->setText(QCoreApplication::translate("Editroomtype", "Update", nullptr));
         pushButton_3->setText(QCoreApplication::translate("Editroomtype", "Cancel", nullptr));

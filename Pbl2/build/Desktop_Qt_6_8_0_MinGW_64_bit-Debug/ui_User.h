@@ -275,6 +275,9 @@ public:
             User->setObjectName("User");
         User->resize(1519, 800);
         User->setMinimumSize(QSize(100, 100));
+        QIcon icon;
+        icon.addFile(QString::fromUtf8(":/new/prefix1/Resources/logoooo.png"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
+        User->setWindowIcon(icon);
         centralwidget = new QWidget(User);
         centralwidget->setObjectName("centralwidget");
         horizontalLayout_204 = new QHBoxLayout(centralwidget);
@@ -334,10 +337,10 @@ public:
 "background-color:white;\n"
 "border-radius:3px;\n"
 "}"));
-        QIcon icon;
-        icon.addFile(QString::fromUtf8(":/new/prefix1/Resources/Room.png"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
-        icon.addFile(QString::fromUtf8(":/new/prefix1/Resources/Room1.png"), QSize(), QIcon::Mode::Normal, QIcon::State::On);
-        pushButton_3->setIcon(icon);
+        QIcon icon1;
+        icon1.addFile(QString::fromUtf8(":/new/prefix1/Resources/Room.png"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
+        icon1.addFile(QString::fromUtf8(":/new/prefix1/Resources/Room1.png"), QSize(), QIcon::Mode::Normal, QIcon::State::On);
+        pushButton_3->setIcon(icon1);
         pushButton_3->setIconSize(QSize(30, 18));
         pushButton_3->setCheckable(true);
         pushButton_3->setAutoExclusive(true);
@@ -352,11 +355,11 @@ public:
 "background-color:white;\n"
 "border-radius:3px;\n"
 "}"));
-        QIcon icon1;
-        icon1.addFile(QString::fromUtf8(":/new/prefix1/Resources/Service.png"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
-        icon1.addFile(QString::fromUtf8(":/new/prefix1/Resources/Service1.png"), QSize(), QIcon::Mode::Normal, QIcon::State::On);
-        icon1.addFile(QString::fromUtf8(":/new/prefix1/Resources/Person1.png"), QSize(), QIcon::Mode::Disabled, QIcon::State::Off);
-        Serbtn->setIcon(icon1);
+        QIcon icon2;
+        icon2.addFile(QString::fromUtf8(":/new/prefix1/Resources/Service.png"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
+        icon2.addFile(QString::fromUtf8(":/new/prefix1/Resources/Service1.png"), QSize(), QIcon::Mode::Normal, QIcon::State::On);
+        icon2.addFile(QString::fromUtf8(":/new/prefix1/Resources/Person1.png"), QSize(), QIcon::Mode::Disabled, QIcon::State::Off);
+        Serbtn->setIcon(icon2);
         Serbtn->setIconSize(QSize(30, 18));
         Serbtn->setCheckable(true);
         Serbtn->setAutoExclusive(true);
@@ -371,10 +374,10 @@ public:
 "background-color:white;\n"
 "border-radius:3px;\n"
 "}"));
-        QIcon icon2;
-        icon2.addFile(QString::fromUtf8(":/new/prefix1/Resources/payment.png"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
-        icon2.addFile(QString::fromUtf8(":/new/prefix1/Resources/payment1.png"), QSize(), QIcon::Mode::Normal, QIcon::State::On);
-        Paymentbtn1->setIcon(icon2);
+        QIcon icon3;
+        icon3.addFile(QString::fromUtf8(":/new/prefix1/Resources/payment.png"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
+        icon3.addFile(QString::fromUtf8(":/new/prefix1/Resources/payment1.png"), QSize(), QIcon::Mode::Normal, QIcon::State::On);
+        Paymentbtn1->setIcon(icon3);
         Paymentbtn1->setIconSize(QSize(30, 18));
         Paymentbtn1->setCheckable(true);
         Paymentbtn1->setAutoExclusive(true);
@@ -389,10 +392,10 @@ public:
 "background-color:white;\n"
 "border-radius:3px;\n"
 "}"));
-        QIcon icon3;
-        icon3.addFile(QString::fromUtf8(":/new/prefix1/Resources/contract.png"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
-        icon3.addFile(QString::fromUtf8(":/new/prefix1/Resources/contract1.png"), QSize(), QIcon::Mode::Normal, QIcon::State::On);
-        Contractbtn1->setIcon(icon3);
+        QIcon icon4;
+        icon4.addFile(QString::fromUtf8(":/new/prefix1/Resources/contract.png"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
+        icon4.addFile(QString::fromUtf8(":/new/prefix1/Resources/contract1.png"), QSize(), QIcon::Mode::Normal, QIcon::State::On);
+        Contractbtn1->setIcon(icon4);
         Contractbtn1->setIconSize(QSize(30, 18));
         Contractbtn1->setCheckable(true);
         Contractbtn1->setAutoExclusive(true);
@@ -420,10 +423,10 @@ public:
 "background-color:white;\n"
 "border-radius:3px;\n"
 "}"));
-        QIcon icon4;
-        icon4.addFile(QString::fromUtf8(":/new/prefix1/Resources/signoutsmall1.png"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
-        icon4.addFile(QString::fromUtf8(":/new/prefix1/Resources/signoutsmall2.png"), QSize(), QIcon::Mode::Normal, QIcon::State::On);
-        signoutbtn1->setIcon(icon4);
+        QIcon icon5;
+        icon5.addFile(QString::fromUtf8(":/new/prefix1/Resources/signoutsmall1.png"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
+        icon5.addFile(QString::fromUtf8(":/new/prefix1/Resources/signoutsmall2.png"), QSize(), QIcon::Mode::Normal, QIcon::State::On);
+        signoutbtn1->setIcon(icon5);
         signoutbtn1->setIconSize(QSize(20, 20));
         signoutbtn1->setCheckable(true);
         signoutbtn1->setAutoExclusive(true);
@@ -491,10 +494,10 @@ public:
 "background-color:white;\n"
 "border-radius:3px;\n"
 "}"));
-        QIcon icon5;
-        icon5.addFile(QString::fromUtf8(":/new/prefix1/Resources/Roomb1.png"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
-        icon5.addFile(QString::fromUtf8(":/new/prefix1/Resources/Roomb2.png"), QSize(), QIcon::Mode::Normal, QIcon::State::On);
-        roombtn->setIcon(icon5);
+        QIcon icon6;
+        icon6.addFile(QString::fromUtf8(":/new/prefix1/Resources/Roomb1.png"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
+        icon6.addFile(QString::fromUtf8(":/new/prefix1/Resources/Roomb2.png"), QSize(), QIcon::Mode::Normal, QIcon::State::On);
+        roombtn->setIcon(icon6);
         roombtn->setIconSize(QSize(110, 18));
         roombtn->setCheckable(true);
         roombtn->setAutoExclusive(true);
@@ -513,10 +516,10 @@ public:
 "background-color:white;\n"
 "border-radius:3px;\n"
 "}"));
-        QIcon icon6;
-        icon6.addFile(QString::fromUtf8(":/new/prefix1/Resources/Servicebig.png"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
-        icon6.addFile(QString::fromUtf8(":/new/prefix1/Resources/Servicebig1.png"), QSize(), QIcon::Mode::Normal, QIcon::State::On);
-        Serbtn1->setIcon(icon6);
+        QIcon icon7;
+        icon7.addFile(QString::fromUtf8(":/new/prefix1/Resources/Servicebig.png"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
+        icon7.addFile(QString::fromUtf8(":/new/prefix1/Resources/Servicebig1.png"), QSize(), QIcon::Mode::Normal, QIcon::State::On);
+        Serbtn1->setIcon(icon7);
         Serbtn1->setIconSize(QSize(115, 18));
         Serbtn1->setCheckable(true);
         Serbtn1->setAutoExclusive(true);
@@ -535,10 +538,10 @@ public:
 "background-color:white;\n"
 "border-radius:3px;\n"
 "}"));
-        QIcon icon7;
-        icon7.addFile(QString::fromUtf8(":/new/prefix1/Resources/paymentbig.png"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
-        icon7.addFile(QString::fromUtf8(":/new/prefix1/Resources/paymentbig1.png"), QSize(), QIcon::Mode::Normal, QIcon::State::On);
-        Paymentbtn->setIcon(icon7);
+        QIcon icon8;
+        icon8.addFile(QString::fromUtf8(":/new/prefix1/Resources/paymentbig.png"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
+        icon8.addFile(QString::fromUtf8(":/new/prefix1/Resources/paymentbig1.png"), QSize(), QIcon::Mode::Normal, QIcon::State::On);
+        Paymentbtn->setIcon(icon8);
         Paymentbtn->setIconSize(QSize(115, 18));
         Paymentbtn->setCheckable(true);
         Paymentbtn->setAutoExclusive(true);
@@ -557,10 +560,10 @@ public:
 "background-color:white;\n"
 "border-radius:3px;\n"
 "}"));
-        QIcon icon8;
-        icon8.addFile(QString::fromUtf8(":/new/prefix1/Resources/contractbig.png"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
-        icon8.addFile(QString::fromUtf8(":/new/prefix1/Resources/contractbig1.png"), QSize(), QIcon::Mode::Normal, QIcon::State::On);
-        Contractbtn->setIcon(icon8);
+        QIcon icon9;
+        icon9.addFile(QString::fromUtf8(":/new/prefix1/Resources/contractbig.png"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
+        icon9.addFile(QString::fromUtf8(":/new/prefix1/Resources/contractbig1.png"), QSize(), QIcon::Mode::Normal, QIcon::State::On);
+        Contractbtn->setIcon(icon9);
         Contractbtn->setIconSize(QSize(120, 18));
         Contractbtn->setCheckable(true);
         Contractbtn->setAutoExclusive(true);
@@ -586,10 +589,10 @@ public:
         signoutbtn->setObjectName("signoutbtn");
         signoutbtn->setMinimumSize(QSize(0, 20));
         signoutbtn->setMaximumSize(QSize(16777215, 20));
-        QIcon icon9;
-        icon9.addFile(QString::fromUtf8(":/new/prefix1/Resources/signout2.png"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
-        icon9.addFile(QString::fromUtf8(":/new/prefix1/Resources/signout1.png"), QSize(), QIcon::Mode::Normal, QIcon::State::On);
-        signoutbtn->setIcon(icon9);
+        QIcon icon10;
+        icon10.addFile(QString::fromUtf8(":/new/prefix1/Resources/signout2.png"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
+        icon10.addFile(QString::fromUtf8(":/new/prefix1/Resources/signout1.png"), QSize(), QIcon::Mode::Normal, QIcon::State::On);
+        signoutbtn->setIcon(icon10);
         signoutbtn->setIconSize(QSize(100, 60));
 
         verticalLayout_5->addWidget(signoutbtn);
@@ -622,10 +625,10 @@ public:
 "	border-radius:5px;\n"
 "	background-color: #e0e0e0;\n"
 "}"));
-        QIcon icon10;
-        icon10.addFile(QString::fromUtf8(":/new/prefix1/Resources/Left.png"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
-        icon10.addFile(QString::fromUtf8(":/new/prefix1/Resources/Right.png"), QSize(), QIcon::Mode::Normal, QIcon::State::On);
-        pushButton_6->setIcon(icon10);
+        QIcon icon11;
+        icon11.addFile(QString::fromUtf8(":/new/prefix1/Resources/Left.png"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
+        icon11.addFile(QString::fromUtf8(":/new/prefix1/Resources/Right.png"), QSize(), QIcon::Mode::Normal, QIcon::State::On);
+        pushButton_6->setIcon(icon11);
         pushButton_6->setIconSize(QSize(40, 40));
         pushButton_6->setCheckable(true);
 
@@ -651,9 +654,9 @@ public:
 "QPushButton:hover {\n"
 "	background-color: #e0e0e0;\n"
 "}"));
-        QIcon icon11;
-        icon11.addFile(QString::fromUtf8(":/new/prefix1/Resources/nofitication.png"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
-        notifyButton->setIcon(icon11);
+        QIcon icon12;
+        icon12.addFile(QString::fromUtf8(":/new/prefix1/Resources/nofitication.png"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
+        notifyButton->setIcon(icon12);
         notifyButton->setIconSize(QSize(20, 20));
 
         horizontalLayout_55->addWidget(notifyButton);
@@ -676,9 +679,9 @@ public:
 "    color: black;\n"
 "}\n"
 ""));
-        QIcon icon12;
-        icon12.addFile(QString::fromUtf8(":/new/prefix1/Resources/user-image-with-black-background.png"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
-        Accbtn->setIcon(icon12);
+        QIcon icon13;
+        icon13.addFile(QString::fromUtf8(":/new/prefix1/Resources/user-image-with-black-background.png"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
+        Accbtn->setIcon(icon13);
         Accbtn->setIconSize(QSize(30, 30));
 
         horizontalLayout_51->addWidget(Accbtn);
@@ -694,9 +697,9 @@ public:
 "    color: black;\n"
 "}\n"
 ""));
-        QIcon icon13;
-        icon13.addFile(QString::fromUtf8(":/new/prefix1/Resources/down-arrow.png"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
-        Accbtn_2->setIcon(icon13);
+        QIcon icon14;
+        icon14.addFile(QString::fromUtf8(":/new/prefix1/Resources/down-arrow.png"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
+        Accbtn_2->setIcon(icon14);
         Accbtn_2->setIconSize(QSize(20, 35));
 
         horizontalLayout_51->addWidget(Accbtn_2);
@@ -985,9 +988,9 @@ public:
         Refbtn = new QPushButton(layoutWidget10);
         Refbtn->setObjectName("Refbtn");
         Refbtn->setMinimumSize(QSize(0, 28));
-        QIcon icon14;
-        icon14.addFile(QString::fromUtf8(":/new/prefix1/Resources/reload.png"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
-        Refbtn->setIcon(icon14);
+        QIcon icon15;
+        icon15.addFile(QString::fromUtf8(":/new/prefix1/Resources/reload.png"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
+        Refbtn->setIcon(icon15);
 
         horizontalLayout_158->addWidget(Refbtn);
 
@@ -1336,9 +1339,9 @@ public:
         searchPayment = new QPushButton(page_58);
         searchPayment->setObjectName("searchPayment");
         searchPayment->setMinimumSize(QSize(65, 28));
-        QIcon icon15;
-        icon15.addFile(QString::fromUtf8(":/new/prefix1/Resources/loupe.png"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
-        searchPayment->setIcon(icon15);
+        QIcon icon16;
+        icon16.addFile(QString::fromUtf8(":/new/prefix1/Resources/loupe.png"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
+        searchPayment->setIcon(icon16);
         searchPayment->setCheckable(false);
 
         horizontalLayout_178->addWidget(searchPayment);
@@ -1346,7 +1349,7 @@ public:
         RefPaymentbtn = new QPushButton(page_58);
         RefPaymentbtn->setObjectName("RefPaymentbtn");
         RefPaymentbtn->setMinimumSize(QSize(65, 28));
-        RefPaymentbtn->setIcon(icon14);
+        RefPaymentbtn->setIcon(icon15);
 
         horizontalLayout_178->addWidget(RefPaymentbtn);
 
@@ -1679,9 +1682,9 @@ public:
         editprofilebtn->setObjectName("editprofilebtn");
         editprofilebtn->setGeometry(QRect(475, 2, 81, 20));
         editprofilebtn->setFont(font5);
-        QIcon icon16;
-        icon16.addFile(QString::fromUtf8(":/new/prefix1/Resources/edit.png"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
-        editprofilebtn->setIcon(icon16);
+        QIcon icon17;
+        icon17.addFile(QString::fromUtf8(":/new/prefix1/Resources/edit.png"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
+        editprofilebtn->setIcon(icon17);
         layoutWidget5 = new QWidget(page);
         layoutWidget5->setObjectName("layoutWidget5");
         layoutWidget5->setGeometry(QRect(70, 60, 331, 181));
@@ -2106,7 +2109,7 @@ public:
         QObject::connect(Accountbtn, &QPushButton::toggled, Accountbtn1, &QPushButton::setChecked);
         QObject::connect(Accountbtn1, &QPushButton::toggled, Accountbtn, &QPushButton::setChecked);
 
-        stackedWidget_7->setCurrentIndex(3);
+        stackedWidget_7->setCurrentIndex(5);
         stackedWidget_2->setCurrentIndex(0);
         stackedWidget->setCurrentIndex(0);
 
@@ -2116,7 +2119,7 @@ public:
 
     void retranslateUi(QMainWindow *User)
     {
-        User->setWindowTitle(QCoreApplication::translate("User", "MainWindow", nullptr));
+        User->setWindowTitle(QCoreApplication::translate("User", "My Room", nullptr));
         label_4->setText(QString());
         pushButton_3->setText(QString());
         Serbtn->setText(QString());
@@ -2133,7 +2136,7 @@ public:
         signoutbtn->setText(QString());
         pushButton_6->setText(QString());
         notifyButton->setText(QString());
-        Accbtn->setText(QCoreApplication::translate("User", "PushButton", nullptr));
+        Accbtn->setText(QString());
         Accbtn_2->setText(QString());
         label_84->setText(QCoreApplication::translate("User", "Dashboard", nullptr));
         label_85->setText(QCoreApplication::translate("User", "Room List", nullptr));
@@ -2168,24 +2171,24 @@ public:
         QTableWidgetItem *___qtablewidgetitem5 = table1->horizontalHeaderItem(5);
         ___qtablewidgetitem5->setText(QCoreApplication::translate("User", "Action", nullptr));
         label_89->setText(QCoreApplication::translate("User", "Service List", nullptr));
-        label_8->setText(QCoreApplication::translate("User", "Ch\341\273\215n ph\303\262ng", nullptr));
+        label_8->setText(QCoreApplication::translate("User", "Select Your Room", nullptr));
         CBSS->setItemText(0, QCoreApplication::translate("User", "Choose", nullptr));
         CBSS->setItemText(1, QCoreApplication::translate("User", "Service ID", nullptr));
         CBSS->setItemText(2, QCoreApplication::translate("User", "Service Name", nullptr));
 
         LineEditSearchSer->setPlaceholderText(QCoreApplication::translate("User", "Search here ...", nullptr));
         QTableWidgetItem *___qtablewidgetitem6 = SerTable->horizontalHeaderItem(0);
-        ___qtablewidgetitem6->setText(QCoreApplication::translate("User", "M\303\243 d\341\273\213ch v\341\273\245", nullptr));
+        ___qtablewidgetitem6->setText(QCoreApplication::translate("User", "Service ID", nullptr));
         QTableWidgetItem *___qtablewidgetitem7 = SerTable->horizontalHeaderItem(1);
-        ___qtablewidgetitem7->setText(QCoreApplication::translate("User", "T\303\252n d\341\273\213ch v\341\273\245", nullptr));
+        ___qtablewidgetitem7->setText(QCoreApplication::translate("User", "Service Name", nullptr));
         QTableWidgetItem *___qtablewidgetitem8 = SerTable->horizontalHeaderItem(2);
-        ___qtablewidgetitem8->setText(QCoreApplication::translate("User", "M\303\264 t\341\272\243", nullptr));
+        ___qtablewidgetitem8->setText(QCoreApplication::translate("User", "Description", nullptr));
         QTableWidgetItem *___qtablewidgetitem9 = SerTable->horizontalHeaderItem(3);
-        ___qtablewidgetitem9->setText(QCoreApplication::translate("User", "Gi\303\241", nullptr));
+        ___qtablewidgetitem9->setText(QCoreApplication::translate("User", "Price", nullptr));
         QTableWidgetItem *___qtablewidgetitem10 = SerTable->horizontalHeaderItem(4);
         ___qtablewidgetitem10->setText(QCoreApplication::translate("User", "Madantory", nullptr));
         QTableWidgetItem *___qtablewidgetitem11 = SerTable->horizontalHeaderItem(5);
-        ___qtablewidgetitem11->setText(QCoreApplication::translate("User", "Tr\341\272\241ng th\303\241i", nullptr));
+        ___qtablewidgetitem11->setText(QCoreApplication::translate("User", "Status", nullptr));
         QTableWidgetItem *___qtablewidgetitem12 = SerTable->horizontalHeaderItem(6);
         ___qtablewidgetitem12->setText(QCoreApplication::translate("User", "Action", nullptr));
         label_95->setText(QCoreApplication::translate("User", "Payment List", nullptr));
@@ -2264,38 +2267,38 @@ public:
         ___qtablewidgetitem38->setText(QCoreApplication::translate("User", "Action", nullptr));
         ID->setText(QCoreApplication::translate("User", "ID: T.001", nullptr));
         label->setText(QString());
-        label_5->setText(QCoreApplication::translate("User", "Th\303\264ng tin", nullptr));
-        TTCNbtn->setText(QCoreApplication::translate("User", "Th\303\264ng tin c\303\241 nh\303\242n", nullptr));
-        Changepassbtn->setText(QCoreApplication::translate("User", "\304\220\341\273\225i m\341\272\255t kh\341\272\251u", nullptr));
-        label_6->setText(QCoreApplication::translate("User", "Th\303\264ng tin c\303\241 nh\303\242n", nullptr));
+        label_5->setText(QCoreApplication::translate("User", "Information", nullptr));
+        TTCNbtn->setText(QCoreApplication::translate("User", "Personal Information", nullptr));
+        Changepassbtn->setText(QCoreApplication::translate("User", "Change Password", nullptr));
+        label_6->setText(QCoreApplication::translate("User", "Personal Information", nullptr));
         editprofilebtn->setText(QCoreApplication::translate("User", "Edit", nullptr));
-        label_7->setText(QCoreApplication::translate("User", "H\341\273\215 v\303\240 t\303\252n:", nullptr));
+        label_7->setText(QCoreApplication::translate("User", "Full Name:", nullptr));
         name->setText(QString());
-        label_9->setText(QCoreApplication::translate("User", "S\341\273\221 \304\221i\341\273\207n tho\341\272\241i: ", nullptr));
+        label_9->setText(QCoreApplication::translate("User", "Phone Number:", nullptr));
         sdt->setText(QString());
-        label_11->setText(QCoreApplication::translate("User", "Tu\341\273\225i:", nullptr));
+        label_11->setText(QCoreApplication::translate("User", "Age:", nullptr));
         age->setText(QString());
         label_13->setText(QCoreApplication::translate("User", "CCCD:", nullptr));
         cccd->setText(QString());
-        label_15->setText(QCoreApplication::translate("User", "Gi\341\273\233i t\303\255nh:", nullptr));
+        label_15->setText(QCoreApplication::translate("User", "Gender:", nullptr));
         gender->setText(QString());
-        label_21->setText(QCoreApplication::translate("User", "C\341\272\255p nh\341\272\255t th\303\264ng tin c\303\241 nh\303\242n", nullptr));
+        label_21->setText(QCoreApplication::translate("User", "Update Personal Information", nullptr));
         updateprofile->setText(QCoreApplication::translate("User", "Update", nullptr));
         pushButton_2->setText(QCoreApplication::translate("User", "Cancel", nullptr));
-        label_22->setText(QCoreApplication::translate("User", "H\341\273\215 v\303\240 t\303\252n:", nullptr));
-        label_23->setText(QCoreApplication::translate("User", "S\341\273\221 \304\221i\341\273\207n tho\341\272\241i:", nullptr));
-        label_24->setText(QCoreApplication::translate("User", "Tu\341\273\225i:", nullptr));
+        label_22->setText(QCoreApplication::translate("User", "Full Name:", nullptr));
+        label_23->setText(QCoreApplication::translate("User", "Phone Number:", nullptr));
+        label_24->setText(QCoreApplication::translate("User", "Age:", nullptr));
         label_25->setText(QCoreApplication::translate("User", "CCCD:", nullptr));
-        label_27->setText(QCoreApplication::translate("User", "Gi\341\273\233i t\303\255nh:", nullptr));
-        checkBox->setText(QCoreApplication::translate("User", "Nam", nullptr));
-        checkBox_2->setText(QCoreApplication::translate("User", "N\341\273\257", nullptr));
-        label_17->setText(QCoreApplication::translate("User", "\304\220\341\273\225i m\341\272\255t kh\341\272\251u", nullptr));
-        label_19->setText(QCoreApplication::translate("User", "M\341\272\255t kh\341\272\251u m\341\273\233i:", nullptr));
-        label_20->setText(QCoreApplication::translate("User", "Nh\341\272\255p l\341\272\241i m\341\272\255t kh\341\272\251u m\341\273\233i:", nullptr));
+        label_27->setText(QCoreApplication::translate("User", "Gender:", nullptr));
+        checkBox->setText(QCoreApplication::translate("User", "Male", nullptr));
+        checkBox_2->setText(QCoreApplication::translate("User", "Female", nullptr));
+        label_17->setText(QCoreApplication::translate("User", "Change Password", nullptr));
+        label_19->setText(QCoreApplication::translate("User", "New password", nullptr));
+        label_20->setText(QCoreApplication::translate("User", "Confirm New Password:", nullptr));
         Changepass->setText(QCoreApplication::translate("User", "Update", nullptr));
         error1->setText(QString());
         error2->setText(QString());
-        label_18->setText(QCoreApplication::translate("User", "M\341\272\255t kh\341\272\251u hi\341\273\207n t\341\272\241i:", nullptr));
+        label_18->setText(QCoreApplication::translate("User", "Current password", nullptr));
     } // retranslateUi
 
 };
