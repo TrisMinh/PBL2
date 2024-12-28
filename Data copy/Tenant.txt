@@ -1,2 +1,0 @@
-tenant_ID,CCCD,name,phone,birthyear
-0

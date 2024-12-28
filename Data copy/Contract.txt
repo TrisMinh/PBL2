@@ -1,2 +1,0 @@
-contractID,roomID,tenantID,startDate,endDate,staytime,status,price
-0

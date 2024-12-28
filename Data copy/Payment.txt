@@ -1,2 +1,0 @@
-paymentID,roomID,tenantID,rentAmount,serviceAmount,totalAmount,payMonth,payYear,payDate,status
-0

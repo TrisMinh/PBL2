@@ -1,5 +1,0 @@
-usage_ID,room_ID,service_ID,tenantID,quantity,usageDate
-3
-SU.001,R.001,S.001,T.002,10,17/11/2024
-SU.002,R.001,S.002,T.002,10,17/11/2024
-SU.003,R.002,S.003,T.002,10,17/11/2024
