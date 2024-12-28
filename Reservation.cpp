@@ -1,5 +1,4 @@
 #include "Reservation.h"
-
 // Static Element
 int Reservation::total = 0;
 int Reservation::currentNumber = 0;
@@ -93,8 +92,7 @@ void Reservation::addReservation() {
     Room::roomList.searchStatus(0);
     
     do {
-        cout << "Nhap Room ID: "; 
-        cin >> room_ID;
+        cout << "Nhap Room ID: "; cin >> room_ID;
         room = Room::roomList.searchID(room_ID);
         
         if (!room || room->getStatus() != 0) {
@@ -109,6 +107,18 @@ void Reservation::addReservation() {
     DATE startDate;
     int monthStay;
     cout << "Nhap Start Date: "; cin >> startDate;
+
+    // Lấy ngày hiện tại
+    std::time_t currentTime = std::time(nullptr);
+    std::tm* currentDateTime = std::localtime(&currentTime);
+    DATE currentDate(currentDateTime->tm_mday, currentDateTime->tm_mon + 1, currentDateTime->tm_year + 1900); // Giả sử DATE có constructor như vậy
+
+    // Kiểm tra xem startDate có nhỏ hơn ngày hiện tại không
+    if (startDate < currentDate) {
+        cout << "Start Date khong the nho hon ngay hien tai. Vui long nhap lai!" << endl;
+        return; // Thoát nếu ngày bắt đầu không hợp lệ
+    }
+
     do {
         cout << "Nhap Stay Time (so thang): "; cin >> monthStay;
         if (monthStay <= 0) {

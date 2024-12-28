@@ -11,6 +11,7 @@ void ServiceUsage::resetHeader() { is_header_printed = false; }
 ServiceUsage::ServiceUsage() {}
 ServiceUsage::ServiceUsage(const string& roomId, const string& servId, const string& tenantId, bool status)
     : room_ID(roomId), service_ID(servId), tenantID(tenantId), status(status), quantity(1) {
+    if (servId == "S.005" || servId == "S.006") quantity = 0;
     usage_ID = generateID(++currentNumber);
 }
 ServiceUsage::~ServiceUsage() {}

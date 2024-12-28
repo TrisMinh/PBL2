@@ -94,7 +94,7 @@ double Payment::calculateProRatedRent(double fullRentAmount, int startDay, int b
     }
     
     int remainingDays = daysInMonth - startDay + 1;
-    return (fullRentAmount / daysInMonth) * remainingDays;
+    return round(((fullRentAmount / daysInMonth) * remainingDays) * 100) / 100;
 }
 
 bool Payment::isPaymentExist(const string& roomID, const string& tenantID, int billMonth, int billYear) {
@@ -122,14 +122,8 @@ void Payment::autocreatePayment() {
         cout << "Nhap thang: "; cin >> billMonth;
         cout << "Nhap nam: "; cin >> billYear;
 
-        if (billMonth < 1 || billMonth > 12) {
-            cout << "Thang khong hop le! Thang phai tu 1-12" << endl;
-            continue;
-        }
-        if (billYear < 2000) {
-            cout << "Nam khong hop le! Nam phai tu 2000 tro len" << endl;
-            continue;
-        }
+        if (billMonth < 1 || billMonth > 12) { cout << "Thang khong hop le! Thang phai tu 1-12" << endl; continue; }
+        if (billYear < 2000) { cout << "Nam khong hop le! Nam phai tu 2000 tro len" << endl; continue; }
         break;
     } while (true);
 
@@ -157,9 +151,7 @@ void Payment::autocreatePayment() {
         double rentAmount = contract.getPrice();
         if (billMonth == contract.getStartDate().get_month() && 
             billYear == contract.getStartDate().get_year()) {
-            rentAmount = calculateProRatedRent(rentAmount, 
-                                            contract.getStartDate().get_day(), 
-                                            billMonth, billYear);
+            rentAmount = calculateProRatedRent(rentAmount,contract.getStartDate().get_day(),billMonth, billYear);
         }
 
         double serviceAmount = ServiceUsage::calculateServiceAmountForRoom(roomID, tenantID, usageChoice);
@@ -239,11 +231,10 @@ void Payment::makePayment() {
     double remaining = getRemainingAmount();
     cout << "\nSo tien da thanh toan: " << depositAmount << endl;
     cout << "So tien con lai can thanh toan: " << remaining << endl;
-    
     double amount; cout << "\nNhap so tien muon thanh toan (nhap 0 de huy): "; cin >> amount;
     if (amount == 0) { cout << "Da huy thanh toan.\n"; return; }
     if (amount < 0) { cout << "So tien khong hop le!\n"; return; }
-    if (amount > remaining) { cout << "So tien vuot qua so tien can thanh toan!\n"; return; }
+    if ( amount > remaining) { cout << "So tien vuot qua so tien can thanh toan!\n"; return; }
     
     depositAmount += amount;
     if (depositAmount >= totalAmount) { 

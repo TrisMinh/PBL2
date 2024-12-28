@@ -5,6 +5,9 @@
 #include <fstream>
 #include <sstream>
 #include <iomanip>
+#include <cmath>
+#include <ctime>
+
 using namespace std;
 
 template <typename T>
