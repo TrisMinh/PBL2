@@ -57,6 +57,8 @@ public:
     static double calculateServiceAmountForRoom(const string& roomID, const string& tenantID, char usageChoice);
 
     static double promptServiceQuantity(const string& serviceName, const string& roomID);
+
+    static void deleteServiceUsageByRoomAndTenant(const string& roomID, const string& tenantID);
 };
 #include "ServiceUsage.cpp"
 #endif

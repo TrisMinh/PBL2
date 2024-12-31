@@ -1,3 +1,2 @@
 paymentID,roomID,tenantID,rentAmount,serviceAmount,totalAmount,billMonth,billYear,payDate,status,depositeAmount
-1
-P.001,R.002,T.001,174193.550000,1176200.000000,1350393.550000,12,2024,05/12/2024,1,1350393.550000
+0

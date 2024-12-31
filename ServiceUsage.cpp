@@ -305,3 +305,16 @@ double ServiceUsage::promptServiceQuantity(const string& serviceName, const stri
     cin >> quantity;
     return quantity;
 }
+
+void ServiceUsage::deleteServiceUsageByRoomAndTenant(const string& roomID, const string& tenantID) {
+    LinkedList<ServiceUsage>::Node* current = usageList.begin();
+    while (current != nullptr) {
+        if (current->data.getRoomID() == roomID && current->data.getTenantID() == tenantID) {
+            LinkedList<ServiceUsage>::Node* toDelete = current;
+            current = current->next;
+            usageList.deleteNode(toDelete->data.getID());
+        } else {
+            current = current->next;
+        }
+    }
+}

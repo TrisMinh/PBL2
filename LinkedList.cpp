@@ -218,9 +218,6 @@ void LinkedList<T>::searchStatus(const int& status) {
         }
         current = current->next;
     }
-    if (!found) {
-        cout << "Khong tim thay phong nao co trang thai " << status << endl;
-    }
 }
 template <typename T>
 const T& LinkedList<T>::operator[](int index) const {

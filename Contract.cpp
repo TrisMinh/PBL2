@@ -85,45 +85,55 @@ string Contract::toString() const {
 
 void Contract::deleteContract() {
     resetHeader();
-    if (Account::currentrole == 1) {contractList.show();} 
-    else {Room::searchRoomByTenantID(Account::currentTenantID);}
-    string roomIDtodelete;
-    cout << "Nhap RoomID ban muon huy thue hoac nhap '0' de thoat: "; cin >> roomIDtodelete;
-    if (roomIDtodelete == "0") return;
+    string idtodelete;
+    if (Account::currentrole == 1) { // Chủ nhà
+        cout << "Danh sach cac hop dong dang hoat dong:" << endl;
+        contractList.searchStatus(1);
+        cout << "Nhap ContractID ban muon huy thue hoac nhap '0' de thoat: "; cin >> idtodelete;
+        if (idtodelete == "0") return;
 
-    Room* room = Room::roomList.searchID(roomIDtodelete);
-    if (!room) {cout << "Khong tim thay phong!\n"; return;}
+        Contract* ct = contractList.searchID(idtodelete);
+        if (!ct) { cout << "Khong tim thay hop dong!\n"; return; }
 
-    string tenantID = (Account::currentrole == 1) ? room->getTenantID() : Account::currentTenantID;
-    Contract* ct = searchByRidAndTid(roomIDtodelete, tenantID, true);
-    
-    // Kiểm tra quyền truy cập
-    if (ct == nullptr || (Account::currentrole != 1 && room->getTenantID() != Account::currentTenantID)) {
-        cout << "Khong tim thay hop dong hoac ban khong co quyen huy!\n";
-        return;
-    }
-    // Kiểm tra còn hoá đơn chưa thanh toán cho phòng đó
-    if (Payment::checkUnpaidPaymentForRoom(Account::currentTenantID, roomIDtodelete)) {
-        return;
-    }
-
-    cout << "Ban muon huy thue phong " << roomIDtodelete << "?" << endl
-         << "1. Yes" << endl
-         << "2. No" << endl;
-    int choice;
-    cout << "Lua chon cua ban: "; cin >> choice;
-    
-    if (choice == 1) {
-        // Hủy các dịch vụ liên quan
-        LinkedList<ServiceUsage>::Node* current = ServiceUsage::usageList.begin();
-        while (current != nullptr) {
-            if (current->data.getRoomID() == roomIDtodelete && current->data.getTenantID() == tenantID && current->data.getStatus()) {
-                current->data.setStatus(false);
-            }
-            current = current->next;
+        // Kiểm tra quyền truy cập
+        if (ct->getStatus() != 1) {
+            cout << "Hop dong khong co quyen huy!\n";
+            return;
         }
-        
+
+        // Hủy các dịch vụ liên quan
+        ServiceUsage::deleteServiceUsageByRoomAndTenant(ct->getRoomID(), ct->getTenantID());
+
+        // Reset thông tin phòng
+        Room* room = Room::roomList.searchID(ct->getRoomID());
         room->resetRoom();
+
+        ct->setStatus(0);
+        total--;
+        cout << "Da huy thue phong thanh cong!\n";
+
+    } else { // Khách thuê
+        string roomIDtodelete;
+        Room::searchRoomByTenantID(Account::currentTenantID);
+        cout << "Nhap RoomID ban muon huy thue hoac nhap '0' de thoat: "; cin >> roomIDtodelete;
+        if (roomIDtodelete == "0") return;
+
+        Contract* ct = searchByRidAndTid(roomIDtodelete, Account::currentTenantID, true);
+        if (!ct) { cout << "Khong tim thay hop dong!\n"; return; }
+
+        // Kiểm tra quyền truy cập
+        if (ct->getStatus() != 1) {
+            cout << "Khong co quyen huy hop dong!\n";
+            return;
+        }
+
+        // Hủy các dịch vụ liên quan
+        ServiceUsage::deleteServiceUsageByRoomAndTenant(roomIDtodelete, Account::currentTenantID);
+
+        // Reset thông tin phòng
+        Room* room = Room::roomList.searchID(roomIDtodelete);
+        room->resetRoom();
+
         ct->setStatus(0);
         total--;
         cout << "Da huy thue phong thanh cong!\n";
