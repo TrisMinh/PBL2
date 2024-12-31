@@ -14,6 +14,7 @@ void User::displayTenantMenu() {
     cout << "\n========= TENANT MENU =========" << endl;
     cout << "    Current UserID: " << Account::currentTenantID << endl;
     Payment::checkUnpaidPayments(Account::currentTenantID);
+    Service::notifyNewService();
     cout << "  1. Account Management" << endl;
     cout << "  2. Make Room Reservation" << endl;
     cout << "  3. View My Room" << endl;

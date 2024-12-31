@@ -52,33 +52,32 @@ void Contract::setStatus(bool status) { this->status = status; }
 void Contract::fromString(const string& line) {
     stringstream ss(line);
     string startDateStr, endDateStr;
-    getline(ss, contractID, ',');          // Đọc mã hợp đồng
-    getline(ss, room_ID, ',');             // Đọc mã phòng
-    getline(ss, tenant_ID, ',');           // Đọc mã khách thuê
-    getline(ss, startDateStr, ',');        // Đọc ngày bắt đầu dưới dạng chuỗi
-    getline(ss, endDateStr, ',');          // Đọc ngày kết thúc dưới dạng chuỗi
-    ss >> staytime;                        // Đọc thời gian lưu trú
-    ss.ignore(1, ',');                     // Bỏ qua dấu phẩy
-    ss >> status;                          // Đọc trạng thái
-    ss.ignore(1, ',');                     // Bỏ qua dấu phẩy
+    getline(ss, contractID, ',');          
+    getline(ss, room_ID, ',');             
+    getline(ss, tenant_ID, ',');           
+    getline(ss, startDateStr, ',');       
+    getline(ss, endDateStr, ',');        
+    ss >> staytime;                       
+    ss.ignore(1, ',');                    
+    ss >> status;                          
+    ss.ignore(1, ',');                    
     ss >> rentprice;     
-    startDate.fromString(startDateStr);    // Chuyển chuỗi ngày bắt đầu thành đối tượng DATE
-    endDate.fromString(endDateStr);        // Chuyển chuỗi ngày kết thúc thành đối tượng DATE
-
-    total++;                               // Tăng số lượng hợp đồng tổng
+    startDate.fromString(startDateStr);    
+    endDate.fromString(endDateStr);        
+    total++;                               
 }
 
 // Ham chuyen thanh chuoi de ghi du lieu vao file
 string Contract::toString() const {
     stringstream ss;
     ss << contractID << ',' 
-       << room_ID << ','           // Mã phòng
-       << tenant_ID << ','         // Mã khách thuê
-       << startDate.toString() << ',' // Chuyển đổi ngày bắt đầu sang chuỗi
-       << endDate.toString() << ','   // Chuyển đổi ngày kết thúc sang chuỗi
+       << room_ID << ','           
+       << tenant_ID << ','         
+       << startDate.toString() << ','
+       << endDate.toString() << ','   
        << staytime << ','        
-       << status << ','            // Trạng thái của hợp đồng
-       << fixed << setprecision(2) << rentprice; // Giá tiền
+       << status << ','          
+       << fixed << setprecision(2) << rentprice; 
     return ss.str();
 }
 
@@ -86,10 +85,8 @@ string Contract::toString() const {
 
 void Contract::deleteContract() {
     resetHeader();
-    // Hiển thị danh sách phù hợp theo role
     if (Account::currentrole == 1) {contractList.show();} 
     else {Room::searchRoomByTenantID(Account::currentTenantID);}
-    // Nhập và kiểm tra roomID
     string roomIDtodelete;
     cout << "Nhap RoomID ban muon huy thue hoac nhap '0' de thoat: "; cin >> roomIDtodelete;
     if (roomIDtodelete == "0") return;
@@ -110,7 +107,6 @@ void Contract::deleteContract() {
         return;
     }
 
-    // Xác nhận hủy
     cout << "Ban muon huy thue phong " << roomIDtodelete << "?" << endl
          << "1. Yes" << endl
          << "2. No" << endl;

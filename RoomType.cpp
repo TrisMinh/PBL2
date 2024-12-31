@@ -27,8 +27,6 @@ bool RoomType::isActive(string& id) {
     return false;
 }
 
-
-// Private helper
 string RoomType::generateID(int number) {
     stringstream ss;
     ss << "RT." << setw(2) << setfill('0') << number;
@@ -220,7 +218,6 @@ void RoomType::searchByPrice() {
     }
 }
 
-// Output operator overload
 ostream& operator<<(ostream& os, const RoomType& rt) {
     const int w_id = 15, w_name = 30, w_desc = 20, w_price = 15;
     

@@ -157,8 +157,6 @@ void Room::searchByStatus() {
     }
 }
 
-// Hàm chuyển đổi chuỗi thành chữ thường
-
 
 void Room::searchByName() {
     resetHeader();

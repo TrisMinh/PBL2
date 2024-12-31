@@ -137,6 +137,19 @@ void LinkedList<T>::edit(const string& ID) {
 }
 
 template <typename T>
+void LinkedList<T>::clear() {
+    Node* current = head;
+    while (current) {
+        Node* temp = current;
+        current = current->next;
+        delete temp;
+    }
+    head = nullptr;
+    tail = nullptr;
+    count = 0;
+}
+
+template <typename T>
 void LinkedList<T>::show() const {
     T::resetHeader();
     cout << "Total: " << T::total << endl;

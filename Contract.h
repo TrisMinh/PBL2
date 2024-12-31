@@ -38,20 +38,14 @@ public:
     void setPrice(double price);
     void setStatus(bool status);
 
-    // Convert contract to string
     string toString() const;
-
-    // Convert string to contract
     void fromString(const string& line);
 
-    // Load contracts from file
     static void load(const string& filename);
     static void updateFile(const string& filename);
 
-    // Overloaded output operator
     friend ostream& operator<<(ostream& os, const Contract& c);
 
-    // Manage contracts
     static void autoadd();
     static void addContract(const string& roomID, const string& tenantID,
                             const DATE& start, const DATE& end, int status);

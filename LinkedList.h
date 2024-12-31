@@ -13,7 +13,7 @@ using namespace std;
 template <typename T>
 class LinkedList {
 private:
-    int count; // Count of elements
+    int count;
 public:
     struct Node {
         T data;
@@ -32,6 +32,7 @@ public:
     void add(const T& data);
     void deleteNode(const string& value);
     void edit(const string& ID);
+    void clear();
     T* searchID(const string& ID) const;
     void searchStatus(const int& status);
     void show() const;

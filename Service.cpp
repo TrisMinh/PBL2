@@ -5,6 +5,7 @@
 int Service::total = 0;
 int Service::currentNumber = 0;
 LinkedList<Service> Service::serviceList;
+LinkedList<string> Service::newServiceList;
 bool Service::is_header_printed = false;
 void Service::resetHeader() { is_header_printed = false; }
 
@@ -66,6 +67,25 @@ string Service::toString() const {
     ss << service_ID << "," << name << "," << unit_price << "," << description << "," << is_mandatory;
     return ss.str();
 }
+// Function for newservicelist
+void Service::addNewService(const string& name) {
+    newServiceList.add(name);
+}
+
+void Service::notifyNewService() {
+    if (newServiceList.begin() == NULL) 
+        return;
+    cout << "Thong bao: Co cac dich vu bat buoc moi duoc them vao phong cua ban: " << endl;
+    LinkedList<string>::Node* current = newServiceList.begin();
+    while (current) {
+        cout << "   - " << current->data << endl;
+        current = current->next;
+    }
+}
+
+void Service::clearNewSerViceList() {
+    newServiceList.clear();
+}
 
 // Chuc nang co ban (Basic Function)
 void Service::addService() {
@@ -78,10 +98,26 @@ void Service::addService() {
     cin.ignore();
     cout << "Nhap mo ta dich vu: "; getline(cin, description);
     cout << "Dich vu bat buoc? (1: Co, 0: Khong): "; cin >> mandatory;
+    
     Service service(name, unit_price, description, mandatory);
     serviceList.add(service);
     cout << "Dich vu da duoc them voi ID: " << service.getID() << endl;
     total++;
+
+    // Nếu dịch vụ là bắt buộc, thêm vào tất cả các phòng đang thuê
+    if (mandatory) {
+        LinkedList<Room>::Node* currentRoom = Room::roomList.begin();
+        while (currentRoom != nullptr) {
+            if (currentRoom->data.getStatus() == 1) { // Kiểm tra xem phòng có đang được thuê không
+                ServiceUsage newUsage(currentRoom->data.getID(), service.getID(), currentRoom->data.getTenantID(), true);
+                ServiceUsage::usageList.add(newUsage);
+                cout << "Dich vu bat buoc da duoc them vao phong ID: " << currentRoom->data.getID() << endl;
+
+                Service::addNewService(service.getName());
+            }
+            currentRoom = currentRoom->next;
+        }
+    }
 }
 
 void Service::updateService() {
@@ -211,4 +247,5 @@ ostream& operator<<(ostream& os, const Service& s) {
 
     return os;
 }
+
 

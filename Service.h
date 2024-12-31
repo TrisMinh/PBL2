@@ -16,6 +16,7 @@ class Service {
     int unit_price;
     string description;
     bool is_mandatory;
+    static LinkedList<string> newServiceList;
 public:
     static int total;
     static int currentNumber;
@@ -61,6 +62,12 @@ public:
 
     bool isMandatory() const;
     void setMandatory(bool mandatory);
+
+    // Function for newserviceList
+    static void addNewService(const string& name);
+    static void notifyNewService();
+    static void clearNewSerViceList();
+
 };
 #include "Service.cpp"
 #endif
