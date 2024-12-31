@@ -84,17 +84,24 @@ void ServiceUsage::addServiceUsage() {
         Service::serviceList.show();
         cout << "Service ID (0 to exit): "; cin >> service_ID;
         if (service_ID == "0") return;
-        
+
         // Kiểm tra xem dịch vụ này đã được đăng ký chưa
         LinkedList<ServiceUsage>::Node* current = usageList.begin();
         bool serviceAlreadyActive = false;
         while (current) {
-            if (current->data.getTenantID() == Account::currentTenantID &&  current->data.getRoomID() == room_ID &&
-                current->data.getServiceID() == service_ID &&
-                current->data.getStatus() == true) {
-                cout << "This service is already active for your account!" << endl;
-                serviceAlreadyActive = true;
-                break;
+            if (current->data.getTenantID() == Account::currentTenantID &&  
+                current->data.getRoomID() == room_ID &&
+                current->data.getServiceID() == service_ID) {
+                if (current->data.getStatus() == true) {
+                    cout << "This service is already active for your account!" << endl;
+                    serviceAlreadyActive = true;
+                    break;
+                } else {
+                    // Nếu dịch vụ đã bị hủy, cập nhật trạng thái thành active
+                    current->data.setStatus(true);
+                    cout << "Service usage reactivated successfully!" << endl;
+                    return; // Kết thúc hàm sau khi cập nhật
+                }
             }
             current = current->next;
         }
@@ -112,6 +119,7 @@ void ServiceUsage::addServiceUsage() {
         }
     } while(!found2);
 
+    // Nếu không tìm thấy dịch vụ đã tồn tại, tạo mới
     ServiceUsage newUsage(room_ID, service_ID, Account::currentTenantID, true);
     usageList.add(newUsage);
     cout << "Service usage added successfully!" << endl;
