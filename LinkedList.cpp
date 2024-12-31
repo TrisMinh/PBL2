@@ -4,7 +4,7 @@ using namespace std;
 template <typename T>
 LinkedList<T>::Node::Node(const T& data) : data(data), next(nullptr) {}
 template <typename T>
-LinkedList<T>::LinkedList() : head(nullptr), tail(nullptr), count(0) {}
+LinkedList<T>::LinkedList() : head(nullptr), count(0) {}
 template <typename T>
 LinkedList<T>::~LinkedList() {
     Node* current = head;
@@ -14,7 +14,6 @@ LinkedList<T>::~LinkedList() {
         current = next;
     }
     head = nullptr;
-    tail = nullptr;
 }
 template <typename T>
 int LinkedList<T>::size() const {
@@ -74,10 +73,13 @@ template <typename T>
 void LinkedList<T>::add(const T& data) {
     Node* newNode = new Node(data);
     if (!head) {
-        head = tail = newNode;
+        head = newNode;
     } else {
-        tail->next = newNode;
-        tail = newNode;
+        Node* current = head;
+        while (current->next) {
+            current = current->next;
+        }
+        current->next = newNode;
     }
     count++;
 }
@@ -94,9 +96,6 @@ void LinkedList<T>::deleteNode(const string& value) {
     // Nếu node cần xóa là head
     if (current != nullptr && current->data.getID() == value) {
         head = current->next;
-        if (head == nullptr) {
-            tail = nullptr;
-        }
         delete current;
         count--;
         return;
@@ -115,9 +114,6 @@ void LinkedList<T>::deleteNode(const string& value) {
     }
 
     // Xóa node
-    if (current == tail) {
-        tail = prev;
-    }
     prev->next = current->next;
     delete current;
     count--;
@@ -145,7 +141,6 @@ void LinkedList<T>::clear() {
         delete temp;
     }
     head = nullptr;
-    tail = nullptr;
     count = 0;
 }
 
