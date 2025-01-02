@@ -56,6 +56,7 @@ public:
     static void searchByRoomID(const string& rid, Admin* adminWindow);
     static void searchAll();
     static void sortID(bool sx);
+    static void deleteServiceUsageByRoomAndTenant(const string& roomID, const string& tenantID);
 };
 
 #endif // SERVICEUSAGE_H

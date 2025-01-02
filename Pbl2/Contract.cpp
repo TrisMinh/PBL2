@@ -1,4 +1,5 @@
 #include "Contract.h"
+#include "Payment.h"
 
 int Contract::currentNumber = 0;
 int Contract::total = 0;
@@ -128,27 +129,58 @@ void Contract::sortID(bool sx){
     contractList.sortByID(sx);
 }
 
+// void Contract::deleteContract(string roomIDtodelete) {
+//     Room* room = Room::roomList.searchID(roomIDtodelete);
+
+//     string tenantID = (Account::currentRole == 1) ? room->getTenantID() : Account::currentTenantID;
+//     Contract* ct = searchByRidAndTid(roomIDtodelete, tenantID, true);
+
+//     if (ct == nullptr || (Account::currentRole != 1 && room->getTenantID() != Account::currentTenantID)) {
+//         cout << "Khong tim thay hop dong hoac ban khong co quyen huy!\n";
+//         return;
+//     }
+//         LinkedList<ServiceUsage>::Node* current = ServiceUsage::usageList.begin();
+//         while (current != nullptr) {
+//             if (current->data.getRoomID() == roomIDtodelete && current->data.getTenantID() == tenantID && current->data.getStatus()) {
+//                 current->data.setStatus(false);
+//             }
+//             current = current->next;
+//         }
+
+//         room->resetRoom();
+//         ct->setStatus(0);
+//         total--;
+// }
+
 void Contract::deleteContract(string roomIDtodelete) {
-    Room* room = Room::roomList.searchID(roomIDtodelete);
+    if (Account::currentRole == 1) {
+        Room* room = Room::roomList.searchID(roomIDtodelete);
+        if (!room) {cout << "Khong tim thay phong!\n"; return;}
 
-    string tenantID = (Account::currentRole == 1) ? room->getTenantID() : Account::currentTenantID;
-    Contract* ct = searchByRidAndTid(roomIDtodelete, tenantID, true);
+        string tenantID = room->getTenantID();
+        Contract* ct = searchByRidAndTid(roomIDtodelete, tenantID, true);
 
-    if (ct == nullptr || (Account::currentRole != 1 && room->getTenantID() != Account::currentTenantID)) {
-        cout << "Khong tim thay hop dong hoac ban khong co quyen huy!\n";
-        return;
-    }
-        LinkedList<ServiceUsage>::Node* current = ServiceUsage::usageList.begin();
-        while (current != nullptr) {
-            if (current->data.getRoomID() == roomIDtodelete && current->data.getTenantID() == tenantID && current->data.getStatus()) {
-                current->data.setStatus(false);
-            }
-            current = current->next;
-        }
+        // Hủy các dịch vụ liên quan
+        ServiceUsage::deleteServiceUsageByRoomAndTenant(ct->getRoomID(), ct->getTenantID());
 
         room->resetRoom();
+
         ct->setStatus(0);
         total--;
+
+    } else { // Khách thuê
+        Contract* ct = searchByRidAndTid(roomIDtodelete, Account::currentTenantID, true);
+
+        // Hủy các dịch vụ liên quan
+        ServiceUsage::deleteServiceUsageByRoomAndTenant(roomIDtodelete, Account::currentTenantID);
+
+        // Reset thông tin phòng
+        Room* room = Room::roomList.searchID(roomIDtodelete);
+        room->resetRoom();
+
+        ct->setStatus(0);
+        total--;
+    }
 }
 
 Contract* Contract::searchByRidAndTid(const string& rid, const string& tid, bool st) {

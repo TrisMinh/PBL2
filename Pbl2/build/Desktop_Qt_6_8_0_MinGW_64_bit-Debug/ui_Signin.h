@@ -197,6 +197,7 @@ public:
         QFont font;
         font.setBold(true);
         Signupbtn->setFont(font);
+        Signupbtn->setCursor(QCursor(Qt::CursorShape::PointingHandCursor));
         Signupbtn->setStyleSheet(QString::fromUtf8("border:none;"));
 
         horizontalLayout_4->addWidget(Signupbtn);
@@ -234,6 +235,7 @@ public:
         hidebtn_2->setObjectName("hidebtn_2");
         hidebtn_2->setMinimumSize(QSize(35, 40));
         hidebtn_2->setMaximumSize(QSize(35, 16777215));
+        hidebtn_2->setCursor(QCursor(Qt::CursorShape::PointingHandCursor));
         hidebtn_2->setStyleSheet(QString::fromUtf8("border: 1px solid gray;\n"
 "border-top-right-radius: 20px;\n"
 "border-bottom-right-radius: 20px;\n"
@@ -255,6 +257,7 @@ public:
         QFont font2;
         font2.setPointSize(8);
         pushButton->setFont(font2);
+        pushButton->setCursor(QCursor(Qt::CursorShape::PointingHandCursor));
         pushButton->setStyleSheet(QString::fromUtf8("border:none;"));
         layoutWidget_3 = new QWidget(page_3);
         layoutWidget_3->setObjectName("layoutWidget_3");

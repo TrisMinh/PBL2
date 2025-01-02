@@ -58,6 +58,7 @@ public:
     void drawchartYears(int start, int end);
     void updateAllFile();
 private slots:
+    void onExtendButtonClicked(int row);
     void on_pushButton_3_clicked();
     void on_roombtn_clicked();
     void on_addroom_clicked();

@@ -23,7 +23,7 @@ void Booking::on_Datbtn_clicked()
     date.fromQDate(ui->dateEdit->date());
     bool c;
     int stay = ui->stay->text().toInt(&c);
-    if (!c){
+    if (!c || ui->stay->text().toInt() < 0){
         QMessageBox::warning(this, "Warning", "Stay time không hợp lệ");
         return;
     }

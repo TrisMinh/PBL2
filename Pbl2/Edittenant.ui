@@ -141,7 +141,7 @@
          </font>
         </property>
         <property name="text">
-         <string>Nhập CCCD</string>
+         <string>Enter CCCD</string>
         </property>
        </widget>
       </item>
@@ -225,12 +225,12 @@
         </property>
         <item>
          <property name="text">
-          <string>Male</string>
+          <string>Nam</string>
          </property>
         </item>
         <item>
          <property name="text">
-          <string>Female</string>
+          <string>Nữ</string>
          </property>
         </item>
        </widget>

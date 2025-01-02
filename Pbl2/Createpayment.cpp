@@ -50,12 +50,12 @@ void Createpayment::on_Okbtn_clicked()
         int e, w;
         string roomID = ui->tableWidget->item(i, 0)->text().toStdString();
         e = ui->tableWidget->item(i, 2)->text().toInt(&c);
-        if (!c){
+        if (!c || e < 0){
             QMessageBox::warning(this, "Warning", "Nhập chỉ số điện nước không hợp lệ");
             return;
         }
         w = ui->tableWidget->item(i, 3)->text().toInt(&d);
-        if (!d){
+        if (!d || w < 0){
             QMessageBox::warning(this, "Warning", "Nhập chỉ số điện nước không hợp lệ");
             return;
         }

@@ -31,8 +31,8 @@ string Room::generateID(int number) {
 }
 
 void Room::updateFile(const string& filename) { roomList.updateFile(filename); }
-void Room::load(){
-    roomList.load("Room.txt");
+void Room::load(const string& filename){
+    roomList.load(filename);
 }
 
 string Room::getID() const { return room_ID; }

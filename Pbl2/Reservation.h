@@ -18,7 +18,6 @@ protected:
     int staytime;
     int status;
 public:
-    friend class Admin;
     static int total;
     static int currentNumber;
     static LinkedList<Reservation> reservationList;

@@ -228,13 +228,13 @@ public:
         newname->setPlaceholderText(QString());
         label_5->setText(QCoreApplication::translate("Edittenant", "Enter Phone Number", nullptr));
         newsdt->setPlaceholderText(QString());
-        label_6->setText(QCoreApplication::translate("Edittenant", "Nh\341\272\255p CCCD", nullptr));
+        label_6->setText(QCoreApplication::translate("Edittenant", "Enter CCCD", nullptr));
         newcccd->setPlaceholderText(QString());
         label_7->setText(QCoreApplication::translate("Edittenant", "Enter Year of Birth", nullptr));
         newage->setPlaceholderText(QString());
         label_8->setText(QCoreApplication::translate("Edittenant", "Gender", nullptr));
-        comboBox->setItemText(0, QCoreApplication::translate("Edittenant", "Male", nullptr));
-        comboBox->setItemText(1, QCoreApplication::translate("Edittenant", "Female", nullptr));
+        comboBox->setItemText(0, QCoreApplication::translate("Edittenant", "Nam", nullptr));
+        comboBox->setItemText(1, QCoreApplication::translate("Edittenant", "N\341\273\257", nullptr));
 
         Edittenantbtn->setText(QCoreApplication::translate("Edittenant", "Update Tenant", nullptr));
         pushButton_3->setText(QCoreApplication::translate("Edittenant", "Cancel", nullptr));

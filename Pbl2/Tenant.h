@@ -31,6 +31,7 @@ public:
     int getAge() const;
     string getCCCD() const;
     bool getGender() const;
+    int getBirthyear() const;
 
     void fromString(const string& line);
     string toString() const;

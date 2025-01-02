@@ -8,7 +8,7 @@ Editroomtype::Editroomtype(const string& id, const string& name, const string& d
 {
     ui->setupUi(this);
     ui->newname->setPlaceholderText(QString::fromStdString(name));
-    ui->newprice->setPlaceholderText(QString::number(price));
+    ui->newprice->setPlaceholderText(QString::number(price, 'f', 0));
     ui->newdes->setPlaceholderText(QString::fromStdString(des));
 }
 
@@ -21,7 +21,7 @@ void Editroomtype::on_Update_clicked()
 {
     bool c;
     string newname = ui->newname->text().toStdString();
-    int newprice = ui->newprice->text().toInt(&c);
+    double newprice = ui->newprice->text().toDouble(&c);
     string newdes = ui->newdes->text().toStdString();
     if (ui->newname->text().isEmpty()){
         newname = name;
@@ -33,7 +33,7 @@ void Editroomtype::on_Update_clicked()
         newdes = description;
     }
     if (!ui->newprice->text().isEmpty()){
-        if(!c){
+        if(!c || newprice < 0){
             QMessageBox::warning(this, "Lỗi", "Giá dịch vụ không hợp lệ. Vui lòng nhập lại!");
             return;
         }

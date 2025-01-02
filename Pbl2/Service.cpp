@@ -1,10 +1,13 @@
 #include "Service.h"
+#include "ServiceUsage.h"
+#include "Room.h"
 #include "admin.h"
 
 
 int Service::total = 0;
 int Service::currentNumber = 0;
 LinkedList<Service> Service::serviceList;
+LinkedList<string> Service::newServiceList;
 
 Service::Service() {}
 Service::Service(const string& n, int price, const string& desc, bool mandatory)
@@ -23,6 +26,17 @@ string Service::generateID(int number) {
     stringstream ss;
     ss << "S." << setw(3) << setfill('0') << number;
     return ss.str();
+}
+
+bool Service::isActive(string& id) {
+    LinkedList<ServiceUsage>::Node* uNode = ServiceUsage::usageList.begin();
+    while (uNode) {
+        if (uNode->data.getServiceID() == id && uNode->data.getStatus() == true ) {
+            return true;
+        }
+        uNode = uNode->next;
+    }
+    return false;
 }
 
 void Service::fromString(const string& line) {
@@ -61,10 +75,27 @@ void Service::showAllServices(User* adminWindow) {
     serviceList.show(adminWindow);
 }
 
+void Service::addNewService(const string& name) {
+    newServiceList.add(name);
+}
+
 void Service::addService(const string& name, int price, const string& des, bool mandatory) {
     Service service(name, price, des, mandatory);
     serviceList.add(service);
     total++;
+    if (mandatory) {
+        LinkedList<Room>::Node* currentRoom = Room::roomList.begin();
+        while (currentRoom != nullptr) {
+            if (currentRoom->data.getStatus() == 1) { // Kiểm tra xem phòng có đang được thuê không
+                ServiceUsage newUsage(currentRoom->data.getID(), service.getID(), currentRoom->data.getTenantID(), true);
+                ServiceUsage::usageList.add(newUsage);
+                cout << "Dich vu bat buoc da duoc them vao phong ID: " << currentRoom->data.getID() << endl;
+
+                Service::addNewService(service.getName());
+            }
+            currentRoom = currentRoom->next;
+        }
+    }
     Service::updateFile("Service.txt");
 }
 

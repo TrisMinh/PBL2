@@ -3,7 +3,7 @@
 #include "Service.h"
 #include <QMessageBox>
 
-Editservice::Editservice(const string& service_ID, const string& name, int price, const string& des, QWidget *parent)
+Editservice::Editservice(const string& service_ID, const string& name, double price, const string& des, QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::Editservice)
     , service_ID(service_ID)
@@ -26,7 +26,7 @@ void Editservice::on_UpdateSerbtn_clicked()
 {
     bool c;
     string newname = ui->name->text().toStdString();
-    int newprice = ui->price->text().toInt(&c);
+    double newprice = ui->price->text().toDouble(&c);
     string newdes = ui->des->text().toStdString();
     if (ui->name->text().isEmpty()){
         newname = name;
@@ -38,7 +38,7 @@ void Editservice::on_UpdateSerbtn_clicked()
         newdes = description;
     }
     if (!ui->price->text().isEmpty()){
-    if(!c){
+    if(!c || newprice){
         QMessageBox::warning(this, "Lỗi", "Giá dịch vụ không hợp lệ. Vui lòng nhập lại!");
         return;
     }

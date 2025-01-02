@@ -131,6 +131,9 @@
                     <bold>true</bold>
                    </font>
                   </property>
+                  <property name="cursor">
+                   <cursorShape>PointingHandCursor</cursorShape>
+                  </property>
                   <property name="styleSheet">
                    <string notr="true">border:none;</string>
                   </property>
@@ -221,6 +224,9 @@ border-right: none;
                     <height>16777215</height>
                    </size>
                   </property>
+                  <property name="cursor">
+                   <cursorShape>PointingHandCursor</cursorShape>
+                  </property>
                   <property name="styleSheet">
                    <string notr="true">border: 1px solid gray;
 border-top-right-radius: 20px;
@@ -263,6 +269,9 @@ padding-left:-5px;</string>
                 <font>
                  <pointsize>8</pointsize>
                 </font>
+               </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
                </property>
                <property name="styleSheet">
                 <string notr="true">border:none;</string>

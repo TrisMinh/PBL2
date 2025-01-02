@@ -3136,6 +3136,9 @@ border-radius:15px;
                          <pointsize>10</pointsize>
                         </font>
                        </property>
+                       <property name="cursor">
+                        <cursorShape>PointingHandCursor</cursorShape>
+                       </property>
                        <property name="text">
                         <string>Edit</string>
                        </property>
@@ -3220,7 +3223,7 @@ border-radius:15px;
                              </font>
                             </property>
                             <property name="text">
-                             <string>Age:</string>
+                             <string>Year of birth:</string>
                             </property>
                            </widget>
                           </item>
@@ -3480,7 +3483,7 @@ background-color: rgb(255, 255, 255);
                              </font>
                             </property>
                             <property name="text">
-                             <string>Age:</string>
+                             <string>Year of birth:</string>
                             </property>
                            </widget>
                           </item>
@@ -3584,7 +3587,7 @@ background-color: rgb(255, 255, 255);
                                </size>
                               </property>
                               <property name="text">
-                               <string>Male</string>
+                               <string>Nam</string>
                               </property>
                               <property name="autoExclusive">
                                <bool>true</bool>
@@ -3606,7 +3609,7 @@ background-color: rgb(255, 255, 255);
                                </size>
                               </property>
                               <property name="text">
-                               <string>Female</string>
+                               <string>Nữ</string>
                               </property>
                               <property name="autoExclusive">
                                <bool>true</bool>

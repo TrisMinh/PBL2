@@ -19,6 +19,7 @@
 #include "Editservice.h"
 #include "Editroomtype.h"
 #include "Createpayment.h"
+#include "Extend.h"
 #include "Adminaccount.h"
 #include <QMessageBox>
 #include <QPropertyAnimation>
@@ -61,43 +62,16 @@ Admin::Admin(QWidget *parent)
     connect(ui->LineEditSearchSerUsage, &QLineEdit::textChanged, this, &Admin::searchSerUsage);
     connect(ui->LineEditSearchRe, &QLineEdit::textChanged, this, &Admin::searchRe);
     connect(ui->LineEditSearchRoomType, &QLineEdit::textChanged, this, &Admin::searchRoomType);
+    connect(ui->TK3year, &QLineEdit::returnPressed, this, [this]() {ui->TKbtn->click();});
+    connect(ui->TK2year1, &QLineEdit::returnPressed, this, [this]() {ui->TKbtn->click();});
+    connect(ui->TK2year2, &QLineEdit::returnPressed, this, [this]() {ui->TKbtn->click();});
 }
 Admin::~Admin()
 {
     delete ui;
     delete animation;
 }
-void Admin::moverMenu()
-{
-    int width = ui->MIT_AD->width();
-    int normal = 71;
-    int extender;
 
-    if (width == 71) {
-        extender = 245;
-        QPropertyAnimation *animation = new QPropertyAnimation(ui->MIT_AD, "minimumWidth");
-        ui->MI_AD->setVisible(false);
-        ui->MIT_AD->setHidden(false);
-        animation->setDuration(300);
-        animation->setStartValue(width);
-        animation->setEndValue(extender);
-        animation->setEasingCurve(QEasingCurve::InOutQuart);
-        animation->start(QAbstractAnimation::DeleteWhenStopped);
-    } else {
-        extender = normal;
-        QPropertyAnimation *animation = new QPropertyAnimation(ui->MIT_AD, "minimumWidth");
-        animation->setDuration(300);
-        animation->setStartValue(width);
-        animation->setEndValue(extender);
-        animation->setEasingCurve(QEasingCurve::InOutQuart);
-        connect(animation, &QPropertyAnimation::finished, this, [this]() {
-            ui->MI_AD->setVisible(true);
-            ui->MIT_AD->setHidden(true);
-        });
-        animation->start(QAbstractAnimation::DeleteWhenStopped);
-
-    }
-}
 
 void Admin::managerooms(){
     QAction *searchAction = new QAction(QIcon(":/new/prefix1/Resources/loupe.png"), "Search", this);
@@ -110,8 +84,8 @@ void Admin::managerooms(){
     ui->table1->setColumnWidth(0, 150);
     ui->table1->setColumnWidth(1, 150);
     ui->table1->setColumnWidth(2, 150);
-    ui->table1->setColumnWidth(3, 150);
-    ui->table1->setColumnWidth(4, 150);
+    ui->table1->setColumnWidth(3, 100);
+    ui->table1->setColumnWidth(4, 200);
     ui->table1->setColumnWidth(5, 150);
     // ui->table1->setColumnWidth(6, 150);
     ui->table1->verticalHeader()->hide();
@@ -248,9 +222,9 @@ void Admin::manageroomtypes(){
     ui->RoomTypeTable->horizontalHeader()->setStyleSheet("QHeaderView::section { border: none; }");
     ui->RoomTypeTable->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
     ui->RoomTypeTable->horizontalHeaderItem(ui->RoomTypeTable->columnCount() - 1)->setTextAlignment(Qt::AlignCenter);
-    ui->RoomTypeTable->setColumnWidth(0, 200);
+    ui->RoomTypeTable->setColumnWidth(0, 150);
     ui->RoomTypeTable->setColumnWidth(1, 200);
-    ui->RoomTypeTable->setColumnWidth(2, 200);
+    ui->RoomTypeTable->setColumnWidth(2, 250);
     ui->RoomTypeTable->setColumnWidth(3, 200);
     ui->RoomTypeTable->setColumnWidth(4, 200);
     ui->RoomTypeTable->verticalHeader()->hide();
@@ -591,6 +565,7 @@ void Admin::managereservations(){
     ui->ReservationTable->setColumnWidth(3, 130);
     ui->ReservationTable->setColumnWidth(4, 130);
     ui->ReservationTable->setColumnWidth(5, 130);
+    ui->ReservationTable->setColumnWidth(6, 130);
     ui->ReservationTable->verticalHeader()->hide();
     ui->ReservationTable->setShowGrid(false);
     // QRect headerRect = ui->ReservationTable->visualRect(ui->ReservationTable->model()->index(0, 0));
@@ -818,7 +793,7 @@ void Admin::displayRoomTypes(const RoomType& rt) {
     ui->RoomTypeTable->setItem(row, 0, new QTableWidgetItem(QString::fromStdString(rt.getID())));
     ui->RoomTypeTable->setItem(row, 1, new QTableWidgetItem(QString::fromStdString(rt.getName())));
     ui->RoomTypeTable->setItem(row, 2, new QTableWidgetItem(QString::fromStdString(rt.getDescription())));
-    ui->RoomTypeTable->setItem(row, 3, new QTableWidgetItem(QString::number(rt.getPrice())));
+    ui->RoomTypeTable->setItem(row, 3, new QTableWidgetItem(QString::number(rt.getPrice(), 'f', 0)));
     QWidget* buttonWidget = new QWidget();
 
     QPushButton* edit_RT_btn = new QPushButton();
@@ -885,7 +860,7 @@ void Admin::displayServices(const Service& s) {
     ui->SerTable->setItem(row, 0, new QTableWidgetItem(QString::fromStdString(s.getID())));
     ui->SerTable->setItem(row, 1, new QTableWidgetItem(QString::fromStdString(s.getName())));
     ui->SerTable->setItem(row, 2, new QTableWidgetItem(QString::fromStdString(s.getdes())));
-    ui->SerTable->setItem(row, 3, new QTableWidgetItem(QString::number(s.getUnitPrice())));
+    ui->SerTable->setItem(row, 3, new QTableWidgetItem(QString::number(s.getUnitPrice(), 'f', 0)));
     ui->SerTable->setItem(row, 4, new QTableWidgetItem(QString::fromStdString(s.getis_mandatory()? "Cố định" : "Tự do")));
     QWidget* buttonWidget = new QWidget();
 
@@ -978,8 +953,8 @@ void Admin::displayContracts(const Contract& c){
     ui->ContractTable->setItem(row, 5, new QTableWidgetItem(QString::number(t->getAge())));
     ui->ContractTable->setItem(row, 6, new QTableWidgetItem(QString::fromStdString(t->getCCCD())));
     ui->ContractTable->setItem(row, 7, new QTableWidgetItem(QString::fromStdString(t->getPhone())));
-    ui->ContractTable->setItem(row, 8, new QTableWidgetItem(QString::fromStdString(c.startDate.toString())));
-    ui->ContractTable->setItem(row, 9, new QTableWidgetItem(QString::fromStdString(c.endDate.toString())));
+    ui->ContractTable->setItem(row, 8, new QTableWidgetItem(QString::fromStdString(c.getStartDate().toString())));
+    ui->ContractTable->setItem(row, 9, new QTableWidgetItem(QString::fromStdString(c.getEndDate().toString())));
     ui->ContractTable->setItem(row, 10, new QTableWidgetItem((QString("%1 VND/1 month").arg(QString::number(c.getrentprice(), 'f', 2)))));
     // ui->ContractTable->setItem(row, 11, new QTableWidgetItem(QString::fromStdString(c.getStatus() == 1 ? "Active" : "Expired")));
     QTableWidgetItem *status = new QTableWidgetItem(QString::fromStdString(c.getStatus() == 1 ? "Active" : "Expired"));
@@ -1003,11 +978,20 @@ void Admin::displayContracts(const Contract& c){
         onterminate_btnClicked(row);
     });
 
+    QPushButton* extendButton = new QPushButton();
+    extendButton->setIcon(QIcon(":/new/prefix1/Resources/extend.png"));
+    extendButton->setToolTip("Gia hạn");
+    connect(extendButton, &QPushButton::clicked, this, [this, row]() {
+        onExtendButtonClicked(row);
+    });
+
     QHBoxLayout* layout = new QHBoxLayout(buttonWidget);
+    layout->addWidget(extendButton);
     layout->addWidget(terminate_btn);
     layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(0);
-    terminate_btn->setFixedSize(20, 20);
+    terminate_btn->setIconSize(QSize(20, 20));
+    extendButton->setIconSize(QSize(30, 30));
 
     buttonWidget->setLayout(layout);
 
@@ -1019,7 +1003,7 @@ void Admin::displayReservations(const Reservation& re) {
     QString statusText;
     QColor textColor;
 
-    switch (re.status) {
+    switch (re.getStatus()) {
     case 0:
         statusText = "Waiting";
         textColor = QColor(255, 165, 0);
@@ -1041,11 +1025,11 @@ void Admin::displayReservations(const Reservation& re) {
     int row = ui->ReservationTable->rowCount();
     ui->ReservationTable->insertRow(row);
 
-    ui->ReservationTable->setItem(row, 0, new QTableWidgetItem(QString::fromStdString(re.reservation_ID)));
-    ui->ReservationTable->setItem(row, 1, new QTableWidgetItem(QString::fromStdString(re.room_ID)));
-    ui->ReservationTable->setItem(row, 2, new QTableWidgetItem(QString::fromStdString(re.tenant_ID)));
-    ui->ReservationTable->setItem(row, 3, new QTableWidgetItem(QString::fromStdString(re.startDate.toString())));
-    ui->ReservationTable->setItem(row, 4, new QTableWidgetItem(QString::fromStdString(re.endDate.toString())));
+    ui->ReservationTable->setItem(row, 0, new QTableWidgetItem(QString::fromStdString(re.getID())));
+    ui->ReservationTable->setItem(row, 1, new QTableWidgetItem(QString::fromStdString(re.getRoomID())));
+    ui->ReservationTable->setItem(row, 2, new QTableWidgetItem(QString::fromStdString(re.getTenantID())));
+    ui->ReservationTable->setItem(row, 3, new QTableWidgetItem(QString::fromStdString(re.getStartDate().toString())));
+    ui->ReservationTable->setItem(row, 4, new QTableWidgetItem(QString::fromStdString(re.getEndDate().toString())));
 
     QTableWidgetItem* statusItem = new QTableWidgetItem(statusText);
     QFont font = statusItem->font();
@@ -1054,7 +1038,7 @@ void Admin::displayReservations(const Reservation& re) {
     statusItem->setForeground(textColor);
     ui->ReservationTable->setItem(row, 5, statusItem);
 
-    if (re.status == 0) {
+    if (re.getStatus() == 0) {
         QWidget* buttonWidget = new QWidget();
 
         QPushButton* acceptbtn = new QPushButton();
@@ -1102,6 +1086,12 @@ void Admin::onacceptbtnClicked(int row){
     if (reply == QMessageBox::Yes) {
     string id = ui->ReservationTable->item(row, 0)->text().toStdString();
     Contract::confirmReservationandcreatContract(1, id);
+    ui->ContractTable->clearContents();
+    ui->ContractTable->setRowCount(0);
+    Contract::showAllContracts(this);
+    ui->table1->clearContents();
+    ui->table1->setRowCount(0);
+    Room::showAllRooms(this);
     string search = ui->LineEditSearchRe->text().toStdString();
     string check = ui->CBSRe->currentText().toStdString();
     if (search.empty()){
@@ -1187,7 +1177,7 @@ void Admin::onedit_tenant_btnClicked(int row){
 void Admin::onedit_Ser_btnClicked(int row){
     string ID = ui->SerTable->item(row, 0)->text().toStdString();
     string name = ui->SerTable->item(row, 1)->text().toStdString();
-    int price = ui->SerTable->item(row, 3)->text().toInt();
+    double price = ui->SerTable->item(row, 3)->text().toDouble();
     string des = ui->SerTable->item(row, 2)->text().toStdString();
     Editservice edit(ID, name, price, des, this);
     edit.exec();
@@ -1211,7 +1201,7 @@ void Admin::onEditButtonClicked(int row) {
 void Admin::onedit_RT_btnClicked(int row){
     string id = ui->RoomTypeTable->item(row, 0)->text().toStdString();
     string name = ui->RoomTypeTable->item(row, 1)->text().toStdString();
-    double price = ui->RoomTypeTable->item(row, 3)->text().toInt();
+    double price = ui->RoomTypeTable->item(row, 3)->text().toDouble();
     string des = ui->RoomTypeTable->item(row, 2)->text().toStdString();
     Editroomtype edit(id, name, des, price, this);
     edit.exec();
@@ -1240,12 +1230,17 @@ void Admin::ondelete_Ser_btnClicked(int row){
     reply = QMessageBox::question(this, "Delete", "Are you sure you want to delete this?", QMessageBox::Yes | QMessageBox::No);
     if (reply == QMessageBox::Yes) {
         string ID = ui->SerTable->item(row, 0)->text().toStdString();
+        if(Service::isActive(ID)){
+            QMessageBox::warning(this, "Delete", "This service is currently in use and cannot be deleted.");
+            return;
+        } else {
         Service::deleteService(ID);
         ui->CBSS->setCurrentIndex(0);
         ui->SerTable->clearContents();
         ui->SerTable->setRowCount(0);
         Service::showAllServices(this);
         ui->totalservice->setText(QString::number(Service::total));
+        }
     }
 }
 
@@ -1698,6 +1693,7 @@ void Admin::on_RefPaymentbtn_clicked()
 void Admin::on_CBST_currentIndexChanged(int index)
 {
     if (index == 0 || index == 3 || index == 4) {
+        ui->LineEditSearchTenant->clear();
         ui->LineEditSearchTenant->setEnabled(false);
         ui->LineEditSearchTenant->setStyleSheet("QLineEdit { background-color: #d3d3d3; padding-left:20px; border: 1px solid gray; border-radius: 10px; }");
     } else {
@@ -1800,18 +1796,16 @@ void Admin::on_RoomTypebtn_clicked()
 }
 
 void Admin::drawchartMonths(int year){
-
-    QVBoxLayout *layout = qobject_cast<QVBoxLayout*>(ui->widgetchart->layout());
-
+    QLayout *layout = ui->widgetchart->layout();
     if (layout) {
-        QLayoutItem *item;
-        while ((item = layout->takeAt(0)) != nullptr) {
+        QLayoutItem *item = layout->itemAt(0);
+        if (item && item->widget()) {
             delete item->widget();
-            delete item;
         }
-    } else {
-        layout = new QVBoxLayout(ui->widgetchart);
+        delete layout;
     }
+
+    layout = new QVBoxLayout(ui->widgetchart);
 
     QChart *chart = new QChart();
     PaymentStatistics::showMonthlyComparison(year, chart, this);
@@ -1823,28 +1817,27 @@ void Admin::drawchartMonths(int year){
     ui->widgetchart->setLayout(layout);
 }
 
-void Admin::drawchartYears(int start, int end){
-    QVBoxLayout *layout = qobject_cast<QVBoxLayout*>(ui->widgetchart->layout());
-
+void Admin::drawchartYears(int start, int end) {
+    QLayout *layout = ui->widgetchart->layout();
     if (layout) {
-        QLayoutItem *item;
-        while ((item = layout->takeAt(0)) != nullptr) {
+        QLayoutItem *item = layout->itemAt(0);
+        if (item && item->widget()) {
             delete item->widget();
-            delete item;
         }
-    } else {
-        layout = new QVBoxLayout(ui->widgetchart);
+        delete layout;
     }
+
+    layout = new QVBoxLayout(ui->widgetchart);
 
     QChart *chart = new QChart();
     PaymentStatistics::showYearlyComparison(start, end, chart, this);
     QChartView *chartview = new QChartView(chart);
     chartview->setRenderHint(QPainter::Antialiasing);
 
-
     layout->addWidget(chartview);
     ui->widgetchart->setLayout(layout);
 }
+
 
 void Admin::on_Statisticsbtn1_clicked()
 {
@@ -1861,18 +1854,28 @@ void Admin::on_Statisticsbtn_clicked()
 void Admin::on_TKbtn_clicked()
 {
     if(ui->comboBoxTK->currentIndex() == 0){
+        bool c;
+        int year = ui->TK3year->text().toInt(&c);
+        if (!c || ui->TK3year->text().isEmpty()){
+            QMessageBox::warning(this, "Warning", "Năm không hợp lệ");
+            return;
+        }
         ui->MonthTable->clearContents();
         ui->MonthTable->setRowCount(0);
         ui->stackedWidgetSta->setCurrentIndex(0);
-        int year = ui->TK3year->text().toInt();
         drawchartMonths(year);
     }
     if(ui->comboBoxTK->currentIndex() == 1){
+        bool c, d;
+        int start = ui->TK2year1->text().toInt(&c);
+        int end = ui->TK2year2->text().toInt(&d);
+        if (!c || ui->TK2year1->text().isEmpty() || !d || ui->TK2year2->text().isEmpty()){
+            QMessageBox::warning(this, "Warning", "Năm không hợp lệ");
+            return;
+        }
         ui->YearTable->clearContents();
         ui->YearTable->setRowCount(0);
         ui->stackedWidgetSta->setCurrentIndex(1);
-        int start = ui->TK2year1->text().toInt();
-        int end = ui->TK2year2->text().toInt();
         if (end - start > 15){
         QMessageBox::warning(this, "Warning", "Giới hạn các năm cách nhau không quá 15 năm");
             return;
@@ -2042,15 +2045,49 @@ void Admin::AccandNotipopup() {
         changePasswordBtn->setCursor(Qt::PointingHandCursor);
         logoutBtn->setCursor(Qt::PointingHandCursor);
     });
-    connect(changeAdminCodeBtn, &QPushButton::clicked, [=]() {
+    connect(changeAdminCodeBtn, &QPushButton::clicked, this, [this]() {
         changeAdmincode();
     });
-    connect(changePasswordBtn, &QPushButton::clicked, [=]() {
+
+    connect(changePasswordBtn, &QPushButton::clicked, this, [this]() {
         changePassword();
     });
-    connect(logoutBtn, &QPushButton::clicked, [=]() {
+
+    connect(logoutBtn, &QPushButton::clicked, this, [this]() {
         ui->signoutbtn->click();
     });
+}
+
+void Admin::moverMenu()
+{
+    int width = ui->MIT_AD->width();
+    int normal = 71;
+    int extender;
+
+    if (width == 71) {
+        extender = 245;
+        QPropertyAnimation *animation = new QPropertyAnimation(ui->MIT_AD, "minimumWidth");
+        ui->MI_AD->setVisible(false);
+        ui->MIT_AD->setHidden(false);
+        animation->setDuration(300);
+        animation->setStartValue(width);
+        animation->setEndValue(extender);
+        animation->setEasingCurve(QEasingCurve::InOutQuart);
+        animation->start(QAbstractAnimation::DeleteWhenStopped);
+    } else {
+        extender = normal;
+        QPropertyAnimation *animation = new QPropertyAnimation(ui->MIT_AD, "minimumWidth");
+        animation->setDuration(300);
+        animation->setStartValue(width);
+        animation->setEndValue(extender);
+        animation->setEasingCurve(QEasingCurve::InOutQuart);
+        connect(animation, &QPropertyAnimation::finished, this, [this]() {
+            ui->MI_AD->setVisible(true);
+            ui->MIT_AD->setHidden(true);
+        });
+        animation->start(QAbstractAnimation::DeleteWhenStopped);
+
+    }
 }
 
 void Admin::changeAdmincode(){
@@ -2090,3 +2127,11 @@ void Admin::on_Accbtn_2_clicked()
     ui->Accbtn->click();
 }
 
+void Admin::onExtendButtonClicked(int row){
+    string id = ui->ContractTable->item(row, 1)->text().toStdString();
+    Extend e(id, this);
+    e.exec();
+    ui->ContractTable->clearContents();
+    ui->ContractTable->setRowCount(0);
+    Contract::showAllContracts(this);
+}

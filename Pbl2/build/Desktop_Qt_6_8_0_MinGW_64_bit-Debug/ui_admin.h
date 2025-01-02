@@ -2732,8 +2732,8 @@ public:
         QObject::connect(pushButton_5, &QPushButton::toggled, MI_AD, &QFrame::setVisible);
         QObject::connect(pushButton_5, &QPushButton::toggled, MIT_AD, &QFrame::setHidden);
 
-        stackedWidget->setCurrentIndex(1);
-        stackedWidget_2->setCurrentIndex(2);
+        stackedWidget->setCurrentIndex(10);
+        stackedWidget_2->setCurrentIndex(1);
         stackedWidgetSta->setCurrentIndex(0);
 
 

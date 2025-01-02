@@ -26,6 +26,7 @@ int Tenant::getAge() const {
 string Tenant::getPhone() const { return phone; }
 string Tenant::getCCCD() const { return cccd; }
 bool Tenant::getGender() const { return gender; }
+int Tenant::getBirthyear() const { return birthyear; }
 
 
 void Tenant::setLastName(const string& lastName) { this->lastName = lastName; }

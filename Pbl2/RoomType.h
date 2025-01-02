@@ -4,7 +4,6 @@
 #include "LinkedList.h"
 #include "admin.h"
 
-class Admin;
 class RoomType
 {
 protected:
@@ -13,7 +12,7 @@ protected:
     string description;
     double price;
 public:
-    friend class Admin;
+
     string getID() const;
     double getPrice() const;
     string getDescription() const;

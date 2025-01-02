@@ -19,7 +19,7 @@ void Extend::on_Extenbtn_clicked()
 {
     bool c;
     int staymont = ui->newRT->text().toInt(&c);
-    if (!c){
+    if (!c || staymont < 0){
         QMessageBox::information(this, "Error", "Nhập số tháng không hợp lệ");
         return;
     }

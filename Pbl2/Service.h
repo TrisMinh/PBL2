@@ -13,7 +13,7 @@ class Service
     int unit_price;
     string description;
     bool is_mandatory;
-
+    static LinkedList<string> newServiceList;
 public:
     static int total;
     static int currentNumber;
@@ -30,6 +30,7 @@ public:
     string getdes() const;
     bool getis_mandatory() const;
 
+    static bool isActive(string& id);
     static string generateID(int number);
     string toString() const;
     void display(Admin* adminWindow) const;
@@ -47,6 +48,7 @@ public:
     static bool searchByID(const string& id, User* adminWindow);
     static void searchByName(const string& name, User* adminWindow);
     static void sortID(bool sx);
+    static void addNewService(const string& name);
 };
 
 #endif // SERVICE_H

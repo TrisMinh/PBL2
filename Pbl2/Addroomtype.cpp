@@ -19,7 +19,7 @@ void Addroomtype::on_AddRTbtn_clicked()
     bool c;
     string newname = ui->newname->text().toStdString();
     string newdes = ui->newdes->text().toStdString();
-    double newprice = ui->newprice->text().toInt(&c);
+    double newprice = ui->newprice->text().toDouble(&c);
     if (ui->newname->text().isEmpty()){
         QMessageBox::warning(this, "Warning", "Vui lòng nhập tên RoomType");
         return;
@@ -28,7 +28,7 @@ void Addroomtype::on_AddRTbtn_clicked()
         QMessageBox::warning(this, "Warning", "Vui lòng nhập Mô tả");
         return;
     }
-    if (!c){
+    if (!c || newprice<0){
         QMessageBox::warning(this, "Warning", "Giá không hợp lệ");
         return;
     }

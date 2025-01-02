@@ -33,7 +33,7 @@ void Paybill::on_Datbtn_clicked()
         QMessageBox::warning(this, "Warning", "Nhap so tien khong hop le");
         return;
     }
-    const double epsilon = 0.0001;
+    const double epsilon = 0.001;
     if (qAbs(amount - remaining) < epsilon) {
     } else
     if (amount > remaining){

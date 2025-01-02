@@ -20,7 +20,7 @@ void AddService::on_AddSerbtn_clicked()
 {
     string name = ui->newname->text().toStdString();
     bool c, mandatory;
-    int price = ui->newprice->text().toInt(&c);
+    double price = ui->newprice->text().toDouble(&c);
     string des = ui->newdes->text().toStdString();
     if (ui->newname->text().isEmpty()){
         QMessageBox::warning(this, "Warning", "Vui lòng nhập tên RoomType");
@@ -30,7 +30,7 @@ void AddService::on_AddSerbtn_clicked()
         QMessageBox::warning(this, "Warning", "Vui lòng nhập Mô tả");
         return;
     }
-    if(!c){
+    if(!c || price < 0){
         QMessageBox::warning(this, "Lỗi", "Giá dịch vụ không hợp lệ. Vui lòng nhập lại!");
         return;
     }

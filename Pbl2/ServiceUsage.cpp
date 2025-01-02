@@ -8,7 +8,8 @@ LinkedList<ServiceUsage> ServiceUsage::usageList;
 // Constructor
 ServiceUsage::ServiceUsage() {}
 ServiceUsage::ServiceUsage(const string& roomId, const string& servId, const string& tenantId, bool status)
-    : room_ID(roomId), service_ID(servId), tenantID(tenantId), status(status) {
+    : room_ID(roomId), service_ID(servId), tenantID(tenantId), status(status), quantity(1) {
+    if (servId == "S.005" || servId == "S.006") quantity = 0;
     usage_ID = generateID(++currentNumber);
 }
 ServiceUsage::~ServiceUsage() {}
@@ -141,6 +142,21 @@ void ServiceUsage::enterquantity(const string& roomID, int e, int w){
 }
 
 void ServiceUsage::addServiceUsage(const string& room_ID, const string& serID) {
+    LinkedList<ServiceUsage>::Node* current = usageList.begin();
+    while (current) {
+        if (current->data.getTenantID() == Account::currentTenantID &&
+            current->data.getRoomID() == room_ID &&
+            current->data.getServiceID() == serID) {
+            if (current->data.getStatus() == true) {
+                cout << "This service is already active for your account!" << endl;
+                break;
+            } else {
+                current->data.setStatus(true);
+                return; // Kết thúc hàm sau khi cập nhật
+            }
+        }
+        current = current->next;
+    }
     ServiceUsage newUsage(room_ID, serID, Account::currentTenantID, true);
     usageList.add(newUsage);
     total++;
@@ -167,5 +183,18 @@ void ServiceUsage::registerServices(const string& roomID, const string& tenantID
         usageList.add(newUsage);
         total++;
         current = current->next;
+    }
+}
+
+void ServiceUsage::deleteServiceUsageByRoomAndTenant(const string& roomID, const string& tenantID) {
+    LinkedList<ServiceUsage>::Node* current = usageList.begin();
+    while (current != nullptr) {
+        if (current->data.getRoomID() == roomID && current->data.getTenantID() == tenantID) {
+            LinkedList<ServiceUsage>::Node* toDelete = current;
+            current = current->next;
+            usageList.deleteNode(toDelete->data.getID());
+        } else {
+            current = current->next;
+        }
     }
 }

@@ -13,7 +13,7 @@
 
 int main(int argc, char *argv[]) {
     RoomType::load("RoomType.txt");
-    Room::load();
+    Room::load("Room.txt");
     Tenant::load("Tenant.txt");
     Service::load("Service.txt");
     ServiceUsage::load("ServiceUsage.txt");

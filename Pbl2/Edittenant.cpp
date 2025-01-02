@@ -73,7 +73,7 @@ void Edittenant::on_Edittenantbtn_clicked()
     }
     time_t now = time(0);
     tm* ltm = localtime(&now);
-    if(newage > (1900 + ltm->tm_year)){
+    if(newage > (1900 + ltm->tm_year) || newage <= 0){
         QMessageBox::information(this, "Thông báo", "Năm sinh không hợp lệ");
         return;
     }

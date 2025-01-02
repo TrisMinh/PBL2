@@ -46,7 +46,7 @@ void Signin::on_Loginbtn_clicked()
                 QRect screenGeometry = screen->geometry();
                 int x = (screenGeometry.width() - admin->width()) / 2;
                 int y = (screenGeometry.height() - admin->height()) / 2;
-                admin->move(x, y - 35);
+                admin->move(x, y);
             }
 
             admin->show();
@@ -59,7 +59,7 @@ void Signin::on_Loginbtn_clicked()
                 QRect screenGeometry = screen->geometry();
                 int x = (screenGeometry.width() - user->width()) / 2;
                 int y = (screenGeometry.height() - user->height()) / 2;
-                user->move(x, y - 35);
+                user->move(x, y);
             }
 
             user->show();
@@ -114,6 +114,9 @@ void Signin::on_DKadminbtn_clicked()
         check = false;
     } else {ui->passfailadmin->setText("");}
     if (check){
+        if (ui->admincode->text().isEmpty() || ui->UserNameadmin->text().isEmpty() || ui->Passwordadmin->text().isEmpty()){
+            QMessageBox::information(this, "Thông báo", "Vui lòng nhập đầy đủ thông tin");
+        } else {
         Account acc(ui->UserNameadmin->text().toStdString(), ui->Passwordadmin->text().toStdString(), "Admin",1);
         Account::accountList.add(acc);
         ui->stackedWidget_2->setCurrentIndex(0);
@@ -123,6 +126,7 @@ void Signin::on_DKadminbtn_clicked()
         ui->Cfpassadmin->setText("");
         QMessageBox::information(this, "Đăng ký", "Đăng ký tài khoản thành công!");
         Account::accountList.updateFile("Account.txt");
+        }
     }
 }
 
@@ -158,10 +162,15 @@ void Signin::on_Dktenantbtn_clicked()
     bool gender = ui->gender->currentIndex();
     QString name = ui->name->text();
     int lastSpaceIndex = name.lastIndexOf(' ');
-    if (lastSpaceIndex != -1) {
+
+    if (lastSpaceIndex == -1) {
+        QMessageBox::warning(this, "Cảnh báo", "Vui lòng nhập đầy đủ họ và tên.");
+        return;
+    } else {
         lastName = name.left(lastSpaceIndex).toStdString();
         firstName = name.mid(lastSpaceIndex + 1).toStdString();
     }
+
     string sdt = ui->sdt->text().toStdString();
     string cccd = ui->cccd->text().toStdString();
     int birth = ui->birth->text().toInt(&c);
@@ -170,7 +179,7 @@ void Signin::on_Dktenantbtn_clicked()
     if (ui->name->text().isEmpty() || ui->sdt->text().isEmpty() || ui->birth->text().isEmpty()){
         QMessageBox::information(this, "Thông báo", "Vui lòng nhập đầy đủ thông tin");
     } else
-    if (birth> (1900 + ltm->tm_year) || !c){
+    if (birth> (1900 + ltm->tm_year) || !c || birth <=0){
         ui->error->setText("Năm sinh không hợp lệ");
     } else {
         ui->error->setText("");
@@ -221,6 +230,14 @@ void Signin::on_pushButton_clicked()
 
 
 void Signin::on_backbtn_2_clicked()
+{
+    ui->stackedWidget_2->setCurrentIndex(0);
+    ui->xmsdt->clear();
+    ui->xmcccd->clear();
+}
+
+
+void Signin::on_backbtn_3_clicked()
 {
     ui->stackedWidget_2->setCurrentIndex(0);
     ui->xmsdt->clear();

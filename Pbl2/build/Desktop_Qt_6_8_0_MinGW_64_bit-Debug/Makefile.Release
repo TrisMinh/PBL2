@@ -9006,7 +9006,8 @@ release/Contract.o: ../../Contract.cpp ../../Contract.h \
 		../../RoomType.h \
 		../../Account.h \
 		../../ServiceUsage.h \
-		../../Service.h
+		../../Service.h \
+		../../Payment.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\Contract.o ..\..\Contract.cpp
 
 release/Createpayment.o: ../../Createpayment.cpp ../../Createpayment.h \
@@ -17929,7 +17930,10 @@ release/Service.o: ../../Service.cpp ../../Service.h \
 		../../User.h \
 		../../Createpayment.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QDialog \
-		../../LinkedList.cpp
+		../../LinkedList.cpp \
+		../../ServiceUsage.h \
+		../../Room.h \
+		../../RoomType.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\Service.o ..\..\Service.cpp
 
 release/ServiceUsage.o: ../../ServiceUsage.cpp ../../ServiceUsage.h \
@@ -21344,6 +21348,7 @@ release/admin.o: ../../admin.cpp ../../admin.h \
 		../../Edittenant.h \
 		../../Editservice.h \
 		../../Editroomtype.h \
+		../../Extend.h \
 		../../Adminaccount.h \
 		D:/Qt/6.8.0/mingw_64/include/QtWidgets/QMessageBox
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\admin.o ..\..\admin.cpp

@@ -149,19 +149,19 @@ void User::AccandNotipopup() {
             AccPopup->show();
         }
     });
-    connect(changeAdminCodeBtn, &QPushButton::clicked, [=]() {
+    connect(changeAdminCodeBtn, &QPushButton::clicked, this, [this]() {
         ui->Accbtn->click();
         ui->Accountbtn->click();
         ui->stackedWidget_7->setCurrentIndex(5);
         ui->TTCNbtn->click();
     });
-    connect(changePasswordBtn, &QPushButton::clicked, [=]() {
+    connect(changePasswordBtn, &QPushButton::clicked, this, [this]() {
         ui->Accbtn->click();
         ui->Accountbtn->click();
         ui->stackedWidget_7->setCurrentIndex(5);
         ui->Changepassbtn->click();
     });
-    connect(logoutBtn, &QPushButton::clicked, [=]() {
+    connect(logoutBtn, &QPushButton::clicked, this, [this]() {
         ui->signoutbtn->click();
     });
 }
@@ -217,13 +217,13 @@ void User::showprofile(){
     Tenant *tenant = Tenant::tenantList.searchID(Account::currentTenantID);
     ui->name->setText(QString::fromStdString(tenant->getFullName()));
     ui->sdt->setText(QString::fromStdString(tenant->getPhone()));
-    ui->age->setText(QString::number(tenant->getAge()));
+    ui->age->setText(QString::number(tenant->getBirthyear()));
     ui->cccd->setText(QString::fromStdString(tenant->getCCCD()));
     ui->gender->setText(QString::fromStdString(tenant->getGender()? "Nữ" : "Nam"));
 
     ui->upname->setText(QString::fromStdString(tenant->getFullName()));
     ui->upsdt->setText(QString::fromStdString(tenant->getPhone()));
-    ui->upage->setText(QString::number(tenant->getAge()));
+    ui->upage->setText(QString::number(tenant->getBirthyear()));
     ui->upcccd->setText(QString::fromStdString(tenant->getCCCD()));
     if (tenant->getGender()){
     ui->checkBox_2->setChecked(true);
@@ -238,24 +238,33 @@ void User::on_updateprofile_clicked()
     string sdt = ui->upsdt->text().toStdString();
     int age = ui->upage->text().toInt(&c);
     string cccd = ui->upcccd->text().toStdString();
+    time_t now = time(0);
+    tm* ltm = localtime(&now);
+    int currentYear = 1900 + ltm->tm_year;
      if (ui->checkBox->isChecked()){
         gender = 0;
     } else { gender = 1; }
     int lastSpaceIndex = name.lastIndexOf(' ');
-    if (lastSpaceIndex != -1) {
+    if (lastSpaceIndex == -1) {
+        QMessageBox::warning(this, "Cảnh báo", "Vui lòng nhập đầy đủ họ và tên.");
+        return;
+    } else {
         lastName = name.left(lastSpaceIndex).toStdString();
         firstName = name.mid(lastSpaceIndex + 1).toStdString();
     }
     if (ui->upname->text()=="" || ui->upage->text()=="" || ui->upcccd->text()=="" || ui->upsdt->text()=="") {
         QMessageBox::warning(this, "Warning", "Vui lòng nhập đầy đủ thông tin!");
     } else {
-    if (c){
+    if (!c || age<=0 || age > currentYear){
+        QMessageBox::warning(this, "Warning", "Nhập tuổi không hợp lệ!");
+    } else {  
         Tenant::updateTenant(Account::currentTenantID, lastName, firstName, sdt, cccd, age, gender);
         ui->stackedWidget->setCurrentIndex(0);
         QMessageBox::information(this, "Success", "Update successfully!", QMessageBox::Ok);
         showprofile();
-    } else {
-        QMessageBox::warning(this, "Warning", "Nhập tuổi không hợp lệ!");
+        ui->ContractTable->clearContents();
+        ui->ContractTable->setRowCount(0);
+        Contract::searchByTenantID(Account::currentTenantID, 0, this);
     }
     }
 }
@@ -447,7 +456,7 @@ void User::displayServices(const Service& s) {
     ui->SerTable->setItem(row, 0, new QTableWidgetItem(QString::fromStdString(s.getID())));
     ui->SerTable->setItem(row, 1, new QTableWidgetItem(QString::fromStdString(s.getName())));
     ui->SerTable->setItem(row, 2, new QTableWidgetItem(QString::fromStdString(s.getdes())));
-    ui->SerTable->setItem(row, 3, new QTableWidgetItem(QString::number(s.getUnitPrice())));
+    ui->SerTable->setItem(row, 3, new QTableWidgetItem(QString::number(s.getUnitPrice(), 'f', 0)));
     ui->SerTable->setItem(row, 4, new QTableWidgetItem(s.getis_mandatory()? "Cố định" : "Tự do"));
         LinkedList<ServiceUsage>::Node* current = ServiceUsage::usageList.begin();
         while (current) {
@@ -513,7 +522,17 @@ void User::displayContracts(const Contract& c){
     ui->ContractTable->setItem(row, 8, new QTableWidgetItem(QString::fromStdString(c.getStartDate().toString())));
     ui->ContractTable->setItem(row, 9, new QTableWidgetItem(QString::fromStdString(c.getEndDate().toString())));
     ui->ContractTable->setItem(row, 10, new QTableWidgetItem((QString("%1 VND/1 month").arg(QString::number(c.getrentprice(), 'f', 2)))));
-    ui->ContractTable->setItem(row, 11, new QTableWidgetItem(QString::fromStdString(c.getStatus() == 1 ? "Active" : "Expired")));
+    QTableWidgetItem *status = new QTableWidgetItem(QString::fromStdString(c.getStatus() == 1 ? "Active" : "Expired"));
+    QFont font = status->font();
+    if (c.getStatus() == 1) {
+        status->setForeground(QColor("green"));
+        font.setBold(true);
+        status->setFont(font);
+    } else {
+        status->setForeground(QColor("red"));
+        status->setFont(font);
+    }
+    ui->ContractTable->setItem(row, 11, status);
     if (c.getStatus() == 1){
         QWidget* buttonWidget = new QWidget();
 
@@ -673,7 +692,7 @@ void User::on_listWidget_2_clicked(){
             ui->roomID->setText(QString::fromStdString(current->data.getID()));
             ui->RTID->setText(QString::fromStdString(current->data.getRoomTypeID()));
             ui->RT->setText(QString::fromStdString(current->data.getRoomType()->getName()));
-            ui->Price->setText(QString::number(current->data.getPrice()));
+            ui->Price->setText(QString::number(current->data.getPrice(), 'f', 0));
             ui->Desc->setText(QString::fromStdString(current->data.getRoomType()->getDescription()));
             ui->stackedWidget_2->setCurrentIndex(1);
             return;

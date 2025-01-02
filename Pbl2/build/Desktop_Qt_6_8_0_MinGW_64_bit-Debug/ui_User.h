@@ -1682,6 +1682,7 @@ public:
         editprofilebtn->setObjectName("editprofilebtn");
         editprofilebtn->setGeometry(QRect(475, 2, 81, 20));
         editprofilebtn->setFont(font5);
+        editprofilebtn->setCursor(QCursor(Qt::CursorShape::PointingHandCursor));
         QIcon icon17;
         icon17.addFile(QString::fromUtf8(":/new/prefix1/Resources/edit.png"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
         editprofilebtn->setIcon(icon17);
@@ -2276,7 +2277,7 @@ public:
         name->setText(QString());
         label_9->setText(QCoreApplication::translate("User", "Phone Number:", nullptr));
         sdt->setText(QString());
-        label_11->setText(QCoreApplication::translate("User", "Age:", nullptr));
+        label_11->setText(QCoreApplication::translate("User", "Year of birth:", nullptr));
         age->setText(QString());
         label_13->setText(QCoreApplication::translate("User", "CCCD:", nullptr));
         cccd->setText(QString());
@@ -2287,11 +2288,11 @@ public:
         pushButton_2->setText(QCoreApplication::translate("User", "Cancel", nullptr));
         label_22->setText(QCoreApplication::translate("User", "Full Name:", nullptr));
         label_23->setText(QCoreApplication::translate("User", "Phone Number:", nullptr));
-        label_24->setText(QCoreApplication::translate("User", "Age:", nullptr));
+        label_24->setText(QCoreApplication::translate("User", "Year of birth:", nullptr));
         label_25->setText(QCoreApplication::translate("User", "CCCD:", nullptr));
         label_27->setText(QCoreApplication::translate("User", "Gender:", nullptr));
-        checkBox->setText(QCoreApplication::translate("User", "Male", nullptr));
-        checkBox_2->setText(QCoreApplication::translate("User", "Female", nullptr));
+        checkBox->setText(QCoreApplication::translate("User", "Nam", nullptr));
+        checkBox_2->setText(QCoreApplication::translate("User", "N\341\273\257", nullptr));
         label_17->setText(QCoreApplication::translate("User", "Change Password", nullptr));
         label_19->setText(QCoreApplication::translate("User", "New password", nullptr));
         label_20->setText(QCoreApplication::translate("User", "Confirm New Password:", nullptr));

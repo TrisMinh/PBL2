@@ -14,7 +14,7 @@ class Editservice : public QDialog
     Q_OBJECT
 
 public:
-    explicit Editservice(const string& service_ID, const string& name, int price, const string& des, QWidget *parent = nullptr);
+    explicit Editservice(const string& service_ID, const string& name, double price, const string& des, QWidget *parent = nullptr);
     ~Editservice();
 
 private slots:
@@ -24,7 +24,7 @@ private:
     Ui::Editservice *ui;
     string service_ID;
     string name;
-    int unit_price;
+    double unit_price;
     string description;
 };
 

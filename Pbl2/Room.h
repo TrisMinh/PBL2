@@ -51,7 +51,7 @@ public:
     static void searchByRoomType(const string& RT, Admin* adminWindow);
     static void searchByRoomType(const string& RT, User* adminWindow);
     static void searchByName(const string& name, Admin* adminWindow);
-    static void load();
+    static void load(const string& filename);
     static void deleteRoom(const string& rid);
     static void addRoom(const string& rt_id);
     static void showAllRooms(Admin* adminWindow);

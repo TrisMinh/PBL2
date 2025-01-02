@@ -1493,7 +1493,7 @@ QPushButton:hover {
               </size>
              </property>
              <property name="currentIndex">
-              <number>1</number>
+              <number>10</number>
              </property>
              <widget class="QWidget" name="page">
               <widget class="QLabel" name="label">
@@ -3706,7 +3706,7 @@ QHeaderView::section {
                      <item>
                       <widget class="QStackedWidget" name="stackedWidget_2">
                        <property name="currentIndex">
-                        <number>2</number>
+                        <number>1</number>
                        </property>
                        <widget class="QWidget" name="page_13">
                         <layout class="QHBoxLayout" name="horizontalLayout_38">
