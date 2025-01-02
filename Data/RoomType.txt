@@ -1,6 +1,0 @@
-type_ID,name,description,price
-5
-RT.01,Phong nho danh cho 1 nguoi,Co ban cong,100000.000000
-RT.02,Phong vua danh cho 2 nguoi,Tang 1,200000.000000
-RT.03,Phong lon danh cho 3 nguoi,Tang 2,300000.000000
-RT.05,Phong 4 nguoi,Tang 3,400000.000000

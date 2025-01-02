@@ -1,2 +1,0 @@
-usage_ID,room_ID,tenantID,service_ID,quantity,status
-8
